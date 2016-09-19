@@ -9,7 +9,7 @@
 * welche funktionen sollen abgedeckt werden
 
 ## Kommunikation
-Slack
+* [Slack](https://projmicro.slack.com)
 
 # Experten
 * frontend (Dustin Malte)
