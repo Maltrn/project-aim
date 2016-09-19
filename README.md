@@ -10,6 +10,7 @@
 
 ## Kommunikation
 * [Slack](https://projmicro.slack.com)
+* [Waffle.io](https://waffle.io/)
 
 # Experten
 * frontend (Dustin Malte)
