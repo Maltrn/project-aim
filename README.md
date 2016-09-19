@@ -17,5 +17,6 @@
 * api ()
 
 # Technology Stack
-* intellij
-* [edison microservice](https://github.com/otto-de/edison-microservice)
+* IntelliJ
+* [Edison Microservice](https://github.com/otto-de/edison-microservice)
+* Angular 2.0
