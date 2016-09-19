@@ -10,12 +10,11 @@
 
 # Antworten
 
+* teaser und name sollen in der länge begrenzt sein
 * Mock daten für Schnittstellen -> User, Produkte
-
 * Texte sollen anpassbar sein im Aussehen -> Detail texte
 * Copy Paste word kompatibel
 * PDF, Bilder hochladen können (jpeg png gif)
-
 * anbieter name
 * anbieter beschreibung
 * anbieter detail beschreibung
@@ -25,7 +24,6 @@
 * anbieter schlagworte mit erklärung (beliebig viele)
 * tabellarische erfassung mit schlagworten
 * Markierung von einem Hauptbild
-
 * Produkt name
 * Produkt detail beschreibung
 * Produkt texte (beliebig viele)
