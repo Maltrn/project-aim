@@ -47,8 +47,13 @@ test {
     }
 }
 
-jar {
+task uberJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'de.otto.edison.example.ExampleServer'
+        attributes 'Implementation-Title': 'Microservice',
+                'Implementation-Version': '1.0',
+                'Main-Class': 'de.otto.edison.example.ExampleServer'
     }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
