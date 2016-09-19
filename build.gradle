@@ -1,0 +1,78 @@
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+
+apply from: 'dependencies.gradle'
+
+buildscript {
+    ext.springBootVersion = "1.4.0.RELEASE"
+    ext.springVersion = "4.3.2.RELEASE"
+
+    repositories {
+        maven { url "http://repo.spring.io/libs-snapshot" }
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:"+springBootVersion)
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "http://repo.spring.io/libs-snapshot" }
+}
+
+idea {
+    project {
+        languageLevel = '1.8'
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'maven'
+    apply plugin: 'project-report'
+    apply plugin: 'signing'
+
+    group = 'de.otto.edison'
+    // Major Release: X.0.0: Breaking Changes
+    // Minor Release: 0.X.0: Additional Features, updates from minor releases in Spring
+    // Micro Release: 0.0.X: Bugfixes, non-breaking changes, updates from micro releases in Spring
+    // DO NOT FORGET TO DOCUMENT CHANGES IN HISTORY.MD
+    version = '0.72.1-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    jar {
+        manifest.attributes provider: 'gradle'
+    }
+
+    test {
+        // pass -Dspring.profiles.active=local and other system properties to the test task
+        systemProperties = System.properties
+
+        description "Tell gradle to use TestNG with all groups"
+        useTestNG()
+        options {
+            useDefaultListeners = true
+        }
+    }
+
+    task javadocJar(type: Jar, dependsOn: javadoc) {
+        classifier = 'javadoc'
+        from 'build/docs/javadoc'
+    }
+
+    task sourcesJar(type: Jar) {
+        from sourceSets.main.allSource
+        classifier = 'sources'
+    }
+
+    task allDeps(type: DependencyReportTask) {}
+
+}
+
