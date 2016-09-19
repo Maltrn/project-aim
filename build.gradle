@@ -30,6 +30,7 @@ dependencies {
     compile("de.otto.edison:edison-core:0.72.0")
     compile("de.otto.edison:edison-guava:0.72.0")
     compile("de.otto.edison:edison-status:0.72.0")
+    compile("org.testng:testng:6.9.10")
 }
 
 artifacts {
