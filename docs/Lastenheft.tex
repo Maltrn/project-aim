@@ -1,125 +1,131 @@
-\documentclass[paper=a4, fontsize=11pt]{scrreprt}
+\documentclass[a4paper,12pt]{article}
+\usepackage{amssymb} % needed for math
+\usepackage{amsmath} % needed for math
+\usepackage[utf8]{inputenc} % this is needed for german umlauts
+\usepackage[ngerman]{babel} % this is needed for german umlauts
+\usepackage[T1]{fontenc}    % this is needed for correct output of umlauts in pdf
+\usepackage[margin=2.5cm]{geometry} %layout
+\usepackage{booktabs}
 
-\usepackage[T1]{fontenc}
-\usepackage[german]{babel}
-\usepackage{amsfonts,amsthm, amsmath}
-\usepackage{siunitx}
-\usepackage[]{graphicx}
-\usepackage{url}
-\usepackage{floatrow}
-\usepackage{sectsty}
-\usepackage{fancyhdr}
-\usepackage[utf8]{inputenc}
+% this is needed for forms and links within the text
+\usepackage{hyperref}  
 
-\allsectionsfont{\raggedright \normalfont\scshape}
-\pagestyle{fancyplain}
-\fancyhead{}
-\fancyfoot[L]{}
-\fancyfoot[C]{}
-\fancyfoot[R]{\thepage}
-\renewcommand{\headrulewidth}{0pt}
-\renewcommand{\footrulewidth}{0pt}
-\setlength{\headheight}{13.6pt}
+% glossar, see http://en.wikibooks.org/wiki/LaTeX/Glossary
+% has to be loaded AFTER hyperref so that entries are clickable
+\usepackage[nonumberlist]{glossaries} 
 
-\numberwithin{equation}{section}
-\numberwithin{figure}{section} 
-\numberwithin{table}{section}
+% The following is needed in order to make the code compatible
+% with both latex/dvips and pdflatex.
+\ifx\pdftexversion\undefined
+\usepackage[dvips]{graphicx}
+\else
+\usepackage[pdftex]{graphicx}
+\DeclareGraphicsRule{*}{mps}{*}{}
+\fi
 
-\setlength\parindent{0pt}
+\makeglossary 
 
-\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Variablen                                 						 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\authorName}{Dustin, Rene, Christof, Jana, Malte, Daniel Schruhl}
+\newcommand{\projektName}{Microservices mit Angular}
+\newcommand{\tags}{\authorName, Lastenheft}
+\newcommand{\glossarName}{Glossar}
+\title{\projektName~(Pflichtenheft)}
+\author{\authorName}
+\date{\today}
 
-\DeclareDocumentCommand{\mk}{m}{%
-  /MK#1/%
-}
-\newcounter{mk}
-\DeclareDocumentCommand{\newmk}{O{0}}{%
-  \ifnum#1<1%
-  \stepcounter{mk}%
-  \fi%
-  \mk{\themk#1}
-}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PDF Meta information                                 				 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hypersetup{
+  pdfauthor   = {\authorName},
+  pdfkeywords = {\tags},
+  pdftitle    = {\projektName~(Pflichtenheft)}
+} 
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Create a shorter version for tables. DO NOT CHANGE               	 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand\addrow[2]{#1 &#2\\ }
 
-\DeclareDocumentCommand{\fa}{m}{%
-  /FA#1/%
-}
-\newcounter{fa}
-\DeclareDocumentCommand{\newmk}{O{0}}{%
-  \ifnum#1<1%
-  \stepcounter{fa}%
-  \fi%
-  \fa{\thefa#1}
-}
-
-\DeclareDocumentCommand{\wk}{m}{%
-  /WK#1/%
-}
-\newcounter{wk}
-\DeclareDocumentCommand{\newwk}{O{0}}{%
-  \ifnum#1<1%
-  \stepcounter{wk}%
-  \fi%
-  \wk{\thewk#1}
+\newcommand\addheading[2]{#1 &#2\\ \hline}
+\newcommand\tabularhead{\begin{tabular}{lp{13cm}}
+\hline
 }
 
-\DeclareDocumentCommand{\ak}{m}{%
-  /AK#1/%
-}
-\newcounter{ak}
-\DeclareDocumentCommand{\newak}{O{0}}{%
-  \ifnum#1<1%
-  \stepcounter{ak}%
-  \fi%
-  \ak{\theak#1}
-}
+\newcommand\addmulrow[2]{ \begin{minipage}[t][][t]{2.5cm}#1\end{minipage}% 
+   &\begin{minipage}[t][][t]{8cm}
+    \begin{enumerate} #2   \end{enumerate}
+    \end{minipage}\\ }
 
-\title{	
-	\normalfont \normalsize 
-	\textsc{HAW, Projekt Microservices} \\ [25pt]
-	\horrule{0.5pt} \\[0.4cm]
-	\huge Microservices \\
-	\horrule{2pt} \\[0.5cm]
-}
+\newenvironment{usecase}{\tabularhead}
+{\hline\end{tabular}}
 
-\author{, Daniel Schruhl}
 
-\date{\normalsize\today}
-\renewcommand{\thesection}{\arabic{section}}
-\sisetup{range-phrase=--}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THE DOCUMENT BEGINS             	                              	 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
+ \pagenumbering{roman}
+ \input{Deckblatt}         % Deckblatt.tex laden und einfügen
+ \setcounter{page}{2}
+ \tableofcontents          % Inhaltsverzeichnis ausgeben
+ \clearpage
+ \pagenumbering{arabic}
+ 
+\section{Zielbestimmung}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Warum wird das Projekt gemacht?           						 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
 
-\maketitle
+Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
 
-\tableofcontents
+\section{Produkteinsatz}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Wer ist die Zielgruppe?                   						 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergaren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
 
-\chapter{Einleitung}
-
-\chapter{Zielbestimmung}
-
-\section{Musskriterien}
-
-\begin{itemize}
-    \item[\newmk] Musskriterium
-\end{itemize}
-
-\section{Wunschkriterien}
-\begin{itemize}
-    \item[\newwk] Wunschkriterium
-\end{itemize}
-
-\section{Abgrenzungskriterien}
-\begin{itemize}
-    \item[\newak] Abgrenzungskriterium
-\end{itemize}
+Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,
 
 \section{Funktionale Anforderungen}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Was muss das Programm können?                   					 %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{usecase}
+  \addheading{Nummer}{Beschreibung} 
+  \addrow{/FA10/}{Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam}
+  \addrow{/FA20/}{Lorem ipsum dolor sit amet, consetetur sadipscing elitr}
+  \addrow{/FA30/}{adasdfasdf asdf asdfas}
+\end{usecase}
 
-\chapter{Systemmodelle}
+\section{Produktdaten}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Auf welchen Daten arbeitet das Produkt?                            %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{usecase}
+  \addheading{Nummer}{Beschreibung} 
+  \addrow{/PD10/}{asdfasdf asdf asdf }
+  \addrow{/PD20/}{asdf asdf asfas asdfas asdf}
+  \addrow{/PD30/}{asdf asdf asdfa a}
+\end{usecase}
 
-\section{Anwendungsfalldiagramm}
+\section{Nichtfunktionale Anforderungen}
+\begin{usecase}
+  \addheading{Nummer}{Beschreibung} 
+  \addrow{/NF10/}{asdf asdf asdf asdf asdf asdf }
+  \addrow{/NF20/}{ asdf asdf asdftergfgasdgewr asdfh}
+\end{usecase}
 
-\section{Klassendiagramm}
+\section{Systemmodelle}
+\subsection{Szenarien}
+\subsection{Anwendungsfälle}
 
-\section{Mockups}
-
+\clearpage
+\input{Glossar} 
 \end{document}
