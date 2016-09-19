@@ -15,3 +15,7 @@ Slack
 * frontend (Dustin Malte)
 * backend (daniel, jana, rene, christof)
 * api ()
+
+# Technology Stack
+* intellij
+* [edison microservice](https://github.com/otto-de/edison-microservice)
