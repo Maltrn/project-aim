@@ -47,3 +47,8 @@ test {
     }
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'de.otto.edison.example.ExampleServer'
+    }
+}
