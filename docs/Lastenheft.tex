@@ -1,0 +1,125 @@
+\documentclass[paper=a4, fontsize=11pt]{scrreprt}
+
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage{amsfonts,amsthm, amsmath}
+\usepackage{siunitx}
+\usepackage[]{graphicx}
+\usepackage{url}
+\usepackage{floatrow}
+\usepackage{sectsty}
+\usepackage{fancyhdr}
+\usepackage[utf8]{inputenc}
+
+\allsectionsfont{\raggedright \normalfont\scshape}
+\pagestyle{fancyplain}
+\fancyhead{}
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength{\headheight}{13.6pt}
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section} 
+\numberwithin{table}{section}
+
+\setlength\parindent{0pt}
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}}
+
+\DeclareDocumentCommand{\mk}{m}{%
+  /MK#1/%
+}
+\newcounter{mk}
+\DeclareDocumentCommand{\newmk}{O{0}}{%
+  \ifnum#1<1%
+  \stepcounter{mk}%
+  \fi%
+  \mk{\themk#1}
+}
+
+\DeclareDocumentCommand{\fa}{m}{%
+  /FA#1/%
+}
+\newcounter{fa}
+\DeclareDocumentCommand{\newmk}{O{0}}{%
+  \ifnum#1<1%
+  \stepcounter{fa}%
+  \fi%
+  \fa{\thefa#1}
+}
+
+\DeclareDocumentCommand{\wk}{m}{%
+  /WK#1/%
+}
+\newcounter{wk}
+\DeclareDocumentCommand{\newwk}{O{0}}{%
+  \ifnum#1<1%
+  \stepcounter{wk}%
+  \fi%
+  \wk{\thewk#1}
+}
+
+\DeclareDocumentCommand{\ak}{m}{%
+  /AK#1/%
+}
+\newcounter{ak}
+\DeclareDocumentCommand{\newak}{O{0}}{%
+  \ifnum#1<1%
+  \stepcounter{ak}%
+  \fi%
+  \ak{\theak#1}
+}
+
+\title{	
+	\normalfont \normalsize 
+	\textsc{HAW, Projekt Microservices} \\ [25pt]
+	\horrule{0.5pt} \\[0.4cm]
+	\huge Microservices \\
+	\horrule{2pt} \\[0.5cm]
+}
+
+\author{, Daniel Schruhl}
+
+\date{\normalsize\today}
+\renewcommand{\thesection}{\arabic{section}}
+\sisetup{range-phrase=--}
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\chapter{Einleitung}
+
+\chapter{Zielbestimmung}
+
+\section{Musskriterien}
+
+\begin{itemize}
+    \item[\newmk] Musskriterium
+\end{itemize}
+
+\section{Wunschkriterien}
+\begin{itemize}
+    \item[\newwk] Wunschkriterium
+\end{itemize}
+
+\section{Abgrenzungskriterien}
+\begin{itemize}
+    \item[\newak] Abgrenzungskriterium
+\end{itemize}
+
+\section{Funktionale Anforderungen}
+
+\chapter{Systemmodelle}
+
+\section{Anwendungsfalldiagramm}
+
+\section{Klassendiagramm}
+
+\section{Mockups}
+
+\end{document}
