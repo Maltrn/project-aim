@@ -2,7 +2,23 @@
 
 [![Build Status](https://travis-ci.org/meandor/projecttwomicroservice.svg?branch=master)](https://travis-ci.org/meandor/projecttwomicroservice)
 
-# Fragenkatalog
+This microservice can add and maintain additional data to pbx provider and their products.
+
+It is build on the [Edison Microservice](https://github.com/otto-de/edison-microservice) and uses AngularJS.
+
+## Usage
+This project uses gradle to build everything. There is a custom script to start the server, do all the testing and so on.
+
+To run the microservice simply use the go script: ````./bin/go bootRun````.
+
+To test everything run: ````./bin/go test````
+
+## Experts
+* frontend (Dustin Malte)
+* backend (daniel, jana, rene, christof)
+* api ()
+
+## Fragenkatalog
 * Was bekommen wir vom anderen System
 * wie soll gui aussehen
 * was für daten sollen für wen gespeichert werden
@@ -10,7 +26,7 @@
 * wo finden wir schnittstellenbeschreibungen
 * welche funktionen sollen abgedeckt werden
 
-# Antworten
+## Antworten
 
 * teaser und name sollen in der länge begrenzt sein
 * Mock daten für Schnittstellen -> User, Produkte
@@ -35,16 +51,7 @@
 * tabellarische erfassung mit schlagworten
 * Markierung von einem Hauptbild
 
-## Kommunikation
+## Tools
 * [Slack](https://projmicro.slack.com)
 * [Waffle.io](https://waffle.io/)
-
-# Experten
-* frontend (Dustin Malte)
-* backend (daniel, jana, rene, christof)
-* api ()
-
-# Technology Stack
 * IntelliJ
-* [Edison Microservice](https://github.com/otto-de/edison-microservice)
-* Angular 2.0
