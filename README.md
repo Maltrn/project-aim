@@ -1,5 +1,7 @@
 # projecttwomicroservice
 
+[![Build Status](https://travis-ci.org/meandor/projecttwomicroservice.svg?branch=master)](https://travis-ci.org/meandor/projecttwomicroservice)
+
 # Fragenkatalog
 * Was bekommen wir vom anderen System
 * wie soll gui aussehen
