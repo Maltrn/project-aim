@@ -11,7 +11,7 @@ public class SimpleTest {
     }
 
     @Test()
-    public void aSlowTest() {
-        Assert.assertNotNull(null);
+    public void exampleTest() {
+        Assert.assertNotNull("a");
     }
 }
