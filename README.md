@@ -42,6 +42,7 @@ To test everything run: ````./bin/go test````
     * Teaser und Name sollen in der Länge begrenzbar sein (config-file)
     * Für die Lange Beschreibung soll es möglich sein, den Text via Rich-Text Editor zu formatieren (je mehr Funktionen desto besser)
     * Eingabe in den Editor für Lange Texte soll kompatibel mit Word Copy&Paste sein
+    * Bilder sollen beim Hochladen vom Kunden sortiert werden können
 
 ## Tools
 * [Slack](https://projmicro.slack.com)
