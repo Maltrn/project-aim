@@ -19,37 +19,29 @@ To test everything run: ````./bin/go test````
 * api ()
 
 ## Fragenkatalog
-* Was bekommen wir vom anderen System
-* wie soll gui aussehen
-* was für daten sollen für wen gespeichert werden
-* was für formate für produktbroschüren und downloads
-* wo finden wir schnittstellenbeschreibungen
-* welche funktionen sollen abgedeckt werden
-
-## Antworten
-
-* teaser und name sollen in der länge begrenzt sein
-* Mock daten für Schnittstellen -> User, Produkte
-* Texte sollen anpassbar sein im Aussehen -> Detail texte
-* Copy Paste word kompatibel
-* PDF, Bilder hochladen können (jpeg png gif)
-* anbieter name
-* anbieter beschreibung
-* anbieter detail beschreibung
-* Anbieter texte (beliebig viele)
-* anbieter bilder (beliebig viele)
-* anbieter tabelle mit merkmal links, rechts beschreibung warum so toll
-* anbieter schlagworte mit erklärung (beliebig viele)
-* tabellarische erfassung mit schlagworten
-* Markierung von einem Hauptbild
-* Produkt name
-* Produkt detail beschreibung
-* Produkt texte (beliebig viele)
-* Produkt bilder (beliebig viele) gallerie
-* Produkt tabelle mit merkmal links, rechts beschreibung warum so toll
-* Produkt schlagworte mit erklärung (beliebig viele)
-* tabellarische erfassung mit schlagworten
-* Markierung von einem Hauptbild
+* Wie sehen die Schnittstellen aus die wir von den anderen Systemen nutzen können?
+    * Es gibt nur eine Schnitstelle die wir nutzen, nämlich die Login-Schnitstelle. Diese soll von uns gemockt werden. Ggf. bekommen wir im Laufe des Projektes Zugriff auf die echte Login-Schnitstelle.
+* Wie soll die Schnitstellen aussehen die wir nach außen anbieten?
+    * Die Schnittstelle soll in Absprache mit dem Kunden entwickelt werden, dazu sollen wir aber einen Entwurf vorlegen, den wir als Grundlage für diese Entwicklung nutzen können. Unsere Schnittstelle soll alle Daten über REST anbieten können, die wir auf der Anbieter Seite aufnehmen. Dabei ist es noch komplett frei wie wir diese Daten anbieten.
+* Wie soll das GUI aussehen?
+    * Keine Vorgaben vom Kunden
+* Welche Daten sollen gespeichert werden?
+    * Grundsätzlich sollen alle Daten gespeichert werden, welche der Anbieter auf unserer Microservices Seite eingeben kann:
+    * Name
+    * Kurzbeschreibung 
+    * Lange Beschreibung
+    * Hauptbild
+    * Bilder-/PDF-Galerie Inhalte
+    * Fakten-Tabelle
+* Welche Formate sollen für Produktbroschüren und Bilder unterstützt werden?
+    * PDF für Broschüren
+    * mindestens JPG, PNG, GIF für die Bilder
+* Wo finden wir die Schnittstellenbeschreibungen?
+    * Bisher noch gar nicht, so lange sollen die Schnittstellen gemockt werden, ggf. werden die Beschreibungen nachgereicht.
+* Welche Funktionen sollen zusätzlich abgedeckt werden?
+    * Teaser und Name sollen in der Länge begrenzbar sein (config-file)
+    * Für die Lange Beschreibung soll es möglich sein, den Text via Rich-Text Editor zu formatieren (je mehr Funktionen desto besser)
+    * Eingabe in den Editor für Lange Texte soll kompatibel mit Word Copy&Paste sein
 
 ## Tools
 * [Slack](https://projmicro.slack.com)
