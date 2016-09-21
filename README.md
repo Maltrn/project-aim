@@ -46,5 +46,5 @@ To test everything run: ````./bin/go test````
 
 ## Tools
 * [Slack](https://projmicro.slack.com)
-* [Waffle.io](https://waffle.io/)
+* [Waffle.io](https://waffle.io/meandor/projecttwomicroservice)
 * IntelliJ
