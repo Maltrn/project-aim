@@ -1,5 +1,5 @@
 FROM openjdk:8
-RUN ./bin/go bootRepackage
-COPY ./build/libs/projecttwomicroservice.jar /var/opt/projecttwo
+COPY . /var/opt/projecttwo
 WORKDIR /var/opt/projecttwo
-ENTRYPOINT ["java","-jar","./projecttwomicroservice.jar"]
+RUN ./bin/go bootRepackage
+ENTRYPOINT ["java","-jar","./build/libs/projecttwomicroservice.jar"]
