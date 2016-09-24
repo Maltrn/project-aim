@@ -1,5 +1,5 @@
 FROM openjdk:8
-COPY . /usr/src/myapp
-WORKDIR /usr/src/myapp
-RUN ./bin/go uberJar
-ENTRYPOINT ["./bin/go","bootRun"]
+RUN ./bin/go bootRepackage
+COPY ./build/libs/projecttwomicroservice.jar /var/opt/projecttwo
+WORKDIR /var/opt/projecttwo
+ENTRYPOINT ["java","-jar","./projecttwomicroservice.jar"]

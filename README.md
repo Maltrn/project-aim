@@ -13,6 +13,9 @@ To run the microservice simply use the go script: ````./bin/go bootRun````.
 
 To test everything run: ````./bin/go test````
 
+If you want to build the jar with all dependencies do: ````./bin/go bootRepackage````
+The jar will then be under: ````./build/libs/projecttwomicroservice.jar````
+
 ## Experts
 * frontend (Dustin Malte)
 * backend (daniel, jana, rene, christof)
