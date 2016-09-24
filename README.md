@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/meandor/projecttwomicroservice.png?label=ready&title=Ready)](https://waffle.io/meandor/projecttwomicroservice)
 # projecttwomicroservice
 
 [![Build Status](https://travis-ci.org/meandor/projecttwomicroservice.svg?branch=master)](https://travis-ci.org/meandor/projecttwomicroservice)
