@@ -22,4 +22,13 @@ public class ExampleController {
         return new ModelAndView("index");
     }
 
+    @RequestMapping(
+            value = "/edit",
+            produces = "text/html",
+            method = GET)
+    public ModelAndView sayEditHtml() {
+
+        return new ModelAndView("edit");
+    }
+
 }
