@@ -1,4 +1,4 @@
-# Anwender Informations Management (A.I.M)
+# Anbieter Informations Management (A.I.M)
 
 [![Build Status](https://travis-ci.org/meandor/projecttwomicroservice.svg?branch=master)](https://travis-ci.org/meandor/projecttwomicroservice)
 [![Dependency Status](https://www.versioneye.com/user/projects/57e69f9abd6fa600512e1351/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57e69f9abd6fa600512e1351)
