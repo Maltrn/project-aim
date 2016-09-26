@@ -50,5 +50,4 @@ The jar will then be under: ````./build/libs/projecttwomicroservice.jar````
 
 ## Tools
 * [Slack](https://projmicro.slack.com)
-* [Waffle.io](https://waffle.io/meandor/projecttwomicroservice)
 * IntelliJ
