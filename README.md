@@ -32,7 +32,7 @@ The jar will then be under: ````./build/libs/projecttwomicroservice.jar````
     * Keine Vorgaben vom Kunden
 * Welche Daten sollen gespeichert werden?
     * Grundsätzlich sollen alle Daten gespeichert werden, welche der Anbieter auf unserer Microservices Seite eingeben kann:
-    * Name
+    * Name (kommt aus dem anderen System, kann nicht verändert werden)
     * Kurzbeschreibung 
     * Lange Beschreibung
     * Hauptbild
