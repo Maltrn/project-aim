@@ -48,7 +48,7 @@
       <w>520</w>
       <h>100</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
+    <panel_attributes>lt=&lt;-x
 bietet
 m1=n
 m2=1</panel_attributes>
@@ -95,7 +95,7 @@ PNG</panel_attributes>
       <w>500</w>
       <h>500</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
+    <panel_attributes>lt=&lt;-x
 verwaltet
 m1=n
 m2=1</panel_attributes>
@@ -109,7 +109,7 @@ m2=1</panel_attributes>
       <w>440</w>
       <h>560</h>
     </coordinates>
-    <panel_attributes>lt=&lt;-
+    <panel_attributes>lt=&lt;-x
 hat zugeordnet
 m1=m
 m2=n</panel_attributes>
