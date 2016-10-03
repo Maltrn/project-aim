@@ -7,7 +7,7 @@
       <x>300</x>
       <y>280</y>
       <w>560</w>
-      <h>280</h>
+      <h>340</h>
     </coordinates>
     <panel_attributes>Anbieter
 --
@@ -17,7 +17,8 @@
 -Hauptbild: Bild
 -Bildergalerie: Liste(Bilder/PDF)
 -FaktenTabelle: Liste(&lt;Text(20), Text(50)&gt;)
--Dateien: Liste(Datei)</panel_attributes>
+-Dateien: Liste(Datei)
+-zugeordnete Dateien: Liste(Datei)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -35,7 +36,8 @@
 -Langbeschreibung: Text(9999)
 -Hauptbild: Bild
 -Bildergalerie: Liste(Bilder/PDF)
--FaktenTabelle: Liste(&lt;Text(20), Text(50)&gt;)</panel_attributes>
+-FaktenTabelle: Liste(&lt;Text(20), Text(50)&gt;)
+-zugeordnete Dateien: Liste(Datei)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -73,16 +75,15 @@ PNG</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>860</x>
-      <y>900</y>
-      <w>540</w>
-      <h>240</h>
+      <x>980</x>
+      <y>960</y>
+      <w>240</w>
+      <h>160</h>
     </coordinates>
     <panel_attributes>Datei
 --
 -Name: Text(50)
 -Typ: Dateityp
--Verknüpfungen: Liste(Produkt/Anbieter)
 -Thumbnail: Bild</panel_attributes>
     <additional_attributes/>
   </element>
@@ -90,42 +91,28 @@ PNG</panel_attributes>
     <id>Relation</id>
     <coordinates>
       <x>520</x>
-      <y>540</y>
-      <w>380</w>
-      <h>580</h>
+      <y>600</y>
+      <w>500</w>
+      <h>500</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
 verwaltet
 m1=n
 m2=1</panel_attributes>
-    <additional_attributes>170.0;260.0;10.0;260.0;10.0;10.0</additional_attributes>
+    <additional_attributes>230.0;220.0;10.0;220.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1380</x>
+      <x>1200</x>
       <y>540</y>
-      <w>400</w>
+      <w>440</w>
       <h>560</h>
     </coordinates>
     <panel_attributes>lt=&lt;-
-zugeordnet
-m1=n
-m2=m</panel_attributes>
-    <additional_attributes>110.0;10.0;110.0;250.0;10.0;250.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>600</x>
-      <y>540</y>
-      <w>300</w>
-      <h>520</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;-
-zugeordnet
-m1=n
-m2=m</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;230.0;130.0;230.0</additional_attributes>
+hat zugeordnet
+m1=m
+m2=n</panel_attributes>
+    <additional_attributes>10.0;250.0;200.0;250.0;200.0;10.0</additional_attributes>
   </element>
 </diagram>
