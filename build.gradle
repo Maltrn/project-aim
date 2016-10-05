@@ -27,12 +27,12 @@ idea {
 }
 
 dependencies {
-    compile("de.otto.edison:edison-core:0.72.0")
-    compile("de.otto.edison:edison-guava:0.72.0")
-    compile("de.otto.edison:edison-status:0.72.0")
-    compile("org.testng:testng:6.9.10")
-    compile('io.springfox:springfox-swagger2:2.2.2')
-    compile('io.springfox:springfox-swagger-ui:2.2.2')
+    compile("de.otto.edison:edison-core:0.75.0")
+    compile("de.otto.edison:edison-guava:0.75.0")
+    compile("de.otto.edison:edison-status:0.75.0")
+    compile("org.testng:testng:6.9.13.6")
+    compile('io.springfox:springfox-swagger2:2.5.0')
+    compile('io.springfox:springfox-swagger-ui:2.5.0')
 }
 
 artifacts {
