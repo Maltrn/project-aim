@@ -8,11 +8,7 @@
 \usepackage{booktabs}
 
 % this is needed for forms and links within the text
-\usepackage{hyperref}  
-
-% glossar, see http://en.wikibooks.org/wiki/LaTeX/Glossary
-% has to be loaded AFTER hyperref so that entries are clickable
-\usepackage[nonumberlist]{glossaries} 
+\usepackage{hyperref}
 
 % The following is needed in order to make the code compatible
 % with both latex/dvips and pdflatex.
@@ -22,8 +18,6 @@
 \usepackage[pdftex]{graphicx}
 \DeclareGraphicsRule{*}{mps}{*}{}
 \fi
-
-\makeglossary 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Variablen                                 						 %
@@ -78,6 +72,9 @@
  \pagenumbering{arabic}
  
 \section{Zielbestimmung}
+
+Es soll ein Microservice erstellt werden, um die vorhandenen Anbieter und Produktdaten anzureichern.
+
 \subsection{Musskriterien}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Was muss das Programm können?                   					 %
@@ -128,12 +125,968 @@ Administrative Anwendungsbereiche zur Verwaltung und Anreicherung der Anbieter u
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Was muss das Programm können?                   					 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{usecase}
-  \addheading{Nummer}{Beschreibung} 
-  \addrow{/FA10/}{Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam}
-  \addrow{/FA20/}{Lorem ipsum dolor sit amet, consetetur sadipscing elitr}
-  \addrow{/FA30/}{adasdfasdf asdf asdfas}
-\end{usecase}
+\subsection{Login}\label{login}
+
+\subsubsection{Vorbedingung}\label{vorbedingung}
+
+\begin{itemize}
+\item
+  Benutzer ist nicht angemeldet
+\item
+  Benutzer hat einen gültigen Account
+\item
+  Schnittstellen sind verfügbar
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung}
+
+\begin{itemize}
+\item
+  es findet eine Weiterleitung auf den geschützten Bereich statt
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion}
+
+\begin{itemize}
+\item
+  Benutzer gibt seine Anmeldedaten (Benutzername, Passwort) ein
+\item
+  drückt auf Login/Enter
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion}
+
+\begin{itemize}
+\item
+  die Anmeldedaten werden vom Authentifizierungsserver validiert
+\item
+  das System ruft Produkt- und Anbieterinformationen ab
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle}
+
+\begin{itemize}
+\item
+  Anmeldedaten sind falsch / kein Konto vorhanden -\textgreater{}
+  Meldung: Falsche Daten eingegeben
+\item
+  Authentifizierungsservice nicht erreichbar -\textgreater{} Meldung:
+  Technisches Problem, versuchen Sie es noch einmal (einloggen ist nicht
+  möglich)
+\item
+  Produktservice nicht erreichbar -\textgreater{} Meldung: Technisches
+  Problem, versuchen Sie es noch einmal (einloggen ist nicht möglich)
+\end{itemize}
+
+\subsubsection{Erweiterung}\label{erweiterung}
+
+\subsubsection{Abgrenzung}\label{abgrenzung}
+
+\begin{itemize}
+\item
+  Kein Passwort verändern
+\item
+  Kein Passwort vergessen
+\item
+  Kein Account anlegen
+\item
+  Kein Benutzer merken
+\end{itemize}
+
+\subsection{Logout}\label{logout}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-1}
+
+\begin{itemize}
+\item
+  Benutzer ist angemeldet
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-1}
+
+\begin{itemize}
+\item
+  es findet eine Weiterleitung auf eine vom Kunden gewünschte Seite
+  statt
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-1}
+
+\begin{itemize}
+\item
+  drückt auf Logout
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-1}
+
+\begin{itemize}
+\item
+  Logout wird an den Authentifizierungsservice mit den Benutzerdaten
+  geschickt
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-1}
+
+\subsubsection{Erweiterung}\label{erweiterung}
+
+\subsubsection{Abgrenzung}\label{abgrenzung}
+
+\begin{itemize}
+\item
+  Authentifizierungsservice nicht erreichbar -\textgreater{} Meldung:
+  Technisches Problem, versuchen Sie es noch einmal (ausloggen ist nicht
+  möglich)
+\end{itemize}
+
+\subsection{Benutzer bearbeitet Anbieter / Produkt Kurzbeschreibung}
+\subsubsection{Vorbedingung}
+
+\begin{itemize}
+\item
+  Benutzer ist angemeldet
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-2}
+
+\begin{itemize}
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\item
+  Daten werden in der Datenbank persistiert
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-2}
+
+\begin{itemize}
+\item
+  Benutzer wählt links im Menü seinen zu bearbeitenden Punkt (Anbieter
+  oder Produkt) aus
+\item
+  Benutzer bearbeitet den Text der Kurzbeschreibung
+\item
+  Benutzer klickt auf speichern / verwerfen (siehe Erweiterung)
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-2}
+
+\begin{itemize}
+\item
+  System speichert die entsprechenden Daten in der Datenbank
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-2}
+
+\begin{itemize}
+\item
+  Eingaben sind zu lang (Felder sind begrenzt) -\textgreater{} Feld wird
+  rot, Meldung: Zu lang!
+\item
+  Eingaben sind ungültig (z.B.: HTML in Kurzbeschreibung)
+  -\textgreater{} Feld wird rot, Meldung: Ungültige Eingabe!
+\item
+  Felder sind leer -\textgreater{} Feld wird rot, Meldung: Bitte füllen
+  Sie alle nötigen Felder aus
+\end{itemize}
+
+\subsubsection{Erweiterung}\label{erweiterung-2}
+
+\begin{itemize}
+
+\item
+  Beim Verwerfen und Speichern wird die Maske nicht verlassen
+\item
+  Beim Verwerfen werden alle ungespeicherten Daten verworfen
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-2}
+
+\begin{itemize}
+
+\item
+  Das Speichern der Daten kann nur durchgeführt werden, wenn der
+  Benutzer auf Speichern klickt. Ungespeicherte Änderungen gehen
+  verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
+\end{itemize}
+
+\subsection{Benutzer bearbeitet Anbieter / Produkt Detailbeschreibung}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-3}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-3}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\item
+  Daten werden in der Datenbank persistiert
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-3}
+
+\begin{itemize}
+
+\item
+  Benutzer wählt links im Menü seinen zu bearbeitenden Punkt (Anbieter
+  oder Produkt) aus
+\item
+  Benutzer bearbeitet den Text der Detailbeschreibung
+\item
+  Benutzer klickt auf speichern / verwerfen (siehe Erweiterung)
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-3}
+
+\begin{itemize}
+
+\item
+  System speichert die entsprechenden Daten in der Datenbank
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-3}
+
+\begin{itemize}
+
+\item
+  Eingaben sind zu lang (Felder sind begrenzt) -\textgreater{} Feld wird
+  rot, Meldung: Zu lang!
+\item
+  Eingaben sind ungültig (z.B.: HTML in Kurzbeschreibung)
+  -\textgreater{} Feld wird rot, Meldung: Ungültige Eingabe!
+\item
+  Felder sind leer -\textgreater{} Feld wird rot, Meldung: Bitte füllen
+  Sie alle nötigen Felder aus
+\end{itemize}
+
+\subsubsection{Erweiterung}\label{erweiterung-3}
+
+\begin{itemize}
+
+\item
+  Beim Verwerfen und Speichern wird die Maske nicht verlassen
+\item
+  Beim Verwerfen werden alle ungespeicherten Daten verworfen
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-3}
+
+\begin{itemize}
+
+\item
+  Das Speichern der Daten kann nur durchgeführt werden, wenn der
+  Benutzer auf Speichern klickt. Ungespeicherte Änderungen gehen
+  verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
+\end{itemize}
+
+\subsection{Benutzer bearbeitet Anbieter / Produkt Hauptbild}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-4}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-4}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-4}
+
+\begin{itemize}
+
+\item
+  Benutzer wählt links im Menü seinen zu bearbeitenden Punkt (Anbieter
+  oder Produkt) aus
+\item
+  Benutzer klickt auf Hauptbild auswählen
+\item
+  Benutzer wählt aus der Liste von Dateien ein Hauptbild aus und
+  bestätigt mit OK
+\item
+  Benutzer klickt auf speichern / verwerfen (siehe Erweiterung)
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-4}
+
+\begin{itemize}
+
+\item
+  System speichert die entsprechenden Auswahl in der Datenbank
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-4}
+
+\subsubsection{Erweiterung}\label{erweiterung-4}
+
+\begin{itemize}
+
+\item
+  Beim Verwerfen und Speichern wird die Maske nicht verlassen
+\item
+  Beim Verwerfen werden alle ungespeicherten Daten verworfen
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-4}
+
+\begin{itemize}
+
+\item
+  Das Speichern der Daten kann nur durchgeführt werden, wenn der
+  Benutzer auf Speichern klickt. Ungespeicherte Änderungen gehen
+  verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
+\item
+  Für die Hauptbild Auswahl stehen nur Bilddateien zur Verfügung (keine
+  PDF)
+\end{itemize}
+
+\subsection{Benutzer fügt Dateien zur Anbieter / Produkt Galerie hinzu}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-5}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-5}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-5}
+
+\begin{itemize}
+
+\item
+  Benutzer wählt links im Menü seinen zu bearbeitenden Punkt (Anbieter
+  oder Produkt) aus
+\item
+  Der Benutzer klickt auf Datei der Galerie hinzufügen
+\item
+  Benutzer wählt aus der Liste von Dateien ein oder mehrere Dateien aus
+  und bestätigt mit OK
+\item
+  Benutzer klickt auf speichern / verwerfen (siehe Erweiterung)
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-5}
+
+\begin{itemize}
+
+\item
+  System speichert die entsprechenden Verknüpfungen in der Datenbank
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-5}
+
+\subsubsection{Erweiterung}\label{erweiterung-5}
+
+\begin{itemize}
+
+\item
+  Beim Verwerfen und Speichern wird die Maske nicht verlassen
+\item
+  Beim Verwerfen werden alle ungespeicherten Daten verworfen
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-5}
+
+\begin{itemize}
+
+\item
+  Das Speichern der Daten kann nur durchgeführt werden, wenn der
+  Benutzer auf Speichern klickt. Ungespeicherte Änderungen gehen
+  verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
+\end{itemize}
+
+\subsection{Benutzer sortiert Daten in der Bilder/PDF Galerie}\label{benutzer-sortiert-daten-in-der-bilderpdf-galerie}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-6}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-6}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-6}
+
+\begin{itemize}
+
+\item
+  Benutzer wählt links im Menü seinen zu bearbeitenden Punkt (Anbieter
+  oder Produkt) aus
+\item
+  Der Benutzer wählt einen zu verschiebenen Eintrag aus der Dateiliste
+  aus
+\item
+  Der Benutzer klickt über der Dateiliste auf den ``Nach oben'' oder
+  ``Nach unten'' Button um das Element entsprechend zu verschieben
+\item
+  Benutzer klickt auf speichern / verwerfen (siehe Erweiterung)
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-6}
+
+\begin{itemize}
+
+\item
+  System speichert die entsprechenden Verknüpfungen in der Datenbank
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-6}
+
+\subsubsection{Erweiterung}\label{erweiterung-6}
+
+\begin{itemize}
+
+\item
+  Beim Verwerfen und Speichern wird die Maske nicht verlassen
+\item
+  Beim Verwerfen werden alle ungespeicherten Daten verworfen
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-6}
+
+\begin{itemize}
+
+\item
+  Das Speichern der Daten kann nur durchgeführt werden, wenn der
+  Benutzer auf Speichern klickt. Ungespeicherte Änderungen gehen
+  verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
+\end{itemize}
+
+\subsection{Benutzer entfernt Bilder/PDF aus einer Galerie (Anbieter / Produkt)}\label{benutzer-entfernt-bilderpdf-aus-einer-galerie-anbieter-produkt}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-7}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-7}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-7}
+
+\begin{itemize}
+
+\item
+  Benutzer wählt links im Menü seinen zu bearbeitenden Punkt (Anbieter
+  oder Produkt) aus
+\item
+  Der Benutzer klickt in der Dateiliste neben dem zu entfernenden
+  Eintrag auf den Entfernen Button
+\item
+  Benutzer klickt auf speichern / verwerfen (siehe Erweiterung)
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-7}
+
+\begin{itemize}
+
+\item
+  System speichert die entsprechende Verknüpfung in der Datenbank
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-7}
+
+\subsubsection{Erweiterung}\label{erweiterung-7}
+
+\begin{itemize}
+
+\item
+  Entfernen meint in diesem Kontext nur das Aufheben der Verknüpfung
+  zwischen Bild/PDF und Anbieter/Produkt (für Löschen siehe `Dateien
+  löschen / Produkt-/Kunden- Bilder/PDFs')
+\item
+  Beim Verwerfen und Speichern wird die Maske nicht verlassen
+\item
+  Beim Verwerfen werden alle ungespeicherten Daten verworfen
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-7}
+
+\begin{itemize}
+
+\item
+  Das Speichern der Daten kann nur durchgeführt werden, wenn der
+  Benutzer auf Speichern klickt. Ungespeicherte Änderungen gehen
+  verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
+\end{itemize}
+
+\subsection{Benutzer fügt einen Eintrag zu der Fakten-Tabelle hinzu}\label{benutzer-fugt-einen-eintrag-zu-der-fakten-tabelle-hinzu}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-8}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-8}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-8}
+
+\begin{itemize}
+
+\item
+  Benutzer wählt links im Menü seinen zu bearbeitenden Punkt (Anbieter
+  oder Produkt) aus
+\item
+  Der Benutzer klickt unter der Tabelle auf das Plus um einen neuen
+  Eintrag hinzuzufügen
+\item
+  Der Benutzer kann in die neue Zeile einen neuen Eintrag eingeben
+\item
+  Dieser Vorgang kann wiederholt werden
+\item
+  Benutzer klickt auf speichern / verwerfen (siehe Erweiterung)
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-8}
+
+\begin{itemize}
+
+\item
+  System speichert die entsprechenden Daten in der Datenbank
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-8}
+
+\begin{itemize}
+
+\item
+  Bei überschreiten der maximalen zulässigen Zeichenzahl wird die
+  Eingabemaske rot eingefärbt
+\end{itemize}
+
+\subsubsection{Erweiterung}\label{erweiterung-8}
+
+\begin{itemize}
+
+\item
+  Beim Verwerfen und Speichern wird die Maske nicht verlassen
+\item
+  Beim Verwerfen werden alle ungespeicherten Daten verworfen
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-8}
+
+\begin{itemize}
+
+\item
+  Das Speichern der Daten kann nur durchgeführt werden, wenn der
+  Benutzer auf Speichern klickt. Ungespeicherte Änderungen gehen
+  verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
+\end{itemize}
+
+\subsection{Benutzer verschiebt einen Eintrag in der Fakten-Tabelle}\label{benutzer-verschiebt-einen-eintrag-in-der-fakten-tabelle}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-9}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-9}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-9}
+
+\begin{itemize}
+
+\item
+  Benutzer wählt links im Menü seinen zu bearbeitenden Punkt (Anbieter
+  oder Produkt) aus
+\item
+  Der Benutzer klickt in der Tabelle auf den zu verschiebenen Eintrag
+\item
+  Der Benutzer klickt über der Tabelle auf den ``Nach oben'' oder ``Nach
+  unten'' Button um das Element entsprechend zu verschieben
+\item
+  Benutzer klickt auf speichern / verwerfen (siehe Erweiterung)
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-9}
+
+\begin{itemize}
+
+\item
+  System speichert die entsprechenden Daten in der Datenbank
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-9}
+
+\begin{itemize}
+
+\item
+  Der Benutzer versucht Elemente am oberen oder unteren Ende der Tabelle
+  nach entsprechend oben oder unten zu verschieben -\textgreater{}
+  Eingabe wird ignoriert
+\end{itemize}
+
+\subsubsection{Erweiterung}\label{erweiterung-9}
+
+\begin{itemize}
+
+\item
+  Beim Verwerfen und Speichern wird die Maske nicht verlassen
+\item
+  Beim Verwerfen werden alle ungespeicherten Daten verworfen
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-9}
+
+\begin{itemize}
+
+\item
+  Das Speichern der Daten kann nur durchgeführt werden, wenn der
+  Benutzer auf Speichern klickt. Ungespeicherte Änderungen gehen
+  verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
+\end{itemize}
+
+\subsection{Benutzer löscht einen Eintrag aus der Fakten-Tabelle}\label{benutzer-loscht-einen-eintrag-aus-der-fakten-tabelle}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-10}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-10}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-10}
+
+\begin{itemize}
+
+\item
+  Benutzer wählt links im Menü seinen zu bearbeitenden Punkt (Anbieter
+  oder Produkt) aus
+\item
+  Der Benutzer klickt in der Tabelle neben dem zu löschenden Eintrag auf
+  den Löschen Button
+\item
+  Benutzer klickt auf speichern / verwerfen (siehe Erweiterung)
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-10}
+
+\begin{itemize}
+
+\item
+  System speichert die entsprechende Verknüpfung in der Datenbank
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-10}
+
+\subsubsection{Erweiterung}\label{erweiterung-10}
+
+\begin{itemize}
+
+\item
+  Beim Verwerfen und Speichern wird die Maske nicht verlassen
+\item
+  Beim Verwerfen werden alle ungespeicherten Daten verworfen
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert
+  (verwerfen, speichern)
+\end{itemize}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-10}
+
+\begin{itemize}
+
+\item
+  Das Speichern der Daten kann nur durchgeführt werden, wenn der
+  Benutzer auf Speichern klickt. Ungespeicherte Änderungen gehen
+  verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
+\end{itemize}
+
+\subsection{Dateien hochladen / Produkt-/Kunden- Bilder/PDFs}\label{dateien-hochladen-produkt-kunden--bilderpdfs}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-11}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\item
+  Benutzer hat die Oberfläche für File-Upload ausgewählt
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-11}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert (Upload
+  erfolgreich/fehlgeschlagen)
+\item
+  vom Benutzer zum Hochladen ausgewählte Dateien wurden auf dem Server
+  gespeichert
+\item
+  hochgeladene Dateien sind für Benutzer abrufbereit
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-11}
+
+\begin{itemize}
+
+\item
+  Benutzer klickt auf Durchsuchen
+\item
+  Benutzer wählt eine oder mehrere Dateien aus PopUp-Fenster und
+  bestätigt die Auswahl
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-11}
+
+\begin{itemize}
+
+\item
+  System prüft Dateien auf Gültigkeit (Größe, Typ)
+\item
+  System speichert Daten in den für Kunden reservierten Datei-Ordner
+\item
+  System gibt Meldung aus nachdem Daten erfolgreich auf Server
+  gespeichert wurden
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-11}
+
+\begin{itemize}
+
+\item
+  reservierte Datenkapazität für Kunden ausgelastet --\textgreater{}
+  Meldung: „Upload fehlgeschlagen\ldots{}``
+\item
+  Verbindung zum Server unterbrochen oder fehlgeschlagen
+  --\textgreater{} Meldung: „Verbindungproblem\ldots{}``
+\end{itemize}
+
+\subsubsection{Erweiterung}\label{erweiterung-11}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-11}
+
+\subsection{Dateien ersetzen / Produkt-/Kunden- Bilder/PDFs}\label{dateien-ersetzen-produkt-kunden--bilderpdfs}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-12}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\item
+  Benutzer hat die Oberfläche für File-Upload ausgewählt
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-12}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert (Upload
+  erfolgreich/fehlgeschlagen)
+\item
+  Die ausgewählte Datei wurde ersetzt
+\item
+  die neuen Dateien wurden hochgeladen und auf dem Server gespeichert
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-12}
+
+\begin{itemize}
+
+\item
+  Benutzer wählt die zu ersetzende Datei in der ``Dateiübersicht'' aus
+\item
+  Benutzer klickt auf Ersetzen-Button
+\item
+  Benutzer wählt neue Datei aus
+\item
+  Benutzer bestätigt die Auswahl
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-12}
+
+\begin{itemize}
+
+\item
+  System prüft Dateien auf Gültigkeit (Größe, Typ)
+\item
+  System ersetzt die alte Datei durch die Neue
+\item
+  System gibt Meldung aus nachdem Daten erfolgreich auf Server
+  gespeichert wurden
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-12}
+
+\begin{itemize}
+
+\item
+  reservierte Datenkapazität für Kunden ausgelastet --\textgreater{}
+  Meldung: „Upload fehlgeschlagen\ldots{}``
+\item
+  Verbindung zum Server unterbrochen oder fehlgeschlagen
+  --\textgreater{} Meldung: „Verbindungprobleme\ldots{}``
+\item
+  Datenformat stimmt mit der zu ersetzenden Datei nicht überein
+\end{itemize}
+
+\subsubsection{Erweiterung}\label{erweiterung-12}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-12}
+
+\subsection{Dateien löschen / Produkt-/Kunden- Bilder/PDFs}\label{dateien-loschen-produkt-kunden--bilderpdfs}
+
+\subsubsection{Vorbedingung}\label{vorbedingung-13}
+
+\begin{itemize}
+
+\item
+  Benutzer ist angemeldet
+\item
+  Benutzer hat die Oberfläche für Dateiverwaltung ausgewählt
+\end{itemize}
+
+\subsubsection{Nachbedingung}\label{nachbedingung-13}
+
+\begin{itemize}
+
+\item
+  Benutzer wird über seine durchgeführten Aktionen informiert (Upload
+  erfolgreich/fehlgeschlagen)
+\item
+  Die ausgewählten Dateien wurden gelöscht
+\end{itemize}
+
+\subsubsection{Benutzer Aktion}\label{benutzer-aktion-13}
+
+\begin{itemize}
+
+\item
+  Der Benutzer klickt in der Tabelle neben dem zu löschenden Eintrag auf
+  den Löschen Button
+\end{itemize}
+
+\subsubsection{System Aktion}\label{system-aktion-13}
+
+\begin{itemize}
+
+\item
+  System löscht die ausgewählte Datei
+\item
+  System gibt Meldung aus nachdem Daten erfolgreich gelöscht wurde
+\end{itemize}
+
+\subsubsection{Fehlerfälle}\label{fehlerfalle-13}
+
+\begin{itemize}
+
+\item
+  Verbindung zum Server unterbrochen oder fehlgeschlagen
+  --\textgreater{} Meldung: „Verbindungproblem\ldots{}``
+\end{itemize}
+
+\subsubsection{Erweiterung}\label{erweiterung-13}
+
+\subsubsection{Abgrenzung}\label{abgrenzung-13}
+
+\begin{itemize}
+
+\item
+  Löschen ist endgültig, gelöschte Dateien können nicht
+  wiederhergestellt werden
+\end{itemize}
+
 
 \section{Produktdaten}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
