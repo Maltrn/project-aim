@@ -20,9 +20,6 @@
 \DeclareGraphicsRule{*}{mps}{*}{}
 \fi
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Variablen                                 						 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand{\authorName}{Dustin Spallek, Rene Kretschmer, Christof Rode, Jana Wengenroth, Malte Scheller, Daniel Schruhl}
 \newcommand{\projektName}{Anbieter Informations Management}
 \newcommand{\tags}{\authorName, Pflichtenheft}
@@ -30,18 +27,12 @@
 \author{Dustin Spallek, Rene Kretschmer, Christof Rode, Jana Wengenroth, \\Malte Scheller, Daniel Schruhl}
 \date{\today}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PDF Meta information                                 				 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \hypersetup{
   pdfauthor   = {\authorName},
   pdfkeywords = {\tags},
   pdftitle    = {\projektName~(Pflichtenheft)}
 } 
  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Create a shorter version for tables. DO NOT CHANGE               	 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \newcommand\addrow[2]{#1 &#2\\ }
 
 \newcommand\addheading[2]{#1 &#2\\ \hline}
@@ -57,12 +48,6 @@
 \newenvironment{usecase}{\tabularhead}
 {\hline\end{tabular}}
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% THE DOCUMENT BEGINS             	                              	 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
  \pagenumbering{roman}
  \input{Deckblatt}         % Deckblatt.tex laden und einfügen
@@ -76,43 +61,38 @@
 Es soll ein Microservice erstellt werden, um die vorhandenen Anbieter und Produktdaten anzureichern.
 
 \subsection{Musskriterien}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Was muss das Programm können?                   					 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{usecase}
   \addheading{Nummer}{Beschreibung} 
-  \addrow{/FA10/}{Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam}
-  \addrow{/FA20/}{Lorem ipsum dolor sit amet, consetetur sadipscing elitr}
-  \addrow{/FA30/}{adasdfasdf asdf asdfas}
+  \addrow{/FA10/}{Anbieter können sich anmelden}
+  \addrow{/FA20/}{Anbieter können sich abmelden}
+  \addrow{/FA30/}{Anbieter können ihre Daten bearbeiten}
+  \addrow{/FA40/}{Anbieter können ihre Produktdaten bearbeiten}
+  \addrow{/FA60/}{Anbieter können ihre Dateien global in einer Dateiverwaltung managen}
+  \addrow{/FA70/}{Dateien können in einer Dateiverwaltung hinzugefügt werden}
+  \addrow{/FA80/}{Dateien können in einer Dateiverwaltung gelöscht werden}
+  \addrow{/FA90/}{Dateien können in einer Dateiverwaltung ersetzt werden und die Verlinkungen in den Texten bleiben für die Dateien erhalten}
 \end{usecase}
 
 \subsection{Wunschkriterien}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Was muss das Programm können?                   					 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{usecase}
   \addheading{Nummer}{Beschreibung} 
-  \addrow{/FA10/}{Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam}
-  \addrow{/FA20/}{Lorem ipsum dolor sit amet, consetetur sadipscing elitr}
-  \addrow{/FA30/}{adasdfasdf asdf asdfas}
+  \addrow{/WK10/}{Dateien können per Drag and Drop in der Ordnung verschoben werden}
+  \addrow{/WK20/}{Die eingebaute Textbearbeitung unterstützt das Einfügen von mit Word formatierten Texten}
+  \addrow{/WK30/}{Das System soll per Docker deployable gemacht werden}
 \end{usecase}
 
 \subsection{Abgrenzungskriterien}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Was muss das Programm können?                   					 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{usecase}
   \addheading{Nummer}{Beschreibung} 
-  \addrow{/FA10/}{Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam}
-  \addrow{/FA20/}{Lorem ipsum dolor sit amet, consetetur sadipscing elitr}
-  \addrow{/FA30/}{adasdfasdf asdf asdfas}
+  \addrow{/AK10/}{Das Programm beinhaltet kein Authentifizierungs System}
+  \addrow{/AK20/}{Es können keine neuen Produkte über das System angelegt werden}
+  \addrow{/AK30/}{Es können keine Produkte über das System gelöscht werden}
+  \addrow{/AK40/}{Es können keine Anbieter über das System gelöscht werden}
+  \addrow{/AK50/}{Es können keine neuen Anbieter über das System angelegt werden}
 \end{usecase}
 
 
 \section{Produkteinsatz}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Wer ist die Zielgruppe?                   						 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Der Microservice soll in die Infrastruktur von Symphony eingegliedert werden, um für Anbieter die Funktion der Anreicherung ihrer Produktdaten zu ermöglichen.
 
 \subsection{Zielgruppe}
@@ -122,9 +102,6 @@ Unsere Zielgruppe sind alle Mitarbeiter der Anbieter, die einen Zugang zum Syste
 Administrative Anwendungsbereiche zur Verwaltung und Anreicherung der Anbieter und Produktdaten.
 
 \section{Funktionale Anforderungen}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Was muss das Programm können?                   					 %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Login}\label{login}
 
 \subsubsection{Vorbedingung}\label{vorbedingung}
@@ -1089,9 +1066,6 @@ Administrative Anwendungsbereiche zur Verwaltung und Anreicherung der Anbieter u
 
 
 \section{Produktdaten}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Auf welchen Daten arbeitet das Produkt?                            %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{usecase}
   \addheading{Nummer}{Beschreibung} 
   \addrow{/PD10/}{Produkte haben einen Namen}
@@ -1116,8 +1090,8 @@ Administrative Anwendungsbereiche zur Verwaltung und Anreicherung der Anbieter u
 \section{Nichtfunktionale Anforderungen}
 \begin{usecase}
   \addheading{Nummer}{Beschreibung} 
-  \addrow{/NF10/}{asdf asdf asdf asdf asdf asdf }
-  \addrow{/NF20/}{ asdf asdf asdftergfgasdgewr asdfh}
+  \addrow{/NF10/}{Das System soll isoliert von anderen Services laufen können}
+  \addrow{/NF20/}{Das System beinhaltet alle technisch notwendigen Komponenten außer externe Services}
 \end{usecase}
 
 \clearpage
