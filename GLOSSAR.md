@@ -15,9 +15,7 @@ Synonym: Kunde
 
 Begriff: Bildergalerie
 
-Bedeutung: Der User kann Bilder und Dateien der Formate .jpg, .gif, .png oder .pdf in die Bildergalerie für ein Produkt oder den Anbieter hochladen. Außerdem kann er die Dateien in der Liste nach oben oder unten schieben, um die Reihenfolge zu verändern. Die Bildergalerie wird auf der Seite unten mittig als Slidebar angezeigt.
-
-Unklarheiten: gibt es eine maximale Anzahl? 
+Bedeutung: Der User kann Bilder und Dateien der Formate .jpg, .gif, .png oder .pdf in die Bildergalerie für ein Produkt oder den Anbieter hochladen. Außerdem kann er die Dateien in der Liste nach oben oder unten schieben, um die Reihenfolge zu verändern. Die Bildergalerie wird auf der Seite unten mittig als Slidebar angezeigt. Die maximale Anzahl wird über die Speicherkapazität geregelt.
 
 Querverweis: Produkt, Anbieter 
 
