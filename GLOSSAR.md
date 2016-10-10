@@ -12,12 +12,11 @@ Querverweis:
 Synonym: Kunde
 
 
-
 Begriff: Bildergalerie
 
 Bedeutung: Der User kann Bilder und Dateien der Formate .jpg, .gif, .png oder .pdf in die Bildergalerie für ein Produkt oder den Anbieter hochladen. Außerdem kann er die Dateien in der Liste nach oben oder unten schieben, um die Reihenfolge zu verändern. Die Bildergalerie wird auf der Seite unten mittig als Slidebar angezeigt.
 
-Unklarheiten: gibt es eine maximale Anzahl? 
+Unklarheiten: 
 
 Querverweis: Produkt, Anbieter 
 
@@ -26,7 +25,7 @@ Begriff: Endverbraucher
 
 Bedeutung: Kunde des Kunden, der das System nutzt, um sich über die verschiedenen Anbieter und deren Produkte zu informieren.
 
-Unklarheiten: brauchen wir den?
+Unklarheiten: 
 
 Abgrenzung: User, Anbieter
 
@@ -35,9 +34,9 @@ Querverweis: Anbieter, Produkt
 
 Begriff: Feature-Tabelle
 
-Bedeutung: Wird von dem User erstellt. Der User kann zu jedem Produkt eine Tabelle mit Produkteigenschaften und einer kurzen Beschreibung anlegen. Mit einem "Plus"-Button kann er neue Zeilen hinzufügen. Die Feature-Tabelle wird auf der Seite unten links angezeigt.
+Bedeutung: Wird von dem User erstellt. Der User kann zu jedem Produkt und Anbieter eine Tabelle mit Produkteigenschaften und einer kurzen Beschreibung anlegen. Mit einem "Plus"-Button kann er neue Zeilen hinzufügen. Die Feature-Tabelle wird auf der Seite unten links angezeigt.
 
-Unklarheiten: auch zum Anbieter? wie lang darf die Beschreibung sein?
+Unklarheiten: 
 
 Querverweis: Produkt, Anbieter
 
@@ -46,16 +45,16 @@ Begriff: Hauptbild
 
 Bedeutung: Das Hauptbild wird vom Anbieter aus der Bildergalerie gewählt. Es wird größer angezeigt als die übrigen Bilder der Seite. Es kann die Fromate .jpg, .gif oder .png haben.
 
-Unklarheiten: Formate ok?
+Unklarheiten: 
 
 Querverweis: Bildergalerie, Anbieter
 
 
 Begriff: Kurzbeschreibung
 
-Bedeutung: Kurzer Text der das Produkt oder den Anbieter in maximal XX Zeichen beschreibt. Sie wird von dem User eingetragen und nach dem Speicher in einem Textfeld auf der Seite des Anbieters oder des Produktes angezeigt.
+Bedeutung: Kurzer Text der das Produkt oder den Anbieter beschreibt. Die Länge ist voreingestellt. Sie wird von dem User eingetragen und nach dem Speicher in einem Textfeld auf der Seite des Anbieters oder des Produktes angezeigt.
 
-Unklarheiten: wie viele Zeichen?
+Unklarheiten: 
 
 Querverweis: User, Anbieter, Produkt
 
@@ -100,7 +99,7 @@ Begriff: Produkt
 
 Bedeutung: Ein Produkt ist immer einem Anbieter zugeordnet. Es werden die Informationen über das Produkt von dem Anbieter auf der Seite des Produktes eingetragen.
 
-Unklarheiten: kann ein Produkt auch ein Service sein?
+Unklarheiten: 
 
 Querverweis: Anbieter
 
@@ -133,6 +132,7 @@ Abgrenzung: User, Endverbraucher
 
 Querverweis: Anbieter
 
+Synonym: Benutzer
 
 
 Begriff: User-Ansicht
