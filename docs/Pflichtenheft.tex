@@ -63,14 +63,15 @@ Es soll ein Microservice erstellt werden, um die vorhandenen Anbieter und Produk
 \subsection{Musskriterien}
 \begin{usecase}
   \addheading{Nummer}{Beschreibung} 
-  \addrow{/FA10/}{Anbieter können sich anmelden}
-  \addrow{/FA20/}{Anbieter können sich abmelden}
-  \addrow{/FA30/}{Anbieter können ihre Daten bearbeiten}
-  \addrow{/FA40/}{Anbieter können ihre Produktdaten bearbeiten}
-  \addrow{/FA60/}{Anbieter können ihre Dateien global in einer Dateiverwaltung managen}
-  \addrow{/FA70/}{Dateien können in einer Dateiverwaltung hinzugefügt werden}
-  \addrow{/FA80/}{Dateien können in einer Dateiverwaltung gelöscht werden}
-  \addrow{/FA90/}{Dateien können in einer Dateiverwaltung ersetzt werden und die Verlinkungen in den Texten bleiben für die Dateien erhalten}
+  \addrow{/MK10/}{User können sich anmelden}
+  \addrow{/MK20/}{User können sich abmelden}
+  \addrow{/MK30/}{User können ihre Anbieterdaten bearbeiten}
+  \addrow{/MK40/}{User können ihre Produktdaten bearbeiten}
+  \addrow{/MK50/}{Dateien können in einer Dateiverwaltung hinzugefügt werden}
+  \addrow{/MK60/}{Dateien können in einer Dateiverwaltung gelöscht werden}
+  \addrow{/MK70/}{Dateien können in einer Dateiverwaltung ersetzt werden und die
+   Verlinkungen in den Texten bleiben für die Dateien erhalten}
+  \addrow{/MK80/}{Alle im System gespeicherten Daten müssen über eine Schnittstelle erreichbar sein}
 \end{usecase}
 
 \subsection{Wunschkriterien}
@@ -103,6 +104,7 @@ Administrative Anwendungsbereiche zur Verwaltung und Anreicherung der Anbieter u
 
 \section{Funktionale Anforderungen}
 \subsection{Login}\label{login}
+Der Benutzer kann sich anhand seiner Symphony Zugangsdaten am System anmelden.
 
 \subsubsection{Vorbedingung}\label{vorbedingung}
 
@@ -172,6 +174,7 @@ Keine weiteren Angaben.
 \end{itemize}
 
 \subsection{Logout}\label{logout}
+Der Benutzer meldet sich vom System ab.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-1}
 
@@ -218,7 +221,10 @@ Keine weiteren Angaben.
   möglich)
 \end{itemize}
 
-\subsection{Benutzer bearbeitet Anbieter / Produkt Kurzbeschreibung}
+\clearpage
+
+\subsection{Bearbeitung der Kurzbeschreibung}
+Der Benutzer bearbeitet die Anbieter Kurzbeschreibung bzw. die Produkt Kurzbeschreibung.
 \subsubsection{Vorbedingung}
 
 \begin{itemize}
@@ -292,7 +298,10 @@ Keine weiteren Angaben.
   verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
 \end{itemize}
 
-\subsection{Benutzer bearbeitet Anbieter / Produkt Detailbeschreibung}
+\clearpage
+
+\subsection{Bearbeitung der Detailbeschreibungen}
+Der Benutzer bearbeitet Anbieter bzw. Produkt Detailbeschreibungen.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-3}
 
@@ -372,7 +381,10 @@ Keine weiteren Angaben.
   verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
 \end{itemize}
 
-\subsection{Benutzer bearbeitet Anbieter / Produkt Hauptbild}
+\clearpage
+
+\subsection{Bearbeitung des Hauptbildes}
+Der Benutzer bearbeitet das Anbieter bzw. Produkt Hauptbild.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-4}
 
@@ -444,7 +456,8 @@ Keine weiteren Angaben.
   PDF)
 \end{itemize}
 
-\subsection{Benutzer fügt Dateien zur Anbieter / Produkt Galerie hinzu}
+\subsection{Bearbeitung der Galerie}
+Der Benutzer fügt Dateien zur Anbieter bzw. Produkt Galerie hinzu.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-5}
 
@@ -513,7 +526,10 @@ Keine weiteren Angaben.
   verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
 \end{itemize}
 
-\subsection{Benutzer sortiert Daten in der Bilder/PDF Galerie}\label{benutzer-sortiert-daten-in-der-bilderpdf-galerie}
+\clearpage
+
+\subsection{Sortierung der Galerie}\label{benutzer-sortiert-daten-in-der-bilderpdf-galerie}
+Der Benutzer sortiert die Daten in der Bilder bzw. PDF Galerie.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-6}
 
@@ -583,7 +599,10 @@ Keine weiteren Angaben.
   verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
 \end{itemize}
 
-\subsection{Benutzer entfernt Bilder/PDF aus einer Galerie (Anbieter / Produkt)}\label{benutzer-entfernt-bilderpdf-aus-einer-galerie-anbieter-produkt}
+\clearpage
+
+\subsection{Entfernen von Dateien aus der Galerie}\label{benutzer-entfernt-bilderpdf-aus-einer-galerie-anbieter-produkt}
+Der Benutzer entfernt Bilder oder PDF Dateien aus einer Galerie (Anbieter / Produkt).
 
 \subsubsection{Vorbedingung}\label{vorbedingung-7}
 
@@ -654,7 +673,10 @@ Keine weiteren Angaben.
   verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
 \end{itemize}
 
-\subsection{Benutzer fügt einen Eintrag zu der Fakten-Tabelle hinzu}\label{benutzer-fugt-einen-eintrag-zu-der-fakten-tabelle-hinzu}
+\clearpage
+
+\subsection{Fakten-Tabelle um Einträge erweitern}\label{benutzer-fugt-einen-eintrag-zu-der-fakten-tabelle-hinzu}
+Der Benutzer fügt einen Eintrag zu der Fakten-Tabelle hinzu.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-8}
 
@@ -731,7 +753,10 @@ Keine weiteren Angaben.
   verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
 \end{itemize}
 
-\subsection{Benutzer verschiebt einen Eintrag in der Fakten-Tabelle}\label{benutzer-verschiebt-einen-eintrag-in-der-fakten-tabelle}
+\clearpage
+
+\subsection{Sortierung der Faktentabelle}\label{benutzer-verschiebt-einen-eintrag-in-der-fakten-tabelle}
+Der Benutzer verschiebt einen Eintrag in der Fakten-Tabelle an die gewünschte Position.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-9}
 
@@ -807,7 +832,10 @@ Keine weiteren Angaben.
   verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
 \end{itemize}
 
-\subsection{Benutzer löscht einen Eintrag aus der Fakten-Tabelle}\label{benutzer-loscht-einen-eintrag-aus-der-fakten-tabelle}
+\clearpage
+
+\subsection{Fakten-Tabelle Einträge löschen}\label{benutzer-loscht-einen-eintrag-aus-der-fakten-tabelle}
+Der Benutzer löscht einen Eintrag aus der Fakten-Tabelle.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-10}
 
@@ -874,7 +902,10 @@ Keine weiteren Angaben.
   verloren, wenn die Seite z.B. aktualisiert oder verlassen wird
 \end{itemize}
 
-\subsection{Dateien hochladen / Produkt-/Kunden- Bilder/PDFs}\label{dateien-hochladen-produkt-kunden--bilderpdfs}
+\clearpage
+
+\subsection{Dateien hochladen}\label{dateien-hochladen-produkt-kunden--bilderpdfs}
+Der Benutzer lädt Dateien (Bilder, PDF Dateien) in der Dateiverwaltung hoch.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-11}
 
@@ -883,7 +914,7 @@ Keine weiteren Angaben.
 \item
   Benutzer ist angemeldet
 \item
-  Benutzer hat die Oberfläche für File-Upload ausgewählt
+  Benutzer hat die Oberfläche Dateiverwaltung ausgewählt
 \end{itemize}
 
 \subsubsection{Nachbedingung}\label{nachbedingung-11}
@@ -905,9 +936,9 @@ Keine weiteren Angaben.
 \begin{itemize}
 
 \item
-  Benutzer klickt auf Durchsuchen
+  Benutzer klickt auf den Upload Knopf
 \item
-  Benutzer wählt eine oder mehrere Dateien aus PopUp-Fenster und
+  Benutzer wählt eine oder mehrere Dateien aus dem PopUp-Fenster und
   bestätigt die Auswahl
 \end{itemize}
 
@@ -942,7 +973,10 @@ Keine weiteren Angaben.
 \subsubsection{Abgrenzung}\label{abgrenzung-11}
 Keine weiteren Angaben.
 
-\subsection{Dateien ersetzen / Produkt-/Kunden- Bilder/PDFs}\label{dateien-ersetzen-produkt-kunden--bilderpdfs}
+\clearpage
+
+\subsection{Dateien ersetzen}\label{dateien-ersetzen-produkt-kunden--bilderpdfs}
+Der Kunde ersetzt Dateien in der Dateiverwaltung.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-12}
 
@@ -1014,7 +1048,10 @@ Keine weiteren Angaben.
 \subsubsection{Abgrenzung}\label{abgrenzung-12}
 Keine weiteren Angaben.
 
-\subsection{Dateien löschen / Produkt-/Kunden- Bilder/PDFs}\label{dateien-loschen-produkt-kunden--bilderpdfs}
+\clearpage
+
+\subsection{Dateien löschen}\label{dateien-loschen-produkt-kunden--bilderpdfs}
+Der Benutzer löscht Dateien aus der Dateiverwaltung.
 
 \subsubsection{Vorbedingung}\label{vorbedingung-13}
 
