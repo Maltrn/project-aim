@@ -64,7 +64,7 @@
  \pagenumbering{arabic}
 
 \section{Lizenz}
-
+Aufgrund der Abhängigkeiten von den Lizenzen, die wir in unserem Projekt nutzen, sind wir verpflichtet als Lizenzvereinbarung die MIT-Lizenz zu nutzen.
  
 \section{Zielbestimmung}
 
@@ -115,17 +115,19 @@ Unsere Zielgruppe sind alle Mitarbeiter der Anbieter, die einen Zugang zum Syste
 Administrative Anwendungsbereiche zur Verwaltung und Anreicherung der Anbieter und Produktdaten.
 
 \section{Produktumgebung}
-Für den produktiven Einsatz der Software wird der Applicationserver Tomcat und eine Mongo Datenbank benötigt.
-Die Anwendung selbst wird als .war Datei bereitgestellt und muss auf dem Tomcat Server deployed werden. Zusätzlich müssen alle verwendeteten Netzwerk-Ports freigeschaltet sein.
+Das System wird als .jar exportiert und benötigt auschließlich Java (JRE 8) um ausgeführt zu werden.
 
 \begin{itemize}
-
 \item
   IDE: Jetbrains Intellij IDEA
 \item
   Versionsverwaltung: git
+\end{itemize}
+
+\subsection{Backend}
+\begin{itemize}
 \item
-  Backend:
+  Persistenz: MongoDB
 \item
   Buildtool: Gradle
 \item
@@ -134,8 +136,10 @@ Die Anwendung selbst wird als .war Datei bereitgestellt und muss auf dem Tomcat 
   Frameworks: Spring Boot, Spring Data JPA
 \item
   Testing: JUnit, REST Assured
-\item
-  Frontend:
+\end{itemize}
+
+\subsection{Frontend}
+\begin{itemize}
 \item
   Sprachen: Typescript, HTML, CSS
 \item
@@ -146,20 +150,15 @@ Die Anwendung selbst wird als .war Datei bereitgestellt und muss auf dem Tomcat 
   Module Loader: SystemJs
 \item
   Testing: Jasmine
-\item
-  Persistenz: MongoDB
-\item
-  Schnittstelle:
-\item
-  REST
 \end{itemize}
 
-\subsection{Software}
-\subsection{Hardware}
-\subsection{Orgware}
-\subsection{Produktschnittstellen}
+\subsection{Schnittstellen}
 
-
+\begin{itemize}
+\item
+  REST
+\item Swagger.io
+\end{itemize}
 
 \section{Funktionale Anforderungen}
 \subsection{Login}\label{login}
@@ -1188,6 +1187,51 @@ Keine weiteren Angaben.
 \clearpage
 
 \section{Testfälle}
+Alle Use-Cases werden mit JUnit-Tests kontrolliert. Daraus ergeben sich folgende Testfälle.
+
+\subsection{Login}
+\begin{itemize}
+\item Test, ob der User bereits angemeldet ist, wenn er sich einloggen will (ein User zwei mal angemeldet sein kann)
+\item Test, ob der User bei der Anmeldung auf die Anbieter-Seite weitergeleitet wird. 
+\item Test, ob der User sich mit richtigen Userdaten einloggen kann.
+\item Test, ob der User sich mit ungültigen Userdaten einloggen kann.
+\end{itemize}
+
+\subsection{Logout}
+\begin{itemize}
+\item Test, ob der User weiterhin angemeldet ist.
+\item Test, ob der User auf die konfigurierte Seite weitergeleitet wird.
+\end{itemize}
+
+\subsection{Benutzer bearbeitet Anbieter/Produkt}
+\begin{itemize}
+\item Test, ob Benutzer angemeldet ist.
+\item Test, ob der Benutzer beim Auswählen des Produktes im Produktmenü auf die richtige Seite weitergeleitet wird.
+\item Test, ob Daten nach dem Speichern in der Datenbank gespeichert sind. 
+\item Test, ob beim Verwerfen die Ansicht zurückgesetzt wird. 
+\item Test, ob beim Verlassen der Seite ohne zu Speichern, eine Fehlermeldung geworfen wird. 
+\item Test, ob Eingabe in der Kurzbeschreibung zu lang ist (ob die Fehlermeldung geworfen wird).
+\item Test, ob bei ungültigen Eingaben eine Fehlermeldung geworfen wird (Kurzbeschreibung, Detailbeschreibung).
+\item Test, ob hochgeladene Bilder ein erlaubtes Format haben.
+\item Test, ob das ausgewählte Hauptbild ein erlaubtes Format hat.
+\item Test, ob sich beim Verschieben eines Elementes in der Galerie die Reihenfolge geändert hat.
+\item Test, ob nach dem Löschen und Speichern die zu entfernenden Daten gelöscht wurden.
+\item Test, ob sich durcb das Löschen einer Datei die Reihenfolge der übrigen Dateien nicht geändert hat.
+\item Test, ob neue Zeilen in die Feature-Tabelle hinzugefügt werden können.
+\item Test, ob die Eingabe in der Feature-Tabelle zu lang ist.
+\item Test, ob sich beim Verschieben einer Zeile in der Feature-Tabelle die Reihenfolge geändert hat.
+\item Test, ob beim Löschen von Daten aus der Feature-Tabelle auch die Zeilenanzahl reduziert wird.
+\item Test, ob beim Ersetzen eines Bildes oder einer PDF die Position der neuen Datei der Position der alten entspricht.
+\end{itemize}
+
+\subsection{Dateiverwaltung}
+\begin{itemize}
+\item Test, ob hochgeladene Dateien ein erlaubtes Format haben.
+\item Test, ob nach dem Löschen die zu entfernende Datei gelöscht wurde.
+\item Test ob die ersetzte Datei wirklich ersetzt wurde.
+\end{itemize}
+
+\clearpage
 
 \section{Produktdaten}
 \begin{usecase}
@@ -1210,6 +1254,8 @@ Keine weiteren Angaben.
   \addrow{/PD160/}{Medien in der Galerie können PDFs oder Bilder sein (Dateitypen konfigurierbar)}
   \addrow{/PD170/}{Ein User hat einen Namen und ein Passwort}
 \end{usecase}
+
+\clearpage
 
 \section{Systemmodelle}
 
