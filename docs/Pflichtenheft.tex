@@ -22,7 +22,7 @@
 \else
 \usepackage[pdftex]{graphicx}
 \DeclareGraphicsRule{*}{mps}{*}{}
-\fi 
+\fi
 
 \makeglossary
 
@@ -115,7 +115,7 @@ Unsere Zielgruppe sind alle Mitarbeiter der Anbieter, die einen Zugang zum Syste
 Administrative Anwendungsbereiche zur Verwaltung und Anreicherung der Anbieter und Produktdaten.
 
 \section{Produktumgebung}
-Das System wird als .jar exportiert und benötigt auschließlich Java (JRE 8) um ausgeführt zu werden.
+Das System wird als Docker Container zur Verfügung gestellt. Es hängt also auschließlich vom externen Authentifizierungs Service und dem Anbieterdaten und Produktdaten Service ab.
 
 \begin{itemize}
 \item
@@ -1260,6 +1260,14 @@ Alle Use-Cases werden mit JUnit-Tests kontrolliert. Daraus ergeben sich folgende
 \section{Systemmodelle}
 
 \subsection{Anwendungsfalldiagramm}
+\begin{figure}[!htb]
+  \centering
+     \includegraphics[width=1.0\textwidth]{use-case-diagram.jpeg}
+  \caption{Anwendungsfalldiagramm}
+  \label{fig:file-upload}
+\end{figure}
+
+\clearpage 
 
 \subsection{Sequenzdiagramm}
 
@@ -1269,6 +1277,8 @@ Alle Use-Cases werden mit JUnit-Tests kontrolliert. Daraus ergeben sich folgende
   \caption{Sequenzdiagramm: Datei Upload}
   \label{fig:file-upload}
 \end{figure}
+
+\clearpage
 
 \subsection{Datenmodell}
 
@@ -1317,6 +1327,8 @@ Alle Use-Cases werden mit JUnit-Tests kontrolliert. Daraus ergeben sich folgende
   \caption{Dateiverwaltung Mockup}
   \label{fig:selection}
 \end{figure}
+
+\clearpage
 
 \section{Entwicklungsumgebung}
 Da das Projekt ein Gradle Projekt ist, wird grundsätzlich nur eine IDE benötigt, die Gradle Projekte unterstützt.
