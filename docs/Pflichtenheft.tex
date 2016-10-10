@@ -55,6 +55,9 @@
  \tableofcontents          % Inhaltsverzeichnis ausgeben
  \clearpage
  \pagenumbering{arabic}
+
+\section{Lizenz}
+
  
 \section{Zielbestimmung}
 
@@ -101,6 +104,14 @@ Unsere Zielgruppe sind alle Mitarbeiter der Anbieter, die einen Zugang zum Syste
 
 \subsection{Anwendungsbereiche}
 Administrative Anwendungsbereiche zur Verwaltung und Anreicherung der Anbieter und Produktdaten.
+
+\section{Produktumgebung}
+\subsection{Software}
+\subsection{Hardware}
+\subsection{Orgware}
+\subsection{Produktschnittstellen}
+
+
 
 \section{Funktionale Anforderungen}
 \subsection{Login}\label{login}
@@ -1114,6 +1125,21 @@ Keine weiteren Angaben.
   wiederhergestellt werden
 \end{itemize}
 
+\section{Nichtfunktionale Anforderungen}
+\begin{usecase}
+  \addheading{Nummer}{Beschreibung} 
+  \addrow{/NF10/}{Das System muss als Microservice aufgesetzt werden}  
+  \addrow{/NF20/}{Das System muss den vorhandenen Authentifizierungs Service verwenden}
+  \addrow{/NF30/}{Das System muss die vorhandenen Kunden und Produkte übernehmen}
+  \addrow{/NF40/}{Benutzer sollen innerhalb einer vierstündigen Einarbeitungszeit in der Lage sein, den Microservice vollständig nutzen zu können}
+  \addrow{/NF50/}{Benutzer sollen über ihre Aktionen benachrichtigt werden}
+  \addrow{/NF60/}{Die Reaktionszeit des Systems auf Benutzereingaben soll maximal eine Sekunde betragen}
+  \addrow{/NF70/}{Das System muss immer die korrekten Daten zu einer Anfrage senden}
+\end{usecase}
+
+\clearpage
+
+\section{Testfälle}
 
 \section{Produktdaten}
 \begin{usecase}
@@ -1136,15 +1162,6 @@ Keine weiteren Angaben.
   \addrow{/PD160/}{Medien in der Galerie können PDFs oder Bilder sein}
   \addrow{/PD170/}{Ein User hat einen Namen und ein Passwort}
 \end{usecase}
-
-\section{Nichtfunktionale Anforderungen}
-\begin{usecase}
-  \addheading{Nummer}{Beschreibung} 
-  \addrow{/NF10/}{Das System soll isoliert von anderen Services laufen können}
-  \addrow{/NF20/}{Das System beinhaltet alle technisch notwendigen Komponenten außer externe Services}
-\end{usecase}
-
-\clearpage
 
 \section{Systemmodelle}
 
@@ -1195,5 +1212,9 @@ Keine weiteren Angaben.
   \caption{Dateiverwaltung Mockup}
   \label{fig:selection}
 \end{figure}
+
+\section{Entwicklungsumgebung}
+
+\section{Glossar}
 
 \end{document}
