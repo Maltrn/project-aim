@@ -11,6 +11,10 @@
 % this is needed for forms and links within the text
 \usepackage{hyperref}
 
+% glossar, see http://en.wikibooks.org/wiki/LaTeX/Glossary
+% has to be loaded AFTER hyperref so that entries are clickable
+\usepackage[nonumberlist]{glossaries} 
+
 % The following is needed in order to make the code compatible
 % with both latex/dvips and pdflatex.
 \ifx\pdftexversion\undefined
@@ -20,9 +24,12 @@
 \DeclareGraphicsRule{*}{mps}{*}{}
 \fi
 
+\makeglossary
+
 \newcommand{\authorName}{Dustin Spallek, Rene Kretschmer, Christof Rode, Jana Wengenroth, Malte Scheller, Daniel Schruhl}
 \newcommand{\projektName}{Anbieter Informations Management}
 \newcommand{\tags}{\authorName, Pflichtenheft}
+\newcommand{\glossarName}{Glossar}
 \title{\projektName~(Pflichtenheft)}
 \author{Dustin Spallek, Rene Kretschmer, Christof Rode, Jana Wengenroth, \\Malte Scheller, Daniel Schruhl}
 \date{\today}
@@ -1220,7 +1227,8 @@ In der Entwicklungsphase wurde IntelliJ IDEA 2016.2.4 genutzt. Weiterhin wurde d
 Die Datenbank ist eine embedded Mongo DB.
 Zusätzliche Abhängigkeiten werden über Gradle Dependencies aufgelöst.
 
+\clearpage
 
-\section{Glossar}
+\input{Glossar}
 
 \end{document}
