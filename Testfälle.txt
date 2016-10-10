@@ -10,7 +10,7 @@ Testfälle
 		
 	- Logout
 		- Test, ob der User weiterhin angemeldet ist.
-		- Test, ob der User auf die Seite XX weitergeleitet wird.
+		- Test, ob der User auf die konfigurierte Seite weitergeleitet wird.
 		
 	- Benutzer bearbeitet Anbieter/Produkt
 		- Test, ob Benutzer angemeldet ist.
@@ -30,3 +30,8 @@ Testfälle
 		- Test, ob sich beim Verschieben einer Zeile in der Feature-Tabelle die Reihenfolge geändert hat.
 		- Test, ob beim Löschen von Daten aus der Feature-Tabelle auch die Zeilenanzahl reduziert wird.
 		- Test, ob beim Ersetzen eines Bildes oder einer PDF die Position der neuen Datei der Position der alten entspricht.
+		
+        - Dateiverwaltung
+	         - Test, ob hochgeladene Dateien ein erlaubtes Format haben.
+		 - Test, ob nach dem Löschen die zu entfernende Datei gelöscht wurde.
+		 - Test ob die ersetzte Datei wirklich ersetzt wurde.
