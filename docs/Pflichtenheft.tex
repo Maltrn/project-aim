@@ -7,6 +7,7 @@
 \usepackage[margin=2.5cm]{geometry} %layout
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{url}
 
 % this is needed for forms and links within the text
 \usepackage{hyperref}
@@ -390,7 +391,9 @@ Der Benutzer bearbeitet Anbieter bzw. Produkt Detailbeschreibungen.
   Benutzer wählt links im Menü seinen zu bearbeitenden Punkt (Anbieter
   oder Produkt) aus
 \item
-  Benutzer bearbeitet den Text der Detailbeschreibung
+  Benutzer bearbeitet den Text der Detailbeschreibung mit Hilfe des Rich Text Editors
+\item
+  Benutzer markiert die gewünschte Stelle im Text und macht diese mit dem Richt Text Edtor fett
 \item
   Benutzer klickt auf speichern / verwerfen (siehe Erweiterung)
 \end{itemize}
@@ -429,6 +432,8 @@ Der Benutzer bearbeitet Anbieter bzw. Produkt Detailbeschreibungen.
 \item
   Benutzer wird über seine durchgeführten Aktionen informiert
   (verwerfen, speichern)
+\item Die Funktionalitäten des Rich Text Editors können hier nachgelesen werden:\\ \url{http://ckeditor.com/about/features}
+
 \end{itemize}
 
 \subsubsection{Abgrenzung}\label{abgrenzung-3}
@@ -452,6 +457,7 @@ Der Benutzer bearbeitet das Anbieter bzw. Produkt Hauptbild.
 
 \item
   Benutzer ist angemeldet
+\item Das zu verwendende Bild wurde schon hochgeladen
 \end{itemize}
 
 \subsubsection{Nachbedingung}\label{nachbedingung-4}
@@ -525,6 +531,7 @@ Der Benutzer fügt Dateien zur Anbieter bzw. Produkt Galerie hinzu.
 
 \item
   Benutzer ist angemeldet
+\item Die gewünschten Dateien wurden hochgeladen
 \end{itemize}
 
 \subsubsection{Nachbedingung}\label{nachbedingung-5}
@@ -788,6 +795,8 @@ Der Benutzer fügt einen Eintrag zu der Fakten-Tabelle hinzu.
 \item
   Bei überschreiten der maximalen zulässigen Zeichenzahl wird die
   Eingabemaske rot eingefärbt
+\item
+  Bei der maximalen Anzahl der Fakten wird der Knopf zum Hinzufügen ausgegraut
 \end{itemize}
 
 \subsubsection{Erweiterung}\label{erweiterung-8}
@@ -801,6 +810,7 @@ Der Benutzer fügt einen Eintrag zu der Fakten-Tabelle hinzu.
 \item
   Benutzer wird über seine durchgeführten Aktionen informiert
   (verwerfen, speichern)
+\item Die maximalen Anzahlen der Zeichen und Fakten sind über eine Konfigurationsdatei veränderbar
 \end{itemize}
 
 \subsubsection{Abgrenzung}\label{abgrenzung-8}
@@ -973,6 +983,7 @@ Der Benutzer lädt Dateien (Bilder, PDF Dateien) in der Dateiverwaltung hoch.
 
 \item
   Benutzer ist angemeldet
+\item Datei ist lokal auf dem PC vorhanden
 \item
   Benutzer hat die Oberfläche Dateiverwaltung ausgewählt
 \end{itemize}
@@ -1044,6 +1055,7 @@ Der Kunde ersetzt Dateien in der Dateiverwaltung.
 
 \item
   Benutzer ist angemeldet
+\item Datei ist lokal auf dem PC vorhanden
 \item
   Benutzer hat die Oberfläche für File-Upload ausgewählt
 \end{itemize}
@@ -1141,6 +1153,7 @@ Der Benutzer löscht Dateien aus der Dateiverwaltung.
 \item
   Der Benutzer klickt in der Tabelle neben dem zu löschenden Eintrag auf
   den Löschen Button
+\item Der Benutzer bestätigt die Löschung (Hinweis auf Referenzierung ist im Bestätigungs Dialog vorhanden)
 \end{itemize}
 
 \subsubsection{System Aktion}\label{system-aktion-13}
@@ -1180,7 +1193,7 @@ Keine weiteren Angaben.
   \addrow{/NF10/}{Das System muss als Microservice aufgesetzt werden}  
   \addrow{/NF20/}{Das System muss den vorhandenen Authentifizierungs Service verwenden}
   \addrow{/NF30/}{Das System muss die vorhandenen Kunden und Produkte übernehmen}
-  \addrow{/NF40/}{Benutzer sollen innerhalb einer vierstündigen Einarbeitungszeit in der Lage sein, den Microservice vollständig nutzen zu können}
+  \addrow{/NF40/}{Benutzer sollen innerhalb einer 15-minütigen Einarbeitungszeit in der Lage sein, den Microservice vollständig nutzen zu können}
   \addrow{/NF50/}{Benutzer sollen über ihre Aktionen benachrichtigt werden}
   \addrow{/NF60/}{Die Reaktionszeit des Systems auf Benutzereingaben soll maximal eine Sekunde betragen}
   \addrow{/NF70/}{Das System muss immer die korrekten Daten zu einer Anfrage senden}
@@ -1218,7 +1231,7 @@ Alle Use-Cases werden mit JUnit-Tests kontrolliert. Daraus ergeben sich folgende
 \item Test, ob das ausgewählte Hauptbild ein erlaubtes Format hat.
 \item Test, ob sich beim Verschieben eines Elementes in der Galerie die Reihenfolge geändert hat.
 \item Test, ob nach dem Löschen und Speichern die zu entfernenden Daten gelöscht wurden.
-\item Test, ob sich durcb das Löschen einer Datei die Reihenfolge der übrigen Dateien nicht geändert hat.
+\item Test, ob sich durch das Löschen einer Datei die Reihenfolge der übrigen Dateien nicht geändert hat.
 \item Test, ob neue Zeilen in die Feature-Tabelle hinzugefügt werden können.
 \item Test, ob die Eingabe in der Feature-Tabelle zu lang ist.
 \item Test, ob sich beim Verschieben einer Zeile in der Feature-Tabelle die Reihenfolge geändert hat.
@@ -1229,8 +1242,10 @@ Alle Use-Cases werden mit JUnit-Tests kontrolliert. Daraus ergeben sich folgende
 \subsection{Dateiverwaltung}
 \begin{itemize}
 \item Test, ob hochgeladene Dateien ein erlaubtes Format haben.
+\item Test, ob die hochgeladene Datei wirklich vorhanden ist. 
+\item Test auf korrektes Verhalten beim Überschreiten des Dateivolumens.
 \item Test, ob nach dem Löschen die zu entfernende Datei gelöscht wurde.
-\item Test ob die ersetzte Datei wirklich ersetzt wurde.
+\item Test, ob die ersetzte Datei wirklich ersetzt wurde.
 \end{itemize}
 
 \clearpage
@@ -1238,14 +1253,15 @@ Alle Use-Cases werden mit JUnit-Tests kontrolliert. Daraus ergeben sich folgende
 \section{Produktdaten}
 \begin{usecase}
   \addheading{Nummer}{Beschreibung} 
-  \addrow{/PD10/}{Produkte haben einen Namen (Länge konfigurierbar)}
+  \addrow{/PD10/}{Produkte haben einen Namen}
   \addrow{/PD20/}{Produkte haben eine Kurzbeschreibung (Länge konfigurierbar)}
   \addrow{/PD30/}{Produkte haben eine Detailbeschreibung}
   \addrow{/PD40/}{Produkte haben eine Feature Tabelle (Länge konfigurierbar)}
   \addrow{/PD50/}{Ein Produkt hat ein Hauptbild}
   \addrow{/PD60/}{Ein Produkt hat Medien in einer Galerie (Dateitypen konfigurierbar)}
   \addrow{/PD70/}{Anbieter haben mehrere Produkte}
-  \addrow{/PD80/}{Anbieter haben einen Namen (Länge konfigurierbar)}
+  \addrow{/PD71/}{Anbieter haben mehrere User}
+  \addrow{/PD80/}{Anbieter haben einen Namen}
   \addrow{/PD90/}{Anbieter haben eine Kurzbeschreibung (Länge konfigurierbar)}
   \addrow{/PD100/}{Anbieter haben eine Detailbeschreibung}
   \addrow{/PD110/}{Anbieter haben eine Feature Tabelle (Länge konfigurierbar)}
@@ -1276,7 +1292,7 @@ Alle Use-Cases werden mit JUnit-Tests kontrolliert. Daraus ergeben sich folgende
 \begin{figure}[!htb]
   \centering
      \includegraphics[width=.7\textwidth]{Sequenzdiagramm.png}
-  \caption{Sequenzdiagramm: Datei Upload}
+  \caption{Sequenzdiagramm: Login}
   \label{fig:file-upload}
 \end{figure}
 
