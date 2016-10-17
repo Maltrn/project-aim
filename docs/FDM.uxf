@@ -159,7 +159,7 @@
       <w>264</w>
       <h>204</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-x
+    <panel_attributes>lt=&lt;-x
 m1=1
 m2=n
 hat</panel_attributes>
@@ -173,7 +173,7 @@ hat</panel_attributes>
       <w>348</w>
       <h>60</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-x
+    <panel_attributes>lt=&lt;-x
 m1=m
 m2=1
 nutzt</panel_attributes>
@@ -187,7 +187,7 @@ nutzt</panel_attributes>
       <w>708</w>
       <h>324</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-x
+    <panel_attributes>lt=&lt;-x
 m1=1
 m2=n
 hat</panel_attributes>
@@ -201,7 +201,7 @@ hat</panel_attributes>
       <w>792</w>
       <h>348</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-x
+    <panel_attributes>lt=&lt;-x
 m1=m
 m2=n
 nutzt</panel_attributes>
@@ -215,7 +215,7 @@ nutzt</panel_attributes>
       <w>84</w>
       <h>204</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;-
 m1=1
 m2=1
 führt</panel_attributes>
@@ -229,7 +229,7 @@ führt</panel_attributes>
       <w>72</w>
       <h>204</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-
+    <panel_attributes>lt=&lt;-
 m2=1
 m1=n
 führt</panel_attributes>
@@ -243,7 +243,7 @@ führt</panel_attributes>
       <w>348</w>
       <h>228</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-x
+    <panel_attributes>lt=&lt;-x
 m2=1
 m1=n
 verwaltet</panel_attributes>
@@ -271,7 +271,7 @@ verwaltet</panel_attributes>
       <w>228</w>
       <h>108</h>
     </coordinates>
-    <panel_attributes>lt=&lt;&lt;-x
+    <panel_attributes>lt=&lt;-x
 m2=1
 m1=n
 wird verwaltet von</panel_attributes>
