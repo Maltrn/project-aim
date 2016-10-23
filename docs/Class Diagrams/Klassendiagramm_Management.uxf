@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>12</zoom_level>
+  <zoom_level>19</zoom_level>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>312</x>
-      <y>396</y>
-      <w>708</w>
-      <h>312</h>
+      <x>513</x>
+      <y>399</y>
+      <w>1121</w>
+      <h>494</h>
     </coordinates>
     <panel_attributes>Management
 --
@@ -17,10 +17,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>72</x>
-      <y>432</y>
-      <w>288</w>
-      <h>60</h>
+      <x>133</x>
+      <y>456</y>
+      <w>456</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>lt=)-
 m1=UploadCenterInteface
@@ -30,10 +30,10 @@ m1=UploadCenterInteface
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>72</x>
-      <y>492</y>
-      <w>288</w>
-      <h>60</h>
+      <x>133</x>
+      <y>551</y>
+      <w>456</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>lt=)-
 m1=VendorInterface
@@ -43,10 +43,10 @@ m1=VendorInterface
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>72</x>
-      <y>552</y>
-      <w>288</w>
-      <h>60</h>
+      <x>133</x>
+      <y>646</y>
+      <w>456</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>lt=)-
 m1=AuthenticationInterface
@@ -56,10 +56,10 @@ m1=AuthenticationInterface
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>984</x>
-      <y>516</y>
-      <w>204</w>
-      <h>60</h>
+      <x>1577</x>
+      <y>589</y>
+      <w>323</w>
+      <h>95</h>
     </coordinates>
     <panel_attributes>lt=-()
 m2=REST Endpoint
@@ -69,10 +69,10 @@ m2=REST Endpoint
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>600</x>
-      <y>456</y>
-      <w>396</w>
-      <h>228</h>
+      <x>969</x>
+      <y>494</y>
+      <w>627</w>
+      <h>361</h>
     </coordinates>
     <panel_attributes>RestController
 -
@@ -91,10 +91,10 @@ putFile(File file)</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>336</x>
-      <y>444</y>
-      <w>228</w>
-      <h>168</h>
+      <x>551</x>
+      <y>475</y>
+      <w>361</w>
+      <h>266</h>
     </coordinates>
     <panel_attributes>Main
 -
@@ -104,10 +104,10 @@ mainMagic()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>552</x>
-      <y>528</y>
-      <w>72</w>
-      <h>36</h>
+      <x>893</x>
+      <y>608</y>
+      <w>114</w>
+      <h>57</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>40.0;10.0;10.0;10.0</additional_attributes>
@@ -115,10 +115,10 @@ mainMagic()</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>348</x>
-      <y>600</y>
-      <w>276</w>
-      <h>192</h>
+      <x>570</x>
+      <y>722</y>
+      <w>437</w>
+      <h>304</h>
     </coordinates>
     <panel_attributes>lt=)-
 m1=Pseudo-Schnittstelle Symphony

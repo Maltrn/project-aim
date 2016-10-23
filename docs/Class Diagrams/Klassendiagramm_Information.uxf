@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.2">
-  <zoom_level>14</zoom_level>
+  <zoom_level>18</zoom_level>
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>154</x>
-      <y>266</y>
-      <w>952</w>
-      <h>798</h>
+      <x>504</x>
+      <y>180</y>
+      <w>1224</w>
+      <h>1026</h>
     </coordinates>
     <panel_attributes>Vendor
 --
@@ -17,10 +17,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>182</x>
-      <y>686</y>
-      <w>238</w>
-      <h>84</h>
+      <x>540</x>
+      <y>720</y>
+      <w>306</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>InformationRepository
 -
@@ -30,10 +30,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>308</y>
-      <w>280</w>
-      <h>84</h>
+      <x>1026</x>
+      <y>234</y>
+      <w>360</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>VendorComponent
 -
@@ -43,10 +43,10 @@ Vendor getVendor(User user)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>406</x>
-      <y>728</y>
-      <w>294</w>
-      <h>140</h>
+      <x>828</x>
+      <y>774</y>
+      <w>378</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;100.0;10.0;100.0;80.0;190.0;80.0</additional_attributes>
@@ -54,10 +54,10 @@ Vendor getVendor(User user)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>840</x>
-      <y>532</y>
-      <w>168</w>
-      <h>154</h>
+      <x>1386</x>
+      <y>522</y>
+      <w>216</w>
+      <h>198</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>100.0;90.0;100.0;10.0;10.0;10.0</additional_attributes>
@@ -65,10 +65,10 @@ Vendor getVendor(User user)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>224</y>
-      <w>182</w>
-      <h>112</h>
+      <x>1116</x>
+      <y>126</y>
+      <w>234</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=-()
 m2=vendorInterface
@@ -78,10 +78,10 @@ m2=vendorInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>672</x>
-      <y>826</y>
-      <w>392</w>
-      <h>196</h>
+      <x>1170</x>
+      <y>900</y>
+      <w>504</w>
+      <h>252</h>
     </coordinates>
     <panel_attributes>/Info/
 --
@@ -97,10 +97,10 @@ m2=vendorInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>672</x>
-      <y>658</y>
-      <w>154</w>
-      <h>70</h>
+      <x>1170</x>
+      <y>684</y>
+      <w>198</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>ProductInfo
 --</panel_attributes>
@@ -109,10 +109,10 @@ m2=vendorInterface
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>910</x>
-      <y>658</y>
-      <w>154</w>
-      <h>70</h>
+      <x>1476</x>
+      <y>684</y>
+      <w>198</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>VendorInfo
 --</panel_attributes>
@@ -121,10 +121,10 @@ m2=vendorInterface
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>728</x>
-      <y>714</y>
-      <w>84</w>
-      <h>140</h>
+      <x>1242</x>
+      <y>756</y>
+      <w>108</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 is an</panel_attributes>
@@ -133,10 +133,10 @@ is an</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>966</x>
-      <y>714</y>
-      <w>84</w>
-      <h>140</h>
+      <x>1548</x>
+      <y>756</y>
+      <w>108</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 is an</panel_attributes>
@@ -145,10 +145,10 @@ is an</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>182</x>
-      <y>798</y>
-      <w>210</w>
-      <h>112</h>
+      <x>540</x>
+      <y>864</y>
+      <w>270</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>File
 --
@@ -160,10 +160,10 @@ is an</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>406</x>
-      <y>896</y>
-      <w>210</w>
-      <h>70</h>
+      <x>828</x>
+      <y>990</y>
+      <w>270</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>Document
 --
@@ -173,10 +173,10 @@ is an</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>266</x>
-      <y>896</y>
-      <w>168</w>
-      <h>154</h>
+      <x>648</x>
+      <y>990</y>
+      <w>216</w>
+      <h>198</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 is a</panel_attributes>
@@ -185,10 +185,10 @@ is a</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>602</x>
-      <y>994</y>
-      <w>98</w>
-      <h>42</h>
+      <x>1080</x>
+      <y>1116</y>
+      <w>126</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
@@ -196,10 +196,10 @@ is a</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>406</x>
-      <y>980</y>
-      <w>210</w>
-      <h>70</h>
+      <x>828</x>
+      <y>1098</y>
+      <w>270</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>Picture
 --
@@ -209,10 +209,10 @@ is a</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>294</x>
-      <y>896</y>
-      <w>140</w>
-      <h>84</h>
+      <x>684</x>
+      <y>990</y>
+      <w>180</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;.
 is a</panel_attributes>
@@ -221,10 +221,10 @@ is a</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>602</x>
-      <y>924</y>
-      <w>98</w>
-      <h>42</h>
+      <x>1080</x>
+      <y>1026</y>
+      <w>126</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;50.0;10.0</additional_attributes>
@@ -232,10 +232,10 @@ is a</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>182</x>
-      <y>308</y>
-      <w>238</w>
-      <h>84</h>
+      <x>540</x>
+      <y>234</y>
+      <w>306</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>VendorRepository
 -
@@ -245,10 +245,10 @@ is a</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>560</x>
-      <y>476</y>
-      <w>294</w>
-      <h>140</h>
+      <x>1026</x>
+      <y>450</y>
+      <w>378</w>
+      <h>180</h>
     </coordinates>
     <panel_attributes>Vendor
 -
@@ -261,10 +261,10 @@ files: List&lt;File.id&gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>280</x>
-      <y>378</y>
-      <w>308</w>
-      <h>196</h>
+      <x>666</x>
+      <y>324</y>
+      <w>396</w>
+      <h>252</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;120.0;200.0;120.0</additional_attributes>
@@ -272,10 +272,10 @@ files: List&lt;File.id&gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>728</x>
-      <y>602</y>
-      <w>42</w>
-      <h>84</h>
+      <x>1242</x>
+      <y>612</y>
+      <w>54</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;40.0;10.0;10.0</additional_attributes>
@@ -283,10 +283,10 @@ files: List&lt;File.id&gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>686</x>
-      <y>378</y>
-      <w>42</w>
-      <h>126</h>
+      <x>1188</x>
+      <y>324</y>
+      <w>54</w>
+      <h>162</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
