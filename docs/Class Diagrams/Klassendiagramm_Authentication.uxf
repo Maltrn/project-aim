@@ -27,7 +27,7 @@
 -id: String
 -username: String
 -pw: String
--currentToken: int
+-currentToken: String
 
 
 
@@ -57,7 +57,7 @@
     <panel_attributes>AuthenticationComponent
 -
 User login(String username, String pw)
-Boolean verifyToken(int token)</panel_attributes>
+Boolean verifyToken(String token)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
