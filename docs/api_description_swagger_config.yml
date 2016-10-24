@@ -244,23 +244,26 @@ definitions:
         type: string
       name:
         type: string
-      kurzbeschreibung:
+      shortDescription:
         type: string
-      langbeschreibung:
+      longDescription:
         type: string
-      hauptbildId:
+      mainPic:
         type: string
-      gallerieDateien:
+      fileGallery:
         type: array
-        items: 
+        items:
+          description: ID eines Files
           type: string
-      fakten:
-        description: Fakten Objekt besteht aus keinem oder mehreren Key-Value-Paaren. Key ist der Name des Fakts, Value ist die Beschreibung zu diesem.
-        type: object
+      facts:
+        type: array
+        items:
+          type: object
+          description: Key-Value Paar für den Fakt und die Beschreibung des Fakts
   user:
     type: object
     properties:
-      token:
+      currentToken:
         type: string
       username:
         type: string
