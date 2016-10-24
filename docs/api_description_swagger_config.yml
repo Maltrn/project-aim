@@ -1,0 +1,267 @@
+swagger: '2.0'
+info:
+  description: "Project AIM REST API Documentation"
+  version: "1.0.0"
+  title: Project AIM
+basePath: /
+schemes:
+  - https
+securityDefinitions:
+  user:
+    type: apiKey
+    in: header
+    name: APIKEY
+paths:
+  /login:
+    post:
+      description: Meldet den Benutzer (spezifiziert durch Username und Passwort) am System an und liefert einen User zurück, der für weitere API Funktionen benötigt wird. Außerdem enthält die Response die ID des Anbieter der dem Benutzer zugeordnet ist und alle dessen Produkt IDs.
+      produces:
+        - application/json
+      parameters:
+        - name: body
+          in: body
+          description: Username und Passwort
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
+              password:
+                type: string
+      responses:
+        '200':
+          description: User, Anbieterinfo ID und alle Produktinfo IDs des Anbieters
+          schema:
+            type: object
+            properties: 
+              user:
+                $ref: '#/definitions/user'
+              anbieterInfoId:
+                type: string
+              produktInfoIds:
+                type: array
+                items:
+                  type: string
+        '401':
+          description: Benutzername existiert nicht oder angegebenen Passwort ist falsch
+        '503':
+          description: Login nicht erfolgreich, da keine Anbieter und/oder Produktinformationen abgerufen werden können.
+  /vendor:
+    get:
+      description: Liefert die Anbieterinformationen aller Anbieter
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Liste aller Anbieterinfo Objekte
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/info'
+    put:
+      description: Erstellt eine neue Anbieterinformation oder aktualisiert die vorhandene. Es wird die Anbieterinformation bearbeitet die dem Benutzer zugewiesen ist. Das property id kann einen beliebigen Wert haben und wird nicht ausgewertet.
+      parameters:
+        - name: body
+          in: body
+          description: aktualisiertes oder neues Anbieterinfo Objekt
+          required: true
+          schema:
+            $ref: '#/definitions/info'
+      consumes:
+        - application/json
+      responses:
+        '200':
+          description: Die vorhandene Anbieterinformation wurde aktualisiert.
+        '400':
+          description: Die Anbieterinformation konnte nicht aktuallisert werden.
+        '401':
+          description: Der Token ist ungültig
+      security:
+        - user: []
+  /vendor/{id}:
+    get:
+      description: Liefert die Anbieterinformationen eines bestimmten Anbieters
+      parameters:
+        - name: id
+          in: path
+          description: ID des Anbieters dessen Anbieterinformationen abgefragt werden sollen
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: angefordertes Anbieterinfo Objekt
+          schema:
+            $ref: '#/definitions/info'
+        '404':
+          description: Es wurde kein Anbieter mit der angegebenen ObjectId gefunden
+  /product:
+    get:
+      description: Liefert die Produktinformationen aller Produkte aller Anbieter
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Liste aller Produktinfo Objekte
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/info'
+  /product/{id}:
+    get:
+      description: Liefert die Produktinformationen eines bestimmten Produktes
+      parameters:
+        - name: id
+          in: path
+          description: ID des Produktes dessen Produktinformationen abgefragt werden sollen
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: angefordertes Produktinfo Objekt
+          schema:
+            $ref: '#/definitions/info'
+        '404':
+          description: Es wurde kein Produkt mit der angegebenen ObjectId gefunden
+    put:
+      description: Erstellt eine neue Produktinformation oder aktualisiert die vorhandene.
+      parameters:
+        - name: id
+          in: path
+          description: ID des Produktes dessen Produktinformationen aktualisiert werden sollen
+          required: true
+          type: string
+        - name: body
+          in: body
+          description: aktualisiertes oder neues Produktinfo Objekt
+          required: true
+          schema:
+            $ref: '#/definitions/info'
+      consumes:
+        - application/json
+      responses:
+        '200':
+          description: Die vorhandene Produktinformationen wurde aktualisiert.
+        '400':
+          description: Die Produktinformationen konnte nicht aktuallisert werden.
+        '401':
+          description: Der Token ist ungültig
+      security:
+        - user: []
+  /file:
+    get:
+      description: Liefert alle file IDs des Anbieters
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Liste aller file IDs die dem Anbieter zugeordnet sind
+          schema:
+            type: array
+            items:
+              type: string
+        '401':
+          description: Der Token ist ungültig
+      security:
+        - user: []
+    put:
+      description: Lädt eine neue Datei hoch
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: file
+          in: formData
+          description: Datei die hochgeladen werden soll
+          required: true
+          type: file
+      responses:
+        '200':
+          description: Die Datei wurde erfolgreich hochgeladen
+          schema:
+            type: string
+        '400':
+          description: Ungültiger Dateityp oder Dateigröße
+          schema:
+            type: string
+      security:
+        - user: []
+  /file/{id}:
+    get:
+      description: Liefert eine bestimmte Datei
+      parameters:
+        - name: id
+          in: path
+          description: ID der Datei welche aberufen werden soll
+          required: true
+          type: string
+      produces:
+        - image/jpeg
+        - image/png
+        - image/gif
+        - application/pdf
+      responses:
+        '200':
+          description: angeforderte Datei
+        '404':
+          description: Es wurde keine Datei mit der angegebenen ObjectId gefunden
+        '401':
+          description: Der Token ist ungültig
+    put:
+      description: Überschreibt eine vorhandene Datei. Produkt- und Anbieterinfos die die ursprüngliche Datei verwendet haben, zeigen nach diesem Aufruf auf die neue Datei
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: id
+          in: path
+          description: ID der Datei welche überschrieben werden soll
+          required: true
+          type: string
+        - name: file
+          in: formData
+          description: Datei die hochgeladen werden soll
+          required: true
+          type: file
+      responses:
+        '200':
+          description: Die Datei wurde erfolgreich hochgeladen und die bestehende Datei überschrieben
+          schema:
+            type: string
+        '400':
+          description: Ungültiger Dateityp oder Dateigröße
+          schema:
+            type: string
+      security:
+        - user: []
+definitions:
+  info:
+    type: object
+    properties:
+      id:
+        type: string
+      name:
+        type: string
+      kurzbeschreibung:
+        type: string
+      langbeschreibung:
+        type: string
+      hauptbildId:
+        type: string
+      gallerieDateien:
+        type: array
+        items: 
+          type: string
+      fakten:
+        description: Fakten Objekt besteht aus keinem oder mehreren Key-Value-Paaren. Key ist der Name des Fakts, Value ist die Beschreibung zu diesem.
+        type: object
+  user:
+    type: object
+    properties:
+      token:
+        type: string
+      username:
+        type: string
+        
