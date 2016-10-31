@@ -14,11 +14,9 @@ public class VendorInfo extends Info implements Validatable{
     @Autowired
     Environment env;
 
-public class VendorInfo extends Info {
     public VendorInfo(String name, String shortDescription, String longDescription, Picture mainPic, List<File> fileGallery, List<Fact> facts) {
         super(name, shortDescription, longDescription, mainPic, fileGallery, facts);
     }
-}
 
     @Override
     public void validate() throws ValueDoesntValidateToConfigFileException
