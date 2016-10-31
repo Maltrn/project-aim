@@ -1,4 +1,6 @@
-package de.haw.aim.uploadcenter.persistence;
+package de.haw.aim.uploadcenter;
+
+import de.haw.aim.uploadcenter.persistence.File;
 
 public interface UploadCenterInterface {
     public File uploadFile(File f);
