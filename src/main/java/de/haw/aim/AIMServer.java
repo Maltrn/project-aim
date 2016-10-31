@@ -1,4 +1,4 @@
-package de.otto.edison.example;
+package de.haw.aim;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
@@ -16,12 +16,13 @@ import static org.springframework.boot.SpringApplication.run;
 
 @SpringBootApplication
 @EnableSwagger2
-@ComponentScan(basePackages = {"de.otto.edison"})
-public class ExampleServer {
+@ComponentScan(basePackages = {"de.haw.aim"})
+public class AIMServer {
 
     public static void main(String[] args) {
-        run(ExampleServer.class, args);
+        run(AIMServer.class, args);
     }
+
     @Bean
     public Docket documentation() {
         return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any()).paths(PathSelectors.any()).build().pathMapping("/")
