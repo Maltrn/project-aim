@@ -1,11 +1,11 @@
 package de.haw.aim.rest;
 
+import de.haw.aim.authentication.AuthenticationCompoment;
 import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.rest.dto.LoginRequest;
 import de.haw.aim.rest.dto.LoginResponse;
 import de.haw.aim.rest.dto.UserDTO;
-import de.haw.aim.authentication.AuthenticationInterface;
-import de.haw.aim.vendor.VendorInterface;
+import de.haw.aim.vendor.VendorComponent;
 import de.haw.aim.vendor.persistence.Vendor;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Info;
@@ -24,10 +24,10 @@ import java.util.List;
 public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
 
     @Autowired
-    AuthenticationInterface authenticationInterface;
+    AuthenticationCompoment authenticationCompoment;
 
     @Autowired
-    VendorInterface vendorInterface;
+    VendorComponent vendorComponent;
 
     @Override
     public ResponseEntity<List<Info>> vendorGet() {
@@ -82,13 +82,13 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
     @Override
     public ResponseEntity<UserDTO> loginPost(@ApiParam(value = "Username und Passwort", required = true) @RequestBody LoginRequest loginRequest) {
         // try to get user based on username and password
-        User user = authenticationInterface.login(loginRequest.getUsername(),loginRequest.getPassword());
+        User user = authenticationCompoment.login(loginRequest.getUsername(),loginRequest.getPassword());
         // if user is null do some error handling
         if(user == null){
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         // find vendor for user
-        Vendor usersVendor = vendorInterface.getVendor(user);
+        Vendor usersVendor = vendorComponent.getVendor(user);
 
         // if vendor is null do some error handling
         if(usersVendor == null){

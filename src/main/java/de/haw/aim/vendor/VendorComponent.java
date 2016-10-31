@@ -4,10 +4,9 @@ import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.vendor.persistence.Vendor;
 import de.haw.aim.vendor.persistence.VendorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-/**
- * Created by Rene on 31.10.2016.
- */
+@Component
 public class VendorComponent implements VendorInterface {
 
     private VendorRepository vendorRepository;
