@@ -23,4 +23,14 @@ public abstract class Info {
     @DBRef
     List<File> fileGallery;
     List<Fact> facts;
+
+    public String getShortDescription()
+    {
+        return this.shortDescription;
+    }
+
+    public String getLongDescription()
+    {
+        return this.longDescription;
+    }
 }

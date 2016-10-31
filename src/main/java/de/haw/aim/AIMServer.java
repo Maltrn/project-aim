@@ -42,4 +42,6 @@ public class AIMServer {
     UiConfiguration uiConfig() {
         return new UiConfiguration("validatorUrl");
     }
+
+
 }
