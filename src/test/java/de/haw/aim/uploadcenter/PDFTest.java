@@ -3,6 +3,7 @@ package de.haw.aim.uploadcenter;
 import de.haw.aim.uploadcenter.persistence.File;
 import de.haw.aim.uploadcenter.persistence.PDF;
 import de.haw.aim.uploadcenter.persistence.PDFRepository;
+import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -39,9 +40,13 @@ public class PDFTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testIsValid() throws Exception {
-        Assert.assertTrue(this.file.isValid());
+        this.file.validate();
+    }
+
+    @Test(expectedExceptions = ValueDoesntValidateToConfigFileException.class)
+    public void testIsNotValid() throws Exception {
         this.file = new PDF("dog-1742295_640.jpg");
-        Assert.assertFalse(this.file.isValid());
+        this.file.validate();
     }
 
     @Test
