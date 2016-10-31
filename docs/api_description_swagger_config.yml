@@ -7,7 +7,7 @@ basePath: /
 schemes:
   - https
 securityDefinitions:
-  user:
+  loginResponse:
     type: apiKey
     in: header
     name: APIKEY
@@ -18,8 +18,8 @@ paths:
       produces:
         - application/json
       parameters:
-        - name: body
-          in: body
+        - name: loginRequest
+          in: loginRequest
           description: Username und Passwort
           required: true
           schema:
@@ -35,8 +35,8 @@ paths:
           schema:
             type: object
             properties: 
-              user:
-                $ref: '#/definitions/user'
+              loginResponse:
+                $ref: '#/definitions/loginResponse'
               anbieterInfoId:
                 type: string
               produktInfoIds:
@@ -62,8 +62,8 @@ paths:
     put:
       description: Erstellt eine neue Anbieterinformation oder aktualisiert die vorhandene. Es wird die Anbieterinformation bearbeitet die dem Benutzer zugewiesen ist. Das property id kann einen beliebigen Wert haben und wird nicht ausgewertet.
       parameters:
-        - name: body
-          in: body
+        - name: loginRequest
+          in: loginRequest
           description: aktualisiertes oder neues Anbieterinfo Objekt
           required: true
           schema:
@@ -78,7 +78,7 @@ paths:
         '401':
           description: Der Token ist ungültig
       security:
-        - user: []
+        - loginResponse: []
   /vendor/{id}:
     get:
       description: Liefert die Anbieterinformationen eines bestimmten Anbieters
@@ -135,8 +135,8 @@ paths:
           description: ID des Produktes dessen Produktinformationen aktualisiert werden sollen
           required: true
           type: string
-        - name: body
-          in: body
+        - name: loginRequest
+          in: loginRequest
           description: aktualisiertes oder neues Produktinfo Objekt
           required: true
           schema:
@@ -151,7 +151,7 @@ paths:
         '401':
           description: Der Token ist ungültig
       security:
-        - user: []
+        - loginResponse: []
   /file:
     get:
       description: Liefert alle file IDs des Anbieters
@@ -167,7 +167,7 @@ paths:
         '401':
           description: Der Token ist ungültig
       security:
-        - user: []
+        - loginResponse: []
     put:
       description: Lädt eine neue Datei hoch
       consumes:
@@ -188,7 +188,7 @@ paths:
           schema:
             type: string
       security:
-        - user: []
+        - loginResponse: []
   /file/{id}:
     get:
       description: Liefert eine bestimmte Datei
@@ -235,7 +235,7 @@ paths:
           schema:
             type: string
       security:
-        - user: []
+        - loginResponse: []
 definitions:
   info:
     type: object
@@ -260,7 +260,7 @@ definitions:
         items:
           type: object
           description: Key-Value Paar für den Fakt und die Beschreibung des Fakts
-  user:
+  loginResponse:
     type: object
     properties:
       currentToken:

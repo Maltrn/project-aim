@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<body>
+<loginRequest>
 
                 <ul class="nav navbar-nav" th:with="url=${#httpServletRequest.getRequestURI()}" th:fragment="main">
                     <li th:classappend="${url.endsWith('/status') ? 'active' : ''}"><a th:href="@{/internal/status}">Status</a></li>
                 </ul>
 
-</body>
+</loginRequest>
 </html>

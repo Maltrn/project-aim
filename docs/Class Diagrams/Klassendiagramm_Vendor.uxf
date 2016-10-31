@@ -37,7 +37,7 @@
     </coordinates>
     <panel_attributes>VendorComponent
 -
-Vendor getVendor(User user)</panel_attributes>
+Vendor getVendor(User loginResponse)</panel_attributes>
     <additional_attributes/>
   </element>
   <element>

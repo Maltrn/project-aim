@@ -1,6 +1,6 @@
 # Anbieter Informations Management (A.I.M)
 [![Build Status](https://travis-ci.org/meandor/project-aim.svg?branch=master)](https://travis-ci.org/meandor/project-aim)
-[![Dependency Status](https://www.versioneye.com/user/projects/57e69f9abd6fa600512e1351/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57e69f9abd6fa600512e1351)
+[![Dependency Status](https://www.versioneye.com/loginResponse/projects/57e69f9abd6fa600512e1351/badge.svg?style=flat-square)](https://www.versioneye.com/loginResponse/projects/57e69f9abd6fa600512e1351)
 
 This microservice can add and maintain additional data to pbx provider and their products.
 
