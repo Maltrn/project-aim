@@ -37,4 +37,14 @@ public abstract class Info {
     public String getId() {
         return id;
     }
+
+    public String getShortDescription()
+    {
+        return this.shortDescription;
+    }
+
+    public String getLongDescription()
+    {
+        return this.longDescription;
+    }
 }
