@@ -23,7 +23,7 @@ public class PDFTest extends AbstractTestNGSpringContextTests {
     public void setUp() throws Exception {
         this.file = new PDF("pdf-sample.pdf");
         this.repo.deleteAll();
-        repo.insert((PDF) this.file);
+        repo.save((PDF) this.file);
     }
 
     @Test
