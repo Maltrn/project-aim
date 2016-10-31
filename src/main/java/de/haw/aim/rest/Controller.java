@@ -5,6 +5,8 @@ import de.haw.aim.rest.dto.LoginRequest;
 import de.haw.aim.rest.dto.LoginResponse;
 import de.haw.aim.rest.dto.UserDTO;
 import de.haw.aim.authentication.AuthenticationInterface;
+import de.haw.aim.vendor.VendorInterface;
+import de.haw.aim.vendor.persistence.Vendor;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Info;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,9 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
 
     @Autowired
     AuthenticationInterface authenticationInterface;
+
+    @Autowired
+    VendorInterface vendorInterface;
 
     @Override
     public ResponseEntity<List<Info>> vendorGet() {
@@ -80,15 +85,24 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
         User user = authenticationInterface.login(loginRequest.getUsername(),loginRequest.getPassword());
         // if user is null do some error handling
         if(user == null){
-            // TODO error handling please
-            return new ResponseEntity<UserDTO>(HttpStatus.OK,new UserDTO());
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        // prepare UserDTO for ResponseEntity
+        // find vendor for user
+        Vendor usersVendor = vendorInterface.getVendor(user);
 
+        // if vendor is null do some error handling
+        if(usersVendor == null){
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+
+        // prepare LoginResponse for UserDTO based on user
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setCurrentToken(user.getCurrentToken());
         loginResponse.setUsername(user.getUsername());
 
-        return null;
+        // prepare UserDTO for ResponseEntity
+        UserDTO userDto = new UserDTO(loginResponse, usersVendor.getVendorInfoId(), usersVendor.getProdcutInfoIds());
+
+        return new ResponseEntity<>(userDto,HttpStatus.OK);
     }
 }

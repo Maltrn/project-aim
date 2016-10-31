@@ -17,13 +17,13 @@ import java.util.Objects;
 public class UserDTO {
   private LoginResponse loginResponse = null;
 
-  private String anbieterInfoId = null;
+  private String vendorInfoId = null;
 
   private List<String> produktInfoIds = new ArrayList<>();
 
-  public UserDTO(LoginResponse loginResponse, String anbieterInfoId, List<String> produktInfoIds) {
+  public UserDTO(LoginResponse loginResponse, String vendorInfoId, List<String> produktInfoIds) {
     this.loginResponse = loginResponse;
-    this.anbieterInfoId = anbieterInfoId;
+    this.vendorInfoId = vendorInfoId;
     this.produktInfoIds = produktInfoIds;
   }
 
@@ -46,21 +46,21 @@ public class UserDTO {
   }
 
   public UserDTO anbieterInfoId(String anbieterInfoId) {
-    this.anbieterInfoId = anbieterInfoId;
+    this.vendorInfoId = anbieterInfoId;
     return this;
   }
 
    /**
-   * Get anbieterInfoId
-   * @return anbieterInfoId
+   * Get vendorInfoId
+   * @return vendorInfoId
   **/
   @ApiModelProperty(value = "")
-  public String getAnbieterInfoId() {
-    return anbieterInfoId;
+  public String getVendorInfoId() {
+    return vendorInfoId;
   }
 
-  public void setAnbieterInfoId(String anbieterInfoId) {
-    this.anbieterInfoId = anbieterInfoId;
+  public void setVendorInfoId(String vendorInfoId) {
+    this.vendorInfoId = vendorInfoId;
   }
 
   public UserDTO produktInfoIds(List<String> produktInfoIds) {
@@ -97,13 +97,13 @@ public class UserDTO {
     }
     UserDTO userDTO = (UserDTO) o;
     return Objects.equals(this.loginResponse, userDTO.loginResponse) &&
-        Objects.equals(this.anbieterInfoId, userDTO.anbieterInfoId) &&
+        Objects.equals(this.vendorInfoId, userDTO.vendorInfoId) &&
         Objects.equals(this.produktInfoIds, userDTO.produktInfoIds);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(loginResponse, anbieterInfoId, produktInfoIds);
+    return Objects.hash(loginResponse, vendorInfoId, produktInfoIds);
   }
 
   @Override
@@ -112,7 +112,7 @@ public class UserDTO {
     sb.append("class UserDTO {\n");
     
     sb.append("    loginResponse: ").append(toIndentedString(loginResponse)).append("\n");
-    sb.append("    anbieterInfoId: ").append(toIndentedString(anbieterInfoId)).append("\n");
+    sb.append("    vendorInfoId: ").append(toIndentedString(vendorInfoId)).append("\n");
     sb.append("    produktInfoIds: ").append(toIndentedString(produktInfoIds)).append("\n");
     sb.append("}");
     return sb.toString();

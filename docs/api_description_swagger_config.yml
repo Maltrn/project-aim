@@ -37,7 +37,7 @@ paths:
             properties: 
               loginResponse:
                 $ref: '#/definitions/loginResponse'
-              anbieterInfoId:
+              vendorInfoId:
                 type: string
               produktInfoIds:
                 type: array
