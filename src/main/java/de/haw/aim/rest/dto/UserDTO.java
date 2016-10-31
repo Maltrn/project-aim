@@ -19,7 +19,13 @@ public class UserDTO {
 
   private String anbieterInfoId = null;
 
-  private List<String> produktInfoIds = new ArrayList<String>();
+  private List<String> produktInfoIds = new ArrayList<>();
+
+  public UserDTO(LoginResponse loginResponse, String anbieterInfoId, List<String> produktInfoIds) {
+    this.loginResponse = loginResponse;
+    this.anbieterInfoId = anbieterInfoId;
+    this.produktInfoIds = produktInfoIds;
+  }
 
   public UserDTO user(LoginResponse loginResponse) {
     this.loginResponse = loginResponse;

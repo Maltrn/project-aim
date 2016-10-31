@@ -1,9 +1,14 @@
 package de.haw.aim.rest;
 
+import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.rest.dto.LoginRequest;
+import de.haw.aim.rest.dto.LoginResponse;
 import de.haw.aim.rest.dto.UserDTO;
+import de.haw.aim.authentication.AuthenticationInterface;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Info;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +18,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-/**
- * Created by Rene on 31.10.2016.
- */
 @RestController
 public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
+
+    @Autowired
+    AuthenticationInterface authenticationInterface;
+
     @Override
     public ResponseEntity<List<Info>> vendorGet() {
         return null;
@@ -70,6 +76,19 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
 
     @Override
     public ResponseEntity<UserDTO> loginPost(@ApiParam(value = "Username und Passwort", required = true) @RequestBody LoginRequest loginRequest) {
+        // try to get user based on username and password
+        User user = authenticationInterface.login(loginRequest.getUsername(),loginRequest.getPassword());
+        // if user is null do some error handling
+        if(user == null){
+            // TODO error handling please
+            return new ResponseEntity<UserDTO>(HttpStatus.OK,new UserDTO());
+        }
+        // prepare UserDTO for ResponseEntity
+
+        LoginResponse loginResponse = new LoginResponse();
+        loginResponse.setCurrentToken(user.getCurrentToken());
+        loginResponse.setUsername(user.getUsername());
+
         return null;
     }
 }
