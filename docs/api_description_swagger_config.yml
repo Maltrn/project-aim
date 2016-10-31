@@ -1,5 +1,5 @@
 swagger: '2.0'
-info:
+infoDTO:
   description: "Project AIM REST API Documentation"
   version: "1.0.0"
   title: Project AIM
@@ -58,7 +58,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/info'
+              $ref: '#/definitions/infoDTO'
     put:
       description: Erstellt eine neue Anbieterinformation oder aktualisiert die vorhandene. Es wird die Anbieterinformation bearbeitet die dem Benutzer zugewiesen ist. Das property id kann einen beliebigen Wert haben und wird nicht ausgewertet.
       parameters:
@@ -67,7 +67,7 @@ paths:
           description: aktualisiertes oder neues Anbieterinfo Objekt
           required: true
           schema:
-            $ref: '#/definitions/info'
+            $ref: '#/definitions/infoDTO'
       consumes:
         - application/json
       responses:
@@ -94,7 +94,7 @@ paths:
         '200':
           description: angefordertes Anbieterinfo Objekt
           schema:
-            $ref: '#/definitions/info'
+            $ref: '#/definitions/infoDTO'
         '404':
           description: Es wurde kein Anbieter mit der angegebenen ObjectId gefunden
   /product:
@@ -108,7 +108,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/info'
+              $ref: '#/definitions/infoDTO'
   /product/{id}:
     get:
       description: Liefert die Produktinformationen eines bestimmten Produktes
@@ -124,7 +124,7 @@ paths:
         '200':
           description: angefordertes Produktinfo Objekt
           schema:
-            $ref: '#/definitions/info'
+            $ref: '#/definitions/infoDTO'
         '404':
           description: Es wurde kein Produkt mit der angegebenen ObjectId gefunden
     put:
@@ -140,7 +140,7 @@ paths:
           description: aktualisiertes oder neues Produktinfo Objekt
           required: true
           schema:
-            $ref: '#/definitions/info'
+            $ref: '#/definitions/infoDTO'
       consumes:
         - application/json
       responses:
@@ -237,7 +237,7 @@ paths:
       security:
         - loginResponse: []
 definitions:
-  info:
+  infoDTO:
     type: object
     properties:
       id:

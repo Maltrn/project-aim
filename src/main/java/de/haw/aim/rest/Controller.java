@@ -1,7 +1,7 @@
 package de.haw.aim.rest;
 
 import de.haw.aim.rest.dto.LoginRequest;
-import de.haw.aim.rest.dto.InlineResponse200;
+import de.haw.aim.rest.dto.UserDTO;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Info;
 import org.springframework.http.ResponseEntity;
@@ -67,7 +67,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
     }
 
     @Override
-    public ResponseEntity<InlineResponse200> loginPost(@ApiParam(value = "Username und Passwort", required = true) @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<UserDTO> loginPost(@ApiParam(value = "Username und Passwort", required = true) @RequestBody LoginRequest loginRequest) {
         return null;
     }
 }

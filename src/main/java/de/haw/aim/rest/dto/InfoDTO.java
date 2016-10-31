@@ -1,22 +1,20 @@
 package de.haw.aim.rest.dto;
 
-import java.util.Objects;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 
 
 /**
- * Info
+ * InfoDTO
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-10-31T08:42:18.273Z")
 
-public class Info   {
+public class InfoDTO {
   private String id = null;
 
   private String name = null;
@@ -31,7 +29,7 @@ public class Info   {
 
   private List<Object> facts = new ArrayList<Object>();
 
-  public Info id(String id) {
+  public InfoDTO id(String id) {
     this.id = id;
     return this;
   }
@@ -49,7 +47,7 @@ public class Info   {
     this.id = id;
   }
 
-  public Info name(String name) {
+  public InfoDTO name(String name) {
     this.name = name;
     return this;
   }
@@ -67,7 +65,7 @@ public class Info   {
     this.name = name;
   }
 
-  public Info shortDescription(String shortDescription) {
+  public InfoDTO shortDescription(String shortDescription) {
     this.shortDescription = shortDescription;
     return this;
   }
@@ -85,7 +83,7 @@ public class Info   {
     this.shortDescription = shortDescription;
   }
 
-  public Info longDescription(String longDescription) {
+  public InfoDTO longDescription(String longDescription) {
     this.longDescription = longDescription;
     return this;
   }
@@ -103,7 +101,7 @@ public class Info   {
     this.longDescription = longDescription;
   }
 
-  public Info mainPic(String mainPic) {
+  public InfoDTO mainPic(String mainPic) {
     this.mainPic = mainPic;
     return this;
   }
@@ -121,12 +119,12 @@ public class Info   {
     this.mainPic = mainPic;
   }
 
-  public Info fileGallery(List<String> fileGallery) {
+  public InfoDTO fileGallery(List<String> fileGallery) {
     this.fileGallery = fileGallery;
     return this;
   }
 
-  public Info addFileGalleryItem(String fileGalleryItem) {
+  public InfoDTO addFileGalleryItem(String fileGalleryItem) {
     this.fileGallery.add(fileGalleryItem);
     return this;
   }
@@ -144,12 +142,12 @@ public class Info   {
     this.fileGallery = fileGallery;
   }
 
-  public Info facts(List<Object> facts) {
+  public InfoDTO facts(List<Object> facts) {
     this.facts = facts;
     return this;
   }
 
-  public Info addFactsItem(Object factsItem) {
+  public InfoDTO addFactsItem(Object factsItem) {
     this.facts.add(factsItem);
     return this;
   }
@@ -176,14 +174,14 @@ public class Info   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Info info = (Info) o;
-    return Objects.equals(this.id, info.id) &&
-        Objects.equals(this.name, info.name) &&
-        Objects.equals(this.shortDescription, info.shortDescription) &&
-        Objects.equals(this.longDescription, info.longDescription) &&
-        Objects.equals(this.mainPic, info.mainPic) &&
-        Objects.equals(this.fileGallery, info.fileGallery) &&
-        Objects.equals(this.facts, info.facts);
+    InfoDTO infoDTO = (InfoDTO) o;
+    return Objects.equals(this.id, infoDTO.id) &&
+        Objects.equals(this.name, infoDTO.name) &&
+        Objects.equals(this.shortDescription, infoDTO.shortDescription) &&
+        Objects.equals(this.longDescription, infoDTO.longDescription) &&
+        Objects.equals(this.mainPic, infoDTO.mainPic) &&
+        Objects.equals(this.fileGallery, infoDTO.fileGallery) &&
+        Objects.equals(this.facts, infoDTO.facts);
   }
 
   @Override
@@ -194,7 +192,7 @@ public class Info   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Info {\n");
+    sb.append("class InfoDTO {\n");
     
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");

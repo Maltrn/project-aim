@@ -10,18 +10,18 @@ import java.util.Objects;
 
 
 /**
- * InlineResponse200
+ * UserDTO
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-10-31T08:42:18.273Z")
 
-public class InlineResponse200   {
+public class UserDTO {
   private LoginResponse loginResponse = null;
 
   private String anbieterInfoId = null;
 
   private List<String> produktInfoIds = new ArrayList<String>();
 
-  public InlineResponse200 user(LoginResponse loginResponse) {
+  public UserDTO user(LoginResponse loginResponse) {
     this.loginResponse = loginResponse;
     return this;
   }
@@ -39,7 +39,7 @@ public class InlineResponse200   {
     this.loginResponse = loginResponse;
   }
 
-  public InlineResponse200 anbieterInfoId(String anbieterInfoId) {
+  public UserDTO anbieterInfoId(String anbieterInfoId) {
     this.anbieterInfoId = anbieterInfoId;
     return this;
   }
@@ -57,12 +57,12 @@ public class InlineResponse200   {
     this.anbieterInfoId = anbieterInfoId;
   }
 
-  public InlineResponse200 produktInfoIds(List<String> produktInfoIds) {
+  public UserDTO produktInfoIds(List<String> produktInfoIds) {
     this.produktInfoIds = produktInfoIds;
     return this;
   }
 
-  public InlineResponse200 addProduktInfoIdsItem(String produktInfoIdsItem) {
+  public UserDTO addProduktInfoIdsItem(String produktInfoIdsItem) {
     this.produktInfoIds.add(produktInfoIdsItem);
     return this;
   }
@@ -89,10 +89,10 @@ public class InlineResponse200   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse200 inlineResponse200 = (InlineResponse200) o;
-    return Objects.equals(this.loginResponse, inlineResponse200.loginResponse) &&
-        Objects.equals(this.anbieterInfoId, inlineResponse200.anbieterInfoId) &&
-        Objects.equals(this.produktInfoIds, inlineResponse200.produktInfoIds);
+    UserDTO userDTO = (UserDTO) o;
+    return Objects.equals(this.loginResponse, userDTO.loginResponse) &&
+        Objects.equals(this.anbieterInfoId, userDTO.anbieterInfoId) &&
+        Objects.equals(this.produktInfoIds, userDTO.produktInfoIds);
   }
 
   @Override
@@ -103,7 +103,7 @@ public class InlineResponse200   {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class InlineResponse200 {\n");
+    sb.append("class UserDTO {\n");
     
     sb.append("    loginResponse: ").append(toIndentedString(loginResponse)).append("\n");
     sb.append("    anbieterInfoId: ").append(toIndentedString(anbieterInfoId)).append("\n");
