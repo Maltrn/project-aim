@@ -1,6 +1,10 @@
 package de.haw.aim.rest.dto;
 
+import de.haw.aim.validator.Validatable;
+import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import io.swagger.annotations.ApiModelProperty;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +18,11 @@ import java.util.Objects;
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-10-31T08:42:18.273Z")
 
-public class InfoDTO {
+public class InfoDTO implements Validatable {
+
+  @Autowired
+  private Environment env;
+
   private String id = null;
 
   private String name = null;
@@ -215,5 +223,20 @@ public class InfoDTO {
     }
     return o.toString().replace("\n", "\n    ");
   }
+
+  @Override
+  public void validate() throws ValueDoesntValidateToConfigFileException
+  {
+    if (this.getShortDescription().length() > Integer.valueOf(env.getProperty("info.shortdescription.maxlength")))
+    {
+      throw new ValueDoesntValidateToConfigFileException("short description is too long");
+    }
+    if (this.getLongDescription().length() > Integer.valueOf(env.getProperty("info.longdescription.maxlength")))
+    {
+      throw new ValueDoesntValidateToConfigFileException("long description is too long");
+    }
+
+  }
+
 }
 

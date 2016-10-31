@@ -2,9 +2,11 @@ package de.haw.aim.rest;
 
 import de.haw.aim.authentication.AuthenticationCompoment;
 import de.haw.aim.authentication.persistence.User;
+import de.haw.aim.rest.dto.InfoDTO;
 import de.haw.aim.rest.dto.LoginRequest;
 import de.haw.aim.rest.dto.LoginResponse;
 import de.haw.aim.rest.dto.UserDTO;
+import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import de.haw.aim.vendor.VendorComponent;
 import de.haw.aim.vendor.persistence.Vendor;
 import io.swagger.annotations.ApiParam;
@@ -30,17 +32,18 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
     VendorComponent vendorComponent;
 
     @Override
-    public ResponseEntity<List<Info>> vendorGet() {
+    public ResponseEntity<List<InfoDTO>> vendorGet() {
         return null;
     }
 
     @Override
-    public ResponseEntity<Info> vendorIdGet(@ApiParam(value = "ID des Anbieters dessen Anbieterinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id) {
+    public ResponseEntity<InfoDTO> vendorIdGet(@ApiParam(value = "ID des Anbieters dessen Anbieterinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> vendorPut(@ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody Info body) {
+    public ResponseEntity<Void> vendorPut(@ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO infodto) throws ValueDoesntValidateToConfigFileException {
+        infodto.validate();
         return null;
     }
 

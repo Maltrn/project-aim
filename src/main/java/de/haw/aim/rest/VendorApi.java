@@ -1,5 +1,7 @@
 package de.haw.aim.rest;
 
+import de.haw.aim.rest.dto.InfoDTO;
+import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,23 +16,23 @@ import java.util.List;
 @Api(value = "vendor", description = "the vendor API")
 public interface VendorApi {
 
-    @ApiOperation(value = "", notes = "Liefert die Anbieterinformationen aller Anbieter", response = Info.class, responseContainer = "List", tags={  })
+    @ApiOperation(value = "", notes = "Liefert die Anbieterinformationen aller Anbieter", response = InfoDTO.class, responseContainer = "List", tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "Liste aller Anbieterinfo Objekte", response = Info.class) })
+        @ApiResponse(code = 200, message = "Liste aller Anbieterinfo Objekte", response = InfoDTO.class) })
     @RequestMapping(value = "/vendor",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Info>> vendorGet();
+    ResponseEntity<List<InfoDTO>> vendorGet();
 
 
-    @ApiOperation(value = "", notes = "Liefert die Anbieterinformationen eines bestimmten Anbieters", response = Info.class, tags={  })
+    @ApiOperation(value = "", notes = "Liefert die Anbieterinformationen eines bestimmten Anbieters", response = InfoDTO.class, tags={  })
     @ApiResponses(value = { 
-        @ApiResponse(code = 200, message = "angefordertes Anbieterinfo Objekt", response = Info.class),
-        @ApiResponse(code = 404, message = "Es wurde kein Anbieter mit der angegebenen ObjectId gefunden", response = Info.class) })
+        @ApiResponse(code = 200, message = "angefordertes Anbieterinfo Objekt", response = InfoDTO.class),
+        @ApiResponse(code = 404, message = "Es wurde kein Anbieter mit der angegebenen ObjectId gefunden", response = InfoDTO.class) })
     @RequestMapping(value = "/vendor/{id}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<Info> vendorIdGet(
+    ResponseEntity<InfoDTO> vendorIdGet(
             @ApiParam(value = "ID des Anbieters dessen Anbieterinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id
 
 
@@ -49,8 +51,8 @@ public interface VendorApi {
         method = RequestMethod.PUT)
     ResponseEntity<Void> vendorPut(
 
-            @ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody Info body
+            @ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO body
 
-    );
+    ) throws ValueDoesntValidateToConfigFileException;
 
 }
