@@ -10,6 +10,8 @@ public abstract class File {
 
     protected String name;
 
+    protected String type;
+
     protected java.io.File file;
 
     public File() {
@@ -37,5 +39,13 @@ public abstract class File {
 
     public void setFile(java.io.File file) {
         this.file = file;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
