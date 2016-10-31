@@ -8,7 +8,7 @@
         </encoder>
     </appender>
 
-    <root level="infoDTO">
+    <root level="INFO">
         <appender-ref ref="console"/>
     </root>
 
