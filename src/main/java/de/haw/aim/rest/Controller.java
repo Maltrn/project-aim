@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 /**
  * Created by Rene on 31.10.2016.
  */
+@RestController
 public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
     @Override
     public ResponseEntity<List<Info>> vendorGet() {
