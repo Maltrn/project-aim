@@ -11,14 +11,14 @@ public class PDF implements File {
 
     protected String name;
 
-    protected java.io.File file;
+    protected String location;
 
     public PDF() {
     }
 
     public PDF(String filepath) {
-        this.file = new java.io.File(filepath);
-        this.name = this.file.getName().substring(0, this.file.getName().length() - 4);
+        this.location = filepath;
+        this.name = this.location.substring(0, this.location.length() - 4);
     }
 
     public String getId() {
@@ -37,17 +37,17 @@ public class PDF implements File {
         this.name = name;
     }
 
-    public java.io.File getFile() {
-        return file;
+    public String getLocation() {
+        return location;
     }
 
-    public void setFile(java.io.File file) {
-        this.file = file;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override
     public boolean isValid() {
-        return this.getFile().getName().endsWith(".pdf");
+        return this.getLocation().endsWith(".pdf");
     }
 
     @Override
@@ -55,7 +55,7 @@ public class PDF implements File {
         return "PDF{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", file=" + file +
+                ", location=" + location +
                 '}';
     }
 }

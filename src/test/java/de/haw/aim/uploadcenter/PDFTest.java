@@ -34,7 +34,7 @@ public class PDFTest extends AbstractTestNGSpringContextTests {
     public void testPDFNotEmpty() throws Exception {
         Assert.assertNotNull(this.file);
         Assert.assertEquals(this.file.getName(), "pdf-sample");
-        Assert.assertEquals(this.file.getFile().getPath(), "pdf-sample.pdf");
+        Assert.assertEquals(this.file.getLocation(), "pdf-sample.pdf");
     }
 
     @Test

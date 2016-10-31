@@ -14,23 +14,26 @@ import java.util.List;
 @Document
 public abstract class Info {
     @Id
-    String id;
-    String name;
-    String shortDescription;
-    String longDescription;
+    private String id;
+    private String name;
+    private String shortDescription;
+    private String longDescription;
     @DBRef
-    Picture mainPic;
+    private Picture mainPic;
     @DBRef
-    List<File> fileGallery;
-    List<Fact> facts;
+    private List<File> fileGallery;
+    private List<Fact> facts;
 
-    public String getShortDescription()
-    {
-        return this.shortDescription;
+    Info(String name, String shortDescription, String longDescription, Picture mainPic, List<File> fileGallery, List<Fact> facts) {
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
+        this.mainPic = mainPic;
+        this.fileGallery = fileGallery;
+        this.facts = facts;
     }
 
-    public String getLongDescription()
-    {
-        return this.longDescription;
+    public String getId() {
+        return id;
     }
 }

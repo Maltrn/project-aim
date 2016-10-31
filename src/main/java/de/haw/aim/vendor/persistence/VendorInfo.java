@@ -1,5 +1,8 @@
 package de.haw.aim.vendor.persistence;
 
+import de.haw.aim.uploadcenter.persistence.File;
+
+import java.util.List;
 import de.haw.aim.validator.Validatable;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,12 @@ public class VendorInfo extends Info implements Validatable{
 
     @Autowired
     Environment env;
+
+public class VendorInfo extends Info {
+    public VendorInfo(String name, String shortDescription, String longDescription, Picture mainPic, List<File> fileGallery, List<Fact> facts) {
+        super(name, shortDescription, longDescription, mainPic, fileGallery, facts);
+    }
+}
 
     @Override
     public void validate() throws ValueDoesntValidateToConfigFileException
