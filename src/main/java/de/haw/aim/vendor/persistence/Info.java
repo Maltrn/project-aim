@@ -2,6 +2,7 @@ package de.haw.aim.vendor.persistence;
 
 
 import de.haw.aim.uploadcenter.persistence.File;
+import de.haw.aim.uploadcenter.persistence.Picture;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
