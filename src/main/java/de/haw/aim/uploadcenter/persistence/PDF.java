@@ -49,4 +49,13 @@ public class PDF implements File {
     public boolean isValid() {
         return this.getFile().getName().endsWith(".pdf");
     }
+
+    @Override
+    public String toString() {
+        return "PDF{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", file=" + file +
+                '}';
+    }
 }

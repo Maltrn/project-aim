@@ -8,6 +8,7 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:" + springBootVersion)
+        classpath("com.sourcemuse.gradle.plugin:gradle-mongo-plugin:0.13.0")
     }
 }
 
@@ -19,6 +20,7 @@ repositories {
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'mongo'
 
 idea {
     project {
@@ -38,6 +40,9 @@ dependencies {
     compile("com.fasterxml.jackson.core:jackson-core:2.6.4")
     compile("com.fasterxml.jackson.core:jackson-annotations:2.6.4")
     compile("com.fasterxml.jackson.core:jackson-databind:2.6.4")
+    testCompile("de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.50.3")
+    testCompile("org.springframework.boot:spring-boot-test:1.4.1.RELEASE")
+    testCompile("org.springframework:spring-test:4.3.3.RELEASE")
 }
 
 artifacts {
