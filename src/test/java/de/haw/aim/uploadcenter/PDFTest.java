@@ -12,7 +12,7 @@ public class PDFTest {
 
     @BeforeMethod
     public void setUp() throws Exception {
-        this.file = new PDF();
+        this.file = new PDF("pdf-sample.pdf");
     }
 
     @Test
@@ -22,9 +22,15 @@ public class PDFTest {
 
     @Test
     public void testPDFNotEmpty() throws Exception {
-        this.file = new PDF("pdf-sample.pdf", "test pdf");
         Assert.assertNotNull(this.file);
-        Assert.assertEquals(this.file.getName(), "test pdf");
+        Assert.assertEquals(this.file.getName(), "pdf-sample");
         Assert.assertEquals(this.file.getFile().getPath(), "pdf-sample.pdf");
+    }
+
+    @Test
+    public void testIsValid() throws Exception {
+        Assert.assertTrue(this.file.isValid());
+        this.file = new PDF("dog-1742295_640.jpg");
+        Assert.assertFalse(this.file.isValid());
     }
 }

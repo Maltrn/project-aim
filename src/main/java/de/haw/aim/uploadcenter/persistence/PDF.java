@@ -16,9 +16,9 @@ public class PDF implements File {
     public PDF() {
     }
 
-    public PDF(String filepath, String name) {
+    public PDF(String filepath) {
         this.file = new java.io.File(filepath);
-        this.name = name;
+        this.name = this.file.getName().substring(0, this.file.getName().length() - 4);
     }
 
     public String getId() {
@@ -47,6 +47,6 @@ public class PDF implements File {
 
     @Override
     public boolean isValid() {
-        return false;
+        return this.getFile().getName().endsWith(".pdf");
     }
 }
