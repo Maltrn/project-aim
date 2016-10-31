@@ -50,8 +50,17 @@ public class Picture implements File {
     }
 
     @Override
+    public String toString() {
+        return "Picture{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", location=" + location +
+                '}';
+    }
+
+    @Override
     public void validate() throws ValueDoesntValidateToConfigFileException {
-        if (!this.location.endsWith(".pdf")) {
+        if (!(this.location.endsWith(".png") || this.location.endsWith(".jpg"))) {
             throw new ValueDoesntValidateToConfigFileException("Wrong file ending");
         }
     }
