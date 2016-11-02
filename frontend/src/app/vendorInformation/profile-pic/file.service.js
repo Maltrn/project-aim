@@ -9,21 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 /**
- * Created by Malte Scheller on 31.10.2016.
+ * Created by Maltron on 02.11.2016.
  */
-var core_1 = require('@angular/core');
-var VendorInfoMain = (function () {
-    function VendorInfoMain() {
-        this.vendorName = 'Firmenname';
+var core_1 = require("@angular/core");
+require('rxjs/add/operator/toPromise');
+var FileService = (function () {
+    function FileService() {
+        this.picIdArray = ["pic1, pic2, pic3"];
     }
-    VendorInfoMain = __decorate([
-        core_1.Component({
-            selector: 'vendor-info-main',
-            templateUrl: 'app/vendorInformation/main/vendor-info-main.component.html'
-        }), 
+    /*Returns an Array of Picture-IDs*/
+    FileService.prototype.getPictureIds = function () {
+        return this.picIdArray;
+    };
+    FileService = __decorate([
+        core_1.Injectable(), 
         __metadata('design:paramtypes', [])
-    ], VendorInfoMain);
-    return VendorInfoMain;
+    ], FileService);
+    return FileService;
 }());
-exports.VendorInfoMain = VendorInfoMain;
-//# sourceMappingURL=vendor-info-main.component.js.map
+exports.FileService = FileService;
+//# sourceMappingURL=file.service.js.map

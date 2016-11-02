@@ -12,15 +12,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by Malte Scheller on 31.10.2016.
  */
 var core_1 = require('@angular/core');
+var file_service_1 = require("./file.service");
 var VendorProfilePic = (function () {
-    function VendorProfilePic() {
+    function VendorProfilePic(fileService) {
+        this.fileService = fileService;
+        this.title = 'Profil-Bild';
     }
+    VendorProfilePic.prototype.chooseProfilePic = function () {
+    };
     VendorProfilePic = __decorate([
         core_1.Component({
             selector: 'vendor-info-profile-pic',
             templateUrl: 'app/vendorInformation/profile-pic/vendor-profile-pic.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [file_service_1.FileService])
     ], VendorProfilePic);
     return VendorProfilePic;
 }());
