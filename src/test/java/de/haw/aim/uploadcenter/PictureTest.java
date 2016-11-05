@@ -50,6 +50,6 @@ public class PictureTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testDBInsertion() throws Exception {
         Picture dbEntity = this.repo.findAll().get(0);
-        Assert.assertEquals(dbEntity.getName(), "dog-1742295_640.jpg");
+        Assert.assertEquals(dbEntity.getLocation(), "dog-1742295_640.jpg");
     }
 }
