@@ -22,9 +22,7 @@ public class AuthenticationFilter implements Filter {
     @Override
     public void doFilter(ServletRequest req, ServletResponse res,
                          FilterChain chain) throws IOException, ServletException {
-
-        System.out.println("inside filter");
-
+        //System.out.println("inside filter");
 
         HttpServletRequest httpRequest = (HttpServletRequest) req;
         if(isPublicApiCall(httpRequest)) {
@@ -61,14 +59,15 @@ public class AuthenticationFilter implements Filter {
     private boolean isPublicApiCall(HttpServletRequest req) {
         String method = req.getMethod();
         String uri = req.getRequestURI().toString();
-        System.out.println(method);
-        System.out.println(uri);
-        return method.equals("GET") &&
+        //System.out.println(method);
+        //System.out.println(uri);
+        return (method.equals("POST") && uri.matches("^.*/login$")) ||
+               (method.equals("GET") &&
                 (uri.matches("^.*/file/[a-z0-9]*$") ||
                  uri.matches("^.*/vendor$") ||
                  uri.matches("^.*/vendor/[a-z0-9]*$") ||
                  uri.matches("^.*/product$") ||
-                 uri.matches("^.*/product/[a-z0-9]*$"));
+                 uri.matches("^.*/product/[a-z0-9]*$")));
     }
 
 }
