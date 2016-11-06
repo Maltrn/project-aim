@@ -16,9 +16,9 @@ To test everything run: ````./bin/go test````
 If you want to build the jar with all dependencies do: ````./bin/go bootRepackage````
 The jar will then be under: ````./build/libs/projecttwomicroservice.jar````
 
-The server will be available under: <http://localhost:8080>
+The server will be available under: <http://localhost:8080/api>
 
-Swagger will be available under: <http://localhost:8080/swagger-ui.html>
+Swagger will be available under: <http://localhost:8080/api/swagger-ui.html>
 
 ## Experts
 * frontend (Dustin Malte)
