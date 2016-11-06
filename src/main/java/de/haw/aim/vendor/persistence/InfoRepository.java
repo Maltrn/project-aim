@@ -1,7 +1,6 @@
 package de.haw.aim.vendor.persistence;
 
-/**
- * Created by Rene on 31.10.2016.
- */
-public interface InfoRepository {
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+public interface InfoRepository extends MongoRepository<Info, String> {
 }

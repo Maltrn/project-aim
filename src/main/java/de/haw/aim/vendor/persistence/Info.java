@@ -15,17 +15,21 @@ import java.util.List;
 @Document
 public abstract class Info {
     @Id
-    private String id;
-    private String name;
-    private String shortDescription;
-    private String longDescription;
+    protected String id;
+    protected String name;
+    protected String shortDescription;
+    protected String longDescription;
     @DBRef
-    private Picture mainPic;
-    @DBRef
-    private List<File> fileGallery;
-    private List<Fact> facts;
+    protected Picture mainPic;
+    protected List<File> fileGallery;
+    protected List<Fact> facts;
 
-    Info(String name, String shortDescription, String longDescription, Picture mainPic, List<File> fileGallery, List<Fact> facts) {
+    public Info()
+    {
+
+    }
+
+    public Info(String name, String shortDescription, String longDescription, Picture mainPic, List<File> fileGallery, List<Fact> facts) {
         this.name = name;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
@@ -38,13 +42,20 @@ public abstract class Info {
         return id;
     }
 
-    public String getShortDescription()
-    {
-        return this.shortDescription;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Info)) return false;
+
+        Info info = (Info) o;
+
+        return id.equals(info.id);
+
     }
 
-    public String getLongDescription()
-    {
-        return this.longDescription;
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }

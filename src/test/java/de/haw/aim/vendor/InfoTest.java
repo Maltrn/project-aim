@@ -1,13 +1,29 @@
 package de.haw.aim.vendor;
 
 import de.haw.aim.uploadcenter.persistence.File;
-import de.haw.aim.uploadcenter.persistence.PDF;
+import de.haw.aim.uploadcenter.persistence.Picture;
+import de.haw.aim.uploadcenter.persistence.PictureRepository;
+import de.haw.aim.vendor.persistence.Fact;
+import de.haw.aim.vendor.persistence.InfoRepository;
 import de.haw.aim.vendor.persistence.ProductInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class InfoTest {
+import java.util.ArrayList;
+import java.util.List;
+
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class InfoTest extends AbstractTestNGSpringContextTests {
+
+    @Autowired
+    InfoRepository infoRepository;
+    @Autowired
+    PictureRepository pictureRepository;
 
     @BeforeMethod
     public void setUp() throws Exception
@@ -18,6 +34,27 @@ public class InfoTest {
     @Test
     public void tryToSaveInfos()
     {
-//        ProductInfo productInfo = new ProductInfo("Produkt");
+        Picture picture = new Picture("dog-1742295_640.jpg");
+        pictureRepository.save(picture);
+
+        List<File> fileGallery = new ArrayList<>();
+        fileGallery.add(picture);
+
+        List<Fact> facts = new ArrayList<>();
+        facts.add(new Fact("Beschreibung", "Beste Beschreibung"));
+
+        String productName      = "Produkt";
+        String shortDescription = "Kurzbeschreibung";
+        String longDescription  = "Langbeschreibung";
+
+        ProductInfo productInfo = new ProductInfo(productName,
+                                                  shortDescription,
+                                                  longDescription,
+                                                  picture,
+                                                  fileGallery,
+                                                  facts
+                                                  );
+
+        Assert.assertEquals(productInfo,infoRepository.save(productInfo));
     }
 }
