@@ -33,10 +33,10 @@ public class AuthenticationCompoment implements AuthenticationInterface{
             }
 
             retVal.setCurrentToken(token);
-            retVal = userRepository.save(retVal);
+            return userRepository.save(retVal);
         }
 
-        return retVal;
+        return null;
     }
 
     @Override
