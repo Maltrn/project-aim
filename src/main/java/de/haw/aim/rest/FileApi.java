@@ -69,7 +69,7 @@ public interface FileApi {
             @ApiResponse(code = 200, message = "Die Datei wurde erfolgreich hochgeladen", response = String.class),
             @ApiResponse(code = 400, message = "Ungültiger Dateityp oder Dateigröße", response = String.class)})
     @RequestMapping(value = "/file",
-            consumes = {"application/x-www-form-urlencoded"},
+            consumes = {"multipart/form-data"},
             method = RequestMethod.PUT)
     ResponseEntity<String> filePut(
 
