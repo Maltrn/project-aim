@@ -9,9 +9,10 @@ import org.springframework.core.env.Environment;
 
 
 @Configuration
-@ComponentScan(basePackages = { "de.haw.aim.*" })
+@ComponentScan(basePackages = {"de.haw.aim.*"})
 @PropertySource("classpath:config.properties")
-public class AppConfig {
+public class AppConfig
+{
 
     @Autowired
     private Environment env;

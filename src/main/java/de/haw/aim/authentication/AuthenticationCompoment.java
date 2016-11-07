@@ -10,21 +10,23 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 @Component
-public class AuthenticationCompoment implements AuthenticationInterface{
+public class AuthenticationCompoment implements AuthenticationInterface
+{
 
     @Autowired
     UserRepository userRepository;
 
     @Override
-    public User login(String username, String pw) {
+    public User login(String username, String pw)
+    {
         // try to get user from DB
         User retVal = userRepository.findByUsername(username);
 
         // if user found check credentials
-        if(retVal != null)
+        if (retVal != null)
         {
             // invalid password leads to null return
-            if(!retVal.checkPW(pw))
+            if (!retVal.checkPW(pw))
                 return null;
 
             // otherwise login call is valid and a token needs to be generated for the user
@@ -33,7 +35,7 @@ public class AuthenticationCompoment implements AuthenticationInterface{
 
             // as long we can find the currently generated token in the database, we have to generate
             // a new one
-            while(userRepository.findByCurrentToken(token) != null)
+            while (userRepository.findByCurrentToken(token) != null)
             {
                 token = new BigInteger(130, random).toString(32);
             }

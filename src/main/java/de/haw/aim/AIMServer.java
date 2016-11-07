@@ -17,19 +17,23 @@ import static org.springframework.boot.SpringApplication.run;
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan(basePackages = {"de.haw.aim"})
-public class AIMServer {
+public class AIMServer
+{
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         run(AIMServer.class, args);
     }
 
     @Bean
-    public Docket documentation() {
+    public Docket documentation()
+    {
         return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any()).paths(PathSelectors.any()).build().pathMapping("/")
                 .apiInfo(metadata());
     }
 
-    private ApiInfo metadata() {
+    private ApiInfo metadata()
+    {
         return new ApiInfoBuilder()
                 .title("AIM REST-API")
                 .description("Dokumentation der REST-API aus dem Projekt AIM")
@@ -39,7 +43,8 @@ public class AIMServer {
     }
 
     @Bean
-    UiConfiguration uiConfig() {
+    UiConfiguration uiConfig()
+    {
         return new UiConfiguration("validatorUrl");
     }
 

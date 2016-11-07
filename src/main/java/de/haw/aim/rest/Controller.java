@@ -23,7 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RestController
-public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
+public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
+{
 
     @Autowired
     AuthenticationCompoment authenticationCompoment;
@@ -32,69 +33,82 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
     VendorComponent vendorComponent;
 
     @Override
-    public ResponseEntity<List<InfoDTO>> vendorGet() {
+    public ResponseEntity<List<InfoDTO>> vendorGet()
+    {
         return null;
     }
 
     @Override
-    public ResponseEntity<InfoDTO> vendorIdGet(@ApiParam(value = "ID des Anbieters dessen Anbieterinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id) {
+    public ResponseEntity<InfoDTO> vendorIdGet(@ApiParam(value = "ID des Anbieters dessen Anbieterinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id)
+    {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> vendorPut(@ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO infodto) throws ValueDoesntValidateToConfigFileException {
+    public ResponseEntity<Void> vendorPut(@ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO infodto) throws ValueDoesntValidateToConfigFileException
+    {
         infodto.validate();
         return null;
     }
 
     @Override
-    public ResponseEntity<List<Info>> productGet() {
+    public ResponseEntity<List<Info>> productGet()
+    {
         return null;
     }
 
     @Override
-    public ResponseEntity<Info> productIdGet(@ApiParam(value = "ID des Produktes dessen Produktinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id) {
+    public ResponseEntity<Info> productIdGet(@ApiParam(value = "ID des Produktes dessen Produktinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id)
+    {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> productIdPut(@ApiParam(value = "ID des Produktes dessen Produktinformationen aktualisiert werden sollen", required = true) @PathVariable("id") String id, @ApiParam(value = "aktualisiertes oder neues Produktinfo Objekt", required = true) @RequestBody Info body) {
+    public ResponseEntity<Void> productIdPut(@ApiParam(value = "ID des Produktes dessen Produktinformationen aktualisiert werden sollen", required = true) @PathVariable("id") String id, @ApiParam(value = "aktualisiertes oder neues Produktinfo Objekt", required = true) @RequestBody Info body)
+    {
         return null;
     }
 
     @Override
-    public ResponseEntity<List<String>> fileGet() {
+    public ResponseEntity<List<String>> fileGet()
+    {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> fileIdGet(@ApiParam(value = "ID der Datei welche aberufen werden soll", required = true) @PathVariable("id") String id) {
+    public ResponseEntity<Void> fileIdGet(@ApiParam(value = "ID der Datei welche aberufen werden soll", required = true) @PathVariable("id") String id)
+    {
         return null;
     }
 
     @Override
-    public ResponseEntity<String> fileIdPut(@ApiParam(value = "ID der Datei welche überschrieben werden soll", required = true) @PathVariable("id") String id, @ApiParam(value = "file detail") @RequestPart("file") MultipartFile file) {
+    public ResponseEntity<String> fileIdPut(@ApiParam(value = "ID der Datei welche überschrieben werden soll", required = true) @PathVariable("id") String id, @ApiParam(value = "file detail") @RequestPart("file") MultipartFile file)
+    {
         return null;
     }
 
     @Override
-    public ResponseEntity<String> filePut(@ApiParam(value = "file detail") @RequestPart("file") MultipartFile file) {
+    public ResponseEntity<String> filePut(@ApiParam(value = "file detail") @RequestPart("file") MultipartFile file)
+    {
         return null;
     }
 
     @Override
-    public ResponseEntity<UserDTO> loginPost(@ApiParam(value = "Username und Passwort", required = true) @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<UserDTO> loginPost(@ApiParam(value = "Username und Passwort", required = true) @RequestBody LoginRequest loginRequest)
+    {
         // try to get user based on username and password
-        User user = authenticationCompoment.login(loginRequest.getUsername(),loginRequest.getPassword());
+        User user = authenticationCompoment.login(loginRequest.getUsername(), loginRequest.getPassword());
         // if user is null do some error handling
-        if(user == null){
+        if (user == null)
+        {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
         // find vendor for user
         Vendor usersVendor = vendorComponent.getVendor(user);
 
         // if vendor is null do some error handling
-        if(usersVendor == null){
+        if (usersVendor == null)
+        {
             return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
         }
 
@@ -106,7 +120,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi{
         // prepare UserDTO for ResponseEntity
         UserDTO userDto = new UserDTO(loginResponse, usersVendor.getVendorInfoId(), usersVendor.getProdcutInfoIds());
 
-        return new ResponseEntity<>(userDto,HttpStatus.OK);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
 }

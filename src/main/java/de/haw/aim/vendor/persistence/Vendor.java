@@ -13,7 +13,8 @@ import java.util.List;
  * Created by Rene on 31.10.2016.
  */
 @Document
-public class Vendor {
+public class Vendor
+{
     @DBRef
     private VendorInfo vendorInfo;
     @DBRef
@@ -23,17 +24,21 @@ public class Vendor {
     @DBRef
     private List<File> files;
 
-    public List<User> getUsers() {
+    public List<User> getUsers()
+    {
         return users;
     }
 
-    public String getVendorInfoId() {
+    public String getVendorInfoId()
+    {
         return vendorInfo.getId();
     }
 
-    public List<String> getProdcutInfoIds(){
+    public List<String> getProdcutInfoIds()
+    {
         List<String> retVal = new ArrayList<>();
-        for (ProductInfo p : productInfos ){
+        for (ProductInfo p : productInfos)
+        {
             retVal.add(p.getId());
         }
         return retVal;

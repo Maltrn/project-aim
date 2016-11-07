@@ -10,10 +10,12 @@ import javax.servlet.Filter;
  * Created by kk on 06.11.16.
  */
 @Configuration
-public class AuthConfig {
+public class AuthConfig
+{
 
     @Bean
-    public FilterRegistrationBean authenticationFilterRegistration() {
+    public FilterRegistrationBean authenticationFilterRegistration()
+    {
 
         FilterRegistrationBean registration = new FilterRegistrationBean();
         registration.setFilter(new AuthenticationFilter());

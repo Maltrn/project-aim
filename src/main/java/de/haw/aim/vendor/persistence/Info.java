@@ -13,7 +13,8 @@ import java.util.List;
  * Created by Rene on 31.10.2016.
  */
 @Document
-public abstract class Info {
+public abstract class Info
+{
     @Id
     protected String id;
     protected String name;
@@ -29,7 +30,8 @@ public abstract class Info {
 
     }
 
-    public Info(String name, String shortDescription, String longDescription, Picture mainPic, List<File> fileGallery, List<Fact> facts) {
+    public Info(String name, String shortDescription, String longDescription, Picture mainPic, List<File> fileGallery, List<Fact> facts)
+    {
         this.name = name;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
@@ -38,13 +40,15 @@ public abstract class Info {
         this.facts = facts;
     }
 
-    public String getId() {
+    public String getId()
+    {
         return id;
     }
 
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (!(o instanceof Info)) return false;
 
@@ -55,7 +59,8 @@ public abstract class Info {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return id.hashCode();
     }
 }

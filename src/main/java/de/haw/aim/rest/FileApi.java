@@ -13,7 +13,8 @@ import java.util.List;
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-10-31T08:42:18.273Z")
 
 @Api(value = "file", description = "the file API")
-public interface FileApi {
+public interface FileApi
+{
 
     @ApiOperation(value = "", notes = "Liefert alle file IDs des Anbieters", response = String.class, responseContainer = "List", authorizations = {
             @Authorization(value = "user")

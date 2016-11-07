@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ControllerExceptionHandler
 {
 
-    @ExceptionHandler(value = { ValueDoesntValidateToConfigFileException.class })
+    @ExceptionHandler(value = {ValueDoesntValidateToConfigFileException.class})
     public ResponseEntity<String> invalidValue(Exception ex)
     {
-        return new ResponseEntity<>(ex.getMessage(),HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 }

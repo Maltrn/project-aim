@@ -7,7 +7,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * Created by Rene on 31.10.2016.
  */
 @Document
-public class User {
+public class User
+{
     @Id
     protected String id;
     protected String username;
@@ -22,19 +23,22 @@ public class User {
     public User(String username, String pw)
     {
         this.username = username;
-        this.pw       = pw;
+        this.pw = pw;
     }
 
 
-    public String getUsername() {
+    public String getUsername()
+    {
         return username;
     }
 
-    public String getCurrentToken() {
+    public String getCurrentToken()
+    {
         return currentToken;
     }
 
-    public void setCurrentToken(String currentToken) {
+    public void setCurrentToken(String currentToken)
+    {
         this.currentToken = currentToken;
     }
 
@@ -45,7 +49,8 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o)
+    {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -56,7 +61,8 @@ public class User {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return id.hashCode();
     }
 }
