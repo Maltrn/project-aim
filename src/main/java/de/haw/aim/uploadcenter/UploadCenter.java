@@ -3,6 +3,8 @@ package de.haw.aim.uploadcenter;
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
 import de.haw.aim.uploadcenter.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -10,9 +12,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@Component
 public class UploadCenter implements IUploadCenter
 {
-    private Path fileUploadFolder;
+    @Autowired
+    private Environment environment;
 
     @Autowired
     private PDFRepository pdfRepository;
@@ -20,9 +24,9 @@ public class UploadCenter implements IUploadCenter
     @Autowired
     private PictureRepository pictureRepository;
 
-    public UploadCenter(String fileUploadFolder)
+    public UploadCenter()
     {
-        this.fileUploadFolder = Paths.get(fileUploadFolder);
+
     }
 
     @Override
@@ -33,8 +37,10 @@ public class UploadCenter implements IUploadCenter
             throw new StorageException("Failed to store empty file " + f.getOriginalFilename());
         }
 
-        Files.copy(f.getInputStream(), this.fileUploadFolder.resolve(f.getOriginalFilename()));
-        String fileLocation = this.fileUploadFolder.resolve(f.getOriginalFilename()).toString();
+        Path uploadFolderLocation = Paths.get(this.environment.getProperty("uploadcenter.fileslocation"));
+
+        Files.copy(f.getInputStream(), uploadFolderLocation.resolve(f.getOriginalFilename()));
+        String fileLocation = uploadFolderLocation.resolve(f.getOriginalFilename()).toString();
         File result;
 
         if (f.getOriginalFilename().endsWith(".pdf"))
