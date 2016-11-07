@@ -32,4 +32,10 @@ public class UploadCenter implements IUploadCenter
     {
         return false;
     }
+
+    @Override
+    public File findById(String id)
+    {
+        return null;
+    }
 }

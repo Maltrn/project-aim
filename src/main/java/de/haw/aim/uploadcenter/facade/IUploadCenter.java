@@ -12,5 +12,7 @@ public interface IUploadCenter
 
     public boolean checkForExistence(String id);
 
+    public File findById(String id);
+
 
 }
