@@ -73,8 +73,16 @@ public class PDF implements File
     @Override
     public void validate() throws ValueDoesntValidateToConfigFileException
     {
-        String filetype = env.getProperty("uploadcenter.pdf.filetypes");
-        if (!this.location.endsWith(filetype))
+        String fileTypes;
+        try
+        {
+            fileTypes = env.getProperty("uploadcenter.pdf.filetypes");
+        } catch (NullPointerException e)
+        {
+            fileTypes = "pdf";
+        }
+
+        if (!this.location.endsWith("." + fileTypes))
         {
             throw new ValueDoesntValidateToConfigFileException("Wrong file ending");
         }
