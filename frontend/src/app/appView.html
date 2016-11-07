@@ -16,6 +16,7 @@
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav side-nav">
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/']"><img src="img/logo.jpg" class="logo"></a></li>
                 <li [routerLinkActive]="['active']"><a [routerLink]="['/upload-center']"><i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Dateiverwaltung</a></li>
                 <li><a href="#"><i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Anbieter</a></li>
                 <li><a href="#"><i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Produkte</a></li>

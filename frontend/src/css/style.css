@@ -226,3 +226,9 @@ ul.alert-dropdown {
 .panel-yellow > a:hover {
     color: #df8a13;
 }
+
+.logo {
+    max-width: 100% !important;
+    height: auto;
+    display: block;
+}
