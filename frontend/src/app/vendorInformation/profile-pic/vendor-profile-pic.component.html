@@ -1,7 +1,12 @@
-<p>{{title}}</p>
-<p><img src="../mock-files/cat.jpg" class="img-rounded" alt="profile pic" width="250" height="250"></p>
+<div class="panel panel-default">
+    <div class="panel-heading"><b>{{title}}</b></div>
+    <div class="panel-body">
+        <p>{{selectedPicture}}</p>
+        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-folder-open"></span> Auswahl
+        </button>
+    </div>
+</div>
 
-<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-folder-open"></span>      Auswahl</button>
 
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
@@ -14,7 +19,9 @@
                 <h4 class="modal-title">Modal Header</h4>
             </div>
             <div class="modal-body">
-                <p>Some text in the modal.</p>
+                <ul class="list-group" *ngFor="let id of pictureIds" (click)="onSelect(id)">
+                    <li class="list-group-item">{{id}}</li>
+                </ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -22,13 +22,16 @@ var vendor_info_main_component_1 = require("./vendorInformation/main/vendor-info
 var vendor_short_discription_component_1 = require("./vendorInformation/short-description/vendor-short-discription.component");
 var vendor_profile_pic_component_1 = require("./vendorInformation/profile-pic/vendor-profile-pic.component");
 var vendor_sort_files_component_1 = require("./vendorInformation/sort-files/vendor-sort-files.component");
+var file_service_1 = require("./vendorInformation/profile-pic/file.service");
+var http_1 = require("@angular/http");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule,
-                forms_1.FormsModule],
+                forms_1.FormsModule,
+                http_1.HttpModule],
             declarations: [app_component_1.AppComponent,
                 vendor_info_main_component_1.VendorInfoMain,
                 add_files_component_1.VendorAddFiles,
@@ -38,7 +41,8 @@ var AppModule = (function () {
                 vendor_profile_pic_component_1.VendorProfilePic,
                 vendor_sort_files_component_1.VendorSortFiles
             ],
-            bootstrap: [app_component_1.AppComponent]
+            bootstrap: [app_component_1.AppComponent],
+            providers: [file_service_1.FileService]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);

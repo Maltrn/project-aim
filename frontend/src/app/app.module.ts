@@ -6,7 +6,6 @@ import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {FormsModule} from "@angular/forms";
 
-
 import {AppComponent} from "./appView/app.component";
 import {VendorAddFiles} from "./vendorInformation/add-files/add-files.component";
 import {VendorDetailedDiscription} from "./vendorInformation/detailed-description/vendor-detailed-discription.component";
@@ -15,10 +14,13 @@ import {VendorInfoMain} from "./vendorInformation/main/vendor-info-main.componen
 import {VendorShortDiscription} from "./vendorInformation/short-description/vendor-short-discription.component";
 import {VendorProfilePic} from "./vendorInformation/profile-pic/vendor-profile-pic.component";
 import {VendorSortFiles} from "./vendorInformation/sort-files/vendor-sort-files.component";
+import {FileService} from "./vendorInformation/profile-pic/file.service";
+import {HttpModule} from "@angular/http";
 
 @NgModule({
     imports:      [ BrowserModule,
-                    FormsModule ],
+                    FormsModule,
+                    HttpModule],
     declarations: [ AppComponent,
                     VendorInfoMain,
                     VendorAddFiles,
@@ -28,7 +30,9 @@ import {VendorSortFiles} from "./vendorInformation/sort-files/vendor-sort-files.
                     VendorProfilePic,
                     VendorSortFiles
                     ],
-    bootstrap:    [ AppComponent ]
+    bootstrap:    [ AppComponent ],
+    providers:    [ FileService ]
+
 })
 
 export class AppModule { }
