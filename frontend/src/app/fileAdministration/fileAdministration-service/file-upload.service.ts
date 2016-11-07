@@ -1,4 +1,4 @@
-import { Datei } from 'datei.interface'
+import {Datei} from "./datei.interface";
 
 export class FileUploadService {
 
@@ -9,12 +9,12 @@ export class FileUploadService {
         {name: "witzigerLurch.gif", date: "23.08.2016", size: 48},
         {name: "Bauplan.pdf", date: "09.09.2015", size: 128}];
 
-    getFiles() : Datei[] {
+    getFiles(): Datei[] {
         return this.dateien;
     }
 
-    fillFilesFromBackend() : void {
-        
+    fillFilesFromBackend(): void {
+
     }
 
 

@@ -1,11 +1,6 @@
-/**
- * Created by Maltron on 31.10.2016.
- */
-
-import { NgModule }      from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
 import {FormsModule} from "@angular/forms";
-
 import {AppComponent} from "./appView/app.component";
 import {VendorAddFiles} from "./vendorInformation/add-files/add-files.component";
 import {VendorDetailedDiscription} from "./vendorInformation/detailed-description/vendor-detailed-discription.component";
@@ -17,32 +12,35 @@ import {VendorSortFiles} from "./vendorInformation/sort-files/vendor-sort-files.
 import {FileService} from "./vendorInformation/profile-pic/file.service";
 import {HttpModule} from "@angular/http";
 import {UploadFileComponent} from "./fileAdministration/file-upload/file-upload.component";
-import {FileDatatableComponent} from "./fileAdministration/file-datatable/file-datatable.component"
+import {FileDatatableComponent} from "./fileAdministration/file-datatable/file-datatable.component";
+import {InMemoryWebApiModule} from "angular-in-memory-web-api";
+import {InMemoryDataService} from "./vendorInformation/backend-semu/in-memory-data.service";
 
 // Imports for loading & configuring the in-memory web api
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }  from './vendorInformation/backend-semu/in-memory-data.service';
 
 
 @NgModule({
-    imports:      [ BrowserModule,
-                    FormsModule,
-                    HttpModule,
-                    InMemoryWebApiModule.forRoot(InMemoryDataService)],
-    declarations: [ AppComponent,
-                    VendorInfoMain,
-                    VendorAddFiles,
-                    VendorDetailedDiscription,
-                    VendorShortDiscription,
-                    VendorNotes,
-                    VendorProfilePic,
-                    VendorSortFiles,
-                    UploadFileComponent,
-                    FileDatatableComponent,
-                    ],
-    bootstrap:    [ AppComponent ],
-    providers:    [ FileService ]
-
+    imports: [
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        InMemoryWebApiModule.forRoot(InMemoryDataService)
+    ],
+    declarations: [
+        AppComponent,
+        VendorInfoMain,
+        VendorAddFiles,
+        VendorDetailedDiscription,
+        VendorShortDiscription,
+        VendorNotes,
+        VendorProfilePic,
+        VendorSortFiles,
+        UploadFileComponent,
+        FileDatatableComponent,
+    ],
+    bootstrap: [AppComponent],
+    providers: [FileService]
 })
 
-export class AppModule { }
+export class AppModule {
+}
