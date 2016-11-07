@@ -12,11 +12,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by Dustin Spallek on 07.11.2016.
  */
 var core_1 = require('@angular/core');
-var file_upload_service_1 = require('../file-upload-service/file-upload.service');
+var file_upload_service_1 = require('../fileAdministration-service/file-upload.service');
 var UploadFileComponent = (function () {
     function UploadFileComponent(fileUploadService) {
         this.title = "File Upload Center";
-        this.filenames = fileUploadService.getFileNames();
     }
     UploadFileComponent = __decorate([
         core_1.Component({

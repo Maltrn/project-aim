@@ -17,10 +17,12 @@ import {VendorSortFiles} from "./vendorInformation/sort-files/vendor-sort-files.
 import {FileService} from "./vendorInformation/profile-pic/file.service";
 import {HttpModule} from "@angular/http";
 import {UploadFileComponent} from "./fileAdministration/file-upload/file-upload.component";
+import {FileDatatableComponent} from "./fileAdministration/file-datatable/file-datatable.component"
 
 // Imports for loading & configuring the in-memory web api
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './vendorInformation/backend-semu/in-memory-data.service';
+
 
 @NgModule({
     imports:      [ BrowserModule,
@@ -36,6 +38,7 @@ import { InMemoryDataService }  from './vendorInformation/backend-semu/in-memory
                     VendorProfilePic,
                     VendorSortFiles,
                     UploadFileComponent,
+                    FileDatatableComponent,
                     ],
     bootstrap:    [ AppComponent ],
     providers:    [ FileService ]

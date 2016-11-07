@@ -25,6 +25,7 @@ var vendor_sort_files_component_1 = require("./vendorInformation/sort-files/vend
 var file_service_1 = require("./vendorInformation/profile-pic/file.service");
 var http_1 = require("@angular/http");
 var file_upload_component_1 = require("./fileAdministration/file-upload/file-upload.component");
+var file_datatable_component_1 = require("./fileAdministration/file-datatable/file-datatable.component");
 // Imports for loading & configuring the in-memory web api
 var angular_in_memory_web_api_1 = require('angular-in-memory-web-api');
 var in_memory_data_service_1 = require('./vendorInformation/backend-semu/in-memory-data.service');
@@ -46,6 +47,7 @@ var AppModule = (function () {
                 vendor_profile_pic_component_1.VendorProfilePic,
                 vendor_sort_files_component_1.VendorSortFiles,
                 file_upload_component_1.UploadFileComponent,
+                file_datatable_component_1.FileDatatableComponent,
             ],
             bootstrap: [app_component_1.AppComponent],
             providers: [file_service_1.FileService]
