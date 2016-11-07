@@ -24,6 +24,7 @@ var vendor_profile_pic_component_1 = require("./vendorInformation/profile-pic/ve
 var vendor_sort_files_component_1 = require("./vendorInformation/sort-files/vendor-sort-files.component");
 var file_service_1 = require("./vendorInformation/profile-pic/file.service");
 var http_1 = require("@angular/http");
+var file_upload_component_1 = require("./fileAdministration/file-upload/file-upload.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -39,7 +40,8 @@ var AppModule = (function () {
                 vendor_short_discription_component_1.VendorShortDiscription,
                 vendor_notes_1.VendorNotes,
                 vendor_profile_pic_component_1.VendorProfilePic,
-                vendor_sort_files_component_1.VendorSortFiles
+                vendor_sort_files_component_1.VendorSortFiles,
+                file_upload_component_1.UploadFileComponent,
             ],
             bootstrap: [app_component_1.AppComponent],
             providers: [file_service_1.FileService]

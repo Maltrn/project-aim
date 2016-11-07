@@ -16,6 +16,7 @@ import {VendorProfilePic} from "./vendorInformation/profile-pic/vendor-profile-p
 import {VendorSortFiles} from "./vendorInformation/sort-files/vendor-sort-files.component";
 import {FileService} from "./vendorInformation/profile-pic/file.service";
 import {HttpModule} from "@angular/http";
+import {UploadFileComponent} from "./fileAdministration/file-upload/file-upload.component";
 
 @NgModule({
     imports:      [ BrowserModule,
@@ -28,7 +29,8 @@ import {HttpModule} from "@angular/http";
                     VendorShortDiscription,
                     VendorNotes,
                     VendorProfilePic,
-                    VendorSortFiles
+                    VendorSortFiles,
+                    UploadFileComponent,
                     ],
     bootstrap:    [ AppComponent ],
     providers:    [ FileService ]
