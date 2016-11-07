@@ -12,10 +12,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by Malte Scheller on 31.10.2016.
  */
 var core_1 = require('@angular/core');
-var file_service_1 = require("./file.service");
+var vendor_service_1 = require("../vendor.service");
 var VendorProfilePic = (function () {
-    function VendorProfilePic(fileService) {
-        this.fileService = fileService;
+    function VendorProfilePic(vendorService) {
+        this.vendorService = vendorService;
         this.title = 'Profil-Bild';
         this.pictureIds = [];
         this.selectedPicture = 'Noch keine Bild gewählt';
@@ -25,7 +25,7 @@ var VendorProfilePic = (function () {
     };
     VendorProfilePic.prototype.getFileIDs = function () {
         var _this = this;
-        this.fileService.getPictureIdsOff().then(function (recIds) { return _this.sortID(recIds); });
+        this.vendorService.getFileIds().then(function (recIds) { return _this.sortID(recIds); });
     };
     VendorProfilePic.prototype.sortID = function (fileIds) {
         var accu = [];
@@ -49,9 +49,10 @@ var VendorProfilePic = (function () {
             templateUrl: 'app/vendorInformation/profile-pic/vendor-profile-pic.component.html',
             styleUrls: []
         }), 
-        __metadata('design:paramtypes', [file_service_1.FileService])
+        __metadata('design:paramtypes', [(typeof (_a = typeof vendor_service_1.VendorService !== 'undefined' && vendor_service_1.VendorService) === 'function' && _a) || Object])
     ], VendorProfilePic);
     return VendorProfilePic;
+    var _a;
 }());
 exports.VendorProfilePic = VendorProfilePic;
 //# sourceMappingURL=vendor-profile-pic.component.js.map
