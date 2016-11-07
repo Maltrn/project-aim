@@ -2,6 +2,7 @@ package de.haw.aim.uploadcenter;
 
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
 import de.haw.aim.uploadcenter.persistence.File;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Created by Jana Mareike on 07.11.2016.
@@ -9,10 +10,11 @@ import de.haw.aim.uploadcenter.persistence.File;
 public class UploadCenter implements IUploadCenter
 {
     @Override
-    public File uploadFile(File f)
+    public File uploadFile(MultipartFile f)
     {
+        File result = null;
 
-        return null;
+        return result;
     }
 
     @Override
