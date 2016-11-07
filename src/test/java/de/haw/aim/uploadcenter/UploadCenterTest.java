@@ -19,6 +19,7 @@ import java.nio.file.Paths;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UploadCenterTest extends AbstractTestNGSpringContextTests {
+
     @Autowired
     private UploadCenter uploadCenter;
 
