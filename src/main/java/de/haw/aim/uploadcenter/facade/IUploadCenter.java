@@ -1,8 +1,8 @@
-package de.haw.aim.uploadcenter;
+package de.haw.aim.uploadcenter.facade;
 
 import de.haw.aim.uploadcenter.persistence.File;
 
-public interface UploadCenterInterface
+public interface IUploadCenter
 {
     public File uploadFile(File f);
 
