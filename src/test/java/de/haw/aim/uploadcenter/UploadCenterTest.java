@@ -49,6 +49,23 @@ public class UploadCenterTest extends AbstractTestNGSpringContextTests {
         Assert.isTrue(pictureRepository.exists(persistedFile.getId()));
     }
 
+    @Test(expectedExceptions = StorageException.class)
+    public void testUploadIllegalFileType() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("foobar", "foobar.svg", "image/svg", "nonsensecontent".getBytes());
+        this.uploadCenter.uploadFile(file);
+    }
+
+    @Test(expectedExceptions = StorageException.class)
+    public void testUploadEmptyFile() throws Exception {
+        MockMultipartFile emptyFile = new MockMultipartFile(" ", new byte[0]);
+        this.uploadCenter.uploadFile(emptyFile);
+    }
+
+    @Test(expectedExceptions = StorageException.class)
+    public void testUploadNull() throws Exception {
+        this.uploadCenter.uploadFile(null);
+    }
+
     @Test
     public void testReplaceFile() throws Exception {
 //        MockMultipartFile file = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());

@@ -36,8 +36,8 @@ public class UploadCenter implements IUploadCenter {
 
     @Override
     public UploadedFile uploadFile(MultipartFile f) throws StorageException {
-        if (f.isEmpty()) {
-            throw new StorageException("Failed to store empty file " + f.getOriginalFilename());
+        if (f == null || f.isEmpty()) {
+            throw new StorageException("Failed to store empty file");
         }
 
         try {
