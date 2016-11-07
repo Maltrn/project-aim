@@ -12,13 +12,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 
 public class AuthenticationFilter implements Filter
 {
 
     @Autowired
-    private AuthenticationCompoment authenticationCompoment;
+    AuthenticationCompoment authenticationCompoment;
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res,
@@ -37,19 +40,19 @@ public class AuthenticationFilter implements Filter
             // System.out.println("secured API call");
             // API call must be secured via token authentication
             String authorizationHeader = httpRequest.getHeader("Authorization");
-
             // Check if the HTTP Authorization header is present and formatted correctly
-            if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer "))
+            if (authorizationHeader == null || !authorizationHeader.startsWith("TOKEN "))
             {
-                System.out.println("Authorization header must be provided");
+                throw new MandatoryAuthorizationHeaderFieldIsMissingException();
             }
 
             // Extract the token from the HTTP Authorization header
-            String token = authorizationHeader.substring("Bearer".length()).trim();
+            String token = authorizationHeader.substring("TOKEN".length()).trim();
 
             authenticationCompoment.verifyToken(token);
 
             HttpServletResponse response = (HttpServletResponse) res;
+            System.out.println("läuft");
             chain.doFilter(req, res);
         }
 
@@ -61,8 +64,10 @@ public class AuthenticationFilter implements Filter
     }
 
     @Override
-    public void init(FilterConfig arg0) throws ServletException
+    public void init(FilterConfig filterConfig) throws ServletException
     {
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
+                filterConfig.getServletContext());
     }
 
     private boolean isPublicApiCall(HttpServletRequest req)
@@ -77,7 +82,8 @@ public class AuthenticationFilter implements Filter
                                 uri.matches("^.*/vendor$") ||
                                 uri.matches("^.*/vendor/[a-z0-9]*$") ||
                                 uri.matches("^.*/product$") ||
-                                uri.matches("^.*/product/[a-z0-9]*$")));
+                                uri.matches("^.*/product/[a-z0-9]*$")) ||
+                                uri.matches("^.*/(swagger.*|webjars/.*|v2.*|validatorUrl.*)$"));
     }
 
 }

@@ -1,12 +1,13 @@
-package de.haw.aim.vendor;
+package de.haw.aim.vendor.facade;
 
 import de.haw.aim.authentication.persistence.User;
+import de.haw.aim.vendor.persistence.ProductInfo;
 import de.haw.aim.vendor.persistence.Vendor;
 import de.haw.aim.vendor.persistence.VendorInfo;
 
 import java.util.List;
 
-public interface VendorInterface
+public interface IVendor
 {
     /**
      * Returns vendor entity for specific user. If user not known from vendor returns null.
@@ -35,4 +36,17 @@ public interface VendorInterface
      * @return true if ID already exists and object was saved, false if ID is not present in DB
      */
     boolean putVendor(VendorInfo vendorInfo);
+
+    /**
+     * Returns a list of Product Infos
+     * @return List<ProductInfo>, empty if no Product Infos available.
+     */
+    List<ProductInfo> getProducts();
+
+    /**
+     * Returns a specific Product Info based on the given ID.
+     * @param id - Product Info ID from look for
+     * @return Product Info, based on ID, null if no Product Info found
+     */
+    ProductInfo getProduct(String id);
 }

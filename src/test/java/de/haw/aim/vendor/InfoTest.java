@@ -4,8 +4,8 @@ import de.haw.aim.uploadcenter.persistence.File;
 import de.haw.aim.uploadcenter.persistence.Picture;
 import de.haw.aim.uploadcenter.persistence.PictureRepository;
 import de.haw.aim.vendor.persistence.Fact;
-import de.haw.aim.vendor.persistence.InfoRepository;
 import de.haw.aim.vendor.persistence.ProductInfo;
+import de.haw.aim.vendor.persistence.ProductInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -21,7 +21,7 @@ import java.util.List;
 public class InfoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
-    InfoRepository infoRepository;
+    ProductInfoRepository productInfoRepository;
     @Autowired
     PictureRepository pictureRepository;
 
@@ -55,6 +55,6 @@ public class InfoTest extends AbstractTestNGSpringContextTests {
                                                   facts
                                                   );
 
-        Assert.assertEquals(productInfo,infoRepository.save(productInfo));
+        Assert.assertEquals(productInfo, productInfoRepository.save(productInfo));
     }
 }

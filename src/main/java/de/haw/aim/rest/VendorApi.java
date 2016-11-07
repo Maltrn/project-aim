@@ -4,10 +4,7 @@ import de.haw.aim.rest.dto.InfoDTO;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -52,7 +49,7 @@ public interface VendorApi
             method = RequestMethod.PUT)
     ResponseEntity<Void> vendorPut(
 
-            @ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO body
+            @ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO body, @RequestHeader String headerToken
 
     ) throws ValueDoesntValidateToConfigFileException;
 

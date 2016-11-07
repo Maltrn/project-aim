@@ -2,7 +2,7 @@ package de.haw.aim.vendor;
 
 import de.haw.aim.uploadcenter.persistence.Picture;
 import de.haw.aim.uploadcenter.persistence.PictureRepository;
-import de.haw.aim.vendor.persistence.InfoRepository;
+import de.haw.aim.vendor.persistence.VendorInfoRepository;
 import de.haw.aim.vendor.persistence.Vendor;
 import de.haw.aim.vendor.persistence.VendorInfo;
 import de.haw.aim.vendor.persistence.VendorRepository;
@@ -26,7 +26,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
     VendorRepository vendorRepository;
 
     @Autowired
-    InfoRepository infoRepository;
+    VendorInfoRepository vendorInfoRepository;
 
     @Autowired
     VendorComponent vendorComponent;
@@ -56,7 +56,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
                 new ArrayList<>()
         );
 
-        infoRepository.save(vendorInfo);
+        vendorInfoRepository.save(vendorInfo);
 
         Vendor vendor = new Vendor(
                 vendorInfo,

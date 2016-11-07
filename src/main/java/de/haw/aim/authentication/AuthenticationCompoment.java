@@ -17,6 +17,12 @@ public class AuthenticationCompoment implements AuthenticationInterface
     UserRepository userRepository;
 
     @Override
+    public User findByToken(String token)
+    {
+        return null;
+    }
+
+    @Override
     public User login(String username, String pw)
     {
         // try from get user from DB

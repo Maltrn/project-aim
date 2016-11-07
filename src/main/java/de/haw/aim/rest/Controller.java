@@ -1,23 +1,21 @@
 package de.haw.aim.rest;
 
-import de.haw.aim.authentication.AuthenticationCompoment;
+import de.haw.aim.authentication.AuthenticationInterface;
 import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.rest.dto.InfoDTO;
 import de.haw.aim.rest.dto.LoginRequest;
 import de.haw.aim.rest.dto.LoginResponse;
 import de.haw.aim.rest.dto.UserDTO;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
-import de.haw.aim.vendor.VendorComponent;
+import de.haw.aim.vendor.facade.IVendor;
+import de.haw.aim.vendor.persistence.ProductInfo;
 import de.haw.aim.vendor.persistence.Vendor;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.Info;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -28,10 +26,10 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 {
 
     @Autowired
-    AuthenticationCompoment authenticationCompoment;
+    AuthenticationInterface authenticationCompoment;
 
     @Autowired
-    VendorComponent vendorComponent;
+    IVendor vendorComponent;
 
     @Override
     public ResponseEntity<List<InfoDTO>> vendorGet()
@@ -50,8 +48,13 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     }
 
     @Override
-    public ResponseEntity<Void> vendorPut(@ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO infodto)
+    public ResponseEntity<Void> vendorPut(@ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO infodto, @RequestHeader("Authorization") String headerToken)
     {
+        // fetch token from header for user lookup
+        String token = headerToken.substring("TOKEN".length()).trim();
+
+
+
         // check if InfoDTO is valid
         try
         {
@@ -68,15 +71,19 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     }
 
     @Override
-    public ResponseEntity<List<Info>> productGet()
+    public ResponseEntity<List<InfoDTO>> productGet()
     {
-        return null;
+        List<InfoDTO> retVal = vendorComponent.getProducts().stream().map(InfoDTO::from).collect(Collectors.toList());
+        return new ResponseEntity<>(retVal, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<Info> productIdGet(@ApiParam(value = "ID des Produktes dessen Produktinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id)
+    public ResponseEntity<InfoDTO> productIdGet(@ApiParam(value = "ID des Produktes dessen Produktinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id)
     {
-        return null;
+        ProductInfo retVal = vendorComponent.getProduct(id);
+        if(retVal == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(InfoDTO.from(retVal),HttpStatus.OK);
     }
 
     @Override
