@@ -1,0 +1,31 @@
+<table class="table-uploadcenter">
+    <thead>
+    <tr>
+        <th style="width: 10%">
+            <!-- todo <DefaultSorter by="name">Dateiname</DefaultSorter> so in etwa ersetzen-->
+            <div by="name">Dateiname</div>
+        </th>
+        <th style="width: 10%">
+            <div by="date">Upload-Datum</div>
+        </th>
+        <th style="width: 10%">
+            <div by="size">Größe</div>
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let file of files">
+        <td>{{file.name}}</td>
+        <td>{{file.date}}</td>
+        <td>{{file.size}}</td>
+    </tr>
+
+    </tbody>
+    <tfoot>
+    <tr>
+
+    </tr>
+    </tfoot>
+
+</table>
