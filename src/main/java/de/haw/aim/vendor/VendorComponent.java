@@ -1,19 +1,22 @@
 package de.haw.aim.vendor;
 
 import de.haw.aim.authentication.persistence.User;
-import de.haw.aim.vendor.persistence.Vendor;
-import de.haw.aim.vendor.persistence.VendorInfo;
-import de.haw.aim.vendor.persistence.VendorRepository;
+import de.haw.aim.vendor.facade.IVendor;
+import de.haw.aim.vendor.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
-public class VendorComponent implements VendorInterface
+public class VendorComponent implements IVendor
 {
 
+    @Autowired
     private VendorRepository vendorRepository;
+
+    @Autowired
+    private ProductInfoRepository productInfoRepository;
 
     @Autowired
     public VendorComponent(VendorRepository vendorRepository)
@@ -55,6 +58,18 @@ public class VendorComponent implements VendorInterface
         vendor.setVendorInfo(vendorInfo);
         vendorRepository.save(vendor);
         return true;
+    }
+
+    @Override
+    public List<ProductInfo> getProducts()
+    {
+        return productInfoRepository.findAll();
+    }
+
+    @Override
+    public ProductInfo getProduct(String id)
+    {
+        return productInfoRepository.findById(id);
     }
 
 

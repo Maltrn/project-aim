@@ -1,5 +1,6 @@
 package de.haw.aim.rest;
 
+import de.haw.aim.rest.dto.InfoDTO;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,7 @@ public interface ProductApi
     @RequestMapping(value = "/product",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<List<Info>> productGet();
+    ResponseEntity<List<InfoDTO>> productGet();
 
 
     @ApiOperation(value = "", notes = "Liefert die Produktinformationen eines bestimmten Produktes", response = Info.class, tags = {})
@@ -31,7 +32,7 @@ public interface ProductApi
     @RequestMapping(value = "/product/{id}",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<Info> productIdGet(
+    ResponseEntity<InfoDTO> productIdGet(
             @ApiParam(value = "ID des Produktes dessen Produktinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id
 
 
