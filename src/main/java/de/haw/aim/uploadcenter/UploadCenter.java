@@ -2,6 +2,7 @@ package de.haw.aim.uploadcenter;
 
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
 import de.haw.aim.uploadcenter.persistence.*;
+import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -43,12 +44,28 @@ public class UploadCenter implements IUploadCenter
         String fileLocation = uploadFolderLocation.resolve(f.getOriginalFilename()).toString();
         File result;
 
-        if (f.getOriginalFilename().endsWith(".pdf"))
+        if (f.getOriginalFilename().endsWith("." + this.environment.getProperty("uploadcenter.pdf.filetypes")))
         {
-            result = this.pdfRepository.save(new PDF(fileLocation));
+            PDF pdf = new PDF(fileLocation);
+            try
+            {
+                pdf.validate();
+                result = this.pdfRepository.save(pdf);
+            } catch (ValueDoesntValidateToConfigFileException e)
+            {
+                throw new StorageException("Filetype not supported!");
+            }
         } else
         {
-            result = this.pictureRepository.save(new Picture(fileLocation));
+            Picture picture = new Picture(fileLocation);
+            try
+            {
+                picture.validate();
+                result = this.pictureRepository.save(picture);
+            } catch (ValueDoesntValidateToConfigFileException e)
+            {
+                throw new StorageException("Filetype not supported!");
+            }
         }
         return result;
     }
