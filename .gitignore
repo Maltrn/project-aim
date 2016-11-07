@@ -8,4 +8,4 @@ out
 *.ipr
 .gitconfig
 classes
-src/test/resources/testFiles/*
+src/test/resources/testFiles/
