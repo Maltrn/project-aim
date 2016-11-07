@@ -16,7 +16,6 @@ import org.testng.annotations.Test;
 
 import java.io.File;
 import java.nio.file.Paths;
-import java.util.Arrays;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -94,8 +93,6 @@ public class UploadCenterTest extends AbstractTestNGSpringContextTests {
         MockMultipartFile file = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());
         UploadedFile persistedFile = this.uploadCenter.uploadFile(file);
         Assert.assertEquals(this.pictureRepository.findAll().size(), 1);
-        logger.warn(Arrays.toString(this.pictureRepository.findAll().toArray()));
-        logger.warn(persistedFile.getId());
         this.uploadCenter.replaceFile(persistedFile.getId(), emptyFile);
     }
 
