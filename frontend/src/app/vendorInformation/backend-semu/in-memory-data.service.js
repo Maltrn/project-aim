@@ -3,9 +3,7 @@ var InMemoryDataService = (function () {
     function InMemoryDataService() {
     }
     InMemoryDataService.prototype.createDb = function () {
-        var files = [
-            'test.jpg',
-            'test3.jpg'
+        var files = ["test.jpg"
         ];
         return { files: files };
     };

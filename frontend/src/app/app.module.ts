@@ -18,10 +18,15 @@ import {FileService} from "./vendorInformation/profile-pic/file.service";
 import {HttpModule} from "@angular/http";
 import {UploadFileComponent} from "./fileAdministration/file-upload/file-upload.component";
 
+// Imports for loading & configuring the in-memory web api
+import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './vendorInformation/backend-semu/in-memory-data.service';
+
 @NgModule({
     imports:      [ BrowserModule,
                     FormsModule,
-                    HttpModule],
+                    HttpModule,
+                    InMemoryWebApiModule.forRoot(InMemoryDataService)],
     declarations: [ AppComponent,
                     VendorInfoMain,
                     VendorAddFiles,

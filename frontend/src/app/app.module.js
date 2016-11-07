@@ -25,6 +25,9 @@ var vendor_sort_files_component_1 = require("./vendorInformation/sort-files/vend
 var file_service_1 = require("./vendorInformation/profile-pic/file.service");
 var http_1 = require("@angular/http");
 var file_upload_component_1 = require("./fileAdministration/file-upload/file-upload.component");
+// Imports for loading & configuring the in-memory web api
+var angular_in_memory_web_api_1 = require('angular-in-memory-web-api');
+var in_memory_data_service_1 = require('./vendorInformation/backend-semu/in-memory-data.service');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -32,7 +35,8 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule,
                 forms_1.FormsModule,
-                http_1.HttpModule],
+                http_1.HttpModule,
+                angular_in_memory_web_api_1.InMemoryWebApiModule.forRoot(in_memory_data_service_1.InMemoryDataService)],
             declarations: [app_component_1.AppComponent,
                 vendor_info_main_component_1.VendorInfoMain,
                 add_files_component_1.VendorAddFiles,
