@@ -1,20 +1,12 @@
 package de.haw.aim.authentication;
 
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.stereotype.Component;
-import org.springframework.web.context.support.SpringBeanAutowiringSupport;
+import java.io.IOException;
 
 
 public class AuthenticationFilter implements Filter
@@ -27,33 +19,33 @@ public class AuthenticationFilter implements Filter
     public void doFilter(ServletRequest req, ServletResponse res,
                          FilterChain chain) throws IOException, ServletException
     {
-        //System.out.println("inside filter");
-
         HttpServletRequest httpRequest = (HttpServletRequest) req;
+        HttpServletResponse httpResponse = (HttpServletResponse) res;
         if (isPublicApiCall(httpRequest))
-        {
-            // System.out.println("public API call");
-            // Do nothing
+        { // public API call therefore continue without checking authentication
             chain.doFilter(req, res);
         } else
-        {
-            // System.out.println("secured API call");
-            // API call must be secured via token authentication
+        { // API call that should be secured by a valid Token given in HTTP header
             String authorizationHeader = httpRequest.getHeader("Authorization");
             // Check if the HTTP Authorization header is present and formatted correctly
             if (authorizationHeader == null || !authorizationHeader.startsWith("TOKEN "))
             {
-                throw new MandatoryAuthorizationHeaderFieldIsMissingException();
+                httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+                        "Incorrect Authorization header field.  It should look like this: 'Authorization: TOKEN <insert current token here>'");
+            } else
+            { // Token was given check if it's valid
+                // Extract the token from the HTTP Authorization header
+                String token = authorizationHeader.substring("TOKEN".length()).trim();
+
+                if (!(authenticationCompoment.verifyToken(token)))
+                {
+                    httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
+                            "Token '" + token + "' is invalid. You should log-in again to get a new valid token.");
+                } else
+                { // Token is valid so the controller can do the rest
+                    chain.doFilter(req, res);
+                }
             }
-
-            // Extract the token from the HTTP Authorization header
-            String token = authorizationHeader.substring("TOKEN".length()).trim();
-
-            authenticationCompoment.verifyToken(token);
-
-            HttpServletResponse response = (HttpServletResponse) res;
-            System.out.println("läuft");
-            chain.doFilter(req, res);
         }
 
     }

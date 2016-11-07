@@ -48,22 +48,13 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     }
 
     @Override
-    public ResponseEntity<Void> vendorPut(@ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO infodto, @RequestHeader("Authorization") String headerToken)
+    public ResponseEntity<Void> vendorPut(@ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO infodto, @RequestHeader("Authorization") String headerToken) throws ValueDoesntValidateToConfigFileException
     {
         // fetch token from header for user lookup
         String token = headerToken.substring("TOKEN".length()).trim();
 
-
-
         // check if InfoDTO is valid
-        try
-        {
-            infodto.validate();
-        } catch (ValueDoesntValidateToConfigFileException e)
-        {
-            // if not return Bad Request to browser
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        infodto.validate();
         // if valid save entity in DB
         if(vendorComponent.putVendor(infodto.convertToVendorInfo()))
             return new ResponseEntity<>(HttpStatus.OK);
@@ -144,6 +135,12 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         UserDTO userDto = new UserDTO(loginResponse, usersVendor.getVendorInfoId(), usersVendor.getProdcutInfoIds());
 
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(ValueDoesntValidateToConfigFileException.class)
+    public ResponseEntity<String> invalidValue(Exception ex)
+    {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
 }
