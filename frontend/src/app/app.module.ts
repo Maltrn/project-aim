@@ -10,16 +10,12 @@ import {VendorInfoMain} from "./vendorInformation/main/vendor-info-main.componen
 import {VendorShortDiscription} from "./vendorInformation/short-description/vendor-short-discription.component";
 import {VendorProfilePic} from "./vendorInformation/profile-pic/vendor-profile-pic.component";
 import {VendorSortFiles} from "./vendorInformation/sort-files/vendor-sort-files.component";
-import {FileService} from "./vendorInformation/profile-pic/file.service";
 import {HttpModule} from "@angular/http";
-import {UploadFileComponent} from "./fileAdministration/file-upload/file-upload.component";
-import {FileDatatableComponent} from "./fileAdministration/file-datatable/file-datatable.component";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "./vendorInformation/backend-semu/in-memory-data.service";
 import {RouterModule} from "@angular/router";
-
-// Imports for loading & configuring the in-memory web api
-
+import {UploadCenter} from "./uploadCenter/uploadCenter";
+import {FileService} from "./uploadCenter/file.service";
 
 @NgModule({
     imports: [
@@ -38,8 +34,7 @@ import {RouterModule} from "@angular/router";
         VendorNotes,
         VendorProfilePic,
         VendorSortFiles,
-        UploadFileComponent,
-        FileDatatableComponent,
+        UploadCenter
     ],
     bootstrap: [AppComponent],
     providers: [FileService]

@@ -1,6 +1,7 @@
 import {Routes} from "@angular/router";
-import {UploadFileComponent} from "./fileAdministration/file-upload/file-upload.component";
+import {UploadCenter} from "./uploadCenter/uploadCenter";
+
 export const rootRouterConfig: Routes = [
     {path: '', redirectTo: 'upload-center', pathMatch: 'full'},
-    {path: 'upload-center', component: UploadFileComponent},
+    {path: 'upload-center', component: UploadCenter},
 ];
