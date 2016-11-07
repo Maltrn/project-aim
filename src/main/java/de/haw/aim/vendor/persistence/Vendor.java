@@ -2,7 +2,7 @@ package de.haw.aim.vendor.persistence;
 
 import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.uploadcenter.persistence.File;
-import de.haw.aim.vendor.VendorInterface;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,6 +15,8 @@ import java.util.List;
 @Document
 public class Vendor
 {
+    @Id
+    private String id;
     @DBRef
     private VendorInfo vendorInfo;
     @DBRef
@@ -23,6 +25,19 @@ public class Vendor
     private List<User> users;
     @DBRef
     private List<File> files;
+
+    public Vendor()
+    {
+
+    }
+    public Vendor(VendorInfo vendorInfo, List<ProductInfo> productInfos, List<User> users, List<File> files)
+    {
+        this.id = vendorInfo.getId();
+        this.vendorInfo = vendorInfo;
+        this.productInfos = productInfos;
+        this.users = users;
+        this.files = files;
+    }
 
     public List<User> getUsers()
     {
@@ -42,5 +57,21 @@ public class Vendor
             retVal.add(p.getId());
         }
         return retVal;
+    }
+
+    public VendorInfo getVendorInfo()
+    {
+        return vendorInfo;
+    }
+
+    public void setVendorInfo(VendorInfo vendorInfo)
+    {
+        this.vendorInfo = vendorInfo;
+        this.id         = vendorInfo.getId();
+    }
+
+    public String getId()
+    {
+        return id;
     }
 }

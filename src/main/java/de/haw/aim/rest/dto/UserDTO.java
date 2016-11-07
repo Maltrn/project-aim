@@ -137,7 +137,7 @@ public class UserDTO
     }
 
     /**
-     * Convert the given object to string with each line indented by 4 spaces
+     * Convert the given object from string with each line indented by 4 spaces
      * (except the first line).
      */
     private String toIndentedString(Object o)

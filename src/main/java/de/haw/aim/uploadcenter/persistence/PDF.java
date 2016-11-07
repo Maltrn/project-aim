@@ -1,6 +1,8 @@
 package de.haw.aim.uploadcenter.persistence;
 
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,6 +16,9 @@ public class PDF implements File
     protected String name;
 
     protected String location;
+
+    @Autowired
+    private Environment env;
 
     public PDF()
     {
@@ -68,7 +73,16 @@ public class PDF implements File
     @Override
     public void validate() throws ValueDoesntValidateToConfigFileException
     {
-        if (!this.location.endsWith(".pdf"))
+        String fileTypes;
+        try
+        {
+            fileTypes = env.getProperty("uploadcenter.pdf.filetypes");
+        } catch (NullPointerException e)
+        {
+            fileTypes = "pdf";
+        }
+
+        if (!this.location.endsWith("." + fileTypes))
         {
             throw new ValueDoesntValidateToConfigFileException("Wrong file ending");
         }

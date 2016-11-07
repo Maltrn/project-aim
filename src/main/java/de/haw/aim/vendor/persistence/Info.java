@@ -45,6 +45,35 @@ public abstract class Info
         return id;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getShortDescription()
+    {
+        return shortDescription;
+    }
+
+    public String getLongDescription()
+    {
+        return longDescription;
+    }
+
+    public Picture getMainPic()
+    {
+        return mainPic;
+    }
+
+    public List<File> getFileGallery()
+    {
+        return fileGallery;
+    }
+
+    public List<Fact> getFacts()
+    {
+        return facts;
+    }
 
     @Override
     public boolean equals(Object o)

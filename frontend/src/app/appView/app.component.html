@@ -1,3 +1,57 @@
-<p>main view</p>
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <div style="position: relative; left: 0; top: 0;">
+                <img src="assets/Logo_Symphony.jpg" style="z-index: 1001;position: absolute; top: 10px; left: 5px;width:100px;height:100px;" />
+            </div>
+        </div>
 
-<vendor-info-main></vendor-info-main>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+            <form class="navbar-form navbar-left">
+
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <form class="navbar-form navbar-right">
+                    <button type="submit" class="btn btn-default" style="margin-right: 20px;">Logout</button>
+                </form>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+</nav>
+<div id="wrapper">
+
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="#">
+                    Dateiverwaltung
+                </a>
+            </li>
+            <li class="sidebar-brand">
+                <a href="#">
+                    Produkte
+                </a>
+                <!--<product-view></product-view>-->
+
+                    <a href="#" class="sidebar-content">
+                        Unified Confirmation
+                    </a>
+
+            </li>
+        </ul>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-11">
+                <!-- Hier einen Schalter für die Anzeige hinzufügen-->
+            <fileupload-view></fileupload-view>
+                </div>
+            </div>
+        </div>
+</div>
+

@@ -1,5 +1,6 @@
 package de.haw.aim;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Bean;
@@ -28,7 +29,7 @@ public class AIMServer
 
     public static void main(String[] args)
     {
-        run(AIMServer.class, args);
+        SpringApplication.run(AIMServer.class, args);
     }
 
     @Bean

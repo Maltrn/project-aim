@@ -1,14 +1,19 @@
 package de.haw.aim.rest.dto;
 
+import de.haw.aim.uploadcenter.facade.IUploadCenter;
+import de.haw.aim.uploadcenter.persistence.File;
+import de.haw.aim.uploadcenter.persistence.Picture;
 import de.haw.aim.validator.Validatable;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
+import de.haw.aim.vendor.persistence.Fact;
+import de.haw.aim.vendor.persistence.Info;
+import de.haw.aim.vendor.persistence.ProductInfo;
+import de.haw.aim.vendor.persistence.VendorInfo;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 
 /**
@@ -18,6 +23,9 @@ import java.util.Objects;
 
 public class InfoDTO implements Validatable
 {
+
+    @Autowired
+    IUploadCenter uploadCenterInterface;
 
     @Autowired
     private Environment env;
@@ -34,12 +42,98 @@ public class InfoDTO implements Validatable
 
     private List<String> fileGallery = new ArrayList<String>();
 
-    private List<Object> facts = new ArrayList<Object>();
+    private List<Map<String,String>> facts = new ArrayList<>();
 
     public InfoDTO id(String id)
     {
         this.id = id;
         return this;
+    }
+
+    public ProductInfo convertToProductInfo()
+    {
+        Picture mainPic = (Picture) uploadCenterInterface.findById(this.getMainPic());
+
+        List<File> fileGallery = new ArrayList<>();
+        for(String s : this.fileGallery)
+        {
+            fileGallery.add(uploadCenterInterface.findById(s));
+        }
+
+        List<Fact> facts = new ArrayList<>();
+        for (Map<String, String> map : this.facts)
+        {
+            Map.Entry<String,String> entry = map.entrySet().iterator().next();
+            facts.add(new Fact(entry.getKey(),entry.getValue()));
+        }
+
+        ProductInfo retVal = new ProductInfo(
+                this.getName(),
+                this.getShortDescription(),
+                this.getLongDescription(),
+                mainPic,
+                fileGallery,
+                facts
+        );
+
+        return retVal;
+    }
+
+    public VendorInfo convertToVendorInfo()
+    {
+        Picture mainPic = (Picture) uploadCenterInterface.findById(this.getMainPic());
+
+        List<File> fileGallery = new ArrayList<>();
+        for(String s : this.fileGallery)
+        {
+            fileGallery.add(uploadCenterInterface.findById(s));
+        }
+
+        List<Fact> facts = new ArrayList<>();
+        for (Map<String, String> map : this.facts)
+        {
+            Map.Entry<String,String> entry = map.entrySet().iterator().next();
+            facts.add(new Fact(entry.getKey(),entry.getValue()));
+        }
+
+        VendorInfo retVal = new VendorInfo(
+                this.getName(),
+                this.getShortDescription(),
+                this.getLongDescription(),
+                mainPic,
+                fileGallery,
+                facts
+        );
+
+        return retVal;
+    }
+    public static InfoDTO from(Info info)
+    {
+        InfoDTO retVal = new InfoDTO();
+
+        retVal.setId(info.getId());
+        retVal.setName(info.getName());
+        retVal.setShortDescription(info.getShortDescription());
+        retVal.setLongDescription(info.getLongDescription());
+        retVal.setMainPic(info.getMainPic().getId());
+
+        List<String> fileIdList = new ArrayList<>();
+        for(File f : info.getFileGallery())
+        {
+            fileIdList.add(f.getId());
+        }
+        retVal.setFileGallery(fileIdList);
+
+        List<Map<String,String>> facts = new ArrayList();
+        for(Fact f : info.getFacts())
+        {
+            Map<String,String> factMap = new HashMap<>();
+            factMap.put(f.getKey(), f.getValue());
+            facts.add(factMap);
+        }
+        retVal.setFacts(facts);
+
+        return retVal;
     }
 
     /**
@@ -174,13 +268,13 @@ public class InfoDTO implements Validatable
         this.fileGallery = fileGallery;
     }
 
-    public InfoDTO facts(List<Object> facts)
+    public InfoDTO facts(List<Map<String,String>> facts)
     {
         this.facts = facts;
         return this;
     }
 
-    public InfoDTO addFactsItem(Object factsItem)
+    public InfoDTO addFactsItem(Map<String,String> factsItem)
     {
         this.facts.add(factsItem);
         return this;
@@ -192,12 +286,12 @@ public class InfoDTO implements Validatable
      * @return facts
      **/
     @ApiModelProperty(value = "")
-    public List<Object> getFacts()
+    public List<Map<String,String>> getFacts()
     {
         return facts;
     }
 
-    public void setFacts(List<Object> facts)
+    public void setFacts(List<Map<String,String>> facts)
     {
         this.facts = facts;
     }
@@ -248,7 +342,7 @@ public class InfoDTO implements Validatable
     }
 
     /**
-     * Convert the given object to string with each line indented by 4 spaces
+     * Convert the given object from string with each line indented by 4 spaces
      * (except the first line).
      */
     private String toIndentedString(Object o)

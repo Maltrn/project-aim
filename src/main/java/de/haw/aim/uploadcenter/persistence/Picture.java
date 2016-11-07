@@ -1,6 +1,8 @@
 package de.haw.aim.uploadcenter.persistence;
 
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,6 +16,9 @@ public class Picture implements File
     protected String name;
 
     protected String location;
+
+    @Autowired
+    protected Environment environment;
 
     public Picture()
     {
@@ -71,7 +76,25 @@ public class Picture implements File
     @Override
     public void validate() throws ValueDoesntValidateToConfigFileException
     {
-        if (!(this.location.endsWith(".png") || this.location.endsWith(".jpg")))
+        boolean valid = false;
+        String fileTypes;
+
+        try
+        {
+            fileTypes = this.environment.getProperty("uploadcenter.pictures.filetypes");
+        } catch (NullPointerException e)
+        {
+            fileTypes = "jpeg,gif,png,jpg";
+        }
+
+        for (String fileType : fileTypes.split(","))
+        {
+            if (this.location.endsWith("." + fileType))
+            {
+                valid = true;
+            }
+        }
+        if (!valid)
         {
             throw new ValueDoesntValidateToConfigFileException("Wrong file ending");
         }

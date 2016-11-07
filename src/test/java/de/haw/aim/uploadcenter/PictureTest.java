@@ -38,12 +38,14 @@ public class PictureTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testIsValid() throws Exception {
+        logger.warn(this.file.toString());
         this.file.validate();
     }
 
     @Test(expectedExceptions = ValueDoesntValidateToConfigFileException.class)
     public void testIsNotValid() throws Exception {
         this.file = new Picture("pdf-sample.pdf");
+
         this.file.validate();
     }
 
