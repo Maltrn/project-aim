@@ -1,6 +1,7 @@
 package de.haw.aim.uploadcenter;
 
 import de.haw.aim.uploadcenter.persistence.PDFRepository;
+import de.haw.aim.uploadcenter.persistence.Picture;
 import de.haw.aim.uploadcenter.persistence.PictureRepository;
 import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import org.apache.commons.io.FileUtils;
@@ -89,7 +90,17 @@ public class UploadCenterTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testFindById() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());
+        UploadedFile uploadedFile = this.uploadCenter.uploadFile(file);
+        UploadedFile result = this.uploadCenter.findById(uploadedFile.getId());
+        Assert.notNull(result);
+        Assert.isInstanceOf(Picture.class, result);
+    }
 
+    @Test
+    public void testFindByIdNull() throws Exception {
+        UploadedFile result = this.uploadCenter.findById("foobar");
+        Assert.isNull(result);
     }
 
 }

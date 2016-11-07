@@ -87,6 +87,7 @@ public class UploadCenter implements IUploadCenter {
     public boolean deleteFile(String id) {
         MongoRepository repo = this.pdfRepository;
         UploadedFile dbFile = this.pdfRepository.findOne(id);
+
         if (dbFile == null) {
             dbFile = this.pictureRepository.findOne(id);
             repo = this.pictureRepository;
@@ -108,6 +109,13 @@ public class UploadCenter implements IUploadCenter {
 
     @Override
     public UploadedFile findById(String id) {
-        return null;
+        if (this.pdfRepository.findOne(id) != null) {
+            return this.pdfRepository.findOne(id);
+        } else if (this.pictureRepository.findOne(id) != null) {
+            return this.pictureRepository.findOne(id);
+        } else {
+            return null;
+        }
+
     }
 }
