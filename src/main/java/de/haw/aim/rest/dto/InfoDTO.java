@@ -1,7 +1,7 @@
 package de.haw.aim.rest.dto;
 
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
-import de.haw.aim.uploadcenter.persistence.File;
+import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.uploadcenter.persistence.Picture;
 import de.haw.aim.validator.Validatable;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
@@ -54,7 +54,7 @@ public class InfoDTO implements Validatable
     {
         Picture mainPic = (Picture) uploadCenterInterface.findById(this.getMainPic());
 
-        List<File> fileGallery = new ArrayList<>();
+        List<UploadedFile> fileGallery = new ArrayList<>();
         for(String s : this.fileGallery)
         {
             fileGallery.add(uploadCenterInterface.findById(s));
@@ -83,7 +83,7 @@ public class InfoDTO implements Validatable
     {
         Picture mainPic = (Picture) uploadCenterInterface.findById(this.getMainPic());
 
-        List<File> fileGallery = new ArrayList<>();
+        List<UploadedFile> fileGallery = new ArrayList<>();
         for(String s : this.fileGallery)
         {
             fileGallery.add(uploadCenterInterface.findById(s));
@@ -118,7 +118,7 @@ public class InfoDTO implements Validatable
         retVal.setMainPic(info.getMainPic().getId());
 
         List<String> fileIdList = new ArrayList<>();
-        for(File f : info.getFileGallery())
+        for(UploadedFile f : info.getFileGallery())
         {
             fileIdList.add(f.getId());
         }

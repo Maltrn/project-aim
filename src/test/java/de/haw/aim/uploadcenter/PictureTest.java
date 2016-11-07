@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PictureTest extends AbstractTestNGSpringContextTests {
 
-    private File file;
+    private UploadedFile file;
 
     @Autowired
     protected PictureRepository repo;

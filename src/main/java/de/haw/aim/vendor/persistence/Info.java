@@ -1,7 +1,7 @@
 package de.haw.aim.vendor.persistence;
 
 
-import de.haw.aim.uploadcenter.persistence.File;
+import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.uploadcenter.persistence.Picture;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -22,7 +22,7 @@ public abstract class Info
     protected String longDescription;
     @DBRef
     protected Picture mainPic;
-    protected List<File> fileGallery;
+    protected List<UploadedFile> fileGallery;
     protected List<Fact> facts;
 
     public Info()
@@ -30,7 +30,7 @@ public abstract class Info
 
     }
 
-    public Info(String name, String shortDescription, String longDescription, Picture mainPic, List<File> fileGallery, List<Fact> facts)
+    public Info(String name, String shortDescription, String longDescription, Picture mainPic, List<UploadedFile> fileGallery, List<Fact> facts)
     {
         this.name = name;
         this.shortDescription = shortDescription;
@@ -65,7 +65,7 @@ public abstract class Info
         return mainPic;
     }
 
-    public List<File> getFileGallery()
+    public List<UploadedFile> getFileGallery()
     {
         return fileGallery;
     }

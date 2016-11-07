@@ -9,14 +9,14 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @Component
-public class UploadCenter implements IUploadCenter
-{
+public class UploadCenter implements IUploadCenter {
     @Autowired
     private Environment environment;
 
@@ -26,16 +26,13 @@ public class UploadCenter implements IUploadCenter
     @Autowired
     private PictureRepository pictureRepository;
 
-    public UploadCenter()
-    {
+    public UploadCenter() {
 
     }
 
     @Override
-    public File uploadFile(MultipartFile f) throws IOException, StorageException
-    {
-        if (f.isEmpty())
-        {
+    public UploadedFile uploadFile(MultipartFile f) throws IOException, StorageException {
+        if (f.isEmpty()) {
             throw new StorageException("Failed to store empty file " + f.getOriginalFilename());
         }
 
@@ -43,28 +40,22 @@ public class UploadCenter implements IUploadCenter
 
         Files.copy(f.getInputStream(), uploadFolderLocation.resolve(f.getOriginalFilename()));
         String fileLocation = uploadFolderLocation.resolve(f.getOriginalFilename()).toString();
-        File result;
+        UploadedFile result;
 
-        if (f.getOriginalFilename().endsWith("." + this.environment.getProperty("uploadcenter.pdf.filetypes")))
-        {
+        if (f.getOriginalFilename().endsWith("." + this.environment.getProperty("uploadcenter.pdf.filetypes"))) {
             PDF pdf = new PDF(fileLocation);
-            try
-            {
+            try {
                 pdf.validate();
                 result = this.pdfRepository.save(pdf);
-            } catch (ValueDoesntValidateToConfigFileException e)
-            {
+            } catch (ValueDoesntValidateToConfigFileException e) {
                 throw new StorageException("Filetype not supported!");
             }
-        } else
-        {
+        } else {
             Picture picture = new Picture(fileLocation);
-            try
-            {
+            try {
                 picture.validate();
                 result = this.pictureRepository.save(picture);
-            } catch (ValueDoesntValidateToConfigFileException e)
-            {
+            } catch (ValueDoesntValidateToConfigFileException e) {
                 throw new StorageException("Filetype not supported!");
             }
         }
@@ -72,25 +63,21 @@ public class UploadCenter implements IUploadCenter
     }
 
     @Override
-    public File replaceFile(String id, File f)
-    {
+    public UploadedFile replaceFile(String id, UploadedFile f) {
         return null;
     }
 
     @Override
-    public boolean deleteFile(String id)
-    {
+    public boolean deleteFile(String id) {
         MongoRepository repo = this.pdfRepository;
-        File dbFile = this.pdfRepository.findOne(id);
-        if (dbFile == null)
-        {
+        UploadedFile dbFile = this.pdfRepository.findOne(id);
+        if (dbFile == null) {
             dbFile = this.pictureRepository.findOne(id);
             repo = this.pictureRepository;
         }
 
-        if (dbFile != null)
-        {
-            java.io.File physicalFile = new java.io.File(dbFile.getLocation());
+        if (dbFile != null) {
+            File physicalFile = new File(dbFile.getLocation());
             repo.delete(dbFile.getId());
             return physicalFile.delete();
         }
@@ -99,14 +86,12 @@ public class UploadCenter implements IUploadCenter
     }
 
     @Override
-    public boolean checkForExistence(String id)
-    {
+    public boolean checkForExistence(String id) {
         return false;
     }
 
     @Override
-    public File findById(String id)
-    {
+    public UploadedFile findById(String id) {
         return null;
     }
 }

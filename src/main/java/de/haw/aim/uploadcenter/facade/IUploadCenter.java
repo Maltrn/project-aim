@@ -1,21 +1,21 @@
 package de.haw.aim.uploadcenter.facade;
 
-import de.haw.aim.uploadcenter.persistence.File;
+import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 
 public interface IUploadCenter
 {
-    public File uploadFile(MultipartFile f) throws IOException;
+    public UploadedFile uploadFile(MultipartFile f) throws IOException;
 
-    public File replaceFile(String id, File f);
+    public UploadedFile replaceFile(String id, UploadedFile f);
 
     public boolean deleteFile(String id);
 
     public boolean checkForExistence(String id);
 
-    public File findById(String id);
+    public UploadedFile findById(String id);
 
 
 }

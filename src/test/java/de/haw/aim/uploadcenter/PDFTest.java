@@ -1,6 +1,6 @@
 package de.haw.aim.uploadcenter;
 
-import de.haw.aim.uploadcenter.persistence.File;
+import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.uploadcenter.persistence.PDF;
 import de.haw.aim.uploadcenter.persistence.PDFRepository;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class PDFTest extends AbstractTestNGSpringContextTests {
 
-    private File file;
+    private UploadedFile file;
 
     @Autowired
     protected PDFRepository repo;

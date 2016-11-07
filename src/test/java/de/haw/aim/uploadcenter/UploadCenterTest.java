@@ -2,6 +2,7 @@ package de.haw.aim.uploadcenter;
 
 import de.haw.aim.uploadcenter.persistence.PDFRepository;
 import de.haw.aim.uploadcenter.persistence.PictureRepository;
+import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,7 +40,7 @@ public class UploadCenterTest extends AbstractTestNGSpringContextTests
     public void testUploadFile() throws Exception
     {
         MockMultipartFile file = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());
-        de.haw.aim.uploadcenter.persistence.File persistedFile = this.uploadCenter.uploadFile(file);
+        UploadedFile persistedFile = this.uploadCenter.uploadFile(file);
         File newFile = new File("./src/test/resources/testFiles/b.png");
         Assert.isTrue(newFile.exists());
         Assert.isTrue(pictureRepository.exists(persistedFile.getId()));
@@ -56,7 +57,7 @@ public class UploadCenterTest extends AbstractTestNGSpringContextTests
     public void testDeleteFile() throws Exception
     {
         MockMultipartFile file = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());
-        de.haw.aim.uploadcenter.persistence.File deleteThis = this.uploadCenter.uploadFile(file);
+        UploadedFile deleteThis = this.uploadCenter.uploadFile(file);
         this.uploadCenter.deleteFile(deleteThis.getId());
         File newFile = new File("./src/test/resources/testFiles/b.png");
         Assert.isTrue(!newFile.exists());

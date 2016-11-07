@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document
-public class PDF implements File
+public class PDF implements UploadedFile
 {
 
     @Id

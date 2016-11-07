@@ -1,6 +1,6 @@
 package de.haw.aim.vendor;
 
-import de.haw.aim.uploadcenter.persistence.File;
+import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.uploadcenter.persistence.Picture;
 import de.haw.aim.uploadcenter.persistence.PictureRepository;
 import de.haw.aim.vendor.persistence.Fact;
@@ -37,7 +37,7 @@ public class InfoTest extends AbstractTestNGSpringContextTests {
         Picture picture = new Picture("dog-1742295_640.jpg");
         pictureRepository.save(picture);
 
-        List<File> fileGallery = new ArrayList<>();
+        List<UploadedFile> fileGallery = new ArrayList<>();
         fileGallery.add(picture);
 
         List<Fact> facts = new ArrayList<>();
