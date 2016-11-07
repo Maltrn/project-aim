@@ -5,6 +5,7 @@ import de.haw.aim.uploadcenter.persistence.*;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -79,6 +80,21 @@ public class UploadCenter implements IUploadCenter
     @Override
     public boolean deleteFile(String id)
     {
+        MongoRepository repo = this.pdfRepository;
+        File dbFile = this.pdfRepository.findOne(id);
+        if (dbFile == null)
+        {
+            dbFile = this.pictureRepository.findOne(id);
+            repo = this.pictureRepository;
+        }
+
+        if (dbFile != null)
+        {
+            java.io.File physicalFile = new java.io.File(dbFile.getLocation());
+            repo.delete(dbFile.getId());
+            return physicalFile.delete();
+        }
+
         return false;
     }
 
