@@ -9,7 +9,7 @@ public interface IUploadCenter
 {
     public UploadedFile uploadFile(MultipartFile f) throws IOException;
 
-    public UploadedFile replaceFile(String id, UploadedFile f);
+    public UploadedFile replaceFile(String id, MultipartFile f);
 
     public boolean deleteFile(String id);
 

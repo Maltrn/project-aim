@@ -79,8 +79,37 @@ public class UploadCenter implements IUploadCenter {
     }
 
     @Override
-    public UploadedFile replaceFile(String id, UploadedFile f) {
-        return null;
+    public UploadedFile replaceFile(String id, MultipartFile f) {
+        if (this.findById(id) == null || f == null) {
+            throw new StorageException("File does not exist");
+        }
+
+        UploadedFile foundFile = this.findById(id);
+        UploadedFile uploadedFile = this.uploadFile(f);
+        MongoRepository repository = this.pdfRepository;
+        UploadedFile replacedFile;
+
+        if (foundFile.getClass() == PDF.class) {
+            PDF file = new PDF(uploadedFile.getLocation());
+            file.setId(id);
+            replacedFile = file;
+        } else if (foundFile.getClass() == Picture.class) {
+            Picture file = new Picture(uploadedFile.getLocation());
+            repository = this.pictureRepository;
+            file.setId(id);
+            replacedFile = file;
+        } else {
+            throw new StorageException("Could not determine class of uploaded file!");
+        }
+
+        repository.save(replacedFile);
+        repository.delete(uploadedFile.getId());
+        try {
+            Files.delete(Paths.get(foundFile.getLocation()));
+        } catch (IOException e) {
+            logger.info("Tried to delete non existent file");
+        }
+        return replacedFile;
     }
 
     @Override
@@ -104,7 +133,8 @@ public class UploadCenter implements IUploadCenter {
 
     @Override
     public boolean checkForExistence(String id) {
-        return false;
+        UploadedFile uploadedFile = this.findById(id);
+        return (uploadedFile != null) && (new File(uploadedFile.getLocation()).exists());
     }
 
     @Override

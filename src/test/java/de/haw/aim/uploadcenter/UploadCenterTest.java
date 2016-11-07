@@ -10,12 +10,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
-import org.springframework.util.Assert;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -46,8 +47,8 @@ public class UploadCenterTest extends AbstractTestNGSpringContextTests {
         MockMultipartFile file = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());
         UploadedFile persistedFile = this.uploadCenter.uploadFile(file);
         File newFile = new File(uploadedFileLocation + "/b.png");
-        Assert.isTrue(newFile.exists());
-        Assert.isTrue(pictureRepository.exists(persistedFile.getId()));
+        Assert.assertTrue(newFile.exists());
+        Assert.assertTrue(pictureRepository.exists(persistedFile.getId()));
     }
 
     @Test(expectedExceptions = StorageException.class)
@@ -69,8 +70,33 @@ public class UploadCenterTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void testReplaceFile() throws Exception {
-//        MockMultipartFile file = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());
-//        MockMultipartFile file2 = new MockMultipartFile("a", "a.png", "image/png", "nonsensecontent".getBytes());
+        MockMultipartFile file1 = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());
+        MockMultipartFile file2 = new MockMultipartFile("a", "a.png", "image/png", "asdasdasd".getBytes());
+        UploadedFile uploadedFile = this.uploadCenter.uploadFile(file1);
+        this.uploadCenter.replaceFile(uploadedFile.getId(), file2);
+        File replacedFile = new File(uploadedFileLocation + "/a.png");
+        File oldFile = new File(uploadedFileLocation + "/b.png");
+        Assert.assertTrue(replacedFile.exists());
+        Assert.assertTrue(!oldFile.exists());
+        UploadedFile dbResult = pictureRepository.findOne(uploadedFile.getId());
+        Assert.assertEquals(dbResult.getLocation(), "src/test/resources/testFiles/a.png");
+        Assert.assertEquals(pictureRepository.findAll().size(), 1);
+    }
+
+    @Test(expectedExceptions = StorageException.class)
+    public void testReplaceNotExistentFile() throws Exception {
+        this.uploadCenter.replaceFile("foobar", null);
+    }
+
+    @Test(expectedExceptions = StorageException.class)
+    public void testReplaceEmptyFile() throws Exception {
+        MockMultipartFile emptyFile = new MockMultipartFile(" ", new byte[0]);
+        MockMultipartFile file = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());
+        UploadedFile persistedFile = this.uploadCenter.uploadFile(file);
+        Assert.assertEquals(this.pictureRepository.findAll().size(), 1);
+        logger.warn(Arrays.toString(this.pictureRepository.findAll().toArray()));
+        logger.warn(persistedFile.getId());
+        this.uploadCenter.replaceFile(persistedFile.getId(), emptyFile);
     }
 
     @Test
@@ -79,13 +105,20 @@ public class UploadCenterTest extends AbstractTestNGSpringContextTests {
         UploadedFile deleteThis = this.uploadCenter.uploadFile(file);
         this.uploadCenter.deleteFile(deleteThis.getId());
         File newFile = new File(uploadedFileLocation + "/b.png");
-        Assert.isTrue(!newFile.exists());
-        Assert.isTrue(!pictureRepository.exists(deleteThis.getId()));
+        Assert.assertTrue(!newFile.exists());
+        Assert.assertTrue(!pictureRepository.exists(deleteThis.getId()));
     }
 
     @Test
     public void testCheckForExistence() throws Exception {
+        MockMultipartFile file = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());
+        UploadedFile uploadedFile = this.uploadCenter.uploadFile(file);
+        Assert.assertTrue(this.uploadCenter.checkForExistence(uploadedFile.getId()));
+    }
 
+    @Test
+    public void testCheckForExistenceFail() throws Exception {
+        Assert.assertTrue(!this.uploadCenter.checkForExistence("foobar"));
     }
 
     @Test
@@ -93,14 +126,13 @@ public class UploadCenterTest extends AbstractTestNGSpringContextTests {
         MockMultipartFile file = new MockMultipartFile("b", "b.png", "image/png", "nonsensecontent".getBytes());
         UploadedFile uploadedFile = this.uploadCenter.uploadFile(file);
         UploadedFile result = this.uploadCenter.findById(uploadedFile.getId());
-        Assert.notNull(result);
-        Assert.isInstanceOf(Picture.class, result);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(result.getClass(), Picture.class);
     }
 
     @Test
     public void testFindByIdNull() throws Exception {
         UploadedFile result = this.uploadCenter.findById("foobar");
-        Assert.isNull(result);
+        Assert.assertNull(result);
     }
-
 }
