@@ -92,4 +92,9 @@ public abstract class Info
     {
         return id.hashCode();
     }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
 }

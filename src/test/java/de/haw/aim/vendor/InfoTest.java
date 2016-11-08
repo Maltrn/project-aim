@@ -22,6 +22,7 @@ public class InfoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     ProductInfoRepository productInfoRepository;
+
     @Autowired
     PictureRepository pictureRepository;
 

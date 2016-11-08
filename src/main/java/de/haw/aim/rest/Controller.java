@@ -10,8 +10,8 @@ import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import de.haw.aim.vendor.facade.IVendor;
 import de.haw.aim.vendor.persistence.ProductInfo;
 import de.haw.aim.vendor.persistence.Vendor;
+import de.haw.aim.vendor.persistence.VendorInfo;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.Info;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,10 +53,24 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         // fetch token from header for user lookup
         String token = headerToken.substring("TOKEN".length()).trim();
 
+        // find user by token provided from header
+        User currentUser = authenticationCompoment.findByToken(token);
+
+        // if no user found for token return Bad Request
+        if(currentUser == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        // otherwise get Vendor for User to update vendor info
+        Vendor vendor = vendorComponent.getVendor(currentUser);
+
         // check if InfoDTO is valid
         infodto.validate();
         // if valid save entity in DB
-        if(vendorComponent.putVendor(infodto.convertToVendorInfo()))
+        VendorInfo vendorInfo = infodto.convertToVendorInfo();
+
+        // set ID to actual vendor ID
+        vendorInfo.setId(vendor.getId());
+        if(vendorComponent.putVendor(vendorInfo))
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
@@ -78,8 +92,10 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     }
 
     @Override
-    public ResponseEntity<Void> productIdPut(@ApiParam(value = "ID des Produktes dessen Produktinformationen aktualisiert werden sollen", required = true) @PathVariable("id") String id, @ApiParam(value = "aktualisiertes oder neues Produktinfo Objekt", required = true) @RequestBody Info body)
+    public ResponseEntity<Void> productIdPut(@ApiParam(value = "ID des Produktes dessen Produktinformationen aktualisiert werden sollen", required = true) @PathVariable("id") String id, @ApiParam(value = "aktualisiertes oder neues Produktinfo Objekt", required = true) @RequestBody InfoDTO infoDTO) throws ValueDoesntValidateToConfigFileException
     {
+        // check if InfoDTO is valid
+        infoDTO.validate();
         return null;
     }
 
