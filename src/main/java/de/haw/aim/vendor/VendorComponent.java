@@ -50,14 +50,13 @@ public class VendorComponent implements IVendor
     }
 
     @Override
-    public boolean putVendor(VendorInfo vendorInfo)
+    public Vendor putVendor(VendorInfo vendorInfo)
     {
         Vendor vendor = vendorRepository.findById(vendorInfo.getId());
         if(vendor == null)
-            return false;
+            return vendor;
         vendor.setVendorInfo(vendorInfo);
-        vendorRepository.save(vendor);
-        return true;
+        return vendorRepository.save(vendor);
     }
 
     @Override

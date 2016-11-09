@@ -49,6 +49,8 @@ public class AuthenticationTest extends AbstractTestNGSpringContextTests {
 
         String someRandomToken = "this is probably a non valid token, holy moly imagine if this test ever fails...";
         Assert.assertFalse(authenticationCompoment.verifyToken(someRandomToken));
+
+        Assert.assertEquals(hans, authenticationCompoment.findByToken(token));
     }
 
 }

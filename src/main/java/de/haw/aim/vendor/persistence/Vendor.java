@@ -26,7 +26,7 @@ public class Vendor
     @DBRef
     private List<UploadedFile> files;
 
-    public Vendor()
+    private Vendor()
     {
 
     }
@@ -73,5 +73,21 @@ public class Vendor
     public String getId()
     {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Vendor vendor = (Vendor) o;
+
+        return id.equals(vendor.id);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id.hashCode();
     }
 }
