@@ -5,14 +5,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-/**
- * Created by Malte Scheller on 31.10.2016.
- */
-var core_1 = require('@angular/core');
-var file_service_1 = require("./file.service");
+var core_1 = require("@angular/core");
 var VendorProfilePic = (function () {
     function VendorProfilePic(fileService) {
         this.fileService = fileService;
@@ -46,12 +39,10 @@ var VendorProfilePic = (function () {
     VendorProfilePic = __decorate([
         core_1.Component({
             selector: 'vendor-info-profile-pic',
-            templateUrl: 'app/vendorInformation/profile-pic/vendor-profile-pic.component.html',
+            templateUrl: './vendor-profile-pic.component.html',
             styleUrls: []
-        }), 
-        __metadata('design:paramtypes', [file_service_1.FileService])
+        })
     ], VendorProfilePic);
     return VendorProfilePic;
 }());
 exports.VendorProfilePic = VendorProfilePic;
-//# sourceMappingURL=vendor-profile-pic.component.js.map

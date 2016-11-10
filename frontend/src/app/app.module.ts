@@ -40,5 +40,6 @@ import {FileService} from "./uploadCenter/file.service";
     providers: [FileService]
 })
 
-export class AppModule {
+export class AppModule
+{
 }
