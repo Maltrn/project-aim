@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {FileService} from "./file.service";
+import {VendorService} from "./vendor.service";
 
 @Component
 ({
@@ -8,14 +8,14 @@ import {FileService} from "./file.service";
     styleUrls: []
 })
 
-/*TODO FileService verwenden um Files in der GUI auszulisten*/
+/*TODO VendorService verwenden um Files in der GUI auszulisten*/
 export class VendorProfilePic implements OnInit {
     title: string = 'Profil-Bild';
 
     pictureIds: string[] = [];
     selectedPicture: string = 'Noch keine Bild gewählt';
 
-    constructor(private fileService: FileService) {
+    constructor(private vendorService: VendorService) {
     }
 
     ngOnInit(): void {
@@ -23,7 +23,7 @@ export class VendorProfilePic implements OnInit {
     }
 
     getFileIDs(): void {
-        this.fileService.getPictureIdsOff().then(recIds => this.sortID(recIds));
+        this.vendorService.getPictureIdsOff().then(recIds => this.sortID(recIds));
     }
 
     sortID(fileIds: string[]): void {
