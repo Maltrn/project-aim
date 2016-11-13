@@ -19,6 +19,9 @@ import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "./vendorInformation/backend-semu/in-memory-data.service";
 import {VendorService} from "./vendorInformation/profile-pic/vendor.service";
 
+// Product-Info
+import {ProductInfoMain} from "./productInformation/main/product-info-main.component";
+
 // Upload-Center
 import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {FileService} from "./uploadCenter/file.service";
@@ -41,7 +44,8 @@ import {FileService} from "./uploadCenter/file.service";
         VendorNotes,
         VendorProfilePic,
         VendorSortFiles,
-        UploadCenter
+        UploadCenter,
+        ProductInfoMain
     ],
     bootstrap: [AppComponent],
     providers: [FileService,

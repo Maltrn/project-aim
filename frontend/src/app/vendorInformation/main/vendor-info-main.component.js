@@ -19,11 +19,11 @@ var VendorInfoMain = (function () {
     VendorInfoMain = __decorate([
         core_1.Component({
             selector: 'vendor-info-main',
-            templateUrl: 'app/vendorInformation/main/vendor-info-main.component.html'
+            templateUrl: 'app/vendorInformation/main/product-info-main.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], VendorInfoMain);
     return VendorInfoMain;
 }());
 exports.VendorInfoMain = VendorInfoMain;
-//# sourceMappingURL=vendor-info-main.component.js.map
+//# sourceMappingURL=product-info-main.component.js.mapp
