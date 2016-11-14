@@ -1,7 +1,7 @@
 import {Routes} from "@angular/router";
 import {UploadCenter} from "./uploadCenter/uploadCenter";
-import {VendorInfoMain} from "./vendorInformation/main/vendor-info-main.component";
-import {ProductInfoMain} from "./productInformation/main/product-info-main.component";
+import {VendorInfoMain} from "./frontendComponents/main/vendor-info-main.component";
+import {ProductInfoMain} from "./frontendComponents/main/product-info-main.component";
 
 
 export const rootRouterConfig: Routes = [

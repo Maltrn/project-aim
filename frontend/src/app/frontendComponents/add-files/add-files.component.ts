@@ -9,7 +9,9 @@ import {Component} from "@angular/core";
     templateUrl: './add-files.component.html'
 })
 
-export class VendorAddFiles
+export class AddFilesComponent
 {
+    title: string = 'Datei hinzufügen';
+    description: string = 'Fügen Sie weitere Dateien hinzu'
 
 }

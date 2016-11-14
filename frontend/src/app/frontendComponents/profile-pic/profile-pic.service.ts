@@ -8,7 +8,7 @@ import 'rxjs/add/operator/toPromise';
 
 
 @Injectable()
-export class VendorService
+export class ProfilePictureService
 {
     fileUrl: string = '/file';
 

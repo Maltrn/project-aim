@@ -1,0 +1,28 @@
+<h1 class="page-header">
+    {{title}}
+    <small>{{description}}</small>
+</h1>
+<div class="panel-body">
+    <table class="table" id="extendableTable">
+        <thead>
+        <tr>
+            <th>Feature</th>
+            <th>Beschreibung</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="accordion-toggle">
+            <td data-toggle="collapse" data-target="#collapseTwo">Feature 1</td>
+            <td data-toggle="collapse" data-target="#collapseTwo">Das ist ein tolles Feature</td>
+            <td><input class="btn btn-danger" type="button" value="Delete" onclick="deleteRow(this)"></td>
+        </tr>
+        <tr>
+            <td>Feature 2</td>
+            <td>Das ist ein tolles Feature</td>
+            <td><input class="btn btn-danger" type="button" value="Delete" onclick="deleteRow(this)"></td>
+        </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-primary" onclick="addRow()">Reihe hinzufügen</button>
+</div>

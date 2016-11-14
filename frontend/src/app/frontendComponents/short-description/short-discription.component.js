@@ -12,17 +12,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Created by Malte Scheller on 31.10.2016.
  */
 var core_1 = require('@angular/core');
-var VendorSortFiles = (function () {
-    function VendorSortFiles() {
+var VendorShortDiscription = (function () {
+    function VendorShortDiscription() {
     }
-    VendorSortFiles = __decorate([
+    VendorShortDiscription = __decorate([
         core_1.Component({
-            selector: 'vendor-sort-files',
-            templateUrl: 'app/vendorInformation/sort-files/vendor-sort-files.component.html'
+            selector: 'vendor-short-discription',
+            templateUrl: 'app/vendorInformation/short-description/short-discription.component.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], VendorSortFiles);
-    return VendorSortFiles;
+    ], VendorShortDiscription);
+    return VendorShortDiscription;
 }());
-exports.VendorSortFiles = VendorSortFiles;
-//# sourceMappingURL=vendor-sort-files.component.js.map
+exports.VendorShortDiscription = VendorShortDiscription;
+//# sourceMappingURL=short-discription.component.js.map
