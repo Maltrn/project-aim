@@ -95,4 +95,10 @@ public class Vendor
     public int hashCode() {
         return id.hashCode();
     }
+
+    public void putProductInfo(ProductInfo productInfo)
+    {
+        this.productInfos.remove(productInfo);
+        this.productInfos.add(productInfo);
+    }
 }

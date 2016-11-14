@@ -130,11 +130,27 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @RequestHeader("Authorization") String headerToken)
             throws ValueDoesntValidateToConfigFileException
     {
-        // TODO not implemented yet
-        // check if InfoDTO is valid
+        // fetch token from header for user lookup
+        String token = headerToken.substring("TOKEN".length()).trim();
+
+        // find user by token provided from header
+        User currentUser = authenticationCompoment.findByToken(token);
+
+        // if no user found for token return Bad Request
+        if(currentUser == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        // after that check infoDTO
         infoDTO.validate();
         ProductInfo productInfo = infoDTO.convertToProductInfo();
-        return null;
+
+        // get Vendor for User to update product info
+        Vendor vendor = iVendor.getVendor(currentUser);
+
+        vendor.putProductInfo(productInfo);
+
+        iVendor.saveVendor(vendor);
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @Override
