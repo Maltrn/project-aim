@@ -50,4 +50,12 @@ public interface IVendor
      * @return Product Info, based on ID, null if no Product Info found
      */
     ProductInfo getProduct(String id);
+
+
+    /**
+     * Tries to save a vendor object to the DB. Only updates existing vendor objects.
+     * @param vendor Vendor to save
+     * @return Updated Vendor entity for further referencing. Returns null if Vendor didn't exist in DB.
+     */
+    Vendor saveVendor(Vendor vendor);
 }

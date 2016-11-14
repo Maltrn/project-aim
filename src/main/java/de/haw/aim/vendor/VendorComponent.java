@@ -71,5 +71,11 @@ public class VendorComponent implements IVendor
         return productInfoRepository.findById(id);
     }
 
+    @Override
+    public Vendor saveVendor(Vendor vendor)
+    {
+        return vendorRepository.save(vendor);
+    }
+
 
 }

@@ -75,6 +75,11 @@ public class Vendor
         return id;
     }
 
+    public void addFile(UploadedFile uploadedFile)
+    {
+        files.add(uploadedFile);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

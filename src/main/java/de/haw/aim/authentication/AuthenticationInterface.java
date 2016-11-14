@@ -5,8 +5,9 @@ import de.haw.aim.authentication.persistence.User;
 public interface AuthenticationInterface
 {
     /**
-     * @param token
-     * @return
+     * Returns a User based on a given token
+     * @param token token to look for
+     * @return returns a User entity, or null if token not found
      */
     User findByToken(String token);
 
