@@ -109,12 +109,12 @@ public class RestTest extends AbstractTestNGSpringContextTests
     public void testVendorIdGet() throws Exception
     {
         String response = when()
-                .get("/vendor/" + this.vendorInfoRepository.findAll().get(0).getId())
+                .get("/vendor/" + this.vendorRepository.findAll().get(0).getId())
                 .then()
                 .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK).extract().response().asString();
 
-        Assert.assertEquals(response, "[ {\n" +
+        Assert.assertEquals(response, "{\n" +
                 "  \"id\" : \"" + this.vendorInfoRepository.findAll().get(0).getId() + "\",\n" +
                 "  \"name\" : \"Vendor\",\n" +
                 "  \"shortDescription\" : \"short description\",\n" +
@@ -124,7 +124,7 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 "  \"facts\" : [ {\n" +
                 "    \"key\" : \"value\"\n" +
                 "  } ]\n" +
-                "} ]");
+                "}" );
     }
 
     @Test
