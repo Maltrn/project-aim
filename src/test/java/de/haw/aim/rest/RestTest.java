@@ -7,10 +7,12 @@ import de.haw.aim.uploadcenter.persistence.PictureRepository;
 import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.vendor.persistence.*;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -18,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.when;
-import static org.hamcrest.Matchers.hasItems;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RestTest extends AbstractTestNGSpringContextTests
@@ -61,6 +62,12 @@ public class RestTest extends AbstractTestNGSpringContextTests
 
         Vendor testVendor = new Vendor(vendorInfo, productInfos, users, fileGallery);
 
+        pictureRepository.deleteAll();
+        userRepository.deleteAll();
+        vendorInfoRepository.deleteAll();
+        productInfoRepository.deleteAll();
+        vendorRepository.deleteAll();
+
         pictureRepository.save(picture);
         vendorInfoRepository.save(vendorInfo);
         productInfoRepository.save(productInfo);
@@ -73,10 +80,22 @@ public class RestTest extends AbstractTestNGSpringContextTests
     @Test
     public void testVendorGet() throws Exception
     {
-        when()
+        String response = when()
                 .get("/vendor")
                 .then()
-                .statusCode(HttpStatus.SC_OK)
-                .body("id", hasItems("58299303ba136171d331c75a"));
+                .contentType(ContentType.JSON)
+                .statusCode(HttpStatus.SC_OK).extract().response().asString();
+
+        Assert.assertEquals(response, "[ {\n" +
+                "  \"id\" : \"" + this.vendorInfoRepository.findAll().get(0).getId() + "\",\n" +
+                "  \"name\" : \"Vendor\",\n" +
+                "  \"shortDescription\" : \"short description\",\n" +
+                "  \"longDescription\" : \"long description\",\n" +
+                "  \"mainPic\" : \"" + this.pictureRepository.findAll().get(0).getId() + "\",\n" +
+                "  \"fileGallery\" : [ \"" + this.pictureRepository.findAll().get(0).getId() + "\" ],\n" +
+                "  \"facts\" : [ {\n" +
+                "    \"key\" : \"value\"\n" +
+                "  } ]\n" +
+                "} ]");
     }
 }
