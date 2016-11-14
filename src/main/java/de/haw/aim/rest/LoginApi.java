@@ -21,6 +21,7 @@ public interface LoginApi
             @ApiResponse(code = 503, message = "Login nicht erfolgreich, da keine Anbieter und/oder Produktinformationen abgerufen werden können.", response = UserDTO.class)})
     @RequestMapping(value = "/login",
             produces = {"application/json"},
+            consumes = {"application/json"},
             method = RequestMethod.POST)
     ResponseEntity<UserDTO> loginPost(
 

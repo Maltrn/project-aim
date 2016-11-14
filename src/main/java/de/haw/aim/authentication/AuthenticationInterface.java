@@ -16,5 +16,7 @@ public interface AuthenticationInterface
 
     User login(String username, String pw);
 
+    User create(String username, String pw);
+
     Boolean verifyToken(String token);
 }

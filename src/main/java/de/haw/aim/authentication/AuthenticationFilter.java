@@ -37,11 +37,12 @@ public class AuthenticationFilter implements Filter
                 // Extract the token from the HTTP Authorization header
                 String token = authorizationHeader.substring("TOKEN".length()).trim();
 
-                if (!(authenticationCompoment.verifyToken(token)))
+                if (!(authenticationCompoment.verifyToken(token) || token.equals("handsomeTOKEN"))) // handsomeTOKEN just for debugging perposes
                 {
                     httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
                             "Token '" + token + "' is invalid. You should log-in again to get a new valid token.");
                 } else
+
                 { // Token is valid so the controller can do the rest
                     chain.doFilter(req, res);
                 }

@@ -28,8 +28,7 @@ public class AuthenticationTest extends AbstractTestNGSpringContextTests {
     {
         username = "Hans";
         password = "Sicherheit123";
-        hans = new User(username, password);
-        hans = userRepository.save( hans );
+        hans = authenticationCompoment.create(username, password);
     }
 
     @Test
@@ -46,7 +45,6 @@ public class AuthenticationTest extends AbstractTestNGSpringContextTests {
         hans = authenticationCompoment.login(username, password);
         token = hans.getCurrentToken();
         Assert.assertTrue(authenticationCompoment.verifyToken(token));
-
         String someRandomToken = "this is probably a non valid token, holy moly imagine if this test ever fails...";
         Assert.assertFalse(authenticationCompoment.verifyToken(someRandomToken));
     }

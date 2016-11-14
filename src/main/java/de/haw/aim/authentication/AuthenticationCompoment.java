@@ -57,6 +57,20 @@ public class AuthenticationCompoment implements AuthenticationInterface
     }
 
     @Override
+    public User create(String username, String pw) {
+        // try from get user from DB
+        User retVal = userRepository.findByUsername(username);
+        if (retVal == null)
+        { // User does not exist so we can try to create it
+            User user = new User(username, pw);
+            return userRepository.save(user);
+        } else
+        { // User already exists so we cannot create a user with the same username
+            return null;
+        }
+    }
+
+    @Override
     public Boolean verifyToken(String token)
     {
         // find a user in db which has the token from verify, if user equals null return false
