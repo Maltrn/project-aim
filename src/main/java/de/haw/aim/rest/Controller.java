@@ -80,7 +80,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         // if no user found for token return Bad Request
         if(currentUser == null)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         // otherwise get Vendor for User to update vendor info
         Vendor vendor = iVendor.getVendor(currentUser);

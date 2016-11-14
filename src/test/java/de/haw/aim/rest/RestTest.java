@@ -62,6 +62,7 @@ public class RestTest extends AbstractTestNGSpringContextTests
         productInfos.add(productInfo);
 
         User user = new User("userName", "password");
+        user.setCurrentToken("handsomeTOKEN");
         List<User> users = new ArrayList<>();
         users.add(user);
 
@@ -93,14 +94,14 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK).extract().response().asString();
 
-        Assert.assertEquals(response, "[" +
+        Assert.assertEquals(response, "[ " +
                 this.vendorJson(
                         vendorRepository.findAll().get(0).getId(),
                         "short description",
                         "long description",
                         pictureRepository.findAll().get(0).getId(),
                         pictureRepository.findAll().get(0).getId(),
-                        "\"key\":\"value\"") + "]");
+                        "\"key\" : \"value\"") + " ]");
     }
 
     @Test
@@ -120,22 +121,24 @@ public class RestTest extends AbstractTestNGSpringContextTests
                         "long description",
                         pictureRepository.findAll().get(0).getId(),
                         pictureRepository.findAll().get(0).getId(),
-                        "\"key\":\"value\""));
+                        "\"key\" : \"value\""));
     }
 
     @Test
     public void testVendorPut() throws Exception
     {
+        String jsonBody = this.vendorJson(
+                vendorRepository.findAll().get(0).getId(),
+                "short description1111",
+                "long description111",
+                pictureRepository.findAll().get(0).getId(),
+                pictureRepository.findAll().get(0).getId(),
+                "\"key\" : \"value221\"");
+
         given()
                 .contentType(ContentType.JSON)
                 .header("Authorization", "TOKEN handsomeTOKEN")
-                .body(this.vendorJson(
-                        vendorRepository.findAll().get(0).getId(),
-                        "short description1111",
-                        "long description111",
-                        pictureRepository.findAll().get(0).getId(),
-                        pictureRepository.findAll().get(0).getId(),
-                        "\"key\":\"value221\""))
+                .body(jsonBody)
                 .when()
                 .put("/vendor")
                 .then()
@@ -149,8 +152,16 @@ public class RestTest extends AbstractTestNGSpringContextTests
 
     private String vendorJson(String id, String shortDescription, String longDescription, String mainPic, String fileGallery, String facts)
     {
-        return "{\"id\":\"" + id + "\",\"name\":\"Vendor\",\"shortDescription\":\"" + shortDescription +
-                "\",\"longDescription\":\"" + longDescription + "\",\"mainPic\":\"" + mainPic +
-                "\",\"fileGallery\":[\"" + fileGallery + "\"],\"facts\":[{" + facts + "}]}";
+        return "{\n" +
+                "  \"id\" : \"" + id + "\",\n" +
+                "  \"name\" : \"Vendor\",\n" +
+                "  \"shortDescription\" : \"" + shortDescription + "\",\n" +
+                "  \"longDescription\" : \"" + longDescription + "\",\n" +
+                "  \"mainPic\" : \"" + mainPic + "\",\n" +
+                "  \"fileGallery\" : [ \"" + fileGallery + "\" ],\n" +
+                "  \"facts\" : [ {\n" +
+                "    " + facts + "\n" +
+                "  } ]\n" +
+                "}";
     }
 }

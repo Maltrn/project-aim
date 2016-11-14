@@ -1,8 +1,8 @@
 package de.haw.aim.rest.dto;
 
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
-import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.uploadcenter.persistence.Picture;
+import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.validator.Validatable;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import de.haw.aim.vendor.persistence.Fact;
@@ -42,7 +42,7 @@ public class InfoDTO implements Validatable
 
     private List<String> fileGallery = new ArrayList<String>();
 
-    private List<Map<String,String>> facts = new ArrayList<>();
+    private List<Map<String, String>> facts = new ArrayList<>();
 
     public InfoDTO id(String id)
     {
@@ -55,7 +55,7 @@ public class InfoDTO implements Validatable
         Picture mainPic = (Picture) uploadCenterInterface.findById(this.getMainPic());
 
         List<UploadedFile> fileGallery = new ArrayList<>();
-        for(String s : this.fileGallery)
+        for (String s : this.fileGallery)
         {
             fileGallery.add(uploadCenterInterface.findById(s));
         }
@@ -63,8 +63,8 @@ public class InfoDTO implements Validatable
         List<Fact> facts = new ArrayList<>();
         for (Map<String, String> map : this.facts)
         {
-            Map.Entry<String,String> entry = map.entrySet().iterator().next();
-            facts.add(new Fact(entry.getKey(),entry.getValue()));
+            Map.Entry<String, String> entry = map.entrySet().iterator().next();
+            facts.add(new Fact(entry.getKey(), entry.getValue()));
         }
 
         ProductInfo retVal = new ProductInfo(
@@ -84,7 +84,7 @@ public class InfoDTO implements Validatable
         Picture mainPic = (Picture) uploadCenterInterface.findById(this.getMainPic());
 
         List<UploadedFile> fileGallery = new ArrayList<>();
-        for(String s : this.fileGallery)
+        for (String s : this.fileGallery)
         {
             fileGallery.add(uploadCenterInterface.findById(s));
         }
@@ -92,8 +92,8 @@ public class InfoDTO implements Validatable
         List<Fact> facts = new ArrayList<>();
         for (Map<String, String> map : this.facts)
         {
-            Map.Entry<String,String> entry = map.entrySet().iterator().next();
-            facts.add(new Fact(entry.getKey(),entry.getValue()));
+            Map.Entry<String, String> entry = map.entrySet().iterator().next();
+            facts.add(new Fact(entry.getKey(), entry.getValue()));
         }
 
         VendorInfo retVal = new VendorInfo(
@@ -107,6 +107,7 @@ public class InfoDTO implements Validatable
 
         return retVal;
     }
+
     public static InfoDTO from(Info info)
     {
         InfoDTO retVal = new InfoDTO();
@@ -118,16 +119,16 @@ public class InfoDTO implements Validatable
         retVal.setMainPic(info.getMainPic().getId());
 
         List<String> fileIdList = new ArrayList<>();
-        for(UploadedFile f : info.getFileGallery())
+        for (UploadedFile f : info.getFileGallery())
         {
             fileIdList.add(f.getId());
         }
         retVal.setFileGallery(fileIdList);
 
-        List<Map<String,String>> facts = new ArrayList();
-        for(Fact f : info.getFacts())
+        List<Map<String, String>> facts = new ArrayList();
+        for (Fact f : info.getFacts())
         {
-            Map<String,String> factMap = new HashMap<>();
+            Map<String, String> factMap = new HashMap<>();
             factMap.put(f.getKey(), f.getValue());
             facts.add(factMap);
         }
@@ -268,13 +269,13 @@ public class InfoDTO implements Validatable
         this.fileGallery = fileGallery;
     }
 
-    public InfoDTO facts(List<Map<String,String>> facts)
+    public InfoDTO facts(List<Map<String, String>> facts)
     {
         this.facts = facts;
         return this;
     }
 
-    public InfoDTO addFactsItem(Map<String,String> factsItem)
+    public InfoDTO addFactsItem(Map<String, String> factsItem)
     {
         this.facts.add(factsItem);
         return this;
@@ -286,12 +287,12 @@ public class InfoDTO implements Validatable
      * @return facts
      **/
     @ApiModelProperty(value = "")
-    public List<Map<String,String>> getFacts()
+    public List<Map<String, String>> getFacts()
     {
         return facts;
     }
 
-    public void setFacts(List<Map<String,String>> facts)
+    public void setFacts(List<Map<String, String>> facts)
     {
         this.facts = facts;
     }
@@ -357,11 +358,24 @@ public class InfoDTO implements Validatable
     @Override
     public void validate() throws ValueDoesntValidateToConfigFileException
     {
-        if (this.getShortDescription().length() > Integer.valueOf(env.getProperty("info.shortdescription.maxlength")))
+        int shortDescriptionMaxLength;
+        int longDescriptionMaxLength;
+
+        try
+        {
+            longDescriptionMaxLength = Integer.valueOf(env.getProperty("info.longdescription.maxlength"));
+            shortDescriptionMaxLength = Integer.valueOf(env.getProperty("info.shortdescription.maxlength"));
+        } catch (NullPointerException e)
+        {
+            shortDescriptionMaxLength = 30;
+            longDescriptionMaxLength = 30;
+        }
+
+        if (this.getShortDescription().length() > shortDescriptionMaxLength)
         {
             throw new ValueDoesntValidateToConfigFileException("short description is too long");
         }
-        if (this.getLongDescription().length() > Integer.valueOf(env.getProperty("info.longdescription.maxlength")))
+        if (this.getLongDescription().length() > longDescriptionMaxLength)
         {
             throw new ValueDoesntValidateToConfigFileException("long description is too long");
         }
