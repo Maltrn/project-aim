@@ -19,6 +19,7 @@ import org.testng.annotations.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -38,6 +39,7 @@ public class RestTest extends AbstractTestNGSpringContextTests
 
     @Autowired
     private UserRepository userRepository;
+
 
     @BeforeMethod
     public void setUp() throws Exception
@@ -97,5 +99,60 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 "    \"key\" : \"value\"\n" +
                 "  } ]\n" +
                 "} ]");
+    }
+
+    @Test
+    public void testVendorIdGet() throws Exception
+    {
+        String response = when()
+                .get("/vendor/" + this.vendorInfoRepository.findAll().get(0).getId())
+                .then()
+                .contentType(ContentType.JSON)
+                .statusCode(HttpStatus.SC_OK).extract().response().asString();
+
+        Assert.assertEquals(response, "[ {\n" +
+                "  \"id\" : \"" + this.vendorInfoRepository.findAll().get(0).getId() + "\",\n" +
+                "  \"name\" : \"Vendor\",\n" +
+                "  \"shortDescription\" : \"short description\",\n" +
+                "  \"longDescription\" : \"long description\",\n" +
+                "  \"mainPic\" : \"" + this.pictureRepository.findAll().get(0).getId() + "\",\n" +
+                "  \"fileGallery\" : [ \"" + this.pictureRepository.findAll().get(0).getId() + "\" ],\n" +
+                "  \"facts\" : [ {\n" +
+                "    \"key\" : \"value\"\n" +
+                "  } ]\n" +
+                "} ]" );
+    }
+
+    @Test
+    public void testVendorPut() throws Exception
+    {
+        given().
+                contentType(ContentType.JSON)
+                .body(vendorJson())
+                .when()
+                .put("/vendor")
+                .then()
+                .statusCode(HttpStatus.SC_OK);
+
+        VendorInfo vendorInfo = this.vendorInfoRepository.findAll().get(0);
+        Assert.assertEquals(vendorInfo.getShortDescription(), "short description asdasd");
+        Assert.assertEquals(vendorInfo.getLongDescription(), "long description asdasd");
+        Assert.assertEquals(vendorInfo.getFacts().get(0).getValue(), "valu 111e");
+    }
+
+
+    private String vendorJson()
+    {
+        return "{\n" +
+                "  \"id\" : \"" + this.vendorInfoRepository.findAll().get(0).getId() + "\",\n" +
+                "  \"name\" : \"Vendor\",\n" +
+                "  \"shortDescription\" : \"short description asdasd\",\n" +
+                "  \"longDescription\" : \"long description asdasd\",\n" +
+                "  \"mainPic\" : \"" + this.pictureRepository.findAll().get(0).getId() + "\",\n" +
+                "  \"fileGallery\" : [ \"" + this.pictureRepository.findAll().get(0).getId() + "\" ],\n" +
+                "  \"facts\" : [ {\n" +
+                "    \"key\" : \"valu 111e\"\n" +
+                "  } ]\n" +
+                "}";
     }
 }
