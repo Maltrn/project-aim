@@ -12,9 +12,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
-/**
- * Created by kk on 14.11.16.
- */
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = AIMServer.class)
 public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
 
@@ -43,7 +41,7 @@ public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
         given().
                 header("Authorization", "TOKEN handsomeTOKEN").
         when().
-                post("/vendor").
+                put("/vendor").
                 then().
                 statusCode(HttpStatus.SC_OK);
     }

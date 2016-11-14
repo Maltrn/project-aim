@@ -28,7 +28,7 @@ public class AuthenticationTest extends AbstractTestNGSpringContextTests {
     {
         username = "Hans";
         password = "Sicherheit123";
-        hans = authenticationCompoment.create(username, password);
+        authenticationCompoment.create(username, password);
     }
 
     @Test
