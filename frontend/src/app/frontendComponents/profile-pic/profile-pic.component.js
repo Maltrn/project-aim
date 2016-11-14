@@ -39,7 +39,7 @@ var VendorProfilePic = (function () {
     VendorProfilePic = __decorate([
         core_1.Component({
             selector: 'vendor-info-profile-pic',
-            templateUrl: './vendor-profile-pic.component.html',
+            templateUrl: './profile-pic.component.html',
             styleUrls: []
         })
     ], VendorProfilePic);

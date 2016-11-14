@@ -8,19 +8,19 @@ import {AppComponent} from "./app";
 import {rootRouterConfig} from "./app.routes";
 
 // Vendor-Info
-import {VendorAddFiles} from "./vendorInformation/add-files/add-files.component";
-import {VendorDetailedDiscription} from "./vendorInformation/detailed-description/vendor-detailed-discription.component";
-import {VendorNotes} from "./vendorInformation/notes/vendor-notes";
-import {VendorInfoMain} from "./vendorInformation/main/vendor-info-main.component";
-import {VendorShortDiscription} from "./vendorInformation/short-description/vendor-short-discription.component";
-import {VendorProfilePic} from "./vendorInformation/profile-pic/vendor-profile-pic.component";
-import {VendorSortFiles} from "./vendorInformation/sort-files/vendor-sort-files.component";
+import {AddFilesComponent} from "./frontendComponents/add-files/add-files.component";
+import {DetailedDiscriptionComponent} from "./frontendComponents/detailed-description/detailed-discription.component.ts";
+import {FactsTableComponent} from "./frontendComponents/notes/vendor-notes";
+import {VendorInfoMain} from "./frontendComponents/main/vendor-info-main.component";
+import {ShortDiscriptionComponent} from "./frontendComponents/short-description/short-discription.component.ts";
+import {ProfilePicComponent} from "./frontendComponents/profile-pic/profile-pic.component.ts";
+import {SortFilesComponent} from "./frontendComponents/sort-files/sort-files.component.ts";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
-import {InMemoryDataService} from "./vendorInformation/backend-semu/in-memory-data.service";
-import {VendorService} from "./vendorInformation/profile-pic/vendor.service";
+import {InMemoryDataService} from "./frontendComponents/backend-semu/in-memory-data.service";
+import {ProfilePictureService} from "./frontendComponents/profile-pic/profile-pic.service.ts";
 
 // Product-Info
-import {ProductInfoMain} from "./productInformation/main/product-info-main.component";
+import {ProductInfoMain} from "./frontendComponents/main/product-info-main.component";
 
 // Upload-Center
 import {UploadCenter} from "./uploadCenter/uploadCenter";
@@ -38,18 +38,18 @@ import {FileService} from "./uploadCenter/file.service";
     declarations: [
         AppComponent,
         VendorInfoMain,
-        VendorAddFiles,
-        VendorDetailedDiscription,
-        VendorShortDiscription,
-        VendorNotes,
-        VendorProfilePic,
-        VendorSortFiles,
+        AddFilesComponent,
+        DetailedDiscriptionComponent,
+        ShortDiscriptionComponent,
+        FactsTableComponent,
+        ProfilePicComponent,
+        SortFilesComponent,
         UploadCenter,
         ProductInfoMain
     ],
     bootstrap: [AppComponent],
     providers: [FileService,
-                VendorService]
+                ProfilePictureService]
 })
 
 export class AppModule

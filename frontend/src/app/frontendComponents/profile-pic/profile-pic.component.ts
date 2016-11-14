@@ -1,21 +1,22 @@
 import {Component, OnInit} from "@angular/core";
-import {VendorService} from "./vendor.service";
+import {ProfilePictureService} from "./profile-pic.service.ts";
 
 @Component
 ({
     selector: 'vendor-info-profile-pic',
-    templateUrl: './vendor-profile-pic.component.html',
+    templateUrl: './profile-pic.component.html',
     styleUrls: []
 })
 
-/*TODO VendorService verwenden um Files in der GUI auszulisten*/
-export class VendorProfilePic implements OnInit {
+/*TODO ProfilePictureService verwenden um Files in der GUI auszulisten*/
+export class ProfilePicComponent implements OnInit {
     title: string = 'Profil-Bild';
+    description: string = 'Wählen Sie Ihr gewünschtes Profilbild aus'
 
     pictureIds: string[] = [];
     selectedPicture: string = 'Noch keine Bild gewählt';
 
-    constructor(private vendorService: VendorService) {
+    constructor(private vendorService: ProfilePictureService) {
     }
 
     ngOnInit(): void {
