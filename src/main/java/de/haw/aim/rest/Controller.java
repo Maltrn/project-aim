@@ -17,13 +17,11 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -131,6 +129,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @RequestBody InfoDTO infoDTO)
             throws ValueDoesntValidateToConfigFileException
     {
+        // TODO not implemented yet
         // check if InfoDTO is valid
         infoDTO.validate();
         return null;
@@ -141,9 +140,13 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @RequestHeader("Authorization") String headerToken
     )
     {
+        // Find User based on auth token in header
         User user = authenticationCompoment.findByToken(headerToken);
         if( user == null )
+            // If no User found based on auth token, bail out -> UNAUTHORIZED
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        // Otherwise we can get the Vendor for the user
         Vendor vendor = iVendor.getVendor(user);
 
         List<String> retVal = vendor.getVendorInfo().getFileGallery().stream().map(UploadedFile::getId).collect(Collectors.toList());
@@ -152,7 +155,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     }
 
     @Override
-    public ResponseEntity<MultipartFile> fileIdGet(
+    public ResponseEntity<File> fileIdGet(
             @ApiParam(value = "ID der Datei welche aberufen werden soll", required = true)
             @PathVariable("id") String id)
     {
@@ -168,29 +171,33 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         // Create a file from its path
         File file = new File(location);
 
-        // Extract the content into a byte array
-        byte[] content = null;
-        try {
-            content = Files.readAllBytes(file.toPath());
-        } catch (final IOException e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        // And MultipartFile it up
-        MultipartFile multipartFile = new MockMultipartFile(file.getName(),content);
-
         // Back to the frontend
-        return new ResponseEntity<>(multipartFile, HttpStatus.OK);
+        return new ResponseEntity<>(file, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<String> fileIdPut(
+    public ResponseEntity<Void> fileIdPut(
             @ApiParam(value = "ID der Datei welche überschrieben werden soll", required = true)
             @PathVariable("id") String id, @ApiParam(value = "file detail")
             @RequestPart("file") MultipartFile file,
             @RequestHeader("Authorization") String headerToken)
     {
-        return null;
+        // Find User based on auth token in header
+        User user = authenticationCompoment.findByToken(headerToken);
+        if( user == null )
+            // If no User found based on auth token, bail out -> UNAUTHORIZED
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        // Otherwise we can get the Vendor for the user
+        Vendor vendor = iVendor.getVendor(user);
+
+        // Now we can try to create an uploadedFile
+        UploadedFile uploadedFile;
+
+        // Let the UploadCenter replace the file
+        uploadedFile = iUploadCenter.replaceFile(id,file);
+
+        return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @Override
@@ -202,10 +209,13 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         // Find User based on auth token in header
         User user = authenticationCompoment.findByToken(headerToken);
         if( user == null )
-            // I
+            // If no User found based on auth token, bail out -> UNAUTHORIZED
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        // Otherwise we can get the Vendor for the user
         Vendor vendor = iVendor.getVendor(user);
 
+        // Now we can try to create an uploadedFile
         UploadedFile uploadedFile;
 
         try
@@ -213,12 +223,16 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             uploadedFile = iUploadCenter.uploadFile(file);
         } catch (IOException e)
         {
+            // If the UploadedFile creation fails, we can assume the file is invalid
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
+        // Otherwise we have a proper file to add to the vendor FileList
         vendor.addFile(uploadedFile);
 
+        // Save the Vendor Entity
         iVendor.saveVendor(vendor);
+
         return new ResponseEntity<>(uploadedFile.getId(), HttpStatus.OK);
     }
 

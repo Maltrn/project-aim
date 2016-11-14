@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-10-31T08:42:18.273Z")
@@ -33,7 +34,7 @@ public interface FileApi
     @RequestMapping(value = "/file/{id}",
             produces = {"image/jpeg", "image/png", "image/gif", "application/pdf"},
             method = RequestMethod.GET)
-    ResponseEntity<MultipartFile> fileIdGet(
+    ResponseEntity<File> fileIdGet(
             @ApiParam(value = "ID der Datei welche aberufen werden soll", required = true) @PathVariable("id") String id
 
 
@@ -49,7 +50,7 @@ public interface FileApi
     @RequestMapping(value = "/file/{id}",
             consumes = {"application/x-www-form-urlencoded"},
             method = RequestMethod.PUT)
-    ResponseEntity<String> fileIdPut(
+    ResponseEntity<Void> fileIdPut(
             @ApiParam(value = "ID der Datei welche überschrieben werden soll", required = true) @PathVariable("id") String id,
             @ApiParam(value = "file detail") @RequestPart("file") MultipartFile file,
             @RequestHeader("Authorization") String headerToken
