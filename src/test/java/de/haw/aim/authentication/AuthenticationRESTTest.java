@@ -2,6 +2,7 @@ package de.haw.aim.authentication;
 
 import de.haw.aim.AIMServer;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,6 +30,7 @@ public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
     public void loginSucessfulTest() {
         given().
                 header("Content-Type", "application/json").
+                contentType(ContentType.JSON).
                 body("{ \"username\": \"wilhelm\", \"password\": \"apfelstrudel\" }").
         when().
                 post("/login").

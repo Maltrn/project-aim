@@ -7,6 +7,7 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.stream.Collectors;
 
 
 public class AuthenticationFilter implements Filter
@@ -67,7 +68,6 @@ public class AuthenticationFilter implements Filter
         String method = req.getMethod();
         String uri = req.getRequestURI().toString();
         //System.out.println(method);
-        //System.out.println(uri);
         return (method.equals("POST") && uri.matches("^.*/login$")) ||
                 (method.equals("GET") &&
                         (uri.matches("^.*/file/[a-z0-9]*$") ||
