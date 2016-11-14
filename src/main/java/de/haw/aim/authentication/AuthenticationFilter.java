@@ -11,7 +11,6 @@ import java.io.IOException;
 
 public class AuthenticationFilter implements Filter
 {
-
     @Autowired
     AuthenticationCompoment authenticationCompoment;
 
@@ -77,5 +76,4 @@ public class AuthenticationFilter implements Filter
                                 uri.matches("^.*/product/[a-z0-9]*$")) ||
                                 uri.matches("^.*/(swagger.*|webjars/.*|v2.*|validatorUrl.*)$"));
     }
-
 }

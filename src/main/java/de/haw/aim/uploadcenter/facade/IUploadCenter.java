@@ -16,6 +16,4 @@ public interface IUploadCenter
     public boolean checkForExistence(String id);
 
     public UploadedFile findById(String id);
-
-
 }

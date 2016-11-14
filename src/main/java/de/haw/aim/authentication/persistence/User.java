@@ -3,9 +3,6 @@ package de.haw.aim.authentication.persistence;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-/**
- * Created by Rene on 31.10.2016.
- */
 @Document
 public class User
 {
@@ -26,7 +23,6 @@ public class User
         this.pw = pw;
     }
 
-
     public String getUsername()
     {
         return username;
@@ -42,7 +38,6 @@ public class User
         this.currentToken = currentToken;
     }
 
-
     public boolean checkPW(String pw)
     {
         return pw.equals(this.pw);
@@ -57,7 +52,6 @@ public class User
         User user = (User) o;
 
         return id.equals(user.id);
-
     }
 
     @Override
