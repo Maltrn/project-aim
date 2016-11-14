@@ -10,6 +10,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
@@ -40,6 +41,8 @@ public class RestTest extends AbstractTestNGSpringContextTests
     @Autowired
     private UserRepository userRepository;
 
+    @Value("${local.server.port}")
+    private int port;
 
     @BeforeMethod
     public void setUp() throws Exception
@@ -77,6 +80,7 @@ public class RestTest extends AbstractTestNGSpringContextTests
         vendorRepository.save(testVendor);
 
         RestAssured.basePath = "/api";
+        RestAssured.port = this.port;
     }
 
     @Test
@@ -120,7 +124,7 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 "  \"facts\" : [ {\n" +
                 "    \"key\" : \"value\"\n" +
                 "  } ]\n" +
-                "} ]" );
+                "} ]");
     }
 
     @Test
@@ -139,7 +143,6 @@ public class RestTest extends AbstractTestNGSpringContextTests
         Assert.assertEquals(vendorInfo.getLongDescription(), "long description asdasd");
         Assert.assertEquals(vendorInfo.getFacts().get(0).getValue(), "valu 111e");
     }
-
 
     private String vendorJson()
     {
