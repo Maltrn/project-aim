@@ -8,6 +8,8 @@ import {UploadedFile} from "./uploadedFile";
 })
 export class UploadCenter {
     protected files: UploadedFile[];
+    title: string = 'Dateiverwaltung';
+    description: string = 'Übersicht aller hochgeladenen Dateien';
 
     constructor(private fileService: FileService) {
         this.files = fileService.getAllFiles();

@@ -19,7 +19,7 @@ public class AuthenticationCompoment implements AuthenticationInterface
     @Override
     public User findByToken(String token)
     {
-        return null;
+        return userRepository.findByCurrentToken(token);
     }
 
     @Override

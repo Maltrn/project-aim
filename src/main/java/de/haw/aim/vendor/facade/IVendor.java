@@ -10,7 +10,8 @@ import java.util.List;
 public interface IVendor
 {
     /**
-     * Returns vendor entity for specific user. If user not known from vendor returns null.
+     * Returns first vendor entity found  for specific user. If user not known from vendor returns null.
+     * TODO: Always returns first vendor entity found! Can't handle users associated with multiple vendors.
      *
      * @param user User entity
      * @return Vendor entity if user is known from vendor. Null if user not known from vendor
@@ -33,9 +34,9 @@ public interface IVendor
     /**
      * Tries to save a VendorInfo object to the DB. Only updates existing VendorInfo objects.
      * @param vendorInfo VendorInfo to save
-     * @return true if ID already exists and object was saved, false if ID is not present in DB
+     * @return Updated Vendor entity for further referencing. Returns null if VendorInfo didn't exist in DB.
      */
-    boolean putVendor(VendorInfo vendorInfo);
+    Vendor putVendor(VendorInfo vendorInfo);
 
     /**
      * Returns a list of Product Infos
@@ -49,4 +50,12 @@ public interface IVendor
      * @return Product Info, based on ID, null if no Product Info found
      */
     ProductInfo getProduct(String id);
+
+
+    /**
+     * Tries to save a vendor object to the DB. Only updates existing vendor objects.
+     * @param vendor Vendor to save
+     * @return Updated Vendor entity for further referencing. Returns null if Vendor didn't exist in DB.
+     */
+    Vendor saveVendor(Vendor vendor);
 }

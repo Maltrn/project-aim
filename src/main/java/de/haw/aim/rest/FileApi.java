@@ -2,10 +2,7 @@ package de.haw.aim.rest;
 
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -25,7 +22,7 @@ public interface FileApi
     @RequestMapping(value = "/file",
             produces = {"application/json"},
             method = RequestMethod.GET)
-    ResponseEntity<List<String>> fileGet();
+    ResponseEntity<List<String>> fileGet(@RequestHeader("Authorization") String headerToken);
 
 
     @ApiOperation(value = "", notes = "Liefert eine bestimmte Datei", response = Void.class, tags = {})
@@ -36,7 +33,7 @@ public interface FileApi
     @RequestMapping(value = "/file/{id}",
             produces = {"image/jpeg", "image/png", "image/gif", "application/pdf"},
             method = RequestMethod.GET)
-    ResponseEntity<Void> fileIdGet(
+    ResponseEntity<MultipartFile> fileIdGet(
             @ApiParam(value = "ID der Datei welche aberufen werden soll", required = true) @PathVariable("id") String id
 
 
@@ -53,13 +50,9 @@ public interface FileApi
             consumes = {"application/x-www-form-urlencoded"},
             method = RequestMethod.PUT)
     ResponseEntity<String> fileIdPut(
-            @ApiParam(value = "ID der Datei welche überschrieben werden soll", required = true) @PathVariable("id") String id
-
-
-            ,
-
-
-            @ApiParam(value = "file detail") @RequestPart("file") MultipartFile file
+            @ApiParam(value = "ID der Datei welche überschrieben werden soll", required = true) @PathVariable("id") String id,
+            @ApiParam(value = "file detail") @RequestPart("file") MultipartFile file,
+            @RequestHeader("Authorization") String headerToken
     );
 
 
@@ -75,7 +68,8 @@ public interface FileApi
     ResponseEntity<String> filePut(
 
 
-            @ApiParam(value = "file detail") @RequestPart("file") MultipartFile file
+            @ApiParam(value = "file detail") @RequestPart("file") MultipartFile file,
+            @RequestHeader("Authorization") String headerToken
     );
 
 }
