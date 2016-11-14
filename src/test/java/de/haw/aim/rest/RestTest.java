@@ -57,7 +57,7 @@ public class RestTest extends AbstractTestNGSpringContextTests
 
         VendorInfo vendorInfo = new VendorInfo("Vendor", "short description", "long description", picture, fileGallery, facts);
 
-        ProductInfo productInfo = new ProductInfo("productName", "sort Description", "long Description", picture, fileGallery, facts);
+        ProductInfo productInfo = new ProductInfo("productName", "short Description", "long Description", picture, fileGallery, facts);
         List<ProductInfo> productInfos = new ArrayList<>();
         productInfos.add(productInfo);
 
@@ -77,6 +77,7 @@ public class RestTest extends AbstractTestNGSpringContextTests
         vendorInfoRepository.save(vendorInfo);
         productInfoRepository.save(productInfo);
         userRepository.save(user);
+        testVendor.setVendorInfo(vendorInfoRepository.findAll().get(0));
         vendorRepository.save(testVendor);
 
         RestAssured.basePath = "/api";
@@ -92,17 +93,14 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK).extract().response().asString();
 
-        Assert.assertEquals(response, "[ {\n" +
-                "  \"id\" : \"" + this.vendorInfoRepository.findAll().get(0).getId() + "\",\n" +
-                "  \"name\" : \"Vendor\",\n" +
-                "  \"shortDescription\" : \"short description\",\n" +
-                "  \"longDescription\" : \"long description\",\n" +
-                "  \"mainPic\" : \"" + this.pictureRepository.findAll().get(0).getId() + "\",\n" +
-                "  \"fileGallery\" : [ \"" + this.pictureRepository.findAll().get(0).getId() + "\" ],\n" +
-                "  \"facts\" : [ {\n" +
-                "    \"key\" : \"value\"\n" +
-                "  } ]\n" +
-                "} ]");
+        Assert.assertEquals(response, "[" +
+                this.vendorJson(
+                        vendorRepository.findAll().get(0).getId(),
+                        "short description",
+                        "long description",
+                        pictureRepository.findAll().get(0).getId(),
+                        pictureRepository.findAll().get(0).getId(),
+                        "\"key\":\"value\"") + "]");
     }
 
     @Test
@@ -114,48 +112,45 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK).extract().response().asString();
 
-        Assert.assertEquals(response, "{\n" +
-                "  \"id\" : \"" + this.vendorInfoRepository.findAll().get(0).getId() + "\",\n" +
-                "  \"name\" : \"Vendor\",\n" +
-                "  \"shortDescription\" : \"short description\",\n" +
-                "  \"longDescription\" : \"long description\",\n" +
-                "  \"mainPic\" : \"" + this.pictureRepository.findAll().get(0).getId() + "\",\n" +
-                "  \"fileGallery\" : [ \"" + this.pictureRepository.findAll().get(0).getId() + "\" ],\n" +
-                "  \"facts\" : [ {\n" +
-                "    \"key\" : \"value\"\n" +
-                "  } ]\n" +
-                "}" );
+        Assert.assertEquals(
+                response,
+                this.vendorJson(
+                        vendorRepository.findAll().get(0).getId(),
+                        "short description",
+                        "long description",
+                        pictureRepository.findAll().get(0).getId(),
+                        pictureRepository.findAll().get(0).getId(),
+                        "\"key\":\"value\""));
     }
 
     @Test
     public void testVendorPut() throws Exception
     {
-        given().
-                contentType(ContentType.JSON)
-                .body(vendorJson())
+        given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", "TOKEN handsomeTOKEN")
+                .body(this.vendorJson(
+                        vendorRepository.findAll().get(0).getId(),
+                        "short description1111",
+                        "long description111",
+                        pictureRepository.findAll().get(0).getId(),
+                        pictureRepository.findAll().get(0).getId(),
+                        "\"key\":\"value221\""))
                 .when()
                 .put("/vendor")
                 .then()
                 .statusCode(HttpStatus.SC_OK);
 
         VendorInfo vendorInfo = this.vendorInfoRepository.findAll().get(0);
-        Assert.assertEquals(vendorInfo.getShortDescription(), "short description asdasd");
-        Assert.assertEquals(vendorInfo.getLongDescription(), "long description asdasd");
-        Assert.assertEquals(vendorInfo.getFacts().get(0).getValue(), "valu 111e");
+        Assert.assertEquals(vendorInfo.getShortDescription(), "short description1111");
+        Assert.assertEquals(vendorInfo.getLongDescription(), "long description111");
+        Assert.assertEquals(vendorInfo.getFacts().get(0).getValue(), "value221");
     }
 
-    private String vendorJson()
+    private String vendorJson(String id, String shortDescription, String longDescription, String mainPic, String fileGallery, String facts)
     {
-        return "{\n" +
-                "  \"id\" : \"" + this.vendorInfoRepository.findAll().get(0).getId() + "\",\n" +
-                "  \"name\" : \"Vendor\",\n" +
-                "  \"shortDescription\" : \"short description asdasd\",\n" +
-                "  \"longDescription\" : \"long description asdasd\",\n" +
-                "  \"mainPic\" : \"" + this.pictureRepository.findAll().get(0).getId() + "\",\n" +
-                "  \"fileGallery\" : [ \"" + this.pictureRepository.findAll().get(0).getId() + "\" ],\n" +
-                "  \"facts\" : [ {\n" +
-                "    \"key\" : \"valu 111e\"\n" +
-                "  } ]\n" +
-                "}";
+        return "{\"id\":\"" + id + "\",\"name\":\"Vendor\",\"shortDescription\":\"" + shortDescription +
+                "\",\"longDescription\":\"" + longDescription + "\",\"mainPic\":\"" + mainPic +
+                "\",\"fileGallery\":[\"" + fileGallery + "\"],\"facts\":[{" + facts + "}]}";
     }
 }
