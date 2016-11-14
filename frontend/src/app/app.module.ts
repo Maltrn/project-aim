@@ -10,7 +10,7 @@ import {rootRouterConfig} from "./app.routes";
 // Vendor-Info
 import {AddFilesComponent} from "./frontendComponents/add-files/add-files.component";
 import {DetailedDiscriptionComponent} from "./frontendComponents/detailed-description/detailed-discription.component.ts";
-import {FactsTableComponent} from "./frontendComponents/notes/vendor-notes";
+import {FactsTableComponent} from "./frontendComponents/facts/facts.component";
 import {VendorInfoMain} from "./frontendComponents/main/vendor-info-main.component";
 import {ShortDiscriptionComponent} from "./frontendComponents/short-description/short-discription.component.ts";
 import {ProfilePicComponent} from "./frontendComponents/profile-pic/profile-pic.component.ts";

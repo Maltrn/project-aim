@@ -18,11 +18,11 @@ var VendorNotes = (function () {
     VendorNotes = __decorate([
         core_1.Component({
             selector: 'vendor-notes',
-            templateUrl: 'app/vendorInformation/notes/vendor-notes.html'
+            templateUrl: 'app/vendorInformation/notes/facts.component.html'
         }), 
         __metadata('design:paramtypes', [])
     ], VendorNotes);
     return VendorNotes;
 }());
 exports.VendorNotes = VendorNotes;
-//# sourceMappingURL=vendor-notes.js.map
+//# sourceMappingURL=facts.component.js.js.map

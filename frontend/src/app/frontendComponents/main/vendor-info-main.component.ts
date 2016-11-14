@@ -6,6 +6,7 @@ import {Component} from "@angular/core";
     templateUrl: './vendor-info-main.component.html'
 })
 
-export class VendorInfoMain {
+export class VendorInfoMain
+{
     vendorName: string = 'Firmenname';
 }

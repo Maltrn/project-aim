@@ -3,7 +3,7 @@ import {Component} from "@angular/core";
 @Component
 ({
     selector: 'vendor-notes',
-    templateUrl: './vendor-notes.html'
+    templateUrl: './facts.component.html'
 })
 
 export class FactsTableComponent
