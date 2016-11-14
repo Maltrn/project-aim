@@ -4,10 +4,7 @@ import de.haw.aim.rest.dto.InfoDTO;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import io.swagger.annotations.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,8 +38,9 @@ public interface ProductApi
         @ApiResponse(code = 401, message = "Der Token ist ungültig", response = Void.class)})
     @RequestMapping(value = "/product/{id}", consumes = {"application/json"}, method = RequestMethod.PUT)
     ResponseEntity<Void> productIdPut(
-        @ApiParam(value = "ID des Produktes dessen Produktinformationen aktualisiert werden sollen", required = true)
+            @ApiParam(value = "ID des Produktes dessen Produktinformationen aktualisiert werden sollen", required = true)
         @PathVariable("id") String id,
-        @ApiParam(value = "aktualisiertes oder neues Produktinfo Objekt", required = true) @RequestBody InfoDTO infoDTO) throws ValueDoesntValidateToConfigFileException;
+            @ApiParam(value = "aktualisiertes oder neues Produktinfo Objekt", required = true) @RequestBody InfoDTO infoDTO,
+            @RequestHeader("Authorization") String headerToken) throws ValueDoesntValidateToConfigFileException;
 
 }

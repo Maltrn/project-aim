@@ -126,12 +126,14 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @ApiParam(value = "ID des Produktes dessen Produktinformationen aktualisiert werden", required = true)
             @PathVariable("id") String id,
             @ApiParam(value = "aktualisiertes oder neues Produktinfo Objekt", required = true)
-            @RequestBody InfoDTO infoDTO)
+            @RequestBody InfoDTO infoDTO,
+            @RequestHeader("Authorization") String headerToken)
             throws ValueDoesntValidateToConfigFileException
     {
         // TODO not implemented yet
         // check if InfoDTO is valid
         infoDTO.validate();
+        ProductInfo productInfo = infoDTO.convertToProductInfo();
         return null;
     }
 
@@ -140,14 +142,18 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @RequestHeader("Authorization") String headerToken
     )
     {
-        // Find User based on auth token in header
-        User user = authenticationCompoment.findByToken(headerToken);
-        if( user == null )
-            // If no User found based on auth token, bail out -> UNAUTHORIZED
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // fetch token from header for user lookup
+        String token = headerToken.substring("TOKEN".length()).trim();
+
+        // find user by token provided from header
+        User currentUser = authenticationCompoment.findByToken(token);
+
+        // if no user found for token return Bad Request
+        if(currentUser == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         // Otherwise we can get the Vendor for the user
-        Vendor vendor = iVendor.getVendor(user);
+        Vendor vendor = iVendor.getVendor(currentUser);
 
         List<String> retVal = vendor.getVendorInfo().getFileGallery().stream().map(UploadedFile::getId).collect(Collectors.toList());
 
@@ -182,22 +188,20 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @RequestPart("file") MultipartFile file,
             @RequestHeader("Authorization") String headerToken)
     {
-        // Find User based on auth token in header
-        User user = authenticationCompoment.findByToken(headerToken);
-        if( user == null )
-            // If no User found based on auth token, bail out -> UNAUTHORIZED
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // fetch token from header for user lookup
+        String token = headerToken.substring("TOKEN".length()).trim();
 
-        // Otherwise we can get the Vendor for the user
-        Vendor vendor = iVendor.getVendor(user);
+        // find user by token provided from header
+        User currentUser = authenticationCompoment.findByToken(token);
 
-        // Now we can try to create an uploadedFile
-        UploadedFile uploadedFile;
+        // if no user found for token return Bad Request
+        if(currentUser == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         // Let the UploadCenter replace the file
-        uploadedFile = iUploadCenter.replaceFile(id,file);
+        iUploadCenter.replaceFile(id,file);
 
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @Override
@@ -206,14 +210,18 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @RequestPart("file") MultipartFile file,
             @RequestHeader("Authorization") String headerToken)
     {
-        // Find User based on auth token in header
-        User user = authenticationCompoment.findByToken(headerToken);
-        if( user == null )
-            // If no User found based on auth token, bail out -> UNAUTHORIZED
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        // fetch token from header for user lookup
+        String token = headerToken.substring("TOKEN".length()).trim();
+
+        // find user by token provided from header
+        User currentUser = authenticationCompoment.findByToken(token);
+
+        // if no user found for token return Bad Request
+        if(currentUser == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         // Otherwise we can get the Vendor for the user
-        Vendor vendor = iVendor.getVendor(user);
+        Vendor vendor = iVendor.getVendor(currentUser);
 
         // Now we can try to create an uploadedFile
         UploadedFile uploadedFile;
