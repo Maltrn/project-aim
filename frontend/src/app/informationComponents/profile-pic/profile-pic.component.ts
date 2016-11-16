@@ -16,7 +16,7 @@ export class ProfilePicComponent implements OnInit {
     pictureIds: string[] = [];
     selectedPicture: string = 'Noch keine Bild gewählt';
 
-    constructor(private vendorService: ProfilePictureService) {
+    constructor(private profilePicService: ProfilePictureService) {
     }
 
     ngOnInit(): void {
@@ -24,7 +24,7 @@ export class ProfilePicComponent implements OnInit {
     }
 
     getFileIDs(): void {
-        this.vendorService.getPictureIdsOff().then(recIds => this.sortID(recIds));
+        this.profilePicService.getPictureIdsOff().then(recIds => this.sortID(recIds));
     }
 
     sortID(fileIds: string[]): void {
