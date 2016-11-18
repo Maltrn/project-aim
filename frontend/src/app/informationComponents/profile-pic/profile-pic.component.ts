@@ -1,5 +1,7 @@
-import {Component, OnInit} from "@angular/core";
+import {Component} from "@angular/core";
 import {ProfilePictureService} from "./profile-pic.service.ts";
+import {FileID} from "../main/fileId";
+import {File} from "../main/file";
 
 @Component
 ({
@@ -8,41 +10,68 @@ import {ProfilePictureService} from "./profile-pic.service.ts";
     styleUrls: []
 })
 
-/*TODO ProfilePictureService verwenden um Files in der GUI auszulisten*/
-export class ProfilePicComponent implements OnInit {
+export class ProfilePicComponent
+{
     title: string = 'Profil-Bild';
-    description: string = 'Wählen Sie Ihr gewünschtes Profilbild aus'
+    description: string = 'Wählen Sie Ihr gewünschtes Profilbild aus';
 
-    pictureIds: string[] = [];
+    pictures: File[] = [];
     selectedPicture: string = 'Noch keine Bild gewählt';
 
-    constructor(private profilePicService: ProfilePictureService) {
+    picDataTypesRegEx = /(png)$|(jpg)$|(gif)$|(jpeg)$/;
+
+    constructor(private profilePicService: ProfilePictureService)
+    {
     }
 
-    ngOnInit(): void {
-        this.getFileIDs();
+    getListofPictures(): void
+    {
+        this.profilePicService.getAllFileIds()
+            .then(response => this.getAllFiles(response))
+            .then(response => this.sortOutNonPictures(response))
+            .then(response => this.pictures = response);
     }
 
-    getFileIDs(): void {
-        this.profilePicService.getPictureIdsOff().then(recIds => this.sortID(recIds));
-    }
+    private getAllFiles(fileIds: FileID[]): File[]
+    {
+        var files: File[] = [];
 
-    sortID(fileIds: string[]): void {
-        var accu: string[] = [];
-
-        for (let id of fileIds) {
-            if (id.match(new RegExp('[a-zA-Z0-9].jpg')))
-                accu.push(id);
+        for(var file of fileIds)
+        {
+            this.profilePicService.getSpecificFile(file.item).then(response => files.push(response));
         }
 
-        if (accu.length > 0)
-            this.pictureIds = accu;
-        else
-            this.pictureIds.push('Keine Bilder gefunden.');
+        return files;
     }
 
-    onSelect(id: string): void {
-        alert(id);
+    private sortOutNonPictures(files: File[]): File[]
+    {
+        var pictures: File[] = [];
+
+        for(var file of files)
+        {
+            if(file.name.match(this.picDataTypesRegEx))
+                pictures.push(file);
+        }
+
+        return pictures;
+    }
+
+    test(): void
+    {
+        var files: File[] = [];
+
+        files = this.profilePicService.getPicture();
+
+        for(var file of files)
+        {
+            if(file.name.match(this.picDataTypesRegEx))
+                this.pictures.push(file);
+        }
+    }
+
+    onSelect(id: string): void
+    {
         this.selectedPicture = id;
     }
 }

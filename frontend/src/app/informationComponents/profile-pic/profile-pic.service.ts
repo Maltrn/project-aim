@@ -2,34 +2,60 @@
  * Created by Malte Scheller on 02.11.2016.
  */
 import {Injectable} from "@angular/core";
-import { Headers, Http} from "@angular/http";
+import {Headers, Http} from "@angular/http";
 
 import 'rxjs/add/operator/toPromise';
+import {FileID} from "../main/fileId";
+import {File} from "../main/file";
+
 
 
 @Injectable()
 export class ProfilePictureService
 {
-    fileUrl: string = '/file';
-
-    mockIds: string[] = ['klaus.pdf','prof.jpg','sda2.jpg','doc.pdf','jpg.jpg','jpg.pdf'];
+    fileUrl: string = 'app/file';
 
     constructor(private http: Http)
     {
     }
 
-    /*Returns an Array of File-IDs*/
-    getPictureIds(): Promise<string[]>
+    getAllFileIds(): Promise<FileID[]>
     {
         return this.http.get(this.fileUrl)
             .toPromise()
-            .then(response => response.json().data as string[])
-            .catch(this.handleError);
+            .then(response => response.json().data as FileID[]);
     }
 
-    getPictureIdsOff(): Promise<string[]>
+    getSpecificFile(fileId: string): Promise<File>
     {
-        return Promise.resolve(this.mockIds);
+        return this.http.get(this.fileUrl + '/' + fileId)
+            .toPromise()
+            .then(response => response.json().data as File);
+    }
+
+    getPicture(): File[]
+    {
+        var pictures: File[] = [];
+        var file = new File();
+
+        file.name = "fin.gif";
+        file.discription = "blabla";
+        file.in = "local";
+        pictures.push(file);
+
+        file = new File();
+        file.name = "fin1234.png";
+        file.discription = "blabla";
+        file.in = "local";
+        pictures.push(file);
+
+        file = new File();
+        file.name = "fin.pdf";
+        file.discription = "blabla";
+        file.in = "local";
+        pictures.push(file);
+
+        return pictures;
     }
 
     private handleError(error: any): Promise<any>

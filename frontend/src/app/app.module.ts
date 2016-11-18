@@ -16,8 +16,8 @@ import {ShortDiscriptionComponent} from "./informationComponents/short-descripti
 import {ProfilePicComponent} from "./informationComponents/profile-pic/profile-pic.component.ts";
 import {SortFilesComponent} from "./informationComponents/sort-files/sort-files.component.ts";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
-import {InMemoryDataService} from "./informationComponents/backend-semu/in-memory-data.service";
 import {ProfilePictureService} from "./informationComponents/profile-pic/profile-pic.service.ts";
+import {InMemoryDataService} from "./informationComponents/profile-pic/in-memory-data.service";
 
 // Product-Info
 import {ProductInfoMain} from "./informationComponents/main/product-info-main.component";
@@ -25,6 +25,8 @@ import {ProductInfoMain} from "./informationComponents/main/product-info-main.co
 // Upload-Center
 import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {FileService} from "./uploadCenter/file.service";
+import {VendorService} from "./informationComponents/main/vendor.service";
+
 
 
 @NgModule({
@@ -49,7 +51,8 @@ import {FileService} from "./uploadCenter/file.service";
     ],
     bootstrap: [AppComponent],
     providers: [FileService,
-                ProfilePictureService]
+                ProfilePictureService,
+                VendorService]
 })
 
 export class AppModule

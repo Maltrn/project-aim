@@ -9,27 +9,33 @@ export class File
     private _discription: string;
 
 
-    get name(): string {
+    get name(): string
+    {
         return this._name;
     }
 
-    set name(value: string) {
+    set name(value: string)
+    {
         this._name = value;
     }
 
-    get in(): string {
+    get in(): string
+    {
         return this._in;
     }
 
-    set in(value: string) {
+    set in(value: string)
+    {
         this._in = value;
     }
 
-    get discription(): string {
+    get discription(): string
+    {
         return this._discription;
     }
 
-    set discription(value: string) {
+    set discription(value: string)
+    {
         this._discription = value;
     }
 }

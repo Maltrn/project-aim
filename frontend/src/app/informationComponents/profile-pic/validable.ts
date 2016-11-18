@@ -3,5 +3,5 @@
  */
 export interface Validable
 {
-
+    isValid(): boolean;
 }
