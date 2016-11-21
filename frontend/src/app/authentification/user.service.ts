@@ -6,7 +6,7 @@ export class UserService {
     private loggedIn = false;
 
     constructor(private http: Http) {
-        this.loggedIn = !!localStorage.getItem('auth_token');
+//todo        this.loggedIn = !!localStorage.getItem('auth_token');
     }
 
     login(email, password) {
@@ -22,7 +22,7 @@ export class UserService {
             .map(res => res.json())
             .map((res) => {
                 if (res.success) {
-                    localStorage.setItem('auth_token', res.auth_token);
+//todo                    localStorage.setItem('auth_token', res.auth_token);
                     this.loggedIn = true;
                 }
 
@@ -31,7 +31,7 @@ export class UserService {
     }
 
     logout() {
-        localStorage.removeItem('auth_token');
+//todo        localStorage.removeItem('auth_token');
         this.loggedIn = false;
     }
 
