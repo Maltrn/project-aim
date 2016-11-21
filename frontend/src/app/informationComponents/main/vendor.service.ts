@@ -10,16 +10,23 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class VendorService
 {
-    private vendorUrl: String = '/vendor'
+    private vendorUrl: String = '/vendor';
+    private _vendorInformationDto: InfoDTO;
 
     constructor(private http: Http)
     {
     }
 
-    getVendorInformation(vendorId: String): Promise<InfoDTO>
+    /* Muss jedes Mal aufgerufen werden, wenn die Informationen aktualisiert wurden*/
+    loadVendorInformation(vendorId: String): Promise<InfoDTO>
     {
         return this.http.get(this.vendorUrl + '/' + vendorId)
             .toPromise()
             .then(response => response.json().data as InfoDTO);
+    }
+
+    get vendorInformationDto(): InfoDTO
+    {
+        return this._vendorInformationDto;
     }
 }
