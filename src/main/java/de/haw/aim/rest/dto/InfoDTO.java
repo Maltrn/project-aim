@@ -12,6 +12,7 @@ import de.haw.aim.vendor.persistence.VendorInfo;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
@@ -19,8 +20,6 @@ import java.util.*;
 /**
  * InfoDTO
  */
-@javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-10-31T08:42:18.273Z")
-
 public class InfoDTO implements Validatable
 {
 

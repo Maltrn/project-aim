@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AuthenticationTest extends AbstractTestNGSpringContextTests {
@@ -49,6 +48,12 @@ public class AuthenticationTest extends AbstractTestNGSpringContextTests {
         Assert.assertFalse(authenticationCompoment.verifyToken(someRandomToken));
 
         Assert.assertEquals(hans, authenticationCompoment.findByToken(token));
+    }
+
+    @AfterMethod
+    public void teardown()
+    {
+        userRepository.deleteAll();
     }
 
 }

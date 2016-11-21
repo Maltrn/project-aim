@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -74,7 +75,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
 
         user = new User(username,pw);
 
-        userRepository.save(user);
+        user = userRepository.save(user);
 
         vendorInfo = new VendorInfo(
                 name,
@@ -207,5 +208,15 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
 
         differentVendorInfo = vendorInfoRepository.save(differentVendorInfo);
         Assert.assertNull(vendorComponent.putVendor(differentVendorInfo));
+    }
+
+    @AfterMethod
+    public void teardown()
+    {
+        userRepository.deleteAll();
+        pictureRepository.deleteAll();
+        productInfoRepository.deleteAll();
+        vendorInfoRepository.deleteAll();
+        vendorRepository.deleteAll();
     }
 }

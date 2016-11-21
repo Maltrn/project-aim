@@ -5,6 +5,7 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeClass;
@@ -13,7 +14,7 @@ import org.testng.annotations.Test;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 
-
+@EnableConfigurationProperties
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = AIMServer.class)
 public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
 
@@ -42,6 +43,7 @@ public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
     public void tokenSecuredEndpointSucessfulTest() {
         given().
                 header("Authorization", "TOKEN handsomeTOKEN").
+                contentType(ContentType.JSON).
         when().
                 put("/vendor").
                 then().
@@ -50,6 +52,8 @@ public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void tokenSecuredEndpointFailedNoTokenGivenTest() {
+        given().
+                contentType(ContentType.JSON).
         when().
                 put("/vendor").
                 then().
@@ -60,6 +64,7 @@ public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
     public void tokenSecuredEndpointFailedInvalidTokenTest() {
         given().
                 header("Authorization", "TOKEN invalidToken").
+                contentType(ContentType.JSON).
         when().
                 put("/vendor").
                 then().

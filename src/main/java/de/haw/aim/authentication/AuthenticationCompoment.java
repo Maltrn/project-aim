@@ -26,7 +26,7 @@ public class AuthenticationCompoment implements AuthenticationInterface
     public User login(String username, String pw)
     {
         // try from get user from DB
-        create(username, pw);
+        //create(username, pw);
         User retVal = userRepository.findByUsername(username);
 
         // if user found check credentials
