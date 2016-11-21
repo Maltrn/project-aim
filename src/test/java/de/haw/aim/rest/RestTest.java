@@ -167,6 +167,6 @@ public class RestTest extends AbstractTestNGSpringContextTests
 
     private String cleanString(String s)
     {
-        return s.replaceAll("(\\n||\\r)", "");
+        return s.replaceAll("\\s", "");
     }
 }
