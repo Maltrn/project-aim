@@ -1,12 +1,12 @@
-import {Injectable} from "@angular/core";
-import {Headers, Http} from "@angular/http";
+import { Injectable } from '@angular/core';
+import { Http, Headers } from '@angular/http';
 
 @Injectable()
 export class UserService {
     private loggedIn = false;
 
     constructor(private http: Http) {
-  //todo      this.loggedIn = !!.getItem('auth_token');
+        this.loggedIn = !!localStorage.getItem('auth_token');
     }
 
     login(email, password) {
@@ -22,7 +22,7 @@ export class UserService {
             .map(res => res.json())
             .map((res) => {
                 if (res.success) {
- // todo                   .setItem('auth_token', res.auth_token);
+                    localStorage.setItem('auth_token', res.auth_token);
                     this.loggedIn = true;
                 }
 
@@ -31,7 +31,7 @@ export class UserService {
     }
 
     logout() {
- // todo       .removeItem('auth_token');
+        localStorage.removeItem('auth_token');
         this.loggedIn = false;
     }
 
