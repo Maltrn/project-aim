@@ -20,11 +20,12 @@ import java.util.*;
 /**
  * InfoDTO
  */
+@Component
 public class InfoDTO implements Validatable
 {
 
     @Autowired
-    IUploadCenter uploadCenterInterface;
+    IUploadCenter iUploadCenter;
 
     @Autowired
     private Environment env;
@@ -43,20 +44,20 @@ public class InfoDTO implements Validatable
 
     private List<Map<String, String>> facts = new ArrayList<>();
 
-    public InfoDTO id(String id)
-    {
-        this.id = id;
-        return this;
-    }
+//    public InfoDTO id(String id)
+//    {
+//        this.id = id;
+//        return this;
+//    }
 
     public ProductInfo convertToProductInfo()
     {
-        Picture mainPic = (Picture) uploadCenterInterface.findById(this.getMainPic());
+        Picture mainPic = (Picture) iUploadCenter.findById(this.getMainPic());
 
         List<UploadedFile> fileGallery = new ArrayList<>();
         for (String s : this.fileGallery)
         {
-            fileGallery.add(uploadCenterInterface.findById(s));
+            fileGallery.add(iUploadCenter.findById(s));
         }
 
         List<Fact> facts = new ArrayList<>();
@@ -80,12 +81,12 @@ public class InfoDTO implements Validatable
 
     public VendorInfo convertToVendorInfo()
     {
-        Picture mainPic = (Picture) uploadCenterInterface.findById(this.getMainPic());
+        Picture mainPic = (Picture) iUploadCenter.findById(this.getMainPic());
 
         List<UploadedFile> fileGallery = new ArrayList<>();
         for (String s : this.fileGallery)
         {
-            fileGallery.add(uploadCenterInterface.findById(s));
+            fileGallery.add(iUploadCenter.findById(s));
         }
 
         List<Fact> facts = new ArrayList<>();

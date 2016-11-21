@@ -22,12 +22,12 @@ public class AuthenticationTest extends AbstractTestNGSpringContextTests {
     String username;
     String password;
 
-    @BeforeMethod
+    @BeforeClass
     public void setUp()
     {
         username = "Hans";
         password = "Sicherheit123";
-        authenticationCompoment.create(username, password);
+        hans = authenticationCompoment.create(username, password);
     }
 
     @Test
@@ -50,7 +50,7 @@ public class AuthenticationTest extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(hans, authenticationCompoment.findByToken(token));
     }
 
-    @AfterMethod
+    @AfterClass
     public void teardown()
     {
         userRepository.deleteAll();

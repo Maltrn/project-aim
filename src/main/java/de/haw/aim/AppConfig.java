@@ -18,9 +18,9 @@ public class AppConfig
     @Autowired
     private Environment env;
 
-    @Bean
-    public Environment getEnv() {
-        return env;
-    }
+    //@Bean
+    //public Environment getEnv() {
+    //    return env;
+    //}
 
 }
