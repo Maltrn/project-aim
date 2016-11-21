@@ -26,6 +26,7 @@ import {ProductInfoMain} from "./informationComponents/main/product-info-main.co
 import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {FileService} from "./uploadCenter/file.service";
 import {VendorService} from "./informationComponents/main/vendor.service";
+import {UserService} from "./authentification/user.service";
 
 
 
@@ -52,7 +53,8 @@ import {VendorService} from "./informationComponents/main/vendor.service";
     bootstrap: [AppComponent],
     providers: [FileService,
                 ProfilePictureService,
-                VendorService]
+                VendorService,
+                UserService]
 })
 
 export class AppModule
