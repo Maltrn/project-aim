@@ -6,7 +6,7 @@ The editable parts are the short description, the long description, the facts ta
 The upload center is for uploading files for the profile picture and the gallery. Its possible to upload different 
 picture formats and pdfs. The profile picture shall be chosen from the uploaded files, but it´s only possible to choose 
 a picture format. It´s possible to sort the files in the upload center.
-This is based on Angular 2.0.
+This is based on Angular 2.0.  
 
 ### Usage
 - Make sure you have [node.js](https://nodejs.org/) installed version 5+
