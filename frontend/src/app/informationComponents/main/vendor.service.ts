@@ -9,4 +9,9 @@ import 'rxjs/add/operator/toPromise';
 export class VendorService
 {
 
+    constructor(private http: Http)
+    {
+    }
+
+    getVendorInformation(): Prom
 }

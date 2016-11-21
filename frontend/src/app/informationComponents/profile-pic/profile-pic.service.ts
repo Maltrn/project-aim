@@ -5,8 +5,8 @@ import {Injectable} from "@angular/core";
 import {Headers, Http} from "@angular/http";
 
 import 'rxjs/add/operator/toPromise';
-import {FileID} from "../main/fileId";
-import {File} from "../main/file";
+import {FileID} from "../main/model/fileId";
+import {File} from "../main/model/file";
 
 
 
