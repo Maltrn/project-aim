@@ -21,11 +21,13 @@ import {InMemoryDataService} from "./informationComponents/profile-pic/in-memory
 
 // Product-Info
 import {ProductInfoMain} from "./informationComponents/main/product-info-main.component";
+import  {UserLogin} from "./authentification/user.component"
 
 // Upload-Center
 import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {FileService} from "./uploadCenter/file.service";
 import {VendorService} from "./informationComponents/main/vendor.service";
+import {UserService} from "./authentification/user.service";
 
 
 
@@ -47,12 +49,14 @@ import {VendorService} from "./informationComponents/main/vendor.service";
         ProfilePicComponent,
         SortFilesComponent,
         UploadCenter,
-        ProductInfoMain
+        ProductInfoMain,
+        UserLogin
     ],
     bootstrap: [AppComponent],
     providers: [FileService,
                 ProfilePictureService,
-                VendorService]
+                VendorService,
+                UserService]
 })
 
 export class AppModule

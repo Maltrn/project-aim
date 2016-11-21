@@ -1,13 +1,13 @@
 import {Component} from "@angular/core";
 import {ProfilePictureService} from "./profile-pic.service.ts";
-import {FileID} from "../main/fileId";
-import {File} from "../main/file";
+import {FileID} from "../main/model/fileId";
+import {File} from "../main/model/file";
 
 @Component
 ({
     selector: 'vendor-info-profile-pic',
-    templateUrl: './profile-pic.component.html',
-    styleUrls: []
+    templateUrl: './view/profile-pic.component.html',
+    styleUrls: ['./view/profile-pic.component.css']
 })
 
 export class ProfilePicComponent
@@ -16,7 +16,7 @@ export class ProfilePicComponent
     description: string = 'Wählen Sie Ihr gewünschtes Profilbild aus';
 
     pictures: File[] = [];
-    selectedPicture: string = 'Noch keine Bild gewählt';
+    selectedPicture: string = 'Noch kein Bild gewählt';
 
     picDataTypesRegEx = /(png)$|(jpg)$|(gif)$|(jpeg)$/;
 

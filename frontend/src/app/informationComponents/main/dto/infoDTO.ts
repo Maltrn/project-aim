@@ -1,7 +1,8 @@
 /**
  * Created by Malte Scheller on 18.11.16.
  */
-import {Fact} from "./fact";
+
+import {Fact} from "../model/fact";
 
 export class InfoDTO
 {
@@ -69,7 +70,7 @@ export class InfoDTO
         return this._fileGallery;
     }
 
-    set fileGallery(value: Array)
+    set fileGallery(value: string[])
     {
         this._fileGallery = value;
     }
@@ -79,7 +80,7 @@ export class InfoDTO
         return this._facts;
     }
 
-    set facts(value: Array)
+    set facts(value: Fact[])
     {
         this._facts = value;
     }
