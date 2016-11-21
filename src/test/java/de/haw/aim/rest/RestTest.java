@@ -94,14 +94,14 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK).extract().response().asString();
 
-        Assert.assertEquals(response, "[ " +
+        Assert.assertEquals(this.cleanString(response), this.cleanString("[ " +
                 this.vendorJson(
                         vendorRepository.findAll().get(0).getId(),
                         "short description",
                         "long description",
                         pictureRepository.findAll().get(0).getId(),
                         pictureRepository.findAll().get(0).getId(),
-                        "\"key\" : \"value\"") + " ]");
+                        "\"key\" : \"value\"") + " ]"));
     }
 
     @Test
@@ -114,26 +114,26 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 .statusCode(HttpStatus.SC_OK).extract().response().asString();
 
         Assert.assertEquals(
-                response,
-                this.vendorJson(
+                this.cleanString(response),
+                this.cleanString(this.vendorJson(
                         vendorRepository.findAll().get(0).getId(),
                         "short description",
                         "long description",
                         pictureRepository.findAll().get(0).getId(),
                         pictureRepository.findAll().get(0).getId(),
-                        "\"key\" : \"value\""));
+                        "\"key\" : \"value\"")));
     }
 
     @Test
     public void testVendorPut() throws Exception
     {
-        String jsonBody = this.vendorJson(
+        String jsonBody = this.cleanString(this.vendorJson(
                 vendorRepository.findAll().get(0).getId(),
                 "short description1111",
                 "long description111",
                 pictureRepository.findAll().get(0).getId(),
                 pictureRepository.findAll().get(0).getId(),
-                "\"key\" : \"value221\"");
+                "\"key\" : \"value221\""));
 
         given()
                 .contentType(ContentType.JSON)
@@ -163,5 +163,10 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 "    " + facts + "\n" +
                 "  } ]\n" +
                 "}";
+    }
+
+    private String cleanString(String s)
+    {
+        return s.replaceAll("(\\n||\\r)", "");
     }
 }
