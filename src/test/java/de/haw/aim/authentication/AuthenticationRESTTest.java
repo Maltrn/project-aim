@@ -3,6 +3,7 @@ package de.haw.aim.authentication;
 import de.haw.aim.AIMServer;
 import de.haw.aim.AppConfig;
 import de.haw.aim.authentication.persistence.User;
+import de.haw.aim.authentication.persistence.UserRepository;
 import de.haw.aim.uploadcenter.persistence.Picture;
 import de.haw.aim.uploadcenter.persistence.PictureRepository;
 import de.haw.aim.vendor.persistence.*;
@@ -16,7 +17,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
@@ -39,13 +42,17 @@ public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
     VendorRepository vendorRepository;
     @Autowired
     PictureRepository pictureRepository;
+    @Autowired
+    UserRepository userRepository;
 
     User user;
     String currentToken;
 
-    @BeforeClass
+    @BeforeMethod
     public void setup() {
+        userRepository.deleteAll();
         user = authenticationInterface.create("wilhelm", "apfelstrudel");
+        user = authenticationInterface.login("wilhelm","apfelstrudel");
         currentToken = user.getCurrentToken();
         RestAssured.basePath = "/api";
 
@@ -136,6 +143,15 @@ public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
                 put("/vendor").
                 then().
                 statusCode(HttpStatus.SC_UNAUTHORIZED);
+    }
+
+    @AfterMethod
+    public void teardown()
+    {
+        pictureRepository.deleteAll();
+        vendorInfoRepository.deleteAll();
+        vendorRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
 }

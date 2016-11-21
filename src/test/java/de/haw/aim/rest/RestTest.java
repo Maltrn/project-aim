@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -168,5 +169,15 @@ public class RestTest extends AbstractTestNGSpringContextTests
     private String cleanString(String s)
     {
         return s.replaceAll("\\s", "");
+    }
+
+    @AfterMethod
+    public void teardown()
+    {
+        userRepository.deleteAll();
+        pictureRepository.deleteAll();
+        productInfoRepository.deleteAll();
+        vendorInfoRepository.deleteAll();
+        vendorRepository.deleteAll();
     }
 }
