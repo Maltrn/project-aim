@@ -28,6 +28,7 @@ import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {FileService} from "./uploadCenter/file.service";
 import {VendorService} from "./informationComponents/main/vendor.service";
 import {UserService} from "./authentification/user.service";
+import {LoggedInGuard} from "./authentification/loged-in.guard";
 
 
 
@@ -56,7 +57,8 @@ import {UserService} from "./authentification/user.service";
     providers: [FileService,
                 ProfilePictureService,
                 VendorService,
-                UserService]
+                UserService,
+                LoggedInGuard]
 })
 
 export class AppModule

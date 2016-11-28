@@ -1,41 +1,46 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import {Injectable} from '@angular/core';
+import {Http, Headers, Response} from '@angular/http';
+import {Observable} from "rxjs";
 
 @Injectable()
-export class UserService {
-    private loggedIn = false;
+export class UserService
+{
+    private loggedIn;
+    private LOGINURL = '/login'
 
-    constructor(private http: Http) {
-//todo        this.loggedIn = !!localStorage.getItem('auth_token');
+    constructor(private http: Http)
+    {
+        this.loggedIn = false;
+        this.loggedIn = !!localStorage.getItem('auth_token');
     }
 
-    login(email, password) {
+    login(email, password): Observable<Response>
+    {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        return this.http
-            .post(
-                '/login',
-                JSON.stringify({ email, password }),
-                { headers }
-            )
+        return this.http.post(this.LOGINURL, JSON.stringify({email, password}),{headers})
             .map(res => res.json())
-            .map((res) => {
-                if (res.success) {
-//todo                    localStorage.setItem('auth_token', res.auth_token);
+            .map((res) =>
+            {
+                if(res.success)
+                {
+                    localStorage.setItem('auth_token', res);
                     this.loggedIn = true;
                 }
 
                 return res.success;
-            });
+            })
     }
 
-    logout() {
-//todo        localStorage.removeItem('auth_token');
+    logout()
+    {
+        localStorage.removeItem('auth_token');
         this.loggedIn = false;
     }
 
-    isLoggedIn() {
+    isLoggedIn()
+    {
         return this.loggedIn;
     }
 }
