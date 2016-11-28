@@ -9,3 +9,4 @@ out
 .gitconfig
 classes
 src/test/resources/testFiles/
+dumpdir/*
