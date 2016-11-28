@@ -13,7 +13,8 @@ export class FactsTableComponent implements OnInit
 {
     title: string = 'Faktentabelle';
     description: string = 'Zur Bearbeitung der Inhalte in der Faktentabelle';
-    facts: Fact[];
+    //facts: Fact[];  // Facts gibts es nicht mehr
+    // demnächst das hier einbauen:  private _facts: [string, string];
     vendor: InfoDTO;
     selectedFact: Fact;
 
