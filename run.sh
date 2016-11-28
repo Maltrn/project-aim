@@ -1,6 +1,7 @@
 #!/bin/bash
+# Start MongoDB
+/usr/bin/mongod --quiet --config /etc/mongod.conf &
 # Start Backend
-sudo service start mongod &
 java -jar ./build/libs/project-aim.jar &
 # Start Frontend
 cd frontend
