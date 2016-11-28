@@ -23,6 +23,7 @@ import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
+import static org.hamcrest.core.StringContains.containsString;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RestTest extends AbstractTestNGSpringContextTests
@@ -45,6 +46,10 @@ public class RestTest extends AbstractTestNGSpringContextTests
     @Value("${local.server.port}")
     private int port;
 
+    private String productName = "productName";
+    private String shortDescription = "short Description";
+    private String longDescription = "long description";
+
     @BeforeMethod
     public void setUp() throws Exception
     {
@@ -56,9 +61,9 @@ public class RestTest extends AbstractTestNGSpringContextTests
         List<Fact> facts = new ArrayList<>();
         facts.add(fact);
 
-        VendorInfo vendorInfo = new VendorInfo("Vendor", "short description", "long description", picture, fileGallery, facts);
+        VendorInfo vendorInfo = new VendorInfo("","Vendor", shortDescription, longDescription, picture, fileGallery, facts);
 
-        ProductInfo productInfo = new ProductInfo("productName", "short Description", "long Description", picture, fileGallery, facts);
+        ProductInfo productInfo = new ProductInfo("",productName, shortDescription, longDescription, picture, fileGallery, facts);
         List<ProductInfo> productInfos = new ArrayList<>();
         productInfos.add(productInfo);
 
@@ -95,14 +100,14 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK).extract().response().asString();
 
-        Assert.assertEquals(this.cleanString(response), this.cleanString("[ " +
-                this.vendorJson(
+        Assert.assertEquals(this.cleanString(response), this.cleanString(
+                "[" + this.vendorJson(
                         vendorRepository.findAll().get(0).getId(),
-                        "short description",
-                        "long description",
+                        shortDescription,
+                        longDescription,
                         pictureRepository.findAll().get(0).getId(),
                         pictureRepository.findAll().get(0).getId(),
-                        "\"key\" : \"value\"") + " ]"));
+                        "\"key\" : \"value\"") + "]"));
     }
 
     @Test
@@ -116,22 +121,23 @@ public class RestTest extends AbstractTestNGSpringContextTests
 
         Assert.assertEquals(
                 this.cleanString(response),
-                this.cleanString(this.vendorJson(
+                this.cleanString("[" + this.vendorJson(
                         vendorRepository.findAll().get(0).getId(),
-                        "short description",
-                        "long description",
+                        shortDescription,
+                        longDescription,
                         pictureRepository.findAll().get(0).getId(),
                         pictureRepository.findAll().get(0).getId(),
-                        "\"key\" : \"value\"")));
+                        "\"key\" : \"value\"") + "]"));
     }
 
     @Test
     public void testVendorPut() throws Exception
     {
+        String id = vendorRepository.findAll().get(0).getId();
         String jsonBody = this.cleanString(this.vendorJson(
-                vendorRepository.findAll().get(0).getId(),
-                "short description1111",
-                "long description111",
+                id,
+                shortDescription,
+                longDescription,
                 pictureRepository.findAll().get(0).getId(),
                 pictureRepository.findAll().get(0).getId(),
                 "\"key\" : \"value221\""));
@@ -145,10 +151,18 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 .then()
                 .statusCode(HttpStatus.SC_OK);
 
-        VendorInfo vendorInfo = this.vendorInfoRepository.findAll().get(0);
-        Assert.assertEquals(vendorInfo.getShortDescription(), "short description1111");
-        Assert.assertEquals(vendorInfo.getLongDescription(), "long description111");
+        VendorInfo vendorInfo = this.vendorInfoRepository.findOne(id);
+        Assert.assertEquals(vendorInfo.getShortDescription(), "shortDescription");
+        Assert.assertEquals(vendorInfo.getLongDescription(), "longdescription");
         Assert.assertEquals(vendorInfo.getFacts().get(0).getValue(), "value221");
+    }
+
+    @Test
+    public void productGetTest()
+    {
+        given().when().get("/product").then().statusCode(HttpStatus.SC_OK).body(containsString(productName));
+        given().when().get("/product").then().statusCode(HttpStatus.SC_OK).body(containsString(shortDescription));
+        given().when().get("/product").then().statusCode(HttpStatus.SC_OK).body(containsString(longDescription));
     }
 
     private String vendorJson(String id, String shortDescription, String longDescription, String mainPic, String fileGallery, String facts)

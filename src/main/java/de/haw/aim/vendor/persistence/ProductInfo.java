@@ -10,8 +10,8 @@ import java.util.List;
  */
 public class ProductInfo extends Info
 {
-    public ProductInfo(String name, String shortDescription, String longDescription, Picture mainPic, List<UploadedFile> fileGallery, java.util.List<Fact> facts)
+    public ProductInfo(String id, String name, String shortDescription, String longDescription, Picture mainPic, List<UploadedFile> fileGallery, java.util.List<Fact> facts)
     {
-        super(name, shortDescription, longDescription, mainPic, fileGallery, facts);
+        super(id, name, shortDescription, longDescription, mainPic, fileGallery, facts);
     }
 }

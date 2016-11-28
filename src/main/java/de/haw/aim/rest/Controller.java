@@ -87,6 +87,10 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         // check if InfoDTO is valid
         infodto.validate();
+
+        // set iUploadCenter for infoDTO to avoid autowiring null pointer
+        infodto.setiUploadCenter(iUploadCenter);
+
         // if valid save entity in DB
         VendorInfo vendorInfo = infodto.convertToVendorInfo();
 
@@ -142,6 +146,11 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         // after that check infoDTO
         infoDTO.validate();
+
+        // set iUploadCenter for infoDTO to avoid autowiring null pointer
+        infoDTO.setiUploadCenter(iUploadCenter);
+
+        // convert to productInfo Entity
         ProductInfo productInfo = infoDTO.convertToProductInfo();
 
         // get Vendor for User to update product info

@@ -25,22 +25,22 @@ public class AuthenticationCompoment implements AuthenticationInterface
     @Override
     public User login(String username, String pw)
     {
-        // try from get user from DB
+        // try to get user from DB
         //create(username, pw);
         User retVal = userRepository.findByUsername(username);
 
         // if user found check credentials
         if (retVal != null)
         {
-            // invalid password leads from null return
+            // invalid password leads to null return
             if (!retVal.checkPW(pw))
                 return null;
 
-            // otherwise login call is valid and a token needs from be generated for the user
+            // otherwise login call is valid and a token needs to be generated for the user
             Random random = new SecureRandom();
             String token = new BigInteger(130, random).toString(32);
 
-            // as long we can find the currently generated token in the database, we have from generate
+            // as long we can find the currently generated token in the database, we have to generate
             // a new one
             while (userRepository.findByCurrentToken(token) != null)
             {
@@ -48,7 +48,7 @@ public class AuthenticationCompoment implements AuthenticationInterface
             }
 
             // set the current token in the current user entity and save it
-            // save returns the "up from date" persisted user entity
+            // save returns the "up to date" persisted user entity
             retVal.setCurrentToken(token);
             return userRepository.save(retVal);
         }
@@ -59,7 +59,7 @@ public class AuthenticationCompoment implements AuthenticationInterface
 
     @Override
     public User create(String username, String pw) {
-        // try from get user from DB
+        // try to get user from DB
         User retVal = userRepository.findByUsername(username);
         if (retVal == null)
         { // User does not exist so we can try to create it

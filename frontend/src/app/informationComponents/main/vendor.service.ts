@@ -1,5 +1,5 @@
 /**
- * Created by Malte Scheller on 18.11.16.
+ * Created by Spustin Dallek
  */
 
 import {Injectable} from "@angular/core";
@@ -7,17 +7,21 @@ import {Headers, Http} from "@angular/http";
 import {InfoDTO} from "./dto/infoDTO";
 import 'rxjs/add/operator/toPromise';
 
-//import { User } from "../../authentification/user";
+import { User } from "../../authentification/model/user";
 
 @Injectable()
 export class VendorService
 {
     private vendorUrl: String = '/vendor';
     private _vendorInformationDto: InfoDTO;
-   // private _user: User;
+    private _user: User;
 
     constructor(private http: Http)
     {
+    }
+
+    loadMock(): void {
+        _vendorInformationDto.mockData();
     }
 
     /* Muss jedes Mal aufgerufen werden, wenn die Informationen aktualisiert wurden*/
