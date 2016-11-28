@@ -25,7 +25,6 @@ export class UserService
             {
                 if(res.success)
                 {
-                    localStorage.setItem('auth_token', res);
                     this.loggedIn = true;
                 }
 
