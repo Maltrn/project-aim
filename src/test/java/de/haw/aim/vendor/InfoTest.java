@@ -48,8 +48,7 @@ public class InfoTest extends AbstractTestNGSpringContextTests {
         String shortDescription = "Kurzbeschreibung";
         String longDescription  = "Langbeschreibung";
 
-        ProductInfo productInfo = new ProductInfo("",
-                                                  productName,
+        ProductInfo productInfo = new ProductInfo(productName,
                                                   shortDescription,
                                                   longDescription,
                                                   picture,

@@ -61,9 +61,9 @@ public class RestTest extends AbstractTestNGSpringContextTests
         List<Fact> facts = new ArrayList<>();
         facts.add(fact);
 
-        VendorInfo vendorInfo = new VendorInfo("","Vendor", shortDescription, longDescription, picture, fileGallery, facts);
+        VendorInfo vendorInfo = new VendorInfo("Vendor", shortDescription, longDescription, picture, fileGallery, facts);
 
-        ProductInfo productInfo = new ProductInfo("",productName, shortDescription, longDescription, picture, fileGallery, facts);
+        ProductInfo productInfo = new ProductInfo(productName, shortDescription, longDescription, picture, fileGallery, facts);
         List<ProductInfo> productInfos = new ArrayList<>();
         productInfos.add(productInfo);
 
@@ -100,14 +100,14 @@ public class RestTest extends AbstractTestNGSpringContextTests
                 .contentType(ContentType.JSON)
                 .statusCode(HttpStatus.SC_OK).extract().response().asString();
 
-        Assert.assertEquals(this.cleanString(response), this.cleanString(
-                "[" + this.vendorJson(
+        Assert.assertEquals(this.cleanString(response), "[" + this.cleanString(
+                     this.vendorJson(
                         vendorRepository.findAll().get(0).getId(),
                         shortDescription,
                         longDescription,
                         pictureRepository.findAll().get(0).getId(),
                         pictureRepository.findAll().get(0).getId(),
-                        "\"key\" : \"value\"") + "]"));
+                        "\"key\" : \"value\"")) + "]");
     }
 
     @Test
@@ -121,13 +121,13 @@ public class RestTest extends AbstractTestNGSpringContextTests
 
         Assert.assertEquals(
                 this.cleanString(response),
-                this.cleanString("[" + this.vendorJson(
+                this.cleanString(this.vendorJson(
                         vendorRepository.findAll().get(0).getId(),
                         shortDescription,
                         longDescription,
                         pictureRepository.findAll().get(0).getId(),
                         pictureRepository.findAll().get(0).getId(),
-                        "\"key\" : \"value\"") + "]"));
+                        "\"key\" : \"value\"") ));
     }
 
     @Test

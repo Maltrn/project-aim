@@ -66,9 +66,9 @@ public class FileTest extends AbstractTestNGSpringContextTests
         List<Fact> facts = new ArrayList<>();
         facts.add(fact);
 
-        VendorInfo vendorInfo = new VendorInfo("","Vendor", shortDescription, longDescription, picture, fileGallery, facts);
+        VendorInfo vendorInfo = new VendorInfo("Vendor", shortDescription, longDescription, picture, fileGallery, facts);
 
-        ProductInfo productInfo = new ProductInfo("",productName, shortDescription, longDescription, picture, fileGallery, facts);
+        ProductInfo productInfo = new ProductInfo(productName, shortDescription, longDescription, picture, fileGallery, facts);
         List<ProductInfo> productInfos = new ArrayList<>();
         productInfos.add(productInfo);
 

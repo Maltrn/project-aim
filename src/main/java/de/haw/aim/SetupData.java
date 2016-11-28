@@ -4,8 +4,6 @@ import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.authentication.persistence.UserRepository;
 import de.haw.aim.uploadcenter.persistence.*;
 import de.haw.aim.vendor.persistence.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -86,8 +84,8 @@ public class SetupData {
         List<Fact> product1Facts = new ArrayList<>();
         Fact product1fact1 = new Fact("first fact", "This fact ist beautiful!!");
         Fact product1fact2 = new Fact("Roses are red", "DUP DUP DUP");
-        product1Facts.add(vendorFact1);
-        product1Facts.add(vendorFact2);
+        product1Facts.add(product1fact1);
+        product1Facts.add(product1fact2);
 
         List<Fact> product2Facts = new ArrayList<>();
         Fact product2fact1 = new Fact("diameter", "Holy Moly - this cable is perfect for you!");

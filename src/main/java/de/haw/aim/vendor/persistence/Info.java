@@ -41,6 +41,16 @@ public abstract class Info
         this.facts = facts;
     }
 
+    public Info(String name, String shortDescription, String longDescription, Picture mainPic, List<UploadedFile> fileGallery, List<Fact> facts)
+    {
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.longDescription = longDescription;
+        this.mainPic = mainPic;
+        this.fileGallery = fileGallery;
+        this.facts = facts;
+    }
+
     public String getId()
     {
         return id;

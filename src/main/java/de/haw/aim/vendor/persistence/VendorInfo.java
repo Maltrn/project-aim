@@ -12,4 +12,13 @@ public class VendorInfo extends Info
     {
         super(id, name, shortDescription, longDescription, mainPic, fileGallery, facts);
     }
+    public VendorInfo(String name, String shortDescription, String longDescription, Picture mainPic, List<UploadedFile> fileGallery, List<Fact> facts)
+    {
+        super(name, shortDescription, longDescription, mainPic, fileGallery, facts);
+    }
+
+    public VendorInfo()
+    {
+        super();
+    }
 }

@@ -14,4 +14,12 @@ public class ProductInfo extends Info
     {
         super(id, name, shortDescription, longDescription, mainPic, fileGallery, facts);
     }
+    public ProductInfo(String name, String shortDescription, String longDescription, Picture mainPic, List<UploadedFile> fileGallery, java.util.List<Fact> facts)
+    {
+        super(name, shortDescription, longDescription, mainPic, fileGallery, facts);
+    }
+    public ProductInfo()
+    {
+        super();
+    }
 }
