@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {UserService} from "./user.service.ts";
-import {Router} from '@angular/router';
+import {Router} from "@angular/router";
 import {LoginDTO} from "./model/loginDTO";
 
 const errMsg401 = 'Benutzername existiert nicht oder das angegebene Passwort ist falsch';

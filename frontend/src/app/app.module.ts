@@ -22,7 +22,7 @@ import {FileService} from "./uploadCenter/file.service";
 import {VendorService} from "./informationComponents/main/vendor.service";
 import {UserService} from "./authentification/user.service";
 import {LoggedInGuard} from "./authentification/loged-in.guard";
-import {ConfigImporter} from "./app.config";
+import {Configs} from "./app.config";
 
 // Vendor-Info
 
@@ -59,7 +59,7 @@ import {ConfigImporter} from "./app.config";
         VendorService,
         UserService,
         LoggedInGuard,
-        ConfigImporter]
+        Configs]
 })
 
 export class AppModule {
