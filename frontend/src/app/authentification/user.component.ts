@@ -23,5 +23,5 @@ export class UserLogin
                 this.router.navigate(['/anbieterinformationen']);
             }
         });
-    }1
+    }
 }

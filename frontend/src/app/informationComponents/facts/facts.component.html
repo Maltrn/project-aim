@@ -24,5 +24,14 @@
         </tr>
         </tbody>
     </table>
+    <ul class="facts">
+        <li *ngFor="let fact of facts" (click)="onSelect(fact)"
+            [class.selected]="fact === selectedFact">   <!-- <div *ngFor="let fact of facts | async" -->
+            <span class="badge">{{fact.name}}</span>
+            <span>{{fact.description}}</span>
+            <button class="delete"
+                    (click)="delete(fact); $event.stopPropagation()">x</button>
+        </li>
+    </ul>
     <button class="btn btn-primary" onclick="addRow()">Reihe hinzufügen</button>
 </div>

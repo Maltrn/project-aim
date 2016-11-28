@@ -4,5 +4,6 @@
 
 export class Fact
 {
-
+    name: string;
+    description: string;
 }

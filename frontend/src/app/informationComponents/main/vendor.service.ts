@@ -7,11 +7,14 @@ import {Headers, Http} from "@angular/http";
 import {InfoDTO} from "./dto/infoDTO";
 import 'rxjs/add/operator/toPromise';
 
+//import { User } from "../../authentification/user";
+
 @Injectable()
 export class VendorService
 {
     private vendorUrl: String = '/vendor';
     private _vendorInformationDto: InfoDTO;
+   // private _user: User;
 
     constructor(private http: Http)
     {
@@ -25,8 +28,15 @@ export class VendorService
             .then(response => response.json().data as InfoDTO);
     }
 
-    get vendorInformationDto(): InfoDTO
+    getVendorInformationDto(): InfoDTO
     {
         return this._vendorInformationDto;
+    }
+
+    getVendor(): Promise<InfoDTO> {
+        const url = `${this.vendorUrl}/${this._user.vendorInfoId}`;
+        return this.http.get(url)    // this.http.get!
+            .toPromise()
+            .then(response => response.json().data as InfoDTO);
     }
 }
