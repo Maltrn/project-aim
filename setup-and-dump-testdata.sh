@@ -12,5 +12,6 @@ rm -r ./dumpdir
 mkdir ./dumpdir
 mongodump --host localhost:27017 -d test -o ./dumpdir
 ./gradlew stopMongoDb
-kill $(ps f |grep 'java -Dorg.gradle.appname=gradlew' | grep -v grep | cut -d ' ' -f 1| tr '\n' ' ')
+
+kill $(ps f |grep 'java -Dorg.gradle.appname=gradlew' | grep -v grep | sed 's/^\s*//' |cut -d ' ' -f 1| tr '\n' ' ')
 
