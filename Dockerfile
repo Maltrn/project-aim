@@ -1,5 +1,9 @@
-FROM openjdk:8
-COPY . /var/opt/projecttwo
-WORKDIR /var/opt/projecttwo
+FROM meandor/ubuntu:xenial
+COPY . /var/opt/project-aim
+WORKDIR /var/opt/project-aim
+
 RUN ./bin/go bootRepackage
-ENTRYPOINT ["java","-jar","./build/libs/projecttwomicroservice.jar"]
+
+CMD ["./run.sh"]
+EXPOSE 27017
+EXPOSE 8080
