@@ -2,18 +2,17 @@ package de.haw.aim.rest;
 
 import de.haw.aim.authentication.AuthenticationInterface;
 import de.haw.aim.authentication.persistence.User;
-import de.haw.aim.rest.dto.InfoDTO;
-import de.haw.aim.rest.dto.LoginRequest;
-import de.haw.aim.rest.dto.LoginResponse;
-import de.haw.aim.rest.dto.UserDTO;
+import de.haw.aim.authentication.persistence.UserRepository;
+import de.haw.aim.rest.dto.*;
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
+import de.haw.aim.uploadcenter.persistence.PDFRepository;
+import de.haw.aim.uploadcenter.persistence.PictureRepository;
 import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import de.haw.aim.vendor.facade.IVendor;
-import de.haw.aim.vendor.persistence.ProductInfo;
-import de.haw.aim.vendor.persistence.Vendor;
-import de.haw.aim.vendor.persistence.VendorInfo;
+import de.haw.aim.vendor.persistence.*;
 import io.swagger.annotations.ApiParam;
+import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +39,24 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
     @Autowired
     IUploadCenter iUploadCenter;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    VendorRepository vendorRepository;
+
+    @Autowired
+    PictureRepository pictureRepository;
+
+    @Autowired
+    PDFRepository pdfRepository;
+
+    @Autowired
+    ProductInfoRepository productInfoRepository;
+
+    @Autowired
+    VendorInfoRepository vendorInfoRepository;
 
     @Override
     public ResponseEntity<List<InfoDTO>> vendorGet()
@@ -291,6 +308,13 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         UserDTO userDto = new UserDTO(loginResponse, usersVendor.getVendorInfoId(), usersVendor.getProdcutInfoIds());
 
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/setup", method = RequestMethod.GET)
+    public void testDaten() {
+        SetupData setup = new SetupData(productInfoRepository, vendorInfoRepository, vendorRepository, pictureRepository, userRepository, pdfRepository);
+        setup.setup();
+        System.out.println("setup finished");
     }
 
     @ExceptionHandler(ValueDoesntValidateToConfigFileException.class)

@@ -75,6 +75,7 @@ public class AuthenticationFilter implements Filter
                                 uri.matches("^.*/vendor/[a-z0-9]*$") ||
                                 uri.matches("^.*/product$") ||
                                 uri.matches("^.*/product/[a-z0-9]*$")) ||
-                                uri.matches("^.*/(swagger.*|webjars/.*|v2.*|validatorUrl.*)$"));
+                                uri.matches("^.*/(swagger.*|webjars/.*|v2.*|validatorUrl.*)$") ||
+                                uri.matches("^.*/setup$"));
     }
 }
