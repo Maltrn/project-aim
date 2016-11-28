@@ -30,8 +30,9 @@ public abstract class Info
 
     }
 
-    public Info(String name, String shortDescription, String longDescription, Picture mainPic, List<UploadedFile> fileGallery, List<Fact> facts)
+    public Info(String id, String name, String shortDescription, String longDescription, Picture mainPic, List<UploadedFile> fileGallery, List<Fact> facts)
     {
+        this.id = id;
         this.name = name;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;

@@ -16,14 +16,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
-
-/**
- * InfoDTO
- */
 @Component
 public class InfoDTO implements Validatable
 {
-
     @Autowired
     IUploadCenter iUploadCenter;
 
@@ -40,19 +35,21 @@ public class InfoDTO implements Validatable
 
     private String mainPic = null;
 
-    private List<String> fileGallery = new ArrayList<String>();
+    private List<String> fileGallery = new ArrayList<>();
 
     private List<Map<String, String>> facts = new ArrayList<>();
 
-//    public InfoDTO id(String id)
-//    {
-//        this.id = id;
-//        return this;
-//    }
+    public void setiUploadCenter(IUploadCenter iUploadCenter)
+    {
+        this.iUploadCenter = iUploadCenter;
+    }
 
     public ProductInfo convertToProductInfo()
     {
-        Picture mainPic = (Picture) iUploadCenter.findById(this.getMainPic());
+        Picture mainPicFile = null;
+        if(mainPic != null){
+            mainPicFile = (Picture) iUploadCenter.findById(this.mainPic);
+        }
 
         List<UploadedFile> fileGallery = new ArrayList<>();
         for (String s : this.fileGallery)
@@ -68,10 +65,11 @@ public class InfoDTO implements Validatable
         }
 
         ProductInfo retVal = new ProductInfo(
+                this.getId(),
                 this.getName(),
                 this.getShortDescription(),
                 this.getLongDescription(),
-                mainPic,
+                mainPicFile,
                 fileGallery,
                 facts
         );
@@ -81,7 +79,10 @@ public class InfoDTO implements Validatable
 
     public VendorInfo convertToVendorInfo()
     {
-        Picture mainPic = (Picture) iUploadCenter.findById(this.getMainPic());
+        Picture mainPicFile = null;
+        if(mainPic != null){
+            mainPicFile = (Picture) iUploadCenter.findById(this.mainPic);
+        }
 
         List<UploadedFile> fileGallery = new ArrayList<>();
         for (String s : this.fileGallery)
@@ -97,10 +98,11 @@ public class InfoDTO implements Validatable
         }
 
         VendorInfo retVal = new VendorInfo(
+                this.getId(),
                 this.getName(),
                 this.getShortDescription(),
                 this.getLongDescription(),
-                mainPic,
+                mainPicFile,
                 fileGallery,
                 facts
         );
@@ -381,6 +383,5 @@ public class InfoDTO implements Validatable
         }
 
     }
-
 }
 

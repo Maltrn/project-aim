@@ -11,14 +11,10 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -26,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
 
 //@EnableConfigurationProperties
 //@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT, classes = AIMServer.class)
@@ -56,6 +51,7 @@ public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
         currentToken = user.getCurrentToken();
         RestAssured.basePath = "/api";
 
+        String id = "this is an id";
         String name = "Name String";
         String shortDescription = "Short Description";
         String longDescription  = "Looooooonger Description";
@@ -64,6 +60,7 @@ public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
         picture = pictureRepository.save(picture);
 
         VendorInfo vendorInfo = new VendorInfo(
+                id,
                 name,
                 shortDescription,
                 longDescription,

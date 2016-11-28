@@ -78,6 +78,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
         user = userRepository.save(user);
 
         vendorInfo = new VendorInfo(
+                "",
                 name,
                 shortDescription,
                 longDescription,
@@ -91,6 +92,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
         productInfoList = new ArrayList<>();
 
         productInfoOne = new ProductInfo(
+                "",
                 "Name",
                 "Short Description",
                 "Long Description",
@@ -100,6 +102,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
         );
 
         productInfoTwo = new ProductInfo(
+                "",
                 "Name",
                 "Short Description",
                 "Long Description",
@@ -137,6 +140,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
     {
         Assert.assertEquals(vendorComponent.getVendor(vendor.getId()).getId(),vendorInfo.getId());
         VendorInfo differentVendorInfo = new VendorInfo(
+                "Noch eine andere ID",
                 name,
                 shortDescription,
                 longDescription,
@@ -173,6 +177,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
     public void putVendorTest()
     {
         VendorInfo differentVendorInfo = new VendorInfo(
+                "Eine andere ID",
                 "Different Name",
                 shortDescription,
                 longDescription,
@@ -198,6 +203,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
     public void putVendorNullTest()
     {
         VendorInfo differentVendorInfo = new VendorInfo(
+                "keine richtige ID",
                 "Different Name",
                 shortDescription,
                 longDescription,

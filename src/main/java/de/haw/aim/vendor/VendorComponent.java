@@ -19,6 +19,9 @@ public class VendorComponent implements IVendor
     private ProductInfoRepository productInfoRepository;
 
     @Autowired
+    private VendorInfoRepository vendorInfoRepository;
+
+    @Autowired
     public VendorComponent(VendorRepository vendorRepository)
     {
         this.vendorRepository = vendorRepository;
@@ -52,6 +55,7 @@ public class VendorComponent implements IVendor
     @Override
     public Vendor putVendor(VendorInfo vendorInfo)
     {
+        vendorInfo = vendorInfoRepository.save(vendorInfo);
         Vendor vendor = vendorRepository.findById(vendorInfo.getId());
         if(vendor == null)
             return vendor;
