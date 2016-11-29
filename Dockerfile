@@ -2,6 +2,9 @@ FROM meandor/ubuntu:xenial
 COPY . /var/opt/project-aim
 WORKDIR /var/opt/project-aim
 RUN ./bin/go bootRepackage
+WORKDIR frontend
+RUN npm install
+WORKDIR ..
 CMD ["./run.sh"]
 EXPOSE 27017
 EXPOSE 8080
