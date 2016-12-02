@@ -2,31 +2,28 @@
  * Created by Malte Scheller on 02.11.2016.
  */
 import {Injectable} from "@angular/core";
-import {Headers, Http} from "@angular/http";
+import {Headers, Http, Response} from "@angular/http";
 
 import 'rxjs/add/operator/toPromise';
 import {FileID} from "../main/model/fileId";
 import {File} from "../main/model/file";
 
-
+const fileUrl: string = 'app/file';
 
 @Injectable()
 export class ProfilePictureService
 {
-    private _fileUrl: string = 'app/file';
+    constructor(private http: Http){}
 
-    constructor(private http: Http)
-    {
-    }
-
-    getAllFileIds(): Promise<FileID[]>
+    getAllFileIds(): Promise<FileID[] | number>
     {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        return this.http.get(this._fileUrl, { headers })
+        return this.http.get(fileUrl, { headers })
             .toPromise()
-            .then(response => response.json().data as FileID[]);
+            .then(response => response.json().data as FileID[])
+            .catch(this.handleError);
     }
 
     getSpecificFile(fileId: string): Promise<File>
@@ -34,9 +31,30 @@ export class ProfilePictureService
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        return this.http.get(this._fileUrl + '/' + fileId, {headers})
+        return this.http.get(fileUrl + '/' + fileId, {headers})
             .toPromise()
-            .then(response => response.json().data as File);
+            .then(response => response.json().data as File)
+            .catch(this.handleError);
+    }
+
+
+    private handleError(error: Response | any)
+    {
+        let errMsg: string;
+
+        if(error instanceof Response)
+        {
+            let resErr: Response = error;
+            var statusCode = resErr.status;
+            errMsg = `${resErr.status} - ${resErr.statusText || ''} ${resErr}`;
+        }
+        else
+        {
+            errMsg = error.toString();
+        }
+
+        console.error('An error occurred in Profile-Pic-Service', errMsg);
+        return Promise.reject(statusCode);
     }
 
     getPicture(): File[]
@@ -63,11 +81,4 @@ export class ProfilePictureService
 
         return pictures;
     }
-
-    private handleError(error: any): Promise<any>
-    {
-        console.error('An error occurred', error);          // TODO Fehlerbehandlung
-        return Promise.reject(error.message || error);
-    }
-
 }

@@ -61,7 +61,7 @@ export class UserService
         return this.loggedIn;
     }
 
-    private handleError(error: Response | any): Promise<any>
+    private handleError(error: Response | any)
     {
         let errMsg: string;
 
@@ -76,7 +76,7 @@ export class UserService
             errMsg = error.toString();
         }
 
-        console.error('An error occurred', errMsg);
+        console.error('An error occurred in User-Service', errMsg);
         return Promise.reject(statusCode);
     }
 

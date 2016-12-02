@@ -3,6 +3,10 @@ import {ProfilePictureService} from "./profile-pic.service.ts";
 import {FileID} from "../main/model/fileId";
 import {File} from "../main/model/file";
 
+const errMsg401 = 'Der Token ist ungültig';
+const errMsg404 = 'Es wurde keine Datei mit der angegebenen ObjectId gefunden';
+const unknownErrMsg = 'Unbekannter Fehler';
+
 @Component
 ({
     selector: 'vendor-info-profile-pic',
@@ -28,11 +32,12 @@ export class ProfilePicComponent
     {
         this.profilePicService.getAllFileIds()
             .then(response => this.getAllFiles(response))
-            .then(response => this.sortOutNonPictures(response))
-            .then(response => this.pictures = response);
+            .then(allFiles => this.sortOutNonPictures(allFiles))
+            .then(pictures => this.pictures = pictures)
+            .catch(this.handleError);
     }
 
-    private getAllFiles(fileIds: FileID[]): File[]
+    private getAllFiles(fileIds: FileID[] | number): File[]
     {
         var files: File[] = [];
 
@@ -73,5 +78,37 @@ export class ProfilePicComponent
     onSelect(id: string): void
     {
         this.selectedPicture = id;
+    }
+
+    handleError(error: number)
+    {
+        let msg: string;
+
+        switch(error)
+        {
+            case 401:
+                msg = errMsg401;
+                break;
+            case 404:
+                msg = errMsg404;
+                break;
+            default:
+                msg = unknownErrMsg;
+        }
+
+        this.showErrMsg(msg);
+    }
+
+    /**
+     * Shows an error message.
+     *
+     * @param msg
+     */
+    showErrMsg(msg: string): void
+    {
+        if((msg !== '') && (msg !== null))      //TODO ErrorMsg direkt im Eingabebereich anzeigen. PopUp evtl.
+            alert(msg);
+        else
+            alert('Fehler nicht beschrieben');  //TODO Beschreibung anpassen
     }
 }
