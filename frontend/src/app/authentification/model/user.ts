@@ -7,7 +7,7 @@ import {LoginResponse} from "./loginResponse";
 export class User
 {
     private _loginResponse: LoginResponse;
-    private _produktInfoIds: string;
+    private _produktInfoIds: string[];
     private _vendorInfoId: string;
 
 
@@ -21,12 +21,12 @@ export class User
         this._loginResponse = value;
     }
 
-    get produktInfoIds(): string
+    get produktInfoIds(): string[]
     {
         return this._produktInfoIds;
     }
 
-    set produktInfoIds(value: string)
+    set produktInfoIds(value: string[])
     {
         this._produktInfoIds = value;
     }

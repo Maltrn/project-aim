@@ -13,7 +13,7 @@ import {File} from "../main/model/file";
 @Injectable()
 export class ProfilePictureService
 {
-    fileUrl: string = 'app/file';
+    private _fileUrl: string = 'app/file';
 
     constructor(private http: Http)
     {
@@ -21,14 +21,20 @@ export class ProfilePictureService
 
     getAllFileIds(): Promise<FileID[]>
     {
-        return this.http.get(this.fileUrl)
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        return this.http.get(this._fileUrl, { headers })
             .toPromise()
             .then(response => response.json().data as FileID[]);
     }
 
     getSpecificFile(fileId: string): Promise<File>
     {
-        return this.http.get(this.fileUrl + '/' + fileId)
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/json');
+
+        return this.http.get(this._fileUrl + '/' + fileId, {headers})
             .toPromise()
             .then(response => response.json().data as File);
     }
