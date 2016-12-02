@@ -1,3 +1,15 @@
 {
-  "docker-run-args": "--detach --publish 9090:8080 --publish 7070:27017 --publish 7171:3000 --restart always"
+  "detach": true,
+  "ports": [
+    {
+      "9090": "8080"
+    },
+    {
+      "7070": "27017"
+    },
+    {
+      "7171": "3000"
+    }
+  ],
+  "restart": "always"
 }
