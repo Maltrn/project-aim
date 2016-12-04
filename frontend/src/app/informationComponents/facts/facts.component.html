@@ -42,39 +42,3 @@
 <button class="btn btn-primary" (click)="add(factName.value, factDescription.value); factName.value=''; factDescription.value=''">
     Feature hinzufügen
 </button>
-
-
-
-<!-- <table class="table" id="extendableTable">     deprecated but please don't delete
-    <thead>
-        <tr>
-            <th>Feature</th>
-            <th>Beschreibung</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-   <tr class="accordion-toggle">
-        <td data-toggle="collapse" data-target="#collapseTwo">{{selectedFact.name}}</td>
-        <td data-toggle="collapse" data-target="#collapseTwo">{{selectedFact.description}}</td>
-        <td><input class="btn btn-danger" type="button" value="Delete" onclick="deleteRow(this)"></td>
-    </tr>
-    <tr>
-        <td> {{selectedFact.name}} </td>
-        <td> {{selectedFact.description}} </td>
-        <td><input class="btn btn-danger" type="button" value="Delete" onclick="deleteRow(this)"></td>
-    </tr>
-
-    </tbody>
-</table> -->
-
-
-<!--<ul class="facts">
-    <li *ngFor="let fact of facts" (click)="onSelect(fact)"
-        [class.selected]="fact === selectedFact">   <!-- <div *ngFor="let fact of facts | async"
-        <span class="badge">{{fact.name}}</span>
-        <span>{{fact.description}}</span>
-        <button class="delete"
-                (click)="delete(fact); $event.stopPropagation()">x</button>
-    </li>
-</ul>-->

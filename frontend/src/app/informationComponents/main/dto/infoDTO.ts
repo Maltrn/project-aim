@@ -10,8 +10,6 @@ export class InfoDTO
     private _fileGallery: string[];
     private _facts: Fact[]; 
 
-    //private _facts: [string, string];
-
     mockData(): InfoDTO
     { 
         var mockedVendor = new InfoDTO();
@@ -102,13 +100,4 @@ export class InfoDTO
         this._facts = value;
     }
 
-    // get facts(): Array<[string, string]> 
-    // { 
-    //     return this._facts; 
-    // }  
-    //
-    // set facts(value: Array<[string, string]>) 
-    // { 
-    //     this._facts = value; 
-    // }
 }

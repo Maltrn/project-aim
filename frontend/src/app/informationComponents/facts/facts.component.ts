@@ -14,10 +14,8 @@ export class FactsTableComponent implements OnInit
     title: string = 'Faktentabelle';
     description: string = 'Zur Bearbeitung der Inhalte in der Faktentabelle';
     facts: Fact[];
-    // demnächst das hier einbauen:  private _facts: [string, string];
     vendor: InfoDTO;
     selectedFact: Fact;
-    //selectedFact: string;
 
     constructor(
         private router: Router,
@@ -25,11 +23,9 @@ export class FactsTableComponent implements OnInit
     ) { }
 
     ngOnInit(): void {
-        console.log(this.vendorService.loadMock().name);
-        //console.log(this.vendorService.getVendorInformationDto().shortDescription);
+        console.log(this.vendorService.loadMock().name); // Zum debuggen
         this.fillFacts();
         // this.getVendor();
-
     }
 
     getVendor(): void {
@@ -39,10 +35,8 @@ export class FactsTableComponent implements OnInit
     fillFacts(): void {
         this.vendor = this.vendorService.loadMock();
         console.log(this.vendor.shortDescription);
-        this.selectedFact = this.vendor.facts[0];
+        //this.selectedFact = this.vendor.facts[0];
         this.facts = this.vendor.facts;
-        // this.facts = this.vendor.facts;
-
     }
     onSelect(fact: Fact): void {
         this.selectedFact = fact;
