@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
-import fs = module("fs")
+import fs = module("fs");
 
 @Injectable()
 export class ConfigImporter {
 
-    private fileLocation: String = "src/main/resources/config.properties"
+    private fileLocation: String = "src/main/resources/config.properties";
 
     constructor() {
         this.showFile();

@@ -253,3 +253,10 @@ ul.alert-dropdown {
     height: auto;
     display: block;
 }
+.factshead {
+    font-family: "Arial Black",Arial Black;
+}
+#facts {
+    border-bottom: solid 2px #c9c9c9;
+    padding: 5px;
+}

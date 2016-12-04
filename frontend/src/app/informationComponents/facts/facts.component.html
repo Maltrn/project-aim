@@ -3,35 +3,78 @@
     <small>{{description}}</small>
 </h1>
 <div class="panel-body">
-    <table class="table" id="extendableTable">
-        <thead>
+
+    <div class="factshead">
+        <div class="col-md-10" id="facts">
+            <div class="col-md-2">
+                <div class="factname">Feature</div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="factdescription">Beschreibung</div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngFor="let fact of facts" (click)="onSelect(fact)"
+         [class.selected]="fact === selectedFact">   <!-- SPÄTER HINZUFÜGEN <div *ngFor="let fact of facts | async" -->
+
+        <div class="col-md-10" id="facts">
+            <div class="col-md-2">
+                <a class="factname">{{fact.name}}</a>
+            </div>
+
+            <div class="col-md-9">
+                <a class="factdescription">{{fact.description}}</a>
+            </div>
+
+            <div class="col-md-1">
+                <button class="btn btn-danger" (click)="delete(fact); $event.stopPropagation()">x</button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<label>Faktenname:</label> <input #factName />
+<label>Faktenbeschreibung:</label> <input #factDescription />
+<button class="btn btn-primary" (click)="add(factName.value, factDescription.value); factName.value=''; factDescription.value=''">
+    Feature hinzufügen
+</button>
+
+
+
+<!-- <table class="table" id="extendableTable">     deprecated but please don't delete
+    <thead>
         <tr>
             <th>Feature</th>
             <th>Beschreibung</th>
             <th></th>
         </tr>
-        </thead>
-        <tbody>
-        <tr class="accordion-toggle">
-            <td data-toggle="collapse" data-target="#collapseTwo">Feature 1</td>
-            <td data-toggle="collapse" data-target="#collapseTwo">Das ist ein tolles Feature</td>
-            <td><input class="btn btn-danger" type="button" value="Delete" onclick="deleteRow(this)"></td>
-        </tr>
-        <tr>
-            <td>Feature 2</td>
-            <td>Das ist ein tolles Feature</td>
-            <td><input class="btn btn-danger" type="button" value="Delete" onclick="deleteRow(this)"></td>
-        </tr>
-        </tbody>
-    </table>
-    <ul class="facts">
-        <li *ngFor="let fact of facts" (click)="onSelect(fact)"
-            [class.selected]="fact === selectedFact">   <!-- <div *ngFor="let fact of facts | async" -->
-            <span class="badge">{{fact.name}}</span>
-            <span>{{fact.description}}</span>
-            <button class="delete"
-                    (click)="delete(fact); $event.stopPropagation()">x</button>
-        </li>
-    </ul>
-    <button class="btn btn-primary" onclick="addRow()">Reihe hinzufügen</button>
-</div>
+    </thead>
+    <tbody>
+   <tr class="accordion-toggle">
+        <td data-toggle="collapse" data-target="#collapseTwo">{{selectedFact.name}}</td>
+        <td data-toggle="collapse" data-target="#collapseTwo">{{selectedFact.description}}</td>
+        <td><input class="btn btn-danger" type="button" value="Delete" onclick="deleteRow(this)"></td>
+    </tr>
+    <tr>
+        <td> {{selectedFact.name}} </td>
+        <td> {{selectedFact.description}} </td>
+        <td><input class="btn btn-danger" type="button" value="Delete" onclick="deleteRow(this)"></td>
+    </tr>
+
+    </tbody>
+</table> -->
+
+
+<!--<ul class="facts">
+    <li *ngFor="let fact of facts" (click)="onSelect(fact)"
+        [class.selected]="fact === selectedFact">   <!-- <div *ngFor="let fact of facts | async"
+        <span class="badge">{{fact.name}}</span>
+        <span>{{fact.description}}</span>
+        <button class="delete"
+                (click)="delete(fact); $event.stopPropagation()">x</button>
+    </li>
+</ul>-->

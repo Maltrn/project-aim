@@ -20,8 +20,11 @@ export class VendorService
     {
     }
 
-    loadMock(): void {
-        _vendorInformationDto.mockData();
+    loadMock(): InfoDTO {
+       this._vendorInformationDto =  new InfoDTO();
+       this._vendorInformationDto = this._vendorInformationDto.mockData();
+       return this._vendorInformationDto;
+      // return this._vendorInformationDto.shortDescription;
     }
 
     /* Muss jedes Mal aufgerufen werden, wenn die Informationen aktualisiert wurden*/
