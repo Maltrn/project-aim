@@ -8,10 +8,12 @@ import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.vendor.persistence.*;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -115,9 +117,9 @@ public class FileTest extends AbstractTestNGSpringContextTests
                 .put("/file");
 
         logger.warn("status: " + String.valueOf(response.statusCode()));
-        throw new RuntimeException("status: " + String.valueOf(response.statusCode()));
+        //throw new RuntimeException("status: " + String.valueOf(response.statusCode()));
 
-        /*String pictureID =
+        String pictureID =
                 given()
                         .contentType("multipart/form-data")
                         .header("Authorization", "TOKEN handsomeTOKEN")
@@ -127,8 +129,8 @@ public class FileTest extends AbstractTestNGSpringContextTests
                         .then()
                         .statusCode(HttpStatus.SC_OK)
                         .extract()
-                        .asString();*/
+                        .asString();
 
-        /*Assert.assertNotNull(pictureRepository.findOne(pictureID));*/
+        Assert.assertNotNull(pictureRepository.findOne(pictureID));
     }
 }

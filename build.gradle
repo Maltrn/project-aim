@@ -55,12 +55,6 @@ test {
 
     description "Tell gradle to use TestNG with all groups"
     useTestNG()
-
-    testLogging {
-        events "failed"
-        exceptionFormat "short"
-    }
-
     options {
         useDefaultListeners = true
     }
