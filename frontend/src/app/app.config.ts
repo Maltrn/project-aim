@@ -8,4 +8,5 @@ export class Configs {
     public static FILEGALLERY_MAX_ENTRIES: number = 30;
     public static UPLOADCENTER_PICTURES_FILETYPES: string = "jpeg,gif,png,jpg";
     public static UPLOADCENTER_PDF_FILETYPES: string = "pdf";
+    public static BACKEND_URL: string = "http://localhost:8080/api/";
 }
