@@ -1,4 +1,7 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
+import { ProductService } from "../main/product.service";
+import { InfoDTO } from "../main/dto/infoDTO";
+
 
 @Component
 ({
@@ -6,6 +9,22 @@ import {Component} from "@angular/core";
     templateUrl: './view/product-info-main.component.html'
 })
 
-export class ProductInfoMain {
+/*
+TODO Wird momentan von Dustin bearbeitet.
+TODO Anzeigekonflikt Vendor/Product bewältigen.
+ */
+export class ProductInfoMain implements OnInit{
     productName: string = 'Produktname';
+    product: InfoDTO;
+
+    constructor(
+        private productService: ProductService
+    ) { }
+
+    ngOnInit(): void {
+        this.productService.loadMock();
+      // this.productService.loadProductInformation();
+        this.productName = this.productService.getProductInformationDto().name; // Mock
+        console.log("Product-Info-Mail aufruf"); // Zum debuggen
+    }
 }

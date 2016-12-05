@@ -20,6 +20,7 @@ import {UserLogin} from "./authentification/user.component";
 import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {FileService} from "./uploadCenter/file.service";
 import {VendorService} from "./informationComponents/main/vendor.service";
+import {ProductService} from "./informationComponents/main/product.service"
 import {UserService} from "./authentification/user.service";
 import {LoggedInGuard} from "./authentification/loged-in.guard";
 import {Configs} from "./app.config";
@@ -59,6 +60,7 @@ import {CKEditorModule} from "ng2-ckeditor";
         FileService,
         ProfilePictureService,
         VendorService,
+        ProductService,
         UserService,
         LoggedInGuard,
         Configs]
