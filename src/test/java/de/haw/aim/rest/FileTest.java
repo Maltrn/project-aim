@@ -7,6 +7,7 @@ import de.haw.aim.uploadcenter.persistence.PictureRepository;
 import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.vendor.persistence.*;
 import io.restassured.RestAssured;
+import io.restassured.response.Response;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -93,8 +94,6 @@ public class FileTest extends AbstractTestNGSpringContextTests
         vendorRepository.save(testVendor);
         RestAssured.basePath = "/api";
         RestAssured.port = this.port;
-
-
     }
 
     @AfterMethod
@@ -110,6 +109,15 @@ public class FileTest extends AbstractTestNGSpringContextTests
     @Test
     public void uploadFileTest()
     {
+        Response response = given()
+                .contentType("multipart/form-data")
+                .header("Authorization", "TOKEN handsomeTOKEN")
+                .multiPart(file)
+                .when()
+                .put("/file");
+
+        logger.warn("status: " + String.valueOf(response.statusCode()));
+
         String pictureID =
                 given()
                         .contentType("multipart/form-data")
