@@ -116,20 +116,10 @@ public class FileTest extends AbstractTestNGSpringContextTests
                 .when()
                 .put("/file");
 
-        logger.warn("status: " + String.valueOf(response.statusCode()));
+        logger.info("status: " + String.valueOf(response.statusCode()));
         //throw new RuntimeException("status: " + String.valueOf(response.statusCode()));
 
-        String pictureID =
-                given()
-                        .contentType("multipart/form-data")
-                        .header("Authorization", "TOKEN handsomeTOKEN")
-                        .multiPart(file)
-                        .when()
-                        .put("/file")
-                        .then()
-                        .statusCode(HttpStatus.SC_OK)
-                        .extract()
-                        .asString();
+        String pictureID = response.then().statusCode(HttpStatus.SC_OK).extract().asString();
 
         Assert.assertNotNull(pictureRepository.findOne(pictureID));
     }
