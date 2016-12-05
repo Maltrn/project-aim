@@ -42,8 +42,7 @@ export class UserService
                             this.loggedIn = true;
                         }
 
-                    })
-                    .catch(this.handleError);
+                    }).catch(err => err);
     }
 
     /**
@@ -61,24 +60,7 @@ export class UserService
         return this.loggedIn;
     }
 
-    private handleError(error: Response | any)
-    {
-        let errMsg: string;
 
-        if(error instanceof Response)
-        {
-            let resErr: Response = error;
-            var statusCode = resErr.status;
-            errMsg = `${resErr.status} - ${resErr.statusText || ''} ${resErr}`;
-        }
-        else
-        {
-            errMsg = error.toString();
-        }
-
-        console.error('An error occurred in User-Service', errMsg);
-        return Promise.reject(statusCode);
-    }
 
 
     get user(): User

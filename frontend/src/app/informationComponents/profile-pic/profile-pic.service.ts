@@ -15,7 +15,7 @@ export class ProfilePictureService
 {
     constructor(private http: Http){}
 
-    getAllFileIds(): Promise<FileID[] | number>
+    getAllFileIds(): Promise<FileID[]>
     {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
@@ -23,7 +23,7 @@ export class ProfilePictureService
         return this.http.get(fileUrl, { headers })
             .toPromise()
             .then(response => response.json().data as FileID[])
-            .catch(this.handleError);
+            .catch(err => err);
     }
 
     getSpecificFile(fileId: string): Promise<File>
@@ -34,27 +34,7 @@ export class ProfilePictureService
         return this.http.get(fileUrl + '/' + fileId, {headers})
             .toPromise()
             .then(response => response.json().data as File)
-            .catch(this.handleError);
-    }
-
-
-    private handleError(error: Response | any)
-    {
-        let errMsg: string;
-
-        if(error instanceof Response)
-        {
-            let resErr: Response = error;
-            var statusCode = resErr.status;
-            errMsg = `${resErr.status} - ${resErr.statusText || ''} ${resErr}`;
-        }
-        else
-        {
-            errMsg = error.toString();
-        }
-
-        console.error('An error occurred in Profile-Pic-Service', errMsg);
-        return Promise.reject(statusCode);
+            .catch(err => err);
     }
 
     getPicture(): File[]

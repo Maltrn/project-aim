@@ -5,5 +5,6 @@ import {Component} from "@angular/core";
     templateUrl: './appView.html'
 })
 
-export class AppComponent {
+export class AppComponent
+{
 }

@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {ProfilePictureService} from "./profile-pic.service.ts";
 import {FileID} from "../main/model/fileId";
 import {File} from "../main/model/file";
+import {Response} from "@angular/http";
 
 const errMsg401 = 'Der Token ist ungültig';
 const errMsg404 = 'Es wurde keine Datei mit der angegebenen ObjectId gefunden';
@@ -37,7 +38,7 @@ export class ProfilePicComponent
             .catch(this.handleError);
     }
 
-    private getAllFiles(fileIds: FileID[] | number): File[]
+    private getAllFiles(fileIds: FileID[]): File[]
     {
         var files: File[] = [];
 
@@ -80,35 +81,38 @@ export class ProfilePicComponent
         this.selectedPicture = id;
     }
 
-    handleError(error: number)
+    private handleError(error: any): void
     {
-        let msg: string;
+        let errMsg: string;
 
-        switch(error)
+        if(error instanceof Response)
         {
-            case 401:
-                msg = errMsg401;
-                break;
-            case 404:
-                msg = errMsg404;
-                break;
-            default:
-                msg = unknownErrMsg;
+            let resErr: Response = error;
+            resErr.status;
+            errMsg = `${resErr.status} - ${resErr.statusText || ''} ${resErr}`;
+
+            switch(resErr.status)
+            {
+                case 401:
+                    errMsg = errMsg401;
+                    break;
+                case 404:
+                    errMsg = errMsg404;
+                    break;
+                default:
+                    errMsg = unknownErrMsg;
+            }
+        }
+        else
+        {
+            errMsg = error.toString();
         }
 
-        this.showErrMsg(msg);
-    }
+        console.error('An error occurred in Profile-Pic-Service', errMsg);
 
-    /**
-     * Shows an error message.
-     *
-     * @param msg
-     */
-    showErrMsg(msg: string): void
-    {
-        if((msg !== '') && (msg !== null))      //TODO ErrorMsg direkt im Eingabebereich anzeigen. PopUp evtl.
-            alert(msg);
+        if((errMsg !== '') && (errMsg !== null))      //TODO ErrorMsg direkt im Eingabebereich anzeigen. PopUp evtl.
+            alert(errMsg);
         else
-            alert('Fehler nicht beschrieben');  //TODO Beschreibung anpassen
+            alert('Fehler nicht beschrieben');        //TODO Beschreibung anpassen
     }
 }
