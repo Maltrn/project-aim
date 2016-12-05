@@ -8,6 +8,7 @@ import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.vendor.persistence.*;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import io.restassured.response.ValidatableResponse;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -119,7 +120,9 @@ public class FileTest extends AbstractTestNGSpringContextTests
         logger.info("status: " + String.valueOf(response.statusCode()));
         //throw new RuntimeException("status: " + String.valueOf(response.statusCode()));
 
-        String pictureID = response.then().statusCode(HttpStatus.SC_OK).extract().asString();
+        ValidatableResponse validatableResponse = response.then().statusCode(HttpStatus.SC_OK);
+
+        String pictureID = validatableResponse.extract().asString();
 
         Assert.assertNotNull(pictureRepository.findOne(pictureID));
     }
