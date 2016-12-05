@@ -39,7 +39,7 @@ dependencies {
     compile("com.fasterxml.jackson.core:jackson-core:2.6.4")
     compile("com.fasterxml.jackson.core:jackson-annotations:2.6.4")
     compile("com.fasterxml.jackson.core:jackson-databind:2.6.4")
-    testCompile("org.testng:testng:6.9.13.6")
+    testCompile("org.testng:testng:6.10")
     testCompile("org.springframework:spring-test:4.3.4.RELEASE")
     testCompile("de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.50.5")
     testCompile("org.springframework.boot:spring-boot-test:1.4.2.RELEASE")
