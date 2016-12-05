@@ -37,8 +37,10 @@ export class FactsTableComponent implements OnInit
         // this.vendorService
         //     .delete(fact)
         //     .then(() => {
-        //         this.facts = this.facts.filter(f => f !== fact);
-        //         if (this.selectedFact === fact) { this.selectedFact = null; }});
+                 this.facts = this.facts.filter(f => f !== fact);
+                if (this.selectedFact === fact) { this.selectedFact = null;
+                 }
+    // });
         console.log("delete on Fact " + fact.name + " pressed");
     }
 
@@ -49,10 +51,12 @@ export class FactsTableComponent implements OnInit
         fact.description = description;
         // if (!name) { return; }
         // this.vendorService.addFact(fact)
-        //     .then(fact => {
-        //         this.facts.push(fact);   // Hiermit wird der erstellte Fact auf das Array facts gepusht
-        //         this.selectedFact = null;
-        //     });
+        //     .then(
+        //fact => {
+                this.facts.push(fact);   // Hiermit wird der erstellte Fact auf das Array facts gepusht
+                this.selectedFact = null;
+           // };
+        // );
         console.log("add Fact name:'" + fact.name + "', description: '" + fact.description + "'");
     }
 }
