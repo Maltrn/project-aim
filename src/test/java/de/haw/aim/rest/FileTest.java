@@ -49,13 +49,13 @@ public class FileTest extends AbstractTestNGSpringContextTests
     private String longDescription = "long description";
     @Value("${local.server.port}")
     private int port;
-
-    String path = "C:\\Users\\Rene\\Documents\\Workspaces\\IntelliJ\\projecttwomicroservice\\src\\test\\resources\\dog-1742295_640.jpg";
+    String seperator = File.separator;
+    String path = "src" + seperator + "test" + seperator + "resources" + seperator + "dog-1742295_640.jpg";
 
     @BeforeMethod
     public void setUp() throws IOException
     {
-        fileToDelete = new File("src\\test\\resources\\testFiles\\dog-1742295_640.jpg");
+        fileToDelete = new File("src" + seperator + "test" + seperator + "resources" + seperator + "testFiles" + seperator + "dog-1742295_640.jpg");
         fileToDelete.delete();
         file = new File(path);
         Picture picture = new Picture("testPath");
