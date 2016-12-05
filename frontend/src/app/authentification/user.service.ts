@@ -29,7 +29,7 @@ export class UserService
 
         return this.http.post(loginUrl, JSON.stringify(loginDto), {headers})
                     .toPromise()
-                    .then(res => this._user = res.json().data as User)
+                    .then(res => {this._user = res.json().data as User; alert("dkl")})
                     .then(res =>
                     {
                         localStorage.setItem('aim_token', res.loginResponse.currentToken);
