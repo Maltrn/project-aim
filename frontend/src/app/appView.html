@@ -19,16 +19,19 @@
                 <img src="img/logo.jpg" class="logo">
             </div>
             <ul class="nav navbar-nav side-nav">
-                <li [routerLinkActive]="['active']"><a [routerLink]="['/upload-center']"><i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Dateiverwaltung</a></li>
-                <li [routerLinkActive]="['active']"><a [routerLink]="['/anbieterinformationen']"><i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Anbieter</a></li>
-                <li [routerLinkActive]="['active']"><a [routerLink]="['/produktinformationen']"><i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Produkte</a></li>
-                <li [routerLinkActive]="['active']"><a [routerLink]="['/login']"><i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Login(vorübergehend) </a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/upload-center']"><i
+                        class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Dateiverwaltung</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/anbieterinformationen']">
+                    <i class="fa fa-fw fa-users" aria-hidden="true"></i> Anbieter</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/produktinformationen']">
+                    <i class="fa fa-fw fa-phone" aria-hidden="true"></i> Produkte</a></li>
+                <li [routerLinkActive]="['active']"><a [routerLink]="['/login']">
+                    <i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i>
+                    Login(vorübergehend) </a></li>
             </ul>
         </div>
     </nav>
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <router-outlet></router-outlet>
-        </div>
+    <div class="container-fluid">
+        <router-outlet></router-outlet>
     </div>
 </div>
