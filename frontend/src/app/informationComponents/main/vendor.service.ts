@@ -20,19 +20,18 @@ export class VendorService
     {
     }
 
-    loadMock(): InfoDTO {
+    loadMock(): void {
        this._vendorInformationDto =  new InfoDTO();
        this._vendorInformationDto = this._vendorInformationDto.mockData();
-       return this._vendorInformationDto;
-      // return this._vendorInformationDto.shortDescription;
+       console.log("Mock loaded");
     }
 
-    /* Muss jedes Mal aufgerufen werden, wenn die Informationen aktualisiert wurden*/
-    loadVendorInformation(vendorId: String): Promise<InfoDTO>
+    loadVendorInformation(): void
     {
-        return this.http.get(this.vendorUrl + '/' + vendorId)
-            .toPromise()
-            .then(response => response.json().data as InfoDTO);
+        //this._vendorInformationDto =  new InfoDTO(); // Notwendig?
+        // Noch notwendig: User initialisieren
+        this.getVendor().then(vendor => this._vendorInformationDto = vendor);
+
     }
 
     getVendorInformationDto(): InfoDTO

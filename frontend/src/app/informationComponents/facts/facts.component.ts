@@ -23,21 +23,11 @@ export class FactsTableComponent implements OnInit
     ) { }
 
     ngOnInit(): void {
-        console.log(this.vendorService.loadMock().name); // Zum debuggen
-        this.fillFacts();
-        // this.getVendor();
-    }
-
-    getVendor(): void {
-       this.vendorService.getVendor().then(vendor => this.vendor = vendor);
-    }
-
-    fillFacts(): void {
-        this.vendor = this.vendorService.loadMock();
-        console.log(this.vendor.shortDescription);
-        //this.selectedFact = this.vendor.facts[0];
+        console.log("FactsTableComponent loaded"); // Zum debuggen
+        this.vendor = this.vendorService.getVendorInformationDto();
         this.facts = this.vendor.facts;
     }
+
     onSelect(fact: Fact): void {
         this.selectedFact = fact;
         console.log("onSelect on Fact " + fact.name + " pressed");
