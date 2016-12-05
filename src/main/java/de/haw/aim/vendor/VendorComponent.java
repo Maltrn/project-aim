@@ -21,6 +21,7 @@ public class VendorComponent implements IVendor
     @Autowired
     private VendorInfoRepository vendorInfoRepository;
 
+
     @Autowired
     public VendorComponent(VendorRepository vendorRepository)
     {
@@ -80,6 +81,4 @@ public class VendorComponent implements IVendor
     {
         return vendorRepository.save(vendor);
     }
-
-
 }

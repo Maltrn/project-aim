@@ -1,5 +1,6 @@
 package de.haw.aim.rest;
 
+import de.haw.aim.importer.DataImporter;
 import de.haw.aim.authentication.AuthenticationInterface;
 import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.rest.dto.InfoDTO;
@@ -20,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.naming.ServiceUnavailableException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,6 +33,8 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 @RestController
 public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 {
+    @Autowired
+    DataImporter dataImporter;
 
     @Autowired
     AuthenticationInterface authenticationCompoment;
@@ -291,6 +295,15 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
         }
 
+        // Try to synchronize the DB from Symphony, if this fails we signal the Service is not available
+        try
+        {
+            dataImporter.synchronize();
+        } catch (ServiceUnavailableException e)
+        {
+            return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
+        }
+
         // prepare LoginResponse for UserDTO based on user
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setCurrentToken(user.getCurrentToken());
@@ -307,5 +320,4 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
-
 }

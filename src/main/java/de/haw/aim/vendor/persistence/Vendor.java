@@ -101,4 +101,14 @@ public class Vendor
         this.productInfos.remove(productInfo);
         this.productInfos.add(productInfo);
     }
+
+    public List<ProductInfo> getProductInfos()
+    {
+        return productInfos;
+    }
+
+    public List<UploadedFile> getFiles()
+    {
+        return files;
+    }
 }
