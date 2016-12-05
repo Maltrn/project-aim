@@ -55,7 +55,7 @@ public class SetupData {
         PDF vendorPdf = pdfRepository.save(new PDF("vendor_doc.png"));
         List<UploadedFile> vendorFileGallery = new ArrayList<>();
         vendorFileGallery.add(vendorPicture);
-        vendorUploadedFiles.add(vendorMainPicture);
+        vendorUploadedFiles.add(vendorPicture);
         vendorFileGallery.add(vendorPdf);
         vendorUploadedFiles.add(vendorPdf);
 

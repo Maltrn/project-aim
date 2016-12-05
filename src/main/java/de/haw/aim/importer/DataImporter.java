@@ -87,7 +87,7 @@ public class DataImporter
             Vendor vendorToDelete = vendorRepository.findById(v.getId());
 
             // Delete MainPic
-            iUploadCenter.deleteFile(v.getMainPic().getId());
+//            iUploadCenter.deleteFile(v.getMainPic().getId());
 
             // Start by removing the files from Vendor
             vendorToDelete.getFiles().forEach(file -> iUploadCenter.deleteFile(file.getId()));
