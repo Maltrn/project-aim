@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -22,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.testng.AssertJUnit.assertNotNull;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class FileTest extends AbstractTestNGSpringContextTests
@@ -112,16 +112,16 @@ public class FileTest extends AbstractTestNGSpringContextTests
     {
         String pictureID =
                 given()
-                .contentType("multipart/form-data")
-                .header("Authorization", "TOKEN handsomeTOKEN")
-                .multiPart(file)
-                .when()
-                .put("/file")
-                .then()
-                .statusCode(HttpStatus.SC_OK)
-                .extract()
-                .asString();
+                        .contentType("multipart/form-data")
+                        .header("Authorization", "TOKEN handsomeTOKEN")
+                        .multiPart(file)
+                        .when()
+                        .put("/file")
+                        .then()
+                        .statusCode(HttpStatus.SC_OK)
+                        .extract()
+                        .asString();
 
-        assertNotNull(pictureRepository.findOne(pictureID));
+        Assert.assertNotNull(pictureRepository.findOne(pictureID));
     }
 }
