@@ -7,14 +7,15 @@ import {Headers, Http} from "@angular/http";
 import {InfoDTO} from "./dto/infoDTO";
 import 'rxjs/add/operator/toPromise';
 
-import { User } from "../../authentification/model/user";
+import { UserService } from "../../authentification/user.service";
+import {userInfo} from "os";
 
 @Injectable()
 export class VendorService
 {
     private vendorUrl: String = '/vendor';
     private _vendorInformationDto: InfoDTO;
-    private _user: User;
+    private userService: UserService;
 
     constructor(private http: Http)
     {
@@ -29,7 +30,6 @@ export class VendorService
     loadVendorInformation(): void
     {
         //this._vendorInformationDto =  new InfoDTO(); // Notwendig?
-        // Noch notwendig: User initialisieren
         this.getVendor().then(vendor => this._vendorInformationDto = vendor);
 
     }
@@ -40,9 +40,10 @@ export class VendorService
     }
 
     getVendor(): Promise<InfoDTO> {
-        const url = `${this.vendorUrl}/${this._user.vendorInfoId}`;
+        const url = `${this.vendorUrl}/${this.userService.user.vendorInfoId}`;
         return this.http.get(url)    // this.http.get!
             .toPromise()
             .then(response => response.json().data as InfoDTO);
     }
+
 }
