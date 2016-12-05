@@ -3,14 +3,12 @@
     {{title}}
     <small>{{description}}</small>
 </h1>
-<div class="adjoined-bottom">
-    <div class="grid-container">
-        <div class="grid-width-100">
-            <div id="editorlong">
-                <h1>Hello world!</h1>
-
-            </div>
-        </div>
-    </div>
-</div>
+<ckeditor
+        [(ngModel)]="ckeditorContent"
+        (change)="onChange($event)"
+        (ready)="onReady($event)"
+        (focus)="onFocus($event)"
+        (blur)="onBlur($event)"
+        debounce="500">
+</ckeditor>
 

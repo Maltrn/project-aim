@@ -6,8 +6,8 @@ import {Component} from "@angular/core";
     templateUrl: './short-discription.component.html'
 })
 
-export class ShortDiscriptionComponent
-{
+export class ShortDiscriptionComponent {
     title: string = 'Kurzbeschreibung';
     description: string = 'Zur Bearbeitung der Inhalte in der Kurzbeschreibung';
+    ckeditorContent: string = `<p>My HTML</p>`;
 }

@@ -23,6 +23,7 @@ import {VendorService} from "./informationComponents/main/vendor.service";
 import {UserService} from "./authentification/user.service";
 import {LoggedInGuard} from "./authentification/loged-in.guard";
 import {Configs} from "./app.config";
+import {CKEditorModule} from "ng2-ckeditor";
 
 // Vendor-Info
 
@@ -37,7 +38,8 @@ import {Configs} from "./app.config";
         FormsModule,
         HttpModule,
         InMemoryWebApiModule.forRoot(InMemoryDataService),
-        RouterModule.forRoot(rootRouterConfig)
+        RouterModule.forRoot(rootRouterConfig),
+        CKEditorModule
     ],
     declarations: [
         AppComponent,
