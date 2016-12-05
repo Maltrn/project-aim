@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import fs = module("fs")
 
 @Injectable()
 export class Configs {

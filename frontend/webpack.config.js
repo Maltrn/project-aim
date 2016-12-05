@@ -1,6 +1,5 @@
 var webpack = require('webpack');
 var path = require('path');
-var fs = require('fs');
 
 
 // Webpack Config
@@ -58,7 +57,6 @@ var defaultConfig = {
         crypto: 'empty',
         module: 0,
         Buffer: 0,
-        fs: 'empty',
         clearImmediate: 0,
         setImmediate: 0
     }
