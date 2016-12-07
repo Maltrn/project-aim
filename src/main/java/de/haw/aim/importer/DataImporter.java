@@ -60,23 +60,58 @@ public class DataImporter
     {
         List<VendorDTO> apiReturn = getData();
 
-        List<VendorInfo> updateCandidates =
-                vendorInfoRepository.findAll().
+        // Find entries which mach to api ids, these need to be updated
+        List<VendorDTO> updateCandidates =
+                        apiReturn.
                         stream().
-                        filter(ourentry -> apiReturn.stream().anyMatch(theirentry -> ourentry.getId().equals(theirentry.getId()))).
+                        filter(theirentry -> vendorInfoRepository.
+                                findAll().
+                                stream().
+                                anyMatch(ourentry -> theirentry.getId().equals(ourentry.getId()))).
                         collect(Collectors.toList());
 
+        // every entry on apiReturn and not on updateCandidates needs to be created
+        List<VendorDTO> createCandidates =
+                        apiReturn.
+                        stream().
+                        filter(theirentry -> updateCandidates.stream().anyMatch(ourentry -> !theirentry.getId().equals(ourentry.getId()))).
+                        collect(Collectors.toList());
+
+        // every entry which
         List<VendorInfo> toDelete = vendorInfoRepository.findAll();
         toDelete.removeAll(updateCandidates);
 
         removeVendors(toDelete);
         updateVendors(updateCandidates);
+        createVendor(createCandidates);
 
     }
 
-    private void updateVendors(List<VendorInfo> updateCandidates)
+    private void createVendor(List<VendorDTO> createCandidates)
     {
+        for (VendorDTO v : createCandidates)
+        {
+            
+        }
+    }
 
+    private void updateVendors(List<VendorDTO> updateCandidates)
+    {
+        for (VendorDTO v : updateCandidates)
+        {
+            VendorInfo toUpdate = vendorInfoRepository.findOne(v.getId());
+            toUpdate.setName(v.getLabel());
+            
+            for(ProductInfo p : vendorRepository.findById(v.getId()).getProductInfos()){
+//                for (:
+//                     )
+//                {
+//
+//                }
+            }
+            
+            vendorInfoRepository.save(toUpdate);
+        }
     }
 
     private void removeVendors(List<VendorInfo> toDelete)
@@ -85,9 +120,6 @@ public class DataImporter
         {
             // Get Vendor to delete everything from
             Vendor vendorToDelete = vendorRepository.findById(v.getId());
-
-            // Delete MainPic
-//            iUploadCenter.deleteFile(v.getMainPic().getId());
 
             // Start by removing the files from Vendor
             vendorToDelete.getFiles().forEach(file -> iUploadCenter.deleteFile(file.getId()));
