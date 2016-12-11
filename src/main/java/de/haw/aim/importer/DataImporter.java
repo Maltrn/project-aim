@@ -2,6 +2,7 @@ package de.haw.aim.importer;
 
 
 import de.haw.aim.authentication.persistence.UserRepository;
+import de.haw.aim.importer.dto.ProductDTO;
 import de.haw.aim.importer.dto.VendorDTO;
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
 import de.haw.aim.vendor.persistence.*;
@@ -56,34 +57,37 @@ public class DataImporter
         return exchange.getBody();
     }
 
-    private void persistData() throws ServiceUnavailableException
+    public void synchronize() throws ServiceUnavailableException
     {
+        // Get all the data from symphony api
         List<VendorDTO> apiReturn = getData();
 
+        // Get all vendorinfos from our database
+        List<VendorInfo> vendorInfos = vendorInfoRepository.findAll();
+
         // Find entries which mach to api ids, these need to be updated
-        List<VendorDTO> updateCandidates =
+        List<VendorDTO> vendorUpdateCandidates =
                         apiReturn.
                         stream().
-                        filter(theirentry -> vendorInfoRepository.
-                                findAll().
-                                stream().
-                                anyMatch(ourentry -> theirentry.getId().equals(ourentry.getId()))).
-                        collect(Collectors.toList());
+                        filter(theirEntry -> vendorInfos.stream().
+                                anyMatch(ourEntry -> theirEntry.getId().equals(ourEntry.getId()))).
+                                collect(Collectors.toList());
 
-        // every entry on apiReturn and not on updateCandidates needs to be created
-        List<VendorDTO> createCandidates =
+        // every entry on apiReturn and not on vendorUpdateCandidates needs to be created
+        List<VendorDTO> vendorCreateCandidates =
                         apiReturn.
                         stream().
-                        filter(theirentry -> updateCandidates.stream().anyMatch(ourentry -> !theirentry.getId().equals(ourentry.getId()))).
+                        filter(theirEntry -> vendorUpdateCandidates.stream().
+                                anyMatch(ourEntry -> !theirEntry.getId().equals(ourEntry.getId()))).
                         collect(Collectors.toList());
 
-        // every entry which
-        List<VendorInfo> toDelete = vendorInfoRepository.findAll();
-        toDelete.removeAll(updateCandidates);
+        // every entry which are in our database and not in vendorUpdateCandidates need to be deleted
+        List<VendorInfo> vendorsToDelete = vendorInfoRepository.findAll();
+        vendorsToDelete.removeAll(vendorUpdateCandidates);
 
-        removeVendors(toDelete);
-        updateVendors(updateCandidates);
-        createVendor(createCandidates);
+        removeVendors(vendorsToDelete);
+        updateVendors(vendorUpdateCandidates);
+        createVendor(vendorCreateCandidates);
 
     }
 
@@ -91,26 +95,26 @@ public class DataImporter
     {
         for (VendorDTO v : createCandidates)
         {
-            
+
         }
     }
 
     private void updateVendors(List<VendorDTO> updateCandidates)
     {
-        for (VendorDTO v : updateCandidates)
+        // for every updateCandidate 
+        for (VendorDTO vendorDTO : updateCandidates)
         {
-            VendorInfo toUpdate = vendorInfoRepository.findOne(v.getId());
-            toUpdate.setName(v.getLabel());
+            // find the vendorInfo entity in database based on the ID
+            VendorInfo vendorInfoToUpdate = vendorInfoRepository.findOne(vendorDTO.getId());
             
-            for(ProductInfo p : vendorRepository.findById(v.getId()).getProductInfos()){
-//                for (:
-//                     )
-//                {
-//
-//                }
-            }
+            // set the name to the new name
+            vendorInfoToUpdate.setName(vendorDTO.getLabel());
             
-            vendorInfoRepository.save(toUpdate);
+            // synchronize every product for this vendor
+            synchronizeVendorProducts(vendorDTO, vendorInfoToUpdate);
+            
+            // save the updated vendorInfo entity to database
+            vendorInfoRepository.save(vendorInfoToUpdate);
         }
     }
 
@@ -138,9 +142,35 @@ public class DataImporter
         }
     }
 
-    public void synchronize() throws ServiceUnavailableException
-    {
-        persistData();
+    private void synchronizeVendorProducts(VendorDTO vendorDTO, VendorInfo vendorInfoToUpdate) {
+        // Get the vendor based on the given vendorInfo and get its products
+        Vendor vendor = vendorRepository.findOne(vendorInfoToUpdate.getId());
+        List<ProductInfo> productInfos = vendor.getProductInfos();
+
+        // Find all existing productInfos by comparing IDs
+        List<ProductDTO> productUpdateCandidates = vendorDTO.getProdukts().stream().
+                filter(theirEntry -> productInfos.stream().
+                        anyMatch(ourEntry -> theirEntry.getId().equals(ourEntry.getId()))).
+                collect(Collectors.toList());
+
+        // Every productInfo in their list and not in our database needs to be created
+        List<ProductDTO> productCreateCandidates = vendorDTO.getProdukts().stream().
+                filter(theirEntry -> productUpdateCandidates.stream().
+                        anyMatch(ourEntry -> !theirEntry.getId().equals(ourEntry.getId()))).
+                collect(Collectors.toList());
+
+        // Every productInfo in our database and not in their list needs to be deleted
+        productInfos.removeAll(productUpdateCandidates);
+        productInfos.forEach(productInfoRepository::delete);
+
+        // Update and create the rest
+        updateProducts(productCreateCandidates);
+        createProducts(productCreateCandidates);
     }
 
+    private void createProducts(List<ProductDTO> productCreateCandidates) {
+    }
+
+    private void updateProducts(List<ProductDTO> productCreateCandidates) {
+    }
 }
