@@ -4,7 +4,7 @@
 # Import testdata
 mongorestore --host localhost:27017 --db test ./dumpdir/test
 # Start Backend
-java -jar ./build/libs/project-aim.jar &
+java -jar ./build/libs/project-aim.jar
 # Start Frontend
-cd frontend
-npm start
+#cd frontend
+#npm start

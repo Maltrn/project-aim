@@ -1,9 +1,44 @@
 {
-  "detach": "--detach",
-  "ports": [
-    "9090:8080",
-    "7070:27017",
-    "7171:3000"
+  "id": "project-aim",
+  "instances": 1,
+  "cpus": 0.5,
+  "mem": 512,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "hello-world",
+      "network": "BRIDGE",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 9090
+        },
+        {
+          "containerPort": 27017,
+          "hostPort": 7070
+        },
+        {
+          "containerPort": 3000,
+          "hostPort": 7171
+        }
+      ]
+    }
+  },
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 120,
+      "intervalSeconds": 30,
+      "maxConsecutiveFailures": 3,
+      "path": "/api/internal/health",
+      "portIndex": 0,
+      "protocol": "HTTP",
+      "timeoutSeconds": 5
+    }
   ],
-  "restart": "always"
+  "constraints": [
+    [
+      "hostname",
+      "GROUP_BY"
+    ]
+  ]
 }
