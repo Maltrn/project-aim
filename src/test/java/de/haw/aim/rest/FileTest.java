@@ -36,12 +36,7 @@ public class FileTest extends AbstractTestNGSpringContextTests
 
     @Autowired
     private UserRepository userRepository;
-    private File file;
-    private File fileToDelete;
 
-    private String productName = "productName";
-    private String shortDescription = "short Description";
-    private String longDescription = "long description";
     @Value("${local.server.port}")
     private int port;
     String seperator = File.separator;
@@ -50,9 +45,9 @@ public class FileTest extends AbstractTestNGSpringContextTests
     @BeforeMethod
     public void setUp() throws IOException
     {
-        fileToDelete = new File("src" + seperator + "test" + seperator + "resources" + seperator + "testFiles" + seperator + "dog-1742295_640.jpg");
+        File fileToDelete = new File("src" + seperator + "test" + seperator + "resources" + seperator + "testFiles" + seperator + "dog-1742295_640.jpg");
         fileToDelete.delete();
-        file = new File(path);
+        File file = new File(path);
         Picture picture = new Picture("testPath");
         List<UploadedFile> fileGallery = new ArrayList<>();
         fileGallery.add(picture);
@@ -61,8 +56,11 @@ public class FileTest extends AbstractTestNGSpringContextTests
         List<Fact> facts = new ArrayList<>();
         facts.add(fact);
 
+        String shortDescription = "short Description";
+        String longDescription = "long description";
         VendorInfo vendorInfo = new VendorInfo("Vendor", shortDescription, longDescription, picture, fileGallery, facts);
 
+        String productName = "productName";
         ProductInfo productInfo = new ProductInfo(productName, shortDescription, longDescription, picture, fileGallery, facts);
         List<ProductInfo> productInfos = new ArrayList<>();
         productInfos.add(productInfo);

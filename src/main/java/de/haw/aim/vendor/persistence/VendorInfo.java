@@ -1,7 +1,7 @@
 package de.haw.aim.vendor.persistence;
 
-import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.uploadcenter.persistence.Picture;
+import de.haw.aim.uploadcenter.persistence.UploadedFile;
 
 import java.util.ArrayList;
 import java.util.List;

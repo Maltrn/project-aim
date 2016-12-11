@@ -73,7 +73,7 @@ public class VendorComponent implements IVendor
     @Override
     public ProductInfo getProduct(String id)
     {
-        return productInfoRepository.findById(id);
+        return productInfoRepository.findOne(id);
     }
 
     @Override

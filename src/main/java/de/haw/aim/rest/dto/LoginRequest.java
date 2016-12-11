@@ -1,8 +1,8 @@
 package de.haw.aim.rest.dto;
 
-import java.util.Objects;
-
 import io.swagger.annotations.ApiModelProperty;
+
+import java.util.Objects;
 
 
 /**

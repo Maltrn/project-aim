@@ -1,8 +1,8 @@
 package de.haw.aim.rest;
 
-import de.haw.aim.importer.DataImporter;
 import de.haw.aim.authentication.AuthenticationInterface;
 import de.haw.aim.authentication.persistence.User;
+import de.haw.aim.importer.DataImporter;
 import de.haw.aim.rest.dto.InfoDTO;
 import de.haw.aim.rest.dto.LoginRequest;
 import de.haw.aim.rest.dto.LoginResponse;
@@ -279,7 +279,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @RequestBody LoginRequest loginRequest)
     {
         System.out.println("inside login: " + loginRequest.getUsername() + " pw: " + loginRequest.getPassword());
-        // try from get user based on username and password
+        // try to get user based on username and password
         User user = authenticationCompoment.login(loginRequest.getUsername(), loginRequest.getPassword());
         // if user is null do some error handling
         if (user == null)

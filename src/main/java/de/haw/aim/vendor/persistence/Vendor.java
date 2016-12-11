@@ -39,6 +39,14 @@ public class Vendor
         this.files = files;
     }
 
+    public Vendor(VendorInfo vendorInfo, List<ProductInfo> productInfos) {
+        this.id = vendorInfo.getId();
+        this.vendorInfo = vendorInfo;
+        this.productInfos = productInfos;
+        this.users = new ArrayList<>();
+        this.files = new ArrayList<>();
+    }
+
     public List<User> getUsers()
     {
         return users;

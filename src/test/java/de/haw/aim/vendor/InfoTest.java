@@ -1,8 +1,8 @@
 package de.haw.aim.vendor;
 
-import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.uploadcenter.persistence.Picture;
 import de.haw.aim.uploadcenter.persistence.PictureRepository;
+import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.vendor.persistence.Fact;
 import de.haw.aim.vendor.persistence.ProductInfo;
 import de.haw.aim.vendor.persistence.ProductInfoRepository;

@@ -1,6 +1,8 @@
 package de.haw.aim.uploadcenter;
 
-import de.haw.aim.uploadcenter.persistence.*;
+import de.haw.aim.uploadcenter.persistence.Picture;
+import de.haw.aim.uploadcenter.persistence.PictureRepository;
+import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

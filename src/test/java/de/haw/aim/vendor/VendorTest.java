@@ -42,9 +42,6 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
     private String shortDescription;
     private String longDescription;
 
-    private String username;
-    private String pw;
-
     Picture picture;
 
     VendorInfo vendorInfo;
@@ -63,8 +60,8 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
     @BeforeMethod
     public void setUp() throws Exception
     {
-        username = "Hans";
-        pw = "Safety123!";
+        String username = "Hans";
+        String pw = "Safety123!";
 
         name = "Name String";
         shortDescription = "Short Description";
@@ -73,7 +70,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
         picture = new Picture("dog-1742295_640.jpg");
         picture = pictureRepository.save(picture);
 
-        user = new User(username,pw);
+        user = new User(username, pw);
 
         user = userRepository.save(user);
 

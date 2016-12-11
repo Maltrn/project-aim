@@ -15,7 +15,6 @@ import static org.testng.AssertJUnit.assertEquals;
 public class DTOTest extends AbstractTestNGSpringContextTests
 {
 
-    private InfoDTO infoDTO;
     private String id = "This is a wonderful ID";
     private String name = "This is a wonderful name";
     private String shortDescription = "This is a wonderful sort description";
@@ -28,7 +27,7 @@ public class DTOTest extends AbstractTestNGSpringContextTests
     @BeforeMethod
     public void setUp()
     {
-        infoDTO = new InfoDTO();
+        InfoDTO infoDTO = new InfoDTO();
         infoDTO.setId(id);
         infoDTO.setName(name);
         infoDTO.setShortDescription(shortDescription);
