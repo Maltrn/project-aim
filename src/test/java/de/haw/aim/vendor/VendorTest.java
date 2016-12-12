@@ -21,41 +21,42 @@ import java.util.List;
 public class VendorTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
+    private
     PictureRepository pictureRepository;
 
     @Autowired
+    private
     VendorRepository vendorRepository;
 
     @Autowired
+    private
     VendorInfoRepository vendorInfoRepository;
 
     @Autowired
+    private
     ProductInfoRepository productInfoRepository;
 
     @Autowired
+    private
     VendorComponent vendorComponent;
 
     @Autowired
+    private
     UserRepository userRepository;
 
     private String name;
     private String shortDescription;
     private String longDescription;
 
-    Picture picture;
+    private Picture picture;
 
-    VendorInfo vendorInfo;
+    private VendorInfo vendorInfo;
 
-    List<ProductInfo> productInfoList;
+    private List<String> productInfoIdsList;
 
-    ProductInfo productInfoOne;
-    ProductInfo productInfoTwo;
+    private Vendor vendor;
 
-    List<String> productInfoIdsList;
-
-    Vendor vendor;
-
-    User user;
+    private User user;
 
     @BeforeMethod
     public void setUp() throws Exception
@@ -85,9 +86,9 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
 
         vendorInfo = vendorInfoRepository.save(vendorInfo);
 
-        productInfoList = new ArrayList<>();
+        List<ProductInfo> productInfoList = new ArrayList<>();
 
-        productInfoOne = new ProductInfo(
+        ProductInfo productInfoOne = new ProductInfo(
                 "Name",
                 "Short Description",
                 "Long Description",
@@ -96,7 +97,7 @@ public class VendorTest extends AbstractTestNGSpringContextTests {
                 new ArrayList<>()
         );
 
-        productInfoTwo = new ProductInfo(
+        ProductInfo productInfoTwo = new ProductInfo(
                 "Name",
                 "Short Description",
                 "Long Description",

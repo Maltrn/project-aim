@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class AuthenticationFilter implements Filter {
+class AuthenticationFilter implements Filter {
     @Autowired
+    private
     AuthenticationCompoment authenticationCompoment;
 
     @Override

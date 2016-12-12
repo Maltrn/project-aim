@@ -1,5 +1,6 @@
 package de.haw.aim.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
 import de.haw.aim.uploadcenter.persistence.Picture;
 import de.haw.aim.uploadcenter.persistence.UploadedFile;
@@ -39,6 +40,7 @@ public class InfoDTO implements Validatable
 
     private List<Map<String, String>> facts = new ArrayList<>();
 
+    @JsonIgnore
     public void setiUploadCenter(IUploadCenter iUploadCenter)
     {
         this.iUploadCenter = iUploadCenter;
@@ -143,7 +145,7 @@ public class InfoDTO implements Validatable
      *
      * @return id
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty()
     public String getId()
     {
         return id;
@@ -165,7 +167,7 @@ public class InfoDTO implements Validatable
      *
      * @return name
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty()
     public String getName()
     {
         return name;
@@ -187,7 +189,7 @@ public class InfoDTO implements Validatable
      *
      * @return shortDescription
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty()
     public String getShortDescription()
     {
         return shortDescription;
@@ -209,7 +211,7 @@ public class InfoDTO implements Validatable
      *
      * @return longDescription
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty()
     public String getLongDescription()
     {
         return longDescription;
@@ -231,7 +233,7 @@ public class InfoDTO implements Validatable
      *
      * @return mainPic
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty()
     public String getMainPic()
     {
         return mainPic;
@@ -259,7 +261,7 @@ public class InfoDTO implements Validatable
      *
      * @return fileGallery
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty()
     public List<String> getFileGallery()
     {
         return fileGallery;
@@ -287,7 +289,7 @@ public class InfoDTO implements Validatable
      *
      * @return facts
      **/
-    @ApiModelProperty(value = "")
+    @ApiModelProperty()
     public List<Map<String, String>> getFacts()
     {
         return facts;

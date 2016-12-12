@@ -34,15 +34,19 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 {
     @Autowired
+    private
     DataImporter dataImporter;
 
     @Autowired
+    private
     AuthenticationInterface authenticationCompoment;
 
     @Autowired
+    private
     IVendor iVendor;
 
     @Autowired
+    private
     IUploadCenter iUploadCenter;
 
     @Override
@@ -163,7 +167,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         vendor.putProductInfo(productInfo);
 
         iVendor.saveVendor(vendor);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     // FIXME think about namespace maybe "GET /fileIdList"
     @Override

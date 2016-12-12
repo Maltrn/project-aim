@@ -14,15 +14,16 @@ import org.testng.annotations.Test;
 public class AuthenticationTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
+    private
     AuthenticationCompoment authenticationCompoment;
 
     @Autowired
+    private
     UserRepository userRepository;
 
-    User hans;
-    String token;
-    String username;
-    String password;
+    private User hans;
+    private String username;
+    private String password;
 
     @BeforeClass
     public void setUp()
@@ -44,7 +45,7 @@ public class AuthenticationTest extends AbstractTestNGSpringContextTests {
     public void tokenTest()
     {
         hans = authenticationCompoment.login(username, password);
-        token = hans.getCurrentToken();
+        String token = hans.getCurrentToken();
         Assert.assertTrue(authenticationCompoment.verifyToken(token));
         String someRandomToken = "this is probably a non valid token, holy moly imagine if this test ever fails...";
         Assert.assertFalse(authenticationCompoment.verifyToken(someRandomToken));

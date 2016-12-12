@@ -1,12 +1,9 @@
 package de.haw.aim.vendor.persistence;
 
-/**
- * Created by Rene on 31.10.2016.
- */
 public class Fact
 {
-    private String key;
-    private String value;
+    private final String key;
+    private final String value;
 
     public Fact(String key, String value)
     {
