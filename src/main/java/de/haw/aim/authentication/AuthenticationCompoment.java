@@ -28,13 +28,13 @@ public class AuthenticationCompoment implements AuthenticationInterface
     {
         // try to get user.json from DB
         //create(username, pw);
-        User retVal = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
 
         // if user.json found check credentials
-        if (retVal != null)
+        if (user != null)
         {
             // invalid password leads to null return
-            if (!retVal.checkPW(pw))
+            if (!user.checkPW(pw))
                 return null;
 
             // otherwise login call is valid and a token needs to be generated for the user.json
@@ -50,8 +50,8 @@ public class AuthenticationCompoment implements AuthenticationInterface
 
             // set the current token in the current user.json entity and save it
             // save returns the "up to date" persisted user.json entity
-            retVal.setCurrentToken(token);
-            return userRepository.save(retVal);
+            user.setCurrentToken(token);
+            return userRepository.save(user);
         }
 
         // if no user.json is found with specified username return null
