@@ -8,7 +8,6 @@ import {InfoDTO} from "./model/infoDTO";
 import 'rxjs/add/operator/toPromise';
 
 import {UserService} from "../../authentification/user.service";
-import {User} from "../../authentification/model/user";
 
 const vendorUrl = 'http://localhost:8080/api/vendor';
 const testUrl = 'api/vendor';
