@@ -26,15 +26,15 @@ public class InfoDTO implements Validatable
     @Autowired
     private Environment env;
 
-    private String id = null;
+    private String id;
 
-    private String name = null;
+    private String name;
 
-    private String shortDescription = null;
+    private String shortDescription;
 
-    private String longDescription = null;
+    private String longDescription;
 
-    private String mainPic = null;
+    private String mainPic;
 
     private List<String> fileGallery = new ArrayList<>();
 
