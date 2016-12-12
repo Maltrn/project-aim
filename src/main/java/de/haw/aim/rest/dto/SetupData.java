@@ -115,7 +115,7 @@ public class SetupData {
         users.add(user);
 
         Vendor vendor = vendorRepository.save(new Vendor(vendorInfo, productInfos, users, vendorUploadedFiles));
-
+        System.out.println("this line is great for break points");
     }
 
 }
