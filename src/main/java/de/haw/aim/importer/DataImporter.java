@@ -125,7 +125,7 @@ public class DataImporter
             vendorInfoToCreate = vendorInfoRepository.save(vendorInfoToCreate);
 
             // For a new vendor every product has to be new, so we only need to create products for this
-            List<ProductInfo> productInfos = createProducts(vendorDTO.getProdukts());
+            List<ProductInfo> productInfos = createProducts(vendorDTO.getProdukts(),vendorDTO.getProdukts().stream().map(ProductDTO::getId).collect(Collectors.toList()));
 
             // Finally create the new vendor which brings productinfos and vendorinfo together
             Vendor vendor = new Vendor(vendorInfoToCreate, productInfos);
@@ -179,59 +179,67 @@ public class DataImporter
     {
         // Get the vendor based on the given vendorInfo and get its products
         Vendor vendor = vendorRepository.findOne(vendorInfoToUpdate.getId());
-        List<ProductInfo> productInfos = vendor.getProductInfos();
+        List<String> productInfoIds = vendor.getProductInfos().stream().map(ProductInfo::getId).collect(Collectors.toList());
+
+        List<ProductDTO> productDTOS = vendorDTO.getProdukts();
 
         // Find all existing productInfos by comparing IDs
-        List<ProductDTO> productUpdateCandidates = vendorDTO.getProdukts().stream().
-                filter(theirEntry -> productInfos.stream().
-                        anyMatch(ourEntry -> theirEntry.getId().equals(ourEntry.getId()))).
+        List<String> productUpdateCandidateIds = productDTOS.stream().
+                map(ProductDTO::getId).
+                filter(theirId -> productInfoIds.
+                        stream().
+                        anyMatch(theirId::equals)).
                 collect(Collectors.toList());
 
         // Every productInfo in their list and not in our database needs to be created
-        List<ProductDTO> productCreateCandidates = new ArrayList<>();
+        List<String> productCreateCandidateIds = new ArrayList<>();
 
-        if(productInfos.isEmpty()){
-            productCreateCandidates.addAll(vendorDTO.getProdukts());
+        if(productInfoIds.isEmpty()){
+            productCreateCandidateIds.addAll(productDTOS.stream().map(ProductDTO::getId).collect(Collectors.toList()));
         }
         else {
-            productCreateCandidates = vendorDTO.getProdukts().stream().
-                    filter(theirEntry -> productUpdateCandidates.stream().
-                            anyMatch(ourEntry -> !theirEntry.getId().equals(ourEntry.getId()))).
+            productCreateCandidateIds = productDTOS.stream().
+                    map(ProductDTO::getId).
+                    filter(theirId -> productInfoIds.
+                            stream().
+                            noneMatch(theirId::equals)).
                     collect(Collectors.toList());
         }
 
         // Every productInfo in our database and not in their list needs to be deleted
         List<String> ourIds = new ArrayList<>();
-        productUpdateCandidates.forEach(entry -> ourIds.add(entry.getId()));
+        productUpdateCandidateIds.forEach(ourIds::add);
 
         List<String> theirIds = new ArrayList<>();
-        productInfos.forEach(entry -> theirIds.add(entry.getId()));
+        productInfoIds.forEach(theirIds::add);
 
         ourIds.removeAll(theirIds);
 
         ourIds.forEach(productInfoRepository::delete);
 
         // Update and create the rest
-        updateProducts(productUpdateCandidates);
+        updateProducts(productDTOS,productUpdateCandidateIds);
 
         // Add every newly created Product to the vendor
-        createProducts(productCreateCandidates).forEach(vendor::putProductInfo);
+        createProducts(productDTOS,productCreateCandidateIds).forEach(vendor::putProductInfo);
     }
 
-    private List<ProductInfo> createProducts(List<ProductDTO> productCreateCandidates)
+    private List<ProductInfo> createProducts(List<ProductDTO> products, List<String> productCreateCandidateIds)
     {
+
         // we need to return all newly created product infos to save the references in the vendor
         List<ProductInfo> newProductInfos = new ArrayList<>();
 
         // Create every product info based on given id and label, save it to database and add them to return list
-        productCreateCandidates.forEach(entry -> newProductInfos.add(productInfoRepository.save(new ProductInfo(entry.getId(), entry.getLabel()))));
+        products.stream().filter(entry -> productCreateCandidateIds.contains(entry.getId())).forEach(entry ->
+                newProductInfos.add(productInfoRepository.save(new ProductInfo(entry.getId(), entry.getLabel()))));
 
         return newProductInfos;
     }
 
-    private void updateProducts(List<ProductDTO> productUpdateCandidates)
+    private void updateProducts(List<ProductDTO> products, List<String> productUpdateCandidateIds)
     {
-        productUpdateCandidates.forEach(entry ->
+        products.stream().filter(entry -> productUpdateCandidateIds.contains(entry.getId())).forEach(entry ->
         {
             // Find Product Info based on ID an set the name to given Label
             ProductInfo infoToUpdate = productInfoRepository.findOne(entry.getId());
