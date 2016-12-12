@@ -32,11 +32,24 @@ export class UserService
     console.log(Configs.BACKEND_URL + "login");
     console.log(body);
 
-    this.http.post('http://aim.gartsy.de/api/login', body, options);
-
     return this.http.post('http://aim.gartsy.de/api/login', body, options)
       .map(res => res.json())
       .catch(this.handleError);
+  }
+
+  public mockLogin()
+  {
+    return {
+      "loginResponse": {
+        "currentToken": "hluh6gcar39vrtep4repiiii3o",
+        "username": "john"
+      },
+      "vendorInfoId": "sym-telegra",
+      "produktInfoIds": [
+        "sym-omegaSpecialSolution",
+        "sym-asteriskPBX"
+      ]
+    }
   }
 
   private handleError(error: Response | any)

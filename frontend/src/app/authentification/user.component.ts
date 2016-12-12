@@ -10,7 +10,7 @@ import {LoginDTO} from "./model/loginDTO";
 
 export class UserLogin
 {
-  private user = {};
+  private userDTO = {};
 
   constructor(private userService: UserService)
   {
@@ -19,9 +19,16 @@ export class UserLogin
   public login(username: string, password: string)
   {
     let loginBody: LoginDTO = new LoginDTO(username, password);
-    this.userService.login().subscribe(
-      data => this.user = data,
-      error => console.log("ERROR in REST API")
-    );
+    //this.userService.login().subscribe(
+      //data => this.user = data,
+      //error => console.log("ERROR in REST API")
+    //);
+
+    this.userDTO = this.userService.mockLogin();
+
+    localStorage.setItem('user', JSON.stringify(this.userDTO));
+
+
+    console.log(localStorage.getItem('user'));
   }
 }

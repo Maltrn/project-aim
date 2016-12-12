@@ -17,7 +17,7 @@ export class VendorService
 {
     constructor(private http: Http, private userService: UserService){}
 
-    getVendorInformation(): Promise<InfoDTO>
+    /*getVendorInformation(): Promise<InfoDTO>
     {
         let url = `${vendorUrl}/${this.userService.user.vendorInfoId}`;
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -39,5 +39,5 @@ export class VendorService
             return 'Authorisierung fehlgeschlagen';
         }
 
-    }
+    }*/
 }

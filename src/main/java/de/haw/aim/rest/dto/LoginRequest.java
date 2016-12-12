@@ -6,7 +6,7 @@ import java.util.Objects;
 
 
 /**
- * LoginRequest
+ * LoginDTO
  */
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-10-31T08:42:18.273Z")
 
@@ -87,7 +87,7 @@ public class LoginRequest
     public String toString()
     {
         StringBuilder sb = new StringBuilder();
-        sb.append("class LoginRequest {\n");
+        sb.append("class LoginDTO {\n");
 
         sb.append("    username: ").append(toIndentedString(username)).append("\n");
         sb.append("    password: ").append(toIndentedString(password)).append("\n");

@@ -9,7 +9,7 @@ import {InfoDTO} from "../main/model/infoDTO";
     templateUrl: './view/vendor-info-main.component.html'
 })
 
-export class VendorInfoMain implements OnInit
+export class VendorInfoMain //implements OnInit
 {
     vendorName: string = 'Firmenname';
     vendor: InfoDTO;
@@ -19,7 +19,7 @@ export class VendorInfoMain implements OnInit
     {
     }
 
-    ngOnInit(): void
+    /*ngOnInit(): void
     {
         this.vendorService.getVendorInformation()
             .then(vendorInfo => this.vendor = vendorInfo)
@@ -33,7 +33,7 @@ export class VendorInfoMain implements OnInit
         //this.vendorService.loadVendorInformation();
         //this.vendorName = this.vendorService.getVendorInformationDto().name; // Mock
         //console.log("Vendor-Info-Mail aufruf"); // Zum debuggen
-    }
+    }*/
 
     handleError(): void
     {
