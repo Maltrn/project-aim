@@ -26,4 +26,6 @@ public class VendorInfo extends Info
     {
         super();
     }
+
+
 }

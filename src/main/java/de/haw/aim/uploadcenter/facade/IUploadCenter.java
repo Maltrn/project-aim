@@ -7,13 +7,13 @@ import java.io.IOException;
 
 public interface IUploadCenter
 {
-    public UploadedFile uploadFile(MultipartFile f) throws IOException;
+    UploadedFile uploadFile(MultipartFile f) throws IOException;
 
-    public UploadedFile replaceFile(String id, MultipartFile f);
+    UploadedFile replaceFile(String id, MultipartFile f);
 
-    public boolean deleteFile(String id);
+    boolean deleteFile(String id);
 
-    public boolean checkForExistence(String id);
+    boolean checkForExistence(String id);
 
-    public UploadedFile findById(String id);
+    UploadedFile findById(String id);
 }

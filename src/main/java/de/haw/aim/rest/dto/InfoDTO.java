@@ -64,7 +64,7 @@ public class InfoDTO implements Validatable
             facts.add(new Fact(entry.getKey(), entry.getValue()));
         }
 
-        ProductInfo retVal = new ProductInfo(
+        return new ProductInfo(
                 this.getId(),
                 this.getName(),
                 this.getShortDescription(),
@@ -73,8 +73,6 @@ public class InfoDTO implements Validatable
                 fileGallery,
                 facts
         );
-
-        return retVal;
     }
 
     public VendorInfo convertToVendorInfo()
@@ -97,7 +95,7 @@ public class InfoDTO implements Validatable
             facts.add(new Fact(entry.getKey(), entry.getValue()));
         }
 
-        VendorInfo retVal = new VendorInfo(
+        return new VendorInfo(
                 this.getId(),
                 this.getName(),
                 this.getShortDescription(),
@@ -106,8 +104,6 @@ public class InfoDTO implements Validatable
                 fileGallery,
                 facts
         );
-
-        return retVal;
     }
 
     public static InfoDTO from(Info info)
@@ -127,7 +123,7 @@ public class InfoDTO implements Validatable
         }
         retVal.setFileGallery(fileIdList);
 
-        List<Map<String, String>> facts = new ArrayList();
+        List<Map<String, String>> facts = new ArrayList<>();
         for (Fact f : info.getFacts())
         {
             Map<String, String> factMap = new HashMap<>();

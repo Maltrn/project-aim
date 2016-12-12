@@ -8,6 +8,7 @@ import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger.web.UiConfiguration;
@@ -45,7 +46,7 @@ public class AIMServer
                 .title("AIM REST-API")
                 .description("Dokumentation der REST-API aus dem Projekt AIM")
                 .version("2.0")
-                .contact("info@aim.de")
+                .contact(new Contact("AIM", "", "info@aim.de"))
                 .build();
     }
 

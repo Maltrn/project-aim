@@ -27,4 +27,6 @@ public class ProductInfo extends Info
     {
         super();
     }
+
+
 }

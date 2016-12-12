@@ -4,9 +4,9 @@ import de.haw.aim.validator.Validatable;
 
 public interface UploadedFile extends Validatable
 {
-    public String getName();
+    String getName();
 
-    public String getLocation();
+    String getLocation();
 
-    public String getId();
+    String getId();
 }
