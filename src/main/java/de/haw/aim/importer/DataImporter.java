@@ -149,10 +149,10 @@ public class DataImporter
 
     private void removeVendors(List<VendorInfo> toDelete)
     {
-        for (VendorInfo v : toDelete)
+        for (VendorInfo vendorInfo : toDelete)
         {
             // Get Vendor to delete everything from
-            Vendor vendorToDelete = vendorRepository.findById(v.getId());
+            Vendor vendorToDelete = vendorRepository.findById(vendorInfo.getId());
 
             // Start by removing the files from Vendor
             vendorToDelete.getFiles().forEach(file -> iUploadCenter.deleteFile(file.getId()));
@@ -164,7 +164,7 @@ public class DataImporter
             vendorToDelete.getProductInfos().forEach(productInfoRepository::delete);
 
             // Delete the Vendor Info
-            vendorInfoRepository.delete(v);
+            vendorInfoRepository.delete(vendorInfo);
 
             // RIP
             vendorRepository.delete(vendorToDelete);
@@ -184,10 +184,17 @@ public class DataImporter
                 collect(Collectors.toList());
 
         // Every productInfo in their list and not in our database needs to be created
-        List<ProductDTO> productCreateCandidates = vendorDTO.getProdukts().stream().
-                filter(theirEntry -> productUpdateCandidates.stream().
-                        anyMatch(ourEntry -> !theirEntry.getId().equals(ourEntry.getId()))).
-                collect(Collectors.toList());
+        List<ProductDTO> productCreateCandidates = new ArrayList<>();
+
+        if(productInfos.isEmpty()){
+            productCreateCandidates.addAll(vendorDTO.getProdukts());
+        }
+        else {
+            productCreateCandidates = vendorDTO.getProdukts().stream().
+                    filter(theirEntry -> productUpdateCandidates.stream().
+                            anyMatch(ourEntry -> !theirEntry.getId().equals(ourEntry.getId()))).
+                    collect(Collectors.toList());
+        }
 
         // Every productInfo in our database and not in their list needs to be deleted
         productUpdateCandidates.
