@@ -10,6 +10,7 @@ import java.io.IOException;
 
 
 class AuthenticationFilter implements Filter {
+
     @Autowired
     private
     AuthenticationCompoment authenticationCompoment;
@@ -63,9 +64,9 @@ class AuthenticationFilter implements Filter {
                 (method.equals("GET") &&
                         (uri.matches("^.*/file/[a-z0-9]*$") ||
                                 uri.matches("^.*/vendor$") ||
-                                uri.matches("^.*/vendor/[a-z0-9]*$") ||
+                                uri.matches("^.*/vendor/[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\\.\\-\\_\\~\\:\\+\\,\\;\\=]*$") ||
                                 uri.matches("^.*/product$") ||
-                                uri.matches("^.*/product/[a-z0-9]*$")) ||
+                                uri.matches("^.*/product/[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\\.\\-\\_\\~\\:\\+\\,\\;\\=]*$")) ||
                         uri.matches("^.*/internal/[a-z0-9]*$") ||
                         uri.matches("^.*/(swagger.*|webjars/.*|v2.*|validatorUrl.*)$"));
     }
