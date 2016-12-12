@@ -99,10 +99,10 @@ public class SetupData {
         vendorInfo = vendorInfoRepository.save(vendorInfo);
 
         ProductInfo productInfo1 = new ProductInfo("phone", "ring ring ring Banana Phone", "You can dial and press some keys, it's worth it", product1MainPicture, product1FileGallery, product1Facts);
-        productInfo1.setId("sym-omegaSpecialSolution");
+        productInfo1.setId("sym-telegraAcd");
         productInfo1 = productInfoRepository.save(productInfo1);
         ProductInfo productInfo2 = new ProductInfo("cable", "it great and long", "experience a great cable", product2MainPicture, product2FileGallery, product2Facts);
-        productInfo2.setId("sym-asteriskPBX");
+        productInfo2.setId("sym-telegraPBX");
         productInfo2 = productInfoRepository.save(productInfo2);
 
         List<ProductInfo> productInfos = new ArrayList<>();
