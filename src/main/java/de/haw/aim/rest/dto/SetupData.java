@@ -70,9 +70,9 @@ public class SetupData {
         Picture product2Picture = pictureRepository.save(new Picture("product2_pic.jpg"));
         PDF product2Pdf = pdfRepository.save(new PDF("product2_doc.png"));
         List<UploadedFile> product2FileGallery = new ArrayList<>();
-        product1FileGallery.add(product2Picture);
+        product2FileGallery.add(product2Picture);
         vendorUploadedFiles.add(product2Picture);
-        product1FileGallery.add(product2Pdf);
+        product2FileGallery.add(product2Pdf);
         vendorUploadedFiles.add(product2Pdf);
 
         List<Fact> vendorFacts = new ArrayList<>();
