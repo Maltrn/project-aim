@@ -2,15 +2,15 @@ import {InMemoryDbService} from "angular2-in-memory-web-api";
 
 export class MemService implements InMemoryDbService {
   createDb() {
-    let auth =
-    {
-      "loginResponse": {
-        "currentToken": "handsomeTOKEN",
-        "username": "Maltron"
-      },
-      "produktInfoIds": ["Prod1", "Prod2", "Prod3", "Prod55"],
-      "vendorInfoId": "IDVendorNr1"
-    };
+    // let auth =
+    // {
+    //   "loginResponse": {
+    //     "currentToken": "handsomeTOKEN",
+    //     "username": "Maltron"
+    //   },
+    //   "produktInfoIds": ["Prod1", "Prod2", "Prod3", "Prod55"],
+    //   "vendorInfoId": "IDVendorNr1"
+    // };
     let vendor =
     {
       "facts": [
@@ -26,7 +26,7 @@ export class MemService implements InMemoryDbService {
       "name": "AllUNeed UnicornStore",
       "shortDescription": "This is a short description, cat with pants"
     };
-    return {auth, vendor};
+    return {vendor};
   }
 }
 

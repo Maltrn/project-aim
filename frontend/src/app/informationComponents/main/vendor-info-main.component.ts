@@ -19,21 +19,21 @@ export class VendorInfoMain //implements OnInit
     {
     }
 
-    /*ngOnInit(): void
+    ngOnInit(): void
     {
         this.vendorService.getVendorInformation()
             .then(vendorInfo => this.vendor = vendorInfo)
             .catch(this.handleError);
 
-        //console.log("VendorID: ");
-        //console.log(this.vendor.id);
+        console.log("Vendor: ");
+        console.log(this.vendor.longDescription);
 
 
         //this.vendorService.loadMock();
         //this.vendorService.loadVendorInformation();
         //this.vendorName = this.vendorService.getVendorInformationDto().name; // Mock
         //console.log("Vendor-Info-Mail aufruf"); // Zum debuggen
-    }*/
+    }
 
     handleError(): void
     {
