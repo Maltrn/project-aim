@@ -25,8 +25,8 @@ export class VendorInfoMain //implements OnInit
             .then(vendorInfo => this.vendor = vendorInfo)
             .catch(this.handleError);
 
-        console.log("VendorID: ");
-        console.log(this.vendor.id);
+        //console.log("VendorID: ");
+        //console.log(this.vendor.id);
 
 
         //this.vendorService.loadMock();
