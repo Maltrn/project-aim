@@ -35,6 +35,7 @@ import {UploadCenter} from "./uploadCenter/uploadCenter";
     ProductInfoMain,
     ShortDiscriptionComponent,
     SortFilesComponent,
+    ProfilePicComponent,
     UploadCenter
   ],
   imports: [
@@ -51,7 +52,6 @@ import {UploadCenter} from "./uploadCenter/uploadCenter";
     VendorService,
     ProductService,
     ProfilePictureService,
-    ProfilePicComponent,
     FileService
   ],
   bootstrap: [AppComponent]

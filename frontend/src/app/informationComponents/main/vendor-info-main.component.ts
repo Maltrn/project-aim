@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {VendorService} from "../main/vendor.service";
 import {InfoDTO} from "../main/model/infoDTO";
 
+
 @Component
 ({
     selector: 'vendor-info-main',

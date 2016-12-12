@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {ProfilePictureService} from "./profile-pic.service.ts";
+import {ProfilePictureService} from "./profile-pic.service";
 import {FileID} from "../main/model/fileId";
 import {File} from "../main/model/file";
 import {Response} from "@angular/http";
@@ -17,7 +17,8 @@ const unknownErrMsg = 'Unbekannter Fehler';
 
 export class ProfilePicComponent
 {
-    title: string = 'Profil-Bild';
+  /**
+  title: string = 'Profil-Bild';
     description: string = 'Wählen Sie Ihr gewünschtes Profilbild aus';
 
     pictures: File[] = [];
@@ -115,4 +116,5 @@ export class ProfilePicComponent
         else
             alert('Fehler nicht beschrieben');        //TODO Beschreibung anpassen
     }
+   */
 }
