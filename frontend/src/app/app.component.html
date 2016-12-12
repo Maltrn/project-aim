@@ -1,29 +1,37 @@
-<h3>
-  Angular 2 Seed
-</h3>
-<nav>
-	<a [routerLink]="['/']">
-    Home
-  </a>
-  |
-	<a [routerLink]="['/about']">
-    About
-  </a>
-  |
-	<a [routerLink]="['/github', 'angular']">
-    Github Repos
-  </a>
-  |
-	<a [routerLink]="['/contact']">
-    Contact Us
-  </a>
-</nav>
-
-<main>
-	<router-outlet></router-outlet>
-</main>
-
-
-<footer>
-  © 2016
-</footer>
+<div id="wrapper">
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!-- <a class="navbar-brand" href="#">Anbieter Informations Management</a> -->
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+      <li><a href="">logout and stuff</a></li>
+    </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+      <div class="logo-container">
+        <img src="img/logo.jpg" class="logo">
+      </div>
+      <ul class="nav navbar-nav side-nav">
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/upload-center']"><i
+          class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Dateiverwaltung</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/anbieterinformationen']">
+          <i class="fa fa-fw fa-users" aria-hidden="true"></i> Anbieter</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/produktinformationen']">
+          <i class="fa fa-fw fa-phone" aria-hidden="true"></i> Produkte</a></li>
+        <li [routerLinkActive]="['active']"><a [routerLink]="['/login']">
+          <i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i>
+          Login(vorübergehend) </a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <router-outlet></router-outlet>
+  </div>
+</div>
