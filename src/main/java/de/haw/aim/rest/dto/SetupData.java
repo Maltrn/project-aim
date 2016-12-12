@@ -93,9 +93,17 @@ public class SetupData {
         product2Facts.add(product2fact1);
         product2Facts.add(product2fact2);
 
-        VendorInfo vendorInfo = vendorInfoRepository.save(new VendorInfo("Lovely Phones", "Look at their phones, their phones are amazing.", "Give it a lick", vendorMainPicture, vendorFileGallery, vendorFacts));
-        ProductInfo productInfo1 = productInfoRepository.save(new ProductInfo("phone", "ring ring ring Banana Phone", "You can dial and press some keys, it's worth it", product1MainPicture, product1FileGallery, product1Facts));
-        ProductInfo productInfo2 = productInfoRepository.save(new ProductInfo("cable", "it great and long", "experience a great cable", product2MainPicture, product2FileGallery, product2Facts));
+
+        VendorInfo vendorInfo = new VendorInfo("Lovely Phones", "Look at their phones, their phones are amazing.", "Give it a lick", vendorMainPicture, vendorFileGallery, vendorFacts);
+        vendorInfo.setId("sym-telegra");
+        vendorInfo = vendorInfoRepository.save(vendorInfo);
+
+        ProductInfo productInfo1 = new ProductInfo("phone", "ring ring ring Banana Phone", "You can dial and press some keys, it's worth it", product1MainPicture, product1FileGallery, product1Facts);
+        productInfo1.setId("sym-omegaSpecialSolution");
+        productInfoRepository.save(productInfo1);
+        ProductInfo productInfo2 = new ProductInfo("cable", "it great and long", "experience a great cable", product2MainPicture, product2FileGallery, product2Facts);
+        productInfo2.setId("sym-asteriskPBX");
+        productInfoRepository.save(productInfo2);
 
         List<ProductInfo> productInfos = new ArrayList<>();
         productInfos.add(productInfo1);
