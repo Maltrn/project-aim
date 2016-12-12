@@ -75,49 +75,51 @@ public class DataImporter
         List<VendorDTO> apiReturn = getData();
 
         // Get all vendorinfos from our database
-        List<VendorInfo> vendorInfos = vendorInfoRepository.findAll();
+        List<String> vendorInfos = vendorInfoRepository.findAll().stream().map(VendorInfo::getId).collect(Collectors.toList());
 
         // Find entries which mach to api ids, these need to be updated
-        List<VendorDTO> vendorUpdateCandidates =
-                apiReturn.
+        List<String> vendorUpdateCandidates = apiReturn.
                         stream().
-                        filter(theirEntry -> vendorInfos.stream().
-                                anyMatch(ourEntry -> theirEntry.getId().equals(ourEntry.getId()))).
+                        map(VendorDTO::getId).
+                        filter(theirId -> vendorInfos.
+                                stream().
+                                anyMatch(theirId::equals)).
                         collect(Collectors.toList());
 
         // every entry on apiReturn and not on vendorUpdateCandidates needs to be created
-        List<VendorDTO> vendorCreateCandidates = new ArrayList<>();
-        if (vendorUpdateCandidates.isEmpty())
+        List<String> vendorCreateCandidates = new ArrayList<>();
+        if (vendorInfos.isEmpty())
         {
-            vendorCreateCandidates.addAll(apiReturn);
+            vendorCreateCandidates.addAll(apiReturn.stream().map(VendorDTO::getId).collect(Collectors.toList()));
         } else
         {
             vendorCreateCandidates = apiReturn.
                             stream().
-                            filter(theirEntry -> vendorUpdateCandidates.stream().
-                                    anyMatch(ourEntry -> !theirEntry.getId().equals(ourEntry.getId()))).
+                            map(VendorDTO::getId).
+                            filter(theirId -> vendorInfos.
+                                    stream().
+                                    noneMatch(theirId::equals)).
                             collect(Collectors.toList());
         }
 
         // every entry which are in our database and not in vendorUpdateCandidates need to be deleted
         List<String> ourIds = new ArrayList<>();
-        vendorUpdateCandidates.forEach(entry -> ourIds.add(entry.getId()));
+        vendorUpdateCandidates.forEach(ourIds::add);
 
         List<String> theirIds = new ArrayList<>();
-        vendorInfos.forEach(entry -> theirIds.add(entry.getId()));
+        vendorInfos.forEach(theirIds::add);
 
         ourIds.removeAll(theirIds);
 
         removeVendors(ourIds);
-        updateVendors(vendorUpdateCandidates);
-        createVendor(vendorCreateCandidates);
+        updateVendors(apiReturn,vendorUpdateCandidates);
+        createVendor(apiReturn,vendorCreateCandidates);
 
     }
 
-    private void createVendor(List<VendorDTO> createCandidates)
+    private void createVendor(List<VendorDTO> apiReturn, List<String> vendorCreateCandidatesId)
     {
-        for (VendorDTO vendorDTO : createCandidates)
-        {
+        apiReturn.stream().filter(entry -> vendorCreateCandidatesId.contains(entry.getId())).forEach(vendorDTO -> {
             // Create the vendorInfo entity
             VendorInfo vendorInfoToCreate = new VendorInfo(vendorDTO.getId(), vendorDTO.getLabel());
             vendorInfoToCreate = vendorInfoRepository.save(vendorInfoToCreate);
@@ -128,14 +130,13 @@ public class DataImporter
             // Finally create the new vendor which brings productinfos and vendorinfo together
             Vendor vendor = new Vendor(vendorInfoToCreate, productInfos);
             vendorRepository.save(vendor);
-        }
+        });
     }
 
-    private void updateVendors(List<VendorDTO> updateCandidates)
+    private void updateVendors(List<VendorDTO> apiReturn, List<String> vendorUpdateCandidatesId)
     {
         // for every updateCandidate 
-        for (VendorDTO vendorDTO : updateCandidates)
-        {
+        apiReturn.stream().filter(entry -> vendorUpdateCandidatesId.contains(entry.getId())).forEach(vendorDTO -> {
             // find the vendorInfo entity in database based on the ID
             VendorInfo vendorInfoToUpdate = vendorInfoRepository.findOne(vendorDTO.getId());
 
@@ -147,7 +148,7 @@ public class DataImporter
 
             // save the updated vendorInfo entity to database
             vendorInfoRepository.save(vendorInfoToUpdate);
-        }
+        });
     }
 
     private void removeVendors(List<String> toDelete)
