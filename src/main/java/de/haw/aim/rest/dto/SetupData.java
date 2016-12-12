@@ -1,4 +1,4 @@
-package de.haw.aim;
+package de.haw.aim.rest.dto;
 
 import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.authentication.persistence.UserRepository;
