@@ -5,7 +5,7 @@ import {AppComponent} from "./app.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
-
+import {CKEditorModule} from "ng2-ckeditor";
 import {UserService} from "./authentification/user.service";
 import {UserLogin} from "./authentification/user.component";
 import {AddFilesComponent} from "./informationComponents/add-files/add-files.component";
@@ -33,7 +33,6 @@ import {UploadCenter} from "./uploadCenter/uploadCenter";
     FactsTableComponent,
     VendorInfoMain,
     ProductInfoMain,
-    InMemoryWebApiModule.forRoot(MemService),
     ShortDiscriptionComponent,
     SortFilesComponent,
     UploadCenter
@@ -43,7 +42,9 @@ import {UploadCenter} from "./uploadCenter/uploadCenter";
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(rootRouterConfig, { useHash: true })
+    RouterModule.forRoot(rootRouterConfig, {useHash: true}),
+    InMemoryWebApiModule.forRoot(MemService),
+    CKEditorModule
   ],
   providers: [
     UserService,
