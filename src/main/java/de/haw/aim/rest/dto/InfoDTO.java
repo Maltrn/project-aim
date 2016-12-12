@@ -1,5 +1,6 @@
 package de.haw.aim.rest.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
 import de.haw.aim.uploadcenter.persistence.Picture;
 import de.haw.aim.uploadcenter.persistence.UploadedFile;
@@ -39,6 +40,7 @@ public class InfoDTO implements Validatable
 
     private List<Map<String, String>> facts = new ArrayList<>();
 
+    @JsonIgnore
     public void setiUploadCenter(IUploadCenter iUploadCenter)
     {
         this.iUploadCenter = iUploadCenter;
