@@ -36,7 +36,8 @@ public class DataImporter
     private IUploadCenter iUploadCenter;
 
     @Autowired
-    public DataImporter(VendorInfoRepository vendorInfoRepository, VendorRepository vendorRepository, ProductInfoRepository productInfoRepository, UserRepository userRepository, IUploadCenter iUploadCenter) {
+    public DataImporter(VendorInfoRepository vendorInfoRepository, VendorRepository vendorRepository, ProductInfoRepository productInfoRepository, UserRepository userRepository, IUploadCenter iUploadCenter)
+    {
         this();
         this.vendorInfoRepository = vendorInfoRepository;
         this.vendorRepository = vendorRepository;
@@ -78,19 +79,25 @@ public class DataImporter
 
         // Find entries which mach to api ids, these need to be updated
         List<VendorDTO> vendorUpdateCandidates =
-                        apiReturn.
+                apiReturn.
                         stream().
                         filter(theirEntry -> vendorInfos.stream().
                                 anyMatch(ourEntry -> theirEntry.getId().equals(ourEntry.getId()))).
-                                collect(Collectors.toList());
+                        collect(Collectors.toList());
 
         // every entry on apiReturn and not on vendorUpdateCandidates needs to be created
-        List<VendorDTO> vendorCreateCandidates =
-                        apiReturn.
-                        stream().
-                        filter(theirEntry -> vendorUpdateCandidates.stream().
-                                anyMatch(ourEntry -> !theirEntry.getId().equals(ourEntry.getId()))).
-                        collect(Collectors.toList());
+        List<VendorDTO> vendorCreateCandidates = new ArrayList<>();
+        if (vendorUpdateCandidates.isEmpty())
+        {
+            vendorCreateCandidates.addAll(apiReturn);
+        } else
+        {
+            vendorCreateCandidates = apiReturn.
+                            stream().
+                            filter(theirEntry -> vendorUpdateCandidates.stream().
+                                    anyMatch(ourEntry -> !theirEntry.getId().equals(ourEntry.getId()))).
+                            collect(Collectors.toList());
+        }
 
         // every entry which are in our database and not in vendorUpdateCandidates need to be deleted
         List<VendorInfo> vendorsToDelete = vendorInfoRepository.findAll();
@@ -109,14 +116,14 @@ public class DataImporter
         for (VendorDTO vendorDTO : createCandidates)
         {
             // Create the vendorInfo entity
-            VendorInfo vendorInfoToCreate = new VendorInfo(vendorDTO.getId(),vendorDTO.getLabel());
+            VendorInfo vendorInfoToCreate = new VendorInfo(vendorDTO.getId(), vendorDTO.getLabel());
             vendorInfoToCreate = vendorInfoRepository.save(vendorInfoToCreate);
 
             // For a new vendor every product has to be new, so we only need to create products for this
             List<ProductInfo> productInfos = createProducts(vendorDTO.getProdukts());
 
             // Finally create the new vendor which brings productinfos and vendorinfo together
-            Vendor vendor = new Vendor(vendorInfoToCreate,productInfos);
+            Vendor vendor = new Vendor(vendorInfoToCreate, productInfos);
             vendorRepository.save(vendor);
         }
     }
@@ -128,13 +135,13 @@ public class DataImporter
         {
             // find the vendorInfo entity in database based on the ID
             VendorInfo vendorInfoToUpdate = vendorInfoRepository.findOne(vendorDTO.getId());
-            
+
             // set the name to the new name
             vendorInfoToUpdate.setName(vendorDTO.getLabel());
-            
+
             // synchronize every product for this vendor
             synchronizeVendorProducts(vendorDTO, vendorInfoToUpdate);
-            
+
             // save the updated vendorInfo entity to database
             vendorInfoRepository.save(vendorInfoToUpdate);
         }
@@ -164,7 +171,8 @@ public class DataImporter
         }
     }
 
-    private void synchronizeVendorProducts(VendorDTO vendorDTO, VendorInfo vendorInfoToUpdate) {
+    private void synchronizeVendorProducts(VendorDTO vendorDTO, VendorInfo vendorInfoToUpdate)
+    {
         // Get the vendor based on the given vendorInfo and get its products
         Vendor vendor = vendorRepository.findOne(vendorInfoToUpdate.getId());
         List<ProductInfo> productInfos = vendor.getProductInfos();
@@ -194,18 +202,21 @@ public class DataImporter
         createProducts(productCreateCandidates).forEach(vendor::putProductInfo);
     }
 
-    private List<ProductInfo> createProducts(List<ProductDTO> productCreateCandidates) {
+    private List<ProductInfo> createProducts(List<ProductDTO> productCreateCandidates)
+    {
         // we need to return all newly created product infos to save the references in the vendor
         List<ProductInfo> newProductInfos = new ArrayList<>();
 
         // Create every product info based on given id and label, save it to database and add them to return list
-        productCreateCandidates.forEach(entry -> newProductInfos.add(productInfoRepository.save(new ProductInfo(entry.getId(),entry.getLabel()))));
+        productCreateCandidates.forEach(entry -> newProductInfos.add(productInfoRepository.save(new ProductInfo(entry.getId(), entry.getLabel()))));
 
-        return  newProductInfos;
+        return newProductInfos;
     }
 
-    private void updateProducts(List<ProductDTO> productUpdateCandidates) {
-        productUpdateCandidates.forEach(entry -> {
+    private void updateProducts(List<ProductDTO> productUpdateCandidates)
+    {
+        productUpdateCandidates.forEach(entry ->
+        {
             // Find Product Info based on ID an set the name to given Label
             ProductInfo infoToUpdate = productInfoRepository.findOne(entry.getId());
             infoToUpdate.setName(entry.getLabel());
