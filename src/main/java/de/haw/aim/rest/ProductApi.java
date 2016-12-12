@@ -31,7 +31,7 @@ public interface ProductApi
 
 
     @ApiOperation(value = "", notes = "Erstellt eine neue Produktinformation oder aktualisiert die vorhandene.", response = Void.class, authorizations = {
-        @Authorization(value = "user")}, tags = {})
+        @Authorization(value = "user.json")}, tags = {})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Die vorhandene Produktinformationen wurde aktualisiert.", response = Void.class),
         @ApiResponse(code = 400, message = "Die Produktinformationen konnte nicht aktuallisert werden.", response = Void.class),

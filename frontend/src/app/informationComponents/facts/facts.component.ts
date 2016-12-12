@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import { Router } from '@angular/router';
 import {VendorService} from "../main/vendor.service";
-import { InfoDTO } from "../main/dto/infoDTO";
+import { InfoDTO } from "../main/model/infoDTO";
 import { Fact } from "../main/model/fact";
 
 @Component
@@ -23,9 +23,9 @@ export class FactsTableComponent implements OnInit
     ) { }
 
     ngOnInit(): void {
-        console.log("FactsTableComponent loaded"); // Zum debuggen
-        this.vendor = this.vendorService.getVendorInformationDto();
-        this.facts = this.vendor.facts;
+        //console.log("FactsTableComponent loaded"); // Zum debuggen
+        //this.vendor = this.vendorService.getVendorInformation();
+        //this.facts = this.vendor.facts;
     }
 
     onSelect(fact: Fact): void {

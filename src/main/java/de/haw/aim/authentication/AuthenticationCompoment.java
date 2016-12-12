@@ -25,18 +25,18 @@ public class AuthenticationCompoment implements AuthenticationInterface
     @Override
     public User login(String username, String pw)
     {
-        // try to get user from DB
+        // try to get user.json from DB
         //create(username, pw);
         User retVal = userRepository.findByUsername(username);
 
-        // if user found check credentials
+        // if user.json found check credentials
         if (retVal != null)
         {
             // invalid password leads to null return
             if (!retVal.checkPW(pw))
                 return null;
 
-            // otherwise login call is valid and a token needs to be generated for the user
+            // otherwise login call is valid and a token needs to be generated for the user.json
             Random random = new SecureRandom();
             String token = new BigInteger(130, random).toString(32);
 
@@ -47,26 +47,26 @@ public class AuthenticationCompoment implements AuthenticationInterface
                 token = new BigInteger(130, random).toString(32);
             }
 
-            // set the current token in the current user entity and save it
-            // save returns the "up to date" persisted user entity
+            // set the current token in the current user.json entity and save it
+            // save returns the "up to date" persisted user.json entity
             retVal.setCurrentToken(token);
             return userRepository.save(retVal);
         }
 
-        // if no user is found with specified username return null
+        // if no user.json is found with specified username return null
         return null;
     }
 
     @Override
     public User create(String username, String pw) {
-        // try to get user from DB
+        // try to get user.json from DB
         User retVal = userRepository.findByUsername(username);
         if (retVal == null)
         { // User does not exist so we can try to create it
             User user = new User(username, pw);
             return userRepository.save(user);
         } else
-        { // User already exists so we cannot create a user with the same username
+        { // User already exists so we cannot create a user.json with the same username
             return null;
         }
     }
@@ -74,7 +74,7 @@ public class AuthenticationCompoment implements AuthenticationInterface
     @Override
     public Boolean verifyToken(String token)
     {
-        // find a user in db which has the token from verify, if user equals null return false
+        // find a user.json in db which has the token from verify, if user.json equals null return false
         User retVal = userRepository.findByCurrentToken(token);
         return retVal instanceof User;
     }

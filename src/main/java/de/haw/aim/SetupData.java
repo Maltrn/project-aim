@@ -102,7 +102,7 @@ public class SetupData {
         productInfos.add(productInfo2);
 
         User user = userRepository.save(new User("john", "pony"));
-        //user.setCurrentToken("handsomeTOKEN");
+        //user.json.setCurrentToken("handsomeTOKEN");
         List<User> users = new ArrayList<>();
         users.add(user);
 

@@ -15,7 +15,7 @@ public interface FileApi
 {
 
     @ApiOperation(value = "", notes = "Liefert alle file IDs des Anbieters", response = String.class, responseContainer = "List", authorizations = {
-            @Authorization(value = "user")
+            @Authorization(value = "user.json")
     }, tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Liste aller file IDs die dem Anbieter zugeordnet sind", response = String.class),
@@ -42,7 +42,7 @@ public interface FileApi
 
 
     @ApiOperation(value = "", notes = "Überschreibt eine vorhandene Datei. Produkt- und Anbieterinfos die die ursprüngliche Datei verwendet haben, zeigen nach diesem Aufruf auf die neue Datei", response = String.class, authorizations = {
-            @Authorization(value = "user")
+            @Authorization(value = "user.json")
     }, tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Die Datei wurde erfolgreich hochgeladen und die bestehende Datei überschrieben", response = String.class),
@@ -58,7 +58,7 @@ public interface FileApi
 
 
     @ApiOperation(value = "", notes = "Lädt eine neue Datei hoch", response = String.class, authorizations = {
-            @Authorization(value = "user")
+            @Authorization(value = "user.json")
     }, tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Die Datei wurde erfolgreich hochgeladen", response = String.class),

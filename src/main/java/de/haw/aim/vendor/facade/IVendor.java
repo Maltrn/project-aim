@@ -10,11 +10,11 @@ import java.util.List;
 public interface IVendor
 {
     /**
-     * Returns first vendor entity found  for specific user. If user not known from vendor returns null.
+     * Returns first vendor entity found  for specific user.json. If user.json not known from vendor returns null.
      * TODO: Always returns first vendor entity found! Can't handle users associated with multiple vendors.
      *
      * @param user User entity
-     * @return Vendor entity if user is known from vendor. Null if user not known from vendor
+     * @return Vendor entity if user.json is known from vendor. Null if user.json not known from vendor
      */
     Vendor getVendor(User user);
 

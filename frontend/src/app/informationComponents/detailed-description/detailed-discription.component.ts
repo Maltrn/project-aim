@@ -7,21 +7,19 @@ import {VendorService} from "../main/vendor.service";
     templateUrl: './detailed-discription.component.html'
 })
 
-export class DetailedDiscriptionComponent {
+export class DetailedDiscriptionComponent
+{
     title: string = 'Detailbeschreibung';
     description: string = 'Zur Bearbeitung der Inhalte in der Detailbeschreibung'
     ckeditorContent: string = `<p>My HTML</p>`;
 
 
-    constructor(
-        private vendorService: VendorService
-    ) { }
+    constructor(private vendorService: VendorService)
+    {
+    }
 
-    ngOnInit(): void {
-        this.vendorService.loadMock();
-        //this.vendorService.loadVendorInformation();
-        this.ckeditorContent = this.vendorService.getVendorInformationDto().longDescription; // Mock
-        console.log("Detailed description call"); // Zum debuggen
+    ngOnInit(): void
+    {
     }
 
 }

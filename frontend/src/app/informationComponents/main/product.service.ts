@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Headers, Http} from "@angular/http";
-import {InfoDTO} from "./dto/infoDTO";
+import {InfoDTO} from "./model/infoDTO";
 import 'rxjs/add/operator/toPromise';
 
 import { UserService } from "../../authentification/user.service";
@@ -18,10 +18,10 @@ export class ProductService
     }
 
     loadMock(): void {
-       this._productInformationDto =  new InfoDTO();
-       this._productInformationDto = this._productInformationDto.mockData();
-       this._productInformationDto.name = "Tolles Mock Produkt";
-       console.log("Mock loaded");
+       //this._productInformationDto =  new InfoDTO();
+       //this._productInformationDto = this._productInformationDto.mockData();
+       //this._productInformationDto.name = "Tolles Mock Produkt";
+       //console.log("Mock loaded");
     }
 
     loadProductInformation(): void

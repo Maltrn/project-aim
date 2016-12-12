@@ -3,47 +3,41 @@
  */
 
 import {Injectable} from "@angular/core";
-import {Headers, Http} from "@angular/http";
-import {InfoDTO} from "./dto/infoDTO";
+import {Headers, Http, RequestOptions, Response} from "@angular/http";
+import {InfoDTO} from "./model/infoDTO";
 import 'rxjs/add/operator/toPromise';
 
-import { UserService } from "../../authentification/user.service";
-import {userInfo} from "os";
+import {UserService} from "../../authentification/user.service";
+
+const vendorUrl = 'http://localhost:8080/api/vendor';
+const testUrl = 'api/vendor';
 
 @Injectable()
 export class VendorService
 {
-    private vendorUrl: String = '/vendor';
-    private _vendorInformationDto: InfoDTO;
-    private userService: UserService;
+    constructor(private http: Http, private userService: UserService){}
 
-    constructor(private http: Http)
+    getVendorInformation(): Promise<InfoDTO>
     {
-    }
+        let url = `${vendorUrl}/${this.userService.user.vendorInfoId}`;
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let token = this.userService.token;
+        //headers.append('Authorization', token);
+        let options = new RequestOptions({ headers: headers });
 
-    loadMock(): void {
-       this._vendorInformationDto =  new InfoDTO();
-       this._vendorInformationDto = this._vendorInformationDto.mockData();
-       console.log("Mock loaded");
-    }
-
-    loadVendorInformation(): void
-    {
-        //this._vendorInformationDto =  new InfoDTO(); // Notwendig?
-        this.getVendor().then(vendor => this._vendorInformationDto = vendor);
-
-    }
-
-    getVendorInformationDto(): InfoDTO
-    {
-        return this._vendorInformationDto;
-    }
-
-    getVendor(): Promise<InfoDTO> {
-        const url = `${this.vendorUrl}/${this.userService.user.vendorInfoId}`;
-        return this.http.get(url)    // this.http.get!
+        return this.http.get(testUrl, options)
             .toPromise()
-            .then(response => response.json().data as InfoDTO);
+            .then(response => response.json().data as InfoDTO)
+            .catch(this.handleError);
     }
 
+    handleError(res: Response): string
+    {
+        if(res.status == 401)
+        {
+            alert(res.status);
+            return 'Authorisierung fehlgeschlagen';
+        }
+
+    }
 }

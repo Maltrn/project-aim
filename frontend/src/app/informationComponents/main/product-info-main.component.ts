@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import { ProductService } from "../main/product.service";
-import { InfoDTO } from "../main/dto/infoDTO";
+import { InfoDTO } from "../main/model/infoDTO";
 
 
 @Component

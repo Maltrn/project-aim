@@ -150,7 +150,7 @@ public class DataImporter
             // Start by removing the files from Vendor
             vendorToDelete.getFiles().forEach(file -> iUploadCenter.deleteFile(file.getId()));
 
-            // Then deleting every user
+            // Then deleting every user.json
             vendorToDelete.getUsers().forEach(userRepository::delete);
 
             // Deleting product infos

@@ -38,7 +38,7 @@ public interface VendorApi
 
 
     @ApiOperation(value = "", notes = "Erstellt eine neue Anbieterinformation oder aktualisiert die vorhandene. Es wird die Anbieterinformation bearbeitet die dem Benutzer zugewiesen ist. Das property id kann einen beliebigen Wert haben und wird nicht ausgewertet.", response = Void.class, authorizations = {
-            @Authorization(value = "user")
+            @Authorization(value = "user.json")
     }, tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Die vorhandene Anbieterinformation wurde aktualisiert.", response = Void.class),

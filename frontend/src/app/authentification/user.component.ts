@@ -1,12 +1,8 @@
 import {Component} from "@angular/core";
 import {UserService} from "./user.service.ts";
 import {Router} from "@angular/router";
-import {LoginDTO} from "./model/loginDTO";
+import {LoginRequest} from "./model/loginRequest";
 import {Response} from "@angular/http";
-
-const errMsg401 = 'Benutzername existiert nicht oder das angegebene Passwort ist falsch';
-const errMsg503 = 'Login nicht erfolgreich, da keine Anbieter und/oder Produktinformationen abgerufen werden können.';
-const unknownErrMsg = 'Unbekannter Fehler';
 
 @Component
 ({
@@ -25,47 +21,27 @@ export class UserLogin
      */
     onSubmit(email, password)
     {
-        var loginDto: LoginDTO =
+        var loginDto: LoginRequest =
         {
             password: password,     //TODO Eingaben mit Regex ueberpruefen
             username: email
         };
 
-        this.userService.login(loginDto)
-            .catch(this.handleError);
+        this.userService.login(loginDto);
     }
 
-    handleError(error: any): void
+    test1(): void
     {
-        let errMsg: string;
+        console.log(localStorage.getItem('aim_token'));
+    }
 
-        if(error instanceof Response)
-        {
-            let resErr: Response = error;
-            errMsg = `${resErr.status} - ${resErr.statusText || ''} ${resErr}`;
+    test2(): void
+    {
+        console.log(localStorage.getItem('aim_vendorId'));
+    }
 
-            switch(resErr.status)
-            {
-                case 401:
-                    errMsg = errMsg401;
-                    break;
-                case 503:
-                    errMsg = errMsg503;
-                    break;
-                default:
-                    errMsg = unknownErrMsg;
-            }
-        }
-        else
-        {
-            errMsg = error.toString();
-        }
-
-        console.error('An error occurred in User-Service', errMsg);
-
-        if((errMsg !== '') && (errMsg !== null))      //TODO ErrorMsg direkt im Eingabebereich anzeigen. PopUp evtl.
-            alert(errMsg);
-        else
-            alert('Fehler nicht beschrieben');  //TODO Beschreibung anpassen
+    logout(): void
+    {
+        console.log(this.userService.logout());
     }
 }
