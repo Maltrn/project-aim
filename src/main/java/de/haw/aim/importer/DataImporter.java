@@ -203,7 +203,7 @@ public class DataImporter
         productInfos.forEach(productInfoRepository::delete);
 
         // Update and create the rest
-        updateProducts(productCreateCandidates);
+        updateProducts(productUpdateCandidates);
 
         // Add every newly created Product to the vendor
         createProducts(productCreateCandidates).forEach(vendor::putProductInfo);
