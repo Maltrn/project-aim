@@ -9,7 +9,7 @@ import {CKEditorModule} from "ng2-ckeditor";
 import {UserService} from "./authentification/user.service";
 import {UserLogin} from "./authentification/user.component";
 import {AddFilesComponent} from "./informationComponents/add-files/add-files.component";
-import {DetailedDiscriptionComponent} from "./informationComponents/detailed-description/detailed-discription.component";
+import {DetailedDescriptionComponent} from "./informationComponents/detailed-description/detailed-description.component";
 import {FactsTableComponent} from "./informationComponents/facts/facts.component";
 import {VendorInfoMain} from "./informationComponents/main/vendor-info-main.component";
 import {ProductInfoMain} from "./informationComponents/main/product-info-main.component";
@@ -29,7 +29,7 @@ import {UploadCenter} from "./uploadCenter/uploadCenter";
     AppComponent,
     UserLogin,
     AddFilesComponent,
-    DetailedDiscriptionComponent,
+    DetailedDescriptionComponent,
     FactsTableComponent,
     VendorInfoMain,
     ProductInfoMain,
