@@ -50,7 +50,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meandor/project-aim.git
+    "url": "git+https://github.com/meandor/project-aim.git"
   },
   "bugs": {
     "url": "https://github.com/meandor/project-aim/issues"
