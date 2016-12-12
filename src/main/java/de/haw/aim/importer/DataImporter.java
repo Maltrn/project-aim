@@ -100,12 +100,15 @@ public class DataImporter
         }
 
         // every entry which are in our database and not in vendorUpdateCandidates need to be deleted
-        List<VendorInfo> vendorsToDelete = vendorInfoRepository.findAll();
-        vendorUpdateCandidates.
-                forEach(theirEntry -> vendorsToDelete.
-                        removeIf(ourEntry -> theirEntry.getId().equals(ourEntry.getId())));
+        List<String> ourIds = new ArrayList<>();
+        vendorUpdateCandidates.forEach(entry -> ourIds.add(entry.getId()));
 
-        removeVendors(vendorsToDelete);
+        List<String> theirIds = new ArrayList<>();
+        vendorInfos.forEach(entry -> theirIds.add(entry.getId()));
+
+        ourIds.removeAll(theirIds);
+
+        removeVendors(ourIds);
         updateVendors(vendorUpdateCandidates);
         createVendor(vendorCreateCandidates);
 
@@ -147,12 +150,12 @@ public class DataImporter
         }
     }
 
-    private void removeVendors(List<VendorInfo> toDelete)
+    private void removeVendors(List<String> toDelete)
     {
-        for (VendorInfo vendorInfo : toDelete)
+        for (String vendorId : toDelete)
         {
             // Get Vendor to delete everything from
-            Vendor vendorToDelete = vendorRepository.findById(vendorInfo.getId());
+            Vendor vendorToDelete = vendorRepository.findById(vendorId);
 
             // Start by removing the files from Vendor
             vendorToDelete.getFiles().forEach(file -> iUploadCenter.deleteFile(file.getId()));
@@ -164,7 +167,7 @@ public class DataImporter
             vendorToDelete.getProductInfos().forEach(productInfoRepository::delete);
 
             // Delete the Vendor Info
-            vendorInfoRepository.delete(vendorInfo);
+            vendorInfoRepository.delete(vendorId);
 
             // RIP
             vendorRepository.delete(vendorToDelete);
@@ -197,10 +200,15 @@ public class DataImporter
         }
 
         // Every productInfo in our database and not in their list needs to be deleted
-        productUpdateCandidates.
-                forEach(theirEntry -> productInfos
-                        .removeIf(ourEntry -> theirEntry.getId().equals(ourEntry.getId())));
-        productInfos.forEach(productInfoRepository::delete);
+        List<String> ourIds = new ArrayList<>();
+        productUpdateCandidates.forEach(entry -> ourIds.add(entry.getId()));
+
+        List<String> theirIds = new ArrayList<>();
+        productInfos.forEach(entry -> theirIds.add(entry.getId()));
+
+        ourIds.removeAll(theirIds);
+
+        ourIds.forEach(productInfoRepository::delete);
 
         // Update and create the rest
         updateProducts(productUpdateCandidates);
