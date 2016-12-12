@@ -114,7 +114,10 @@ public class InfoDTO implements Validatable
         retVal.setName(info.getName());
         retVal.setShortDescription(info.getShortDescription());
         retVal.setLongDescription(info.getLongDescription());
-        retVal.setMainPic(info.getMainPic().getId());
+        if(info.getMainPic() != null)
+        {
+            retVal.setMainPic(info.getMainPic().getId());
+        }
 
         List<String> fileIdList = new ArrayList<>();
         for (UploadedFile f : info.getFileGallery())
