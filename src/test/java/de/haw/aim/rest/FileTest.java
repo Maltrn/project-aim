@@ -39,8 +39,8 @@ public class FileTest extends AbstractTestNGSpringContextTests
 
     @Value("${local.server.port}")
     private int port;
-    String seperator = File.separator;
-    String path = "src" + seperator + "test" + seperator + "resources" + seperator + "dog-1742295_640.jpg";
+    private final String seperator = File.separator;
+    private final String path = "src" + seperator + "test" + seperator + "resources" + seperator + "dog-1742295_640.jpg";
 
     @BeforeMethod
     public void setUp() throws IOException

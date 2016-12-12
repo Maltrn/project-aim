@@ -14,6 +14,7 @@ public class AuthenticationCompoment implements AuthenticationInterface
 {
 
     @Autowired
+    private
     UserRepository userRepository;
 
     @Override

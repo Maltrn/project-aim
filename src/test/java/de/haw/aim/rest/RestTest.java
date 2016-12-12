@@ -46,9 +46,9 @@ public class RestTest extends AbstractTestNGSpringContextTests
     @Value("${local.server.port}")
     private int port;
 
-    private String productName = "productName";
-    private String shortDescription = "short Description";
-    private String longDescription = "long description";
+    private final String productName = "productName";
+    private final String shortDescription = "short Description";
+    private final String longDescription = "long description";
 
     @BeforeMethod
     public void setUp() throws Exception

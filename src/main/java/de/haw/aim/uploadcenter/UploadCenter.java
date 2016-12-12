@@ -26,7 +26,7 @@ public class UploadCenter implements IUploadCenter {
     @Autowired
     private PictureRepository pictureRepository;
 
-    private Path uploadedFilesLocation;
+    private final Path uploadedFilesLocation;
 
     private final Log logger = LogFactory.getLog(getClass());
 

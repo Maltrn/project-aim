@@ -12,17 +12,17 @@ import java.util.List;
 @Component
 public class SetupData {
 
-    private ProductInfoRepository productInfoRepository;
+    private final ProductInfoRepository productInfoRepository;
 
-    private VendorInfoRepository vendorInfoRepository;
+    private final VendorInfoRepository vendorInfoRepository;
 
-    private VendorRepository vendorRepository;
+    private final VendorRepository vendorRepository;
 
-    private PictureRepository pictureRepository;
+    private final PictureRepository pictureRepository;
 
-    private PDFRepository pdfRepository;
+    private final PDFRepository pdfRepository;
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public SetupData(ProductInfoRepository productInfoRepository, VendorInfoRepository vendorInfoRepository, VendorRepository vendorRepository, PictureRepository pictureRepository, UserRepository userRepository, PDFRepository pdfRepository) {
         this.productInfoRepository = productInfoRepository;

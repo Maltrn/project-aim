@@ -6,9 +6,6 @@ import de.haw.aim.uploadcenter.persistence.UploadedFile;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Rene on 31.10.2016.
- */
 public class ProductInfo extends Info
 {
     public ProductInfo(String id, String name, String shortDescription, String longDescription, Picture mainPic, List<UploadedFile> fileGallery, java.util.List<Fact> facts)

@@ -46,7 +46,7 @@ public class DataImporter
         this.iUploadCenter = iUploadCenter;
     }
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     private DataImporter()
     {

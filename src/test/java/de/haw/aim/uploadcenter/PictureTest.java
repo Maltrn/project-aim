@@ -18,7 +18,7 @@ public class PictureTest extends AbstractTestNGSpringContextTests {
     private UploadedFile file;
 
     @Autowired
-    protected PictureRepository repo;
+    private PictureRepository repo;
 
     @BeforeMethod
     public void setUp() throws Exception {

@@ -17,7 +17,7 @@ public class PDFTest extends AbstractTestNGSpringContextTests {
     private UploadedFile file;
 
     @Autowired
-    protected PDFRepository repo;
+    private PDFRepository repo;
 
     @BeforeMethod
     public void setUp() throws Exception {
