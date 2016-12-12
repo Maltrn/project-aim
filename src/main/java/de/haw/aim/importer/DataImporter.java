@@ -125,7 +125,7 @@ public class DataImporter
             vendorInfoToCreate = vendorInfoRepository.save(vendorInfoToCreate);
 
             // For a new vendor every product has to be new, so we only need to create products for this
-            List<ProductInfo> productInfos = createProducts(vendorDTO.getProdukts(),vendorDTO.getProdukts().stream().map(ProductDTO::getId).collect(Collectors.toList()));
+            List<ProductInfo> productInfos = createProducts(vendorDTO.getProdukts());
 
             // Finally create the new vendor which brings productinfos and vendorinfo together
             Vendor vendor = new Vendor(vendorInfoToCreate, productInfos);
@@ -224,6 +224,22 @@ public class DataImporter
         createProducts(productDTOS,productCreateCandidateIds).forEach(vendor::putProductInfo);
     }
 
+    /**
+     * Creates ProductInfo based on product list, every item will be create
+     * @param products List of ProductDTO
+     * @return List of ProductInfo
+     */
+    private List<ProductInfo> createProducts(List<ProductDTO> products)
+    {
+        return createProducts(products,products.stream().map(ProductDTO::getId).collect(Collectors.toList()));
+    }
+
+    /**
+     * Creates ProductInfo based on product list, only item with ids provided with productCreateCandidateIds will be created
+     * @param products List of ProductDTO
+     * @param productCreateCandidateIds IDs of Products to be created
+     * @return List of ProductInfo
+     */
     private List<ProductInfo> createProducts(List<ProductDTO> products, List<String> productCreateCandidateIds)
     {
 
