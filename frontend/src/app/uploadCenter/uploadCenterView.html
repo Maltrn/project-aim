@@ -1,0 +1,54 @@
+<h2 class="page-header">{{title}}
+    <small>{{description}}</small>
+</h2>
+
+<h3>Hochgeladene Dateien</h3>
+<div class="row">
+    <div class="col-lg-12">
+        {{files}}
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Upload Datum</th>
+                <th>Größe</th>
+                <th>Aktion</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let file of files">
+                <td>{{file.name}}</td>
+                <td>1265</td>
+                <td>1111</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-default"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                        <button type="button" class="btn btn-danger">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Datei hochladen</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <form>
+            <div class="form-group">
+                <label for="inputFile">Dateiauswahl</label>
+                <input type="file" id="inputFile">
+                <p class="help-block">Nur folgende Dateitypen sind erlaubt: pdf, ...</p>
+                <p class="help-block">Die Dateien sind auf eine maximal Größe von ... beschränkt.</p>
+            </div>
+            <button type="submit" class="btn btn-primary">hochladen</button>
+        </form>
+    </div>
+</div>

@@ -21,6 +21,8 @@ import {InMemoryWebApiModule} from "angular2-in-memory-web-api";
 import {MemService} from "./memService";
 import {ShortDiscriptionComponent} from "./informationComponents/short-description/short-discription.component";
 import {SortFilesComponent} from "./informationComponents/sort-files/sort-files.component";
+import {FileService} from "./uploadCenter/file.service";
+import {UploadCenter} from "./uploadCenter/uploadCenter";
 
 @NgModule({
   declarations: [
@@ -33,7 +35,8 @@ import {SortFilesComponent} from "./informationComponents/sort-files/sort-files.
     ProductInfoMain,
     InMemoryWebApiModule.forRoot(MemService),
     ShortDiscriptionComponent,
-    SortFilesComponent
+    SortFilesComponent,
+    UploadCenter
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import {SortFilesComponent} from "./informationComponents/sort-files/sort-files.
     VendorService,
     ProductService,
     ProfilePictureService,
-    ProfilePicComponent
+    ProfilePicComponent,
+    FileService
   ],
   bootstrap: [AppComponent]
 })
