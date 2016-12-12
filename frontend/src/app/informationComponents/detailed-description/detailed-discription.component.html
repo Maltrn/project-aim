@@ -1,0 +1,14 @@
+
+<h1 class="page-header">
+    {{title}}
+    <small>{{description}}</small>
+</h1>
+<ckeditor
+        [(ngModel)]="ckeditorContent"
+        (change)="onChange($event)"
+        (ready)="onReady($event)"
+        (focus)="onFocus($event)"
+        (blur)="onBlur($event)"
+        debounce="500">
+</ckeditor>
+

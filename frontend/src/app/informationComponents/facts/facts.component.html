@@ -1,0 +1,39 @@
+<h1 class="page-header">
+    {{title}}
+    <small>{{description}}</small>
+</h1>
+<div class="panel-body">
+
+    <div class="factshead">
+        <div class="col-md-10" id="facts">
+            <div class="col-md-2">
+                <div class="factname">Feature</div>
+            </div>
+            <div class="col-md-9">
+                <div class="factdescription">Beschreibung</div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngFor="let fact of facts" (click)="onSelect(fact)"
+         [class.selected]="fact === selectedFact">   <!-- SPÄTER HINZUFÜGEN <div *ngFor="let fact of facts | async" -->
+        <div class="col-md-10" id="facts">
+            <div class="col-md-2">
+                <a class="factname">{{fact.name}}</a>
+            </div>
+            <div class="col-md-9">
+                <a class="factdescription">{{fact.description}}</a>
+            </div>
+            <div class="col-md-1">
+                <button class="btn btn-danger" (click)="delete(fact); $event.stopPropagation()">x</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<label>Faktenname:</label> <input #factName />
+<label>Faktenbeschreibung:</label> <input #factDescription />
+<button class="btn btn-primary" (click)="add(factName.value, factDescription.value); factName.value=''; factDescription.value=''">
+    Feature hinzufügen
+</button>
