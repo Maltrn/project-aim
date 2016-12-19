@@ -34,7 +34,7 @@ public interface FileApi
     @RequestMapping(value = "/file/{id}",
             produces = {"image/jpeg", "image/png", "image/gif", "application/pdf"},
             method = RequestMethod.GET)
-    ResponseEntity<File> fileIdGet(
+    ResponseEntity<byte[]> fileIdGet(
             @ApiParam(value = "ID der Datei welche aberufen werden soll", required = true) @PathVariable("id") String id
 
 

@@ -64,6 +64,12 @@ public class Picture implements UploadedFile
     }
 
     @Override
+    public String getVendorId() {
+        String[] filepath = location.split("/");
+        return  filepath[filepath.length - 2];
+    }
+
+    @Override
     public String toString()
     {
         return "Picture{" +

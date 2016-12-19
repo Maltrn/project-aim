@@ -3,6 +3,7 @@ package de.haw.aim.uploadcenter;
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
 import de.haw.aim.uploadcenter.persistence.*;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
+import de.haw.aim.vendor.VendorComponent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class UploadCenter implements IUploadCenter {
     @Autowired
     private PictureRepository pictureRepository;
 
+    @Autowired
+    private VendorComponent vendorComponent;
+
     private final Path uploadedFilesLocation;
 
     private final Log logger = LogFactory.getLog(getClass());
@@ -35,18 +39,22 @@ public class UploadCenter implements IUploadCenter {
     }
 
     @Override
-    public UploadedFile uploadFile(MultipartFile f) throws StorageException {
+    public UploadedFile uploadFile(MultipartFile f, String vendorId) throws StorageException {
+        Path filePath = uploadedFilesLocation.resolve(vendorId + File.separator + f.getOriginalFilename().toString());
+
+        new File(uploadedFilesLocation.resolve(vendorId).toString()).mkdir();
+
         if (f == null || f.isEmpty()) {
             throw new StorageException("Failed to store empty file");
         }
 
         try {
-            Files.copy(f.getInputStream(), uploadedFilesLocation.resolve(f.getOriginalFilename()));
+            Files.copy(f.getInputStream(), filePath);
         } catch (IOException e) {
             throw new StorageException("File could not be stored locally", e);
         }
 
-        String fileLocation = uploadedFilesLocation.resolve(f.getOriginalFilename()).toString();
+        String fileLocation = filePath.toString();
         UploadedFile result = null;
         MongoRepository repository = null;
 
@@ -86,7 +94,7 @@ public class UploadCenter implements IUploadCenter {
         }
 
         UploadedFile foundFile = this.findById(id);
-        UploadedFile uploadedFile = this.uploadFile(f);
+        UploadedFile uploadedFile = this.uploadFile(f, foundFile.getVendorId());
         MongoRepository repository = this.pdfRepository;
         UploadedFile replacedFile;
 

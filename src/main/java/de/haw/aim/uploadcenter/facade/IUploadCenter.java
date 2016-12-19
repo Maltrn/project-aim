@@ -13,7 +13,7 @@ public interface IUploadCenter
      * @return Returns UploadedFile entity with ID
      * @throws IOException if File Type is not valid, the file is empty, or file could not be stored locally
      */
-    UploadedFile uploadFile(MultipartFile f) throws IOException;
+    UploadedFile uploadFile(MultipartFile f, String vendorId) throws IOException;
 
     /**
      * Tries to replace a file with given ID

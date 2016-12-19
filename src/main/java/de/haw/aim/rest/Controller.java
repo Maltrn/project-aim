@@ -15,15 +15,20 @@ import de.haw.aim.vendor.persistence.ProductInfo;
 import de.haw.aim.vendor.persistence.Vendor;
 import de.haw.aim.vendor.persistence.VendorInfo;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.naming.ServiceUnavailableException;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -194,10 +199,9 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     }
 
     @Override
-    public ResponseEntity<File> fileIdGet(
+    public ResponseEntity<byte[]> fileIdGet(
             @ApiParam(value = "ID der Datei welche aberufen werden soll", required = true)
-            @PathVariable("id") String id)
-    {
+            @PathVariable("id") String id) {
         // If the given ID does not exist please tell that the user
         if(!iUploadCenter.checkForExistence(id))
         {
@@ -209,9 +213,24 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         // Create a file from its path
         File file = new File(location);
+        byte[] fileResponse;
+        //String contentType;
+        try {
+            InputStream targetStream = new FileInputStream(file);
+            fileResponse = IOUtils.toByteArray(targetStream);
+            //contentType = Files.probeContentType(Paths.get(file.getPath()));
+        } catch (FileNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+
+        //HttpHeaders headers = new HttpHeaders();
+        //headers.setContentType(MediaType.APPLICATION_PDF);
 
         // Back to the frontend
-        return new ResponseEntity<>(file, HttpStatus.OK);
+        return new ResponseEntity<>(fileResponse, HttpStatus.OK);
     }
 
     @Override
@@ -267,7 +286,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         try
         {
-            uploadedFile = iUploadCenter.uploadFile(file);
+            uploadedFile = iUploadCenter.uploadFile(file, vendor.getId());
         } catch (IOException e)
         {
             // If the UploadedFile creation fails, we can assume the file is invalid
