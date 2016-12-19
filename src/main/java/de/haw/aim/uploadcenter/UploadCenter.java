@@ -54,7 +54,7 @@ public class UploadCenter implements IUploadCenter {
             throw new StorageException("File could not be stored locally", e);
         }
 
-        String fileLocation = filePath.toString();
+        String fileLocation = vendorId + File.separator + f.getOriginalFilename().toString();
         UploadedFile result = null;
         MongoRepository repository = null;
 

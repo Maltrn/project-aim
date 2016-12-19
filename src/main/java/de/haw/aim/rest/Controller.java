@@ -17,18 +17,14 @@ import de.haw.aim.vendor.persistence.VendorInfo;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.naming.ServiceUnavailableException;
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,6 +49,9 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     @Autowired
     private
     IUploadCenter iUploadCenter;
+
+    @Value("${uploadcenter.fileslocation}")
+    String fileLocationFolder;
 
     @Override
     public ResponseEntity<List<InfoDTO>> vendorGet()
@@ -209,7 +208,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         }
 
         // otherwise get our UploadedFile Entity
-        String location = iUploadCenter.findById(id).getLocation();
+        String location = fileLocationFolder + iUploadCenter.findById(id).getLocation();
 
         // Create a file from its path
         File file = new File(location);
