@@ -55,6 +55,12 @@ public class PDF implements UploadedFile
         return location;
     }
 
+    @Override
+    public String getVendorId() {
+        String[] filepath = location.split("/");
+        return  filepath[filepath.length - 2];
+    }
+
     public void setLocation(String location)
     {
         this.location = location;

@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface IUploadCenter
 {
-    UploadedFile uploadFile(MultipartFile f) throws IOException;
+    UploadedFile uploadFile(MultipartFile f, String vendorId) throws IOException;
 
     UploadedFile replaceFile(String id, MultipartFile f);
 

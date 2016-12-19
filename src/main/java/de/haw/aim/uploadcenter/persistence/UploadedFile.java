@@ -9,4 +9,6 @@ public interface UploadedFile extends Validatable
     String getLocation();
 
     String getId();
+
+    String getVendorId();
 }
