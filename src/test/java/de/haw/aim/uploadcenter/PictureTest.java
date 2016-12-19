@@ -40,7 +40,7 @@ public class PictureTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testPictureNotEmpty() throws Exception {
         Assert.assertNotNull(this.file);
-        Assert.assertEquals(this.file.getName(), "dog-1742295_640");
+        Assert.assertEquals(this.file.getName(), "dog-1742295_640.jpg");
         Assert.assertEquals(this.file.getLocation(), "dog-1742295_640.jpg");
     }
 

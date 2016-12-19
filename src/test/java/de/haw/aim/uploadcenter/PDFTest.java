@@ -34,7 +34,7 @@ public class PDFTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testPDFNotEmpty() throws Exception {
         Assert.assertNotNull(this.file);
-        Assert.assertEquals(this.file.getName(), "pdf-sample");
+        Assert.assertEquals(this.file.getName(), "pdf-sample.pdf");
         Assert.assertEquals(this.file.getLocation(), "pdf-sample.pdf");
     }
 
@@ -52,6 +52,6 @@ public class PDFTest extends AbstractTestNGSpringContextTests {
     @Test
     public void testDBInsertion() throws Exception {
         PDF dbEntity = this.repo.findAll().get(0);
-        Assert.assertEquals(dbEntity.getName(), "pdf-sample");
+        Assert.assertEquals(dbEntity.getName(), "pdf-sample.pdf");
     }
 }
