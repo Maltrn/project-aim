@@ -31,6 +31,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
+@CrossOrigin
 @RestController
 public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 {
