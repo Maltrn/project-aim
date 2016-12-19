@@ -1,6 +1,6 @@
 package de.haw.aim.rest;
 
-import de.haw.aim.authentication.AuthenticationInterface;
+import de.haw.aim.authentication.facade.AuthenticationInterface;
 import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.importer.DataImporter;
 import de.haw.aim.rest.dto.InfoDTO;
@@ -188,7 +188,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         // Otherwise we can get the Vendor for the user
         Vendor vendor = iVendor.getVendor(currentUser);
 
-        List<String> retVal = vendor.getVendorInfo().getFileGallery().stream().map(UploadedFile::getId).collect(Collectors.toList());
+        List<String> retVal = vendor.getFiles().stream().map(UploadedFile::getId).collect(Collectors.toList());
 
         return new ResponseEntity<>(retVal,HttpStatus.OK);
     }
@@ -229,10 +229,16 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         // if no user found for token return Bad Request
         if(currentUser == null)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         // Let the UploadCenter replace the file
-        iUploadCenter.replaceFile(id,file);
+        try
+        {
+            iUploadCenter.replaceFile(id,file);
+        } catch (IOException e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -251,7 +257,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         // if no user found for token return Bad Request
         if(currentUser == null)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         // Otherwise we can get the Vendor for the user
         Vendor vendor = iVendor.getVendor(currentUser);
@@ -274,7 +280,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         // Save the Vendor Entity
         iVendor.saveVendor(vendor);
 
-        return new ResponseEntity<>(uploadedFile.getId(), HttpStatus.OK);
+        return new ResponseEntity<>(uploadedFile.getId(),HttpStatus.OK);
     }
 
     @Override

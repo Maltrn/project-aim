@@ -79,7 +79,8 @@ public class UploadCenter implements IUploadCenter {
     }
 
     @Override
-    public UploadedFile replaceFile(String id, MultipartFile f) {
+    public UploadedFile replaceFile(String id, MultipartFile f) throws IOException
+    {
         if (this.findById(id) == null || f == null) {
             throw new StorageException("File does not exist");
         }
@@ -146,6 +147,5 @@ public class UploadCenter implements IUploadCenter {
         } else {
             return null;
         }
-
     }
 }

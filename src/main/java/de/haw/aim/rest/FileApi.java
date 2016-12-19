@@ -46,7 +46,9 @@ public interface FileApi
     }, tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Die Datei wurde erfolgreich hochgeladen und die bestehende Datei überschrieben", response = String.class),
-            @ApiResponse(code = 400, message = "Ungültiger Dateityp oder Dateigröße", response = String.class)})
+            @ApiResponse(code = 400, message = "Ungültiger Dateityp, Dateigröße", response = String.class),
+            @ApiResponse(code = 401, message = "Der Token ist ungültig", response = Void.class)})
+
     @RequestMapping(value = "/file/{id}",
             consumes = {"application/x-www-form-urlencoded"},
             method = RequestMethod.PUT)
@@ -62,7 +64,8 @@ public interface FileApi
     }, tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Die Datei wurde erfolgreich hochgeladen", response = String.class),
-            @ApiResponse(code = 400, message = "Ungültiger Dateityp oder Dateigröße", response = String.class)})
+            @ApiResponse(code = 400, message = "Ungültiger Dateityp oder Dateigröße", response = String.class),
+            @ApiResponse(code = 401, message = "Der Token ist ungültig", response = Void.class)})
     @RequestMapping(value = "/file",
             consumes = {"multipart/form-data"},
             method = RequestMethod.PUT)

@@ -2,6 +2,7 @@ package de.haw.aim.authentication;
 
 import de.haw.aim.AIMServer;
 import de.haw.aim.AppConfig;
+import de.haw.aim.authentication.facade.AuthenticationInterface;
 import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.authentication.persistence.UserRepository;
 import de.haw.aim.uploadcenter.persistence.Picture;
