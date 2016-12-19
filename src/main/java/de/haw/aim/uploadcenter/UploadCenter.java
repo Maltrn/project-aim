@@ -40,13 +40,13 @@ public class UploadCenter implements IUploadCenter {
 
     @Override
     public UploadedFile uploadFile(MultipartFile f, String vendorId) throws StorageException {
+        if (f == null || f.isEmpty()) {
+            throw new StorageException("Failed to store empty file");
+        }
         Path filePath = uploadedFilesLocation.resolve(vendorId + File.separator + f.getOriginalFilename().toString());
 
         new File(uploadedFilesLocation.resolve(vendorId).toString()).mkdir();
 
-        if (f == null || f.isEmpty()) {
-            throw new StorageException("Failed to store empty file");
-        }
 
         try {
             Files.copy(f.getInputStream(), filePath);
@@ -87,8 +87,7 @@ public class UploadCenter implements IUploadCenter {
     }
 
     @Override
-    public UploadedFile replaceFile(String id, MultipartFile f) throws IOException
-    {
+    public UploadedFile replaceFile(String id, MultipartFile f) throws IOException {
         if (this.findById(id) == null || f == null) {
             throw new StorageException("File does not exist");
         }
@@ -114,7 +113,7 @@ public class UploadCenter implements IUploadCenter {
         repository.save(replacedFile);
         repository.delete(uploadedFile.getId());
         try {
-            Files.delete(Paths.get(foundFile.getLocation()));
+            Files.delete(Paths.get(this.uploadedFilesLocation + File.separator + foundFile.getLocation()));
         } catch (IOException e) {
             logger.info("Tried to delete non existent file");
         }
@@ -143,7 +142,7 @@ public class UploadCenter implements IUploadCenter {
     @Override
     public boolean checkForExistence(String id) {
         UploadedFile uploadedFile = this.findById(id);
-        return (uploadedFile != null) && (new File(uploadedFile.getLocation()).exists());
+        return (uploadedFile != null) && (new File(this.uploadedFilesLocation.toString() + File.separator + uploadedFile.getLocation()).exists());
     }
 
     @Override
