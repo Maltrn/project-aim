@@ -9,12 +9,16 @@ It is build on the [Edison Microservice](https://github.com/otto-de/edison-micro
 ## Usage Backend
 This project uses gradle to build everything. There is a custom script to start the server, do all the testing and so on.
 
-To run the microservice simply use the go script: ````./bin/go bootRun````.
+To run the microservice simply use the go script:
+````./bin/go bootRun````
 
-To test everything run: ````./bin/go test````
+To test everything run:
+````./bin/go test````
 
-If you want to build the jar with all dependencies do: ````./bin/go bootRepackage````
-The jar will then be under: ````./build/libs/projecttwomicroservice.jar````
+If you want to build the jar with all dependencies do:
+````./bin/go bootRepackage````
+The jar will then be under:
+````./build/libs/projecttwomicroservice.jar````
 
 The server will be available under: <http://localhost:8080/api>
 
@@ -22,9 +26,11 @@ Swagger will be available under: <http://localhost:8080/api/swagger-ui.html>
 
 ## Usage Frontend
 This project uses webpack to build everything and start the frontend. To start or stop the server change into its
-directory: ````cd frontend````
+directory:
+````cd frontend````
 
-To run the microservice: ````npm start````.
+To run the microservice:
+````npm start````
 
 The server will be available under: <http://localhost:3000>
 
