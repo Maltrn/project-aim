@@ -2,13 +2,14 @@ import {Component, OnInit} from "@angular/core";
 import {VendorService} from "../main/vendor.service";
 import {InfoDTO} from "../main/model/infoDTO";
 
+
 @Component
 ({
     selector: 'vendor-info-main',
     templateUrl: './view/vendor-info-main.component.html'
 })
 
-export class VendorInfoMain implements OnInit
+export class VendorInfoMain //implements OnInit
 {
     vendorName: string = 'Firmenname';
     vendor: InfoDTO;
@@ -24,8 +25,8 @@ export class VendorInfoMain implements OnInit
             .then(vendorInfo => this.vendor = vendorInfo)
             .catch(this.handleError);
 
-        console.log("VendorID: ");
-        console.log(this.vendor.id);
+        // console.log("Vendor: ");
+        // console.log(this.vendor.longDescription);
 
 
         //this.vendorService.loadMock();
