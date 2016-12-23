@@ -29,6 +29,18 @@ function push-frontend-image {
     cd ..
 }
 
+function dockerize-test-db {
+    cd db
+    docker build -t meandor/project-aim-db .
+    cd ..
+}
+
+function push-test-db-image {
+    cd db
+    docker push meandor/project-aim-db
+    cd ..
+}
+
 function help {
     echo "usage: $0 <task>
 task can be:
@@ -52,6 +64,10 @@ elif [ "$1" == "buildFrontend" ]; then
     dockerize-frontend
 elif [ "$1" == "publishFrontend" ]; then
     push-frontend-image
+elif [ "$1" == "buildDB" ]; then
+    dockerize-test-db
+elif [ "$1" == "publishDB" ]; then
+    push-test-db-image
 else
     ${SCRIPT_DIR}/gradlew $*
 fi
