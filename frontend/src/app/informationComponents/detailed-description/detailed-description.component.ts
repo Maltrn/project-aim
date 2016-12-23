@@ -4,10 +4,10 @@ import {VendorService} from "../main/vendor.service";
 @Component
 ({
     selector: 'vendor-detailed-discription',
-    templateUrl: './detailed-discription.component.html'
+    templateUrl: './detailed-description.component.html'
 })
 
-export class DetailedDiscriptionComponent
+export class DetailedDescriptionComponent
 {
     title: string = 'Detailbeschreibung';
     description: string = 'Zur Bearbeitung der Inhalte in der Detailbeschreibung'
