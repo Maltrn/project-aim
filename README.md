@@ -1,12 +1,12 @@
 # Anbieter Informations Management (A.I.M)
 [![Build Status](https://travis-ci.org/meandor/project-aim.svg?branch=master)](https://travis-ci.org/meandor/project-aim)
-[![Dependency Status](https://www.versioneye.com/user/projects/57e69f9abd6fa600512e1351/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/57e69f9abd6fa600512e1351)
+[![Dependency Status](https://www.versioneye.com/user/projects/5832a8b9eaa74b0040ae09ec/badge.svg?style=flat-square)](https://www.versioneye.com/user/projects/5832a8b9eaa74b0040ae09ec)
 
 This microservice can add and maintain additional data to pbx provider and their products.
 
 It is build on the [Edison Microservice](https://github.com/otto-de/edison-microservice) and uses AngularJS.
 
-## Usage
+## Usage Backend
 This project uses gradle to build everything. There is a custom script to start the server, do all the testing and so on.
 
 To run the microservice simply use the go script: ````./bin/go bootRun````.
@@ -20,10 +20,13 @@ The server will be available under: <http://localhost:8080/api>
 
 Swagger will be available under: <http://localhost:8080/api/swagger-ui.html>
 
-## Experts
-* frontend (Dustin Malte)
-* backend (daniel, jana, rene, christof)
-* api ()
+## Usage Frontend
+This project uses webpack to build everything and start the frontend. To start or stop the server change into its
+directory: ````cd frontend````
+
+To run the microservice: ````npm start````.
+
+The server will be available under: <http://localhost:3000>
 
 ## Fragenkatalog
 * Wie sehen die Schnittstellen aus die wir von den anderen Systemen nutzen können?
