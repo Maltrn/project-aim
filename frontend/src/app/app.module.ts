@@ -41,7 +41,7 @@ import {UploadCenter} from "./uploadCenter/uploadCenter";
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    RouterModule.forRoot(rootRouterConfig, {useHash: true}),
+    RouterModule.forRoot(rootRouterConfig),
     CKEditorModule
   ],
   providers: [
