@@ -12,14 +12,19 @@ import java.io.IOException;
 class AuthenticationFilter implements Filter {
 
     @Autowired
-    private
-    AuthenticationCompoment authenticationCompoment;
+    private AuthenticationCompoment authenticationCompoment;
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res,
-                         FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) req;
         HttpServletResponse httpResponse = (HttpServletResponse) res;
+
+        httpResponse.setHeader("Access-Control-Allow-Origin", httpRequest.getHeader("Origin"));
+        httpResponse.setHeader("Access-Control-Allow-Credentials", "true");
+        httpResponse.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        httpResponse.setHeader("Access-Control-Max-Age", "3600");
+        httpResponse.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, Authorization");
+
         if (isPublicApiCall(httpRequest)) { // public API call therefore continue without checking authentication
             chain.doFilter(req, res);
         } else { // API call that should be secured by a valid Token given in HTTP header
@@ -52,22 +57,20 @@ class AuthenticationFilter implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this,
-                filterConfig.getServletContext());
+        SpringBeanAutowiringSupport.processInjectionBasedOnServletContext(this, filterConfig.getServletContext());
     }
 
     private boolean isPublicApiCall(HttpServletRequest req) {
         String method = req.getMethod();
         String uri = req.getRequestURI().toString();
-        //System.out.println(method);
-        return (method.equals("POST") && uri.matches("^.*/login$")) ||
-                (method.equals("GET") &&
-                        (uri.matches("^.*/file/[a-z0-9]*$") ||
-                                uri.matches("^.*/vendor$") ||
-                                uri.matches("^.*/vendor/[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\\.\\-\\_\\~\\:\\+\\,\\;\\=]*$") ||
-                                uri.matches("^.*/product$") ||
-                                uri.matches("^.*/product/[ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789\\.\\-\\_\\~\\:\\+\\,\\;\\=]*$")) ||
+
+        return ((method.equals("POST") || method.equals("OPTIONS")) && uri.matches("^.*/login$")) ||
+                (method.equals("GET") && (uri.matches("^.*/file/[a-z0-9]*$") ||
+                        uri.matches("^.*/vendor$") ||
+                        uri.matches("^.*/vendor/[a-zA-Z0-9\\.\\-\\_\\~\\:\\+\\,\\;\\=]*$") ||
+                        uri.matches("^.*/product$") ||
+                        uri.matches("^.*/product/[a-zA-Z0-9\\.\\-\\_\\~\\:\\+\\,\\;\\=]*$") ||
                         uri.matches("^.*/internal/[a-z0-9]*$") ||
-                        uri.matches("^.*/(swagger.*|webjars/.*|v2.*|validatorUrl.*)$"));
+                        uri.matches("^.*/(swagger.*|webjars/.*|v2.*|validatorUrl.*)$")));
     }
 }
