@@ -1,6 +1,6 @@
 package de.haw.aim.rest;
 
-import de.haw.aim.authentication.AuthenticationInterface;
+import de.haw.aim.authentication.facade.AuthenticationInterface;
 import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.importer.DataImporter;
 import de.haw.aim.rest.dto.InfoDTO;
@@ -15,35 +15,44 @@ import de.haw.aim.vendor.persistence.ProductInfo;
 import de.haw.aim.vendor.persistence.Vendor;
 import de.haw.aim.vendor.persistence.VendorInfo;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.naming.ServiceUnavailableException;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
+@CrossOrigin
 @RestController
 public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 {
     @Autowired
+    private
     DataImporter dataImporter;
 
     @Autowired
+    private
     AuthenticationInterface authenticationCompoment;
 
     @Autowired
+    private
     IVendor iVendor;
 
     @Autowired
+    private
     IUploadCenter iUploadCenter;
+
+    @Value("${uploadcenter.fileslocation}")
+    String fileLocationFolder;
 
     @Override
     public ResponseEntity<List<InfoDTO>> vendorGet()
@@ -163,7 +172,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         vendor.putProductInfo(productInfo);
 
         iVendor.saveVendor(vendor);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     // FIXME think about namespace maybe "GET /fileIdList"
     @Override
@@ -184,16 +193,15 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         // Otherwise we can get the Vendor for the user
         Vendor vendor = iVendor.getVendor(currentUser);
 
-        List<String> retVal = vendor.getVendorInfo().getFileGallery().stream().map(UploadedFile::getId).collect(Collectors.toList());
+        List<String> retVal = vendor.getFiles().stream().map(UploadedFile::getId).collect(Collectors.toList());
 
         return new ResponseEntity<>(retVal,HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<File> fileIdGet(
+    public ResponseEntity<byte[]> fileIdGet(
             @ApiParam(value = "ID der Datei welche aberufen werden soll", required = true)
-            @PathVariable("id") String id)
-    {
+            @PathVariable("id") String id) {
         // If the given ID does not exist please tell that the user
         if(!iUploadCenter.checkForExistence(id))
         {
@@ -201,13 +209,28 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         }
 
         // otherwise get our UploadedFile Entity
-        String location = iUploadCenter.findById(id).getLocation();
+        String location = fileLocationFolder + iUploadCenter.findById(id).getLocation();
 
         // Create a file from its path
         File file = new File(location);
+        byte[] fileResponse;
+        //String contentType;
+        try {
+            InputStream targetStream = new FileInputStream(file);
+            fileResponse = IOUtils.toByteArray(targetStream);
+            //contentType = Files.probeContentType(Paths.get(file.getPath()));
+        } catch (FileNotFoundException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+
+        //HttpHeaders headers = new HttpHeaders();
+        //headers.setContentType(MediaType.APPLICATION_PDF);
 
         // Back to the frontend
-        return new ResponseEntity<>(file, HttpStatus.OK);
+        return new ResponseEntity<>(fileResponse, HttpStatus.OK);
     }
 
     @Override
@@ -225,10 +248,16 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         // if no user found for token return Bad Request
         if(currentUser == null)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         // Let the UploadCenter replace the file
-        iUploadCenter.replaceFile(id,file);
+        try
+        {
+            iUploadCenter.replaceFile(id,file);
+        } catch (IOException e)
+        {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -247,7 +276,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         // if no user found for token return Bad Request
         if(currentUser == null)
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         // Otherwise we can get the Vendor for the user
         Vendor vendor = iVendor.getVendor(currentUser);
@@ -257,7 +286,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         try
         {
-            uploadedFile = iUploadCenter.uploadFile(file);
+            uploadedFile = iUploadCenter.uploadFile(file, vendor.getId());
         } catch (IOException e)
         {
             // If the UploadedFile creation fails, we can assume the file is invalid
@@ -270,7 +299,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         // Save the Vendor Entity
         iVendor.saveVendor(vendor);
 
-        return new ResponseEntity<>(uploadedFile.getId(), HttpStatus.OK);
+        return new ResponseEntity<>(uploadedFile.getId(),HttpStatus.OK);
     }
 
     @Override

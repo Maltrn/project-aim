@@ -3,6 +3,7 @@ package de.haw.aim.uploadcenter;
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
 import de.haw.aim.uploadcenter.persistence.*;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
+import de.haw.aim.vendor.VendorComponent;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,10 @@ public class UploadCenter implements IUploadCenter {
     @Autowired
     private PictureRepository pictureRepository;
 
-    private Path uploadedFilesLocation;
+    @Autowired
+    private VendorComponent vendorComponent;
+
+    private final Path uploadedFilesLocation;
 
     private final Log logger = LogFactory.getLog(getClass());
 
@@ -35,18 +39,22 @@ public class UploadCenter implements IUploadCenter {
     }
 
     @Override
-    public UploadedFile uploadFile(MultipartFile f) throws StorageException {
+    public UploadedFile uploadFile(MultipartFile f, String vendorId) throws StorageException {
         if (f == null || f.isEmpty()) {
             throw new StorageException("Failed to store empty file");
         }
+        Path filePath = uploadedFilesLocation.resolve(vendorId + File.separator + f.getOriginalFilename().toString());
+
+        new File(uploadedFilesLocation.resolve(vendorId).toString()).mkdir();
+
 
         try {
-            Files.copy(f.getInputStream(), uploadedFilesLocation.resolve(f.getOriginalFilename()));
+            Files.copy(f.getInputStream(), filePath);
         } catch (IOException e) {
             throw new StorageException("File could not be stored locally", e);
         }
 
-        String fileLocation = uploadedFilesLocation.resolve(f.getOriginalFilename()).toString();
+        String fileLocation = vendorId + File.separator + f.getOriginalFilename().toString();
         UploadedFile result = null;
         MongoRepository repository = null;
 
@@ -79,13 +87,13 @@ public class UploadCenter implements IUploadCenter {
     }
 
     @Override
-    public UploadedFile replaceFile(String id, MultipartFile f) {
+    public UploadedFile replaceFile(String id, MultipartFile f) throws IOException {
         if (this.findById(id) == null || f == null) {
             throw new StorageException("File does not exist");
         }
 
         UploadedFile foundFile = this.findById(id);
-        UploadedFile uploadedFile = this.uploadFile(f);
+        UploadedFile uploadedFile = this.uploadFile(f, foundFile.getVendorId());
         MongoRepository repository = this.pdfRepository;
         UploadedFile replacedFile;
 
@@ -105,7 +113,7 @@ public class UploadCenter implements IUploadCenter {
         repository.save(replacedFile);
         repository.delete(uploadedFile.getId());
         try {
-            Files.delete(Paths.get(foundFile.getLocation()));
+            Files.delete(Paths.get(this.uploadedFilesLocation + File.separator + foundFile.getLocation()));
         } catch (IOException e) {
             logger.info("Tried to delete non existent file");
         }
@@ -134,7 +142,7 @@ public class UploadCenter implements IUploadCenter {
     @Override
     public boolean checkForExistence(String id) {
         UploadedFile uploadedFile = this.findById(id);
-        return (uploadedFile != null) && (new File(uploadedFile.getLocation()).exists());
+        return (uploadedFile != null) && (new File(this.uploadedFilesLocation.toString() + File.separator + uploadedFile.getLocation()).exists());
     }
 
     @Override
@@ -146,6 +154,5 @@ public class UploadCenter implements IUploadCenter {
         } else {
             return null;
         }
-
     }
 }

@@ -15,10 +15,10 @@ import static org.testng.AssertJUnit.assertEquals;
 public class DTOTest extends AbstractTestNGSpringContextTests
 {
 
-    private String id = "This is a wonderful ID";
-    private String name = "This is a wonderful name";
-    private String shortDescription = "This is a wonderful sort description";
-    private String longDescription = "This is a wonderful loooooooooooooong description";
+    private final String id = "This is a wonderful ID";
+    private final String name = "This is a wonderful name";
+    private final String shortDescription = "This is a wonderful sort description";
+    private final String longDescription = "This is a wonderful loooooooooooooong description";
 
     private VendorInfo vendorInfo;
     private ProductInfo productInfo;

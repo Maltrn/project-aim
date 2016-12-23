@@ -13,6 +13,7 @@ import org.testng.annotations.Test;
 public class UserTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
+    private
     UserRepository userRepository;
 
     @Test

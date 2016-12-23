@@ -9,9 +9,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
 
-/**
- * Created by Rene on 31.10.2016.
- */
 @Document
 public abstract class Info
 {

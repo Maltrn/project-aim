@@ -27,7 +27,8 @@ public class Picture implements UploadedFile
     public Picture(String filepath)
     {
         this.location = filepath;
-        this.name = this.location.substring(0, this.location.length() - 4);
+        String[] fileName = location.split("/");
+        this.name = fileName[fileName.length - 1];
     }
 
     @Override
@@ -61,6 +62,12 @@ public class Picture implements UploadedFile
     public void setLocation(String location)
     {
         this.location = location;
+    }
+
+    @Override
+    public String getVendorId() {
+        String[] filepath = location.split("/");
+        return  filepath[filepath.length - 2];
     }
 
     @Override

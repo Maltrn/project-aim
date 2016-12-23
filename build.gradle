@@ -40,6 +40,7 @@ dependencies {
     compile("com.fasterxml.jackson.core:jackson-annotations:2.6.4")
     compile("com.fasterxml.jackson.core:jackson-databind:2.6.4")
     compile("org.json:json:20160810")
+    compile group: 'commons-io', name: 'commons-io', version: '2.5'
     testCompile("org.testng:testng:6.9.13.6")
     testCompile("org.testng:testng:6.10")
     testCompile("org.springframework:spring-test:4.3.4.RELEASE")

@@ -2,6 +2,7 @@ package de.haw.aim.authentication;
 
 import de.haw.aim.AIMServer;
 import de.haw.aim.AppConfig;
+import de.haw.aim.authentication.facade.AuthenticationInterface;
 import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.authentication.persistence.UserRepository;
 import de.haw.aim.uploadcenter.persistence.Picture;
@@ -30,23 +31,27 @@ import static io.restassured.RestAssured.given;
 public class AuthenticationRESTTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
+    private
     AuthenticationInterface authenticationInterface;
     @Autowired
+    private
     VendorInfoRepository vendorInfoRepository;
     @Autowired
+    private
     VendorRepository vendorRepository;
     @Autowired
+    private
     PictureRepository pictureRepository;
     @Autowired
+    private
     UserRepository userRepository;
 
-    User user;
-    String currentToken;
+    private String currentToken;
 
     @BeforeMethod
     public void setup() {
         userRepository.deleteAll();
-        user = authenticationInterface.create("wilhelm", "apfelstrudel");
+        User user = authenticationInterface.create("wilhelm", "apfelstrudel");
         user = authenticationInterface.login("wilhelm","apfelstrudel");
         currentToken = user.getCurrentToken();
         RestAssured.basePath = "/api";

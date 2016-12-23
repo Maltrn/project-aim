@@ -21,9 +21,11 @@ import java.util.List;
 public class InfoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
+    private
     ProductInfoRepository productInfoRepository;
 
     @Autowired
+    private
     PictureRepository pictureRepository;
 
     @BeforeMethod

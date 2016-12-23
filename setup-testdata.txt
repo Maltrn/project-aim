@@ -1,3 +1,0 @@
-# import db dump to have some great test data to play with
-# mongorestore has to be installed (package mongo-tools)
-mongorestore --host localhost:27017 --db test ./dumpdir/test
