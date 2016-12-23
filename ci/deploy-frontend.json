@@ -1,0 +1,33 @@
+{
+  "id": "project-aim-frontend",
+  "instances": 1,
+  "mem": 512,
+  "cpus": 0.2,
+  "cmd": "npm start",
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "meandor/project-aim-frontend",
+      "network": "BRIDGE",
+      "forcePullImage": true,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 31002
+        }
+      ]
+    }
+  },
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "portIndex": 0,
+      "path": "/",
+      "protocol": "HTTP",
+      "ignoreHttp1xx": false
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "project-aim-backend",
+  "instances": 1,
+  "mem": 512,
+  "cpus": 0.3,
+  "cmd": "java -jar project-aim.jar",
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "meandor/project-aim-backend",
+      "network": "BRIDGE",
+      "forcePullImage": true,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 31001
+        }
+      ]
+    }
+  },
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "intervalSeconds": 60,
+      "timeoutSeconds": 20,
+      "maxConsecutiveFailures": 3,
+      "portIndex": 0,
+      "path": "/api/internal/health",
+      "protocol": "HTTP",
+      "ignoreHttp1xx": false
+    }
+  ]
+}

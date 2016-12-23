@@ -1,0 +1,20 @@
+{
+  "id": "project-aim-db",
+  "instances": 1,
+  "mem": 1024,
+  "cpus": 0.1,
+  "container": {
+    "type": "DOCKER",
+    "docker": {
+      "image": "meandor/project-aim-db",
+      "network": "BRIDGE",
+      "forcePullImage": true,
+      "portMappings": [
+        {
+          "containerPort": 27017,
+          "hostPort": 31003
+        }
+      ]
+    }
+  }
+}
