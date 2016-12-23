@@ -4,7 +4,7 @@
 
 This microservice can add and maintain additional data to pbx provider and their products.
 
-It is build on the [Edison Microservice](https://github.com/otto-de/edison-microservice) and uses AngularJS.
+It is build on the [Edison Microservice](https://github.com/otto-de/edison-microservice) and uses Angular.
 
 ## Usage Backend
 This project uses gradle to build everything. There is a custom script to start the server, do all the testing and so on.
