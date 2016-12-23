@@ -1,10 +1,11 @@
 <configuration>
 
-    <contextName>example</contextName>
+    <contextName>Project A.I.M. Backend</contextName>
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%d{ISO8601} %-5p logger="%c" message="%m" thread="%t" %n</pattern>
+
+            <pattern>%d{ISO8601} [%thread] %highlight(%-5level) %cyan(%logger{15}) - %msg %n</pattern>
         </encoder>
     </appender>
 
