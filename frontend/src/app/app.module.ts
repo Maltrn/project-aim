@@ -21,6 +21,7 @@ import {ShortDiscriptionComponent} from "./informationComponents/short-descripti
 import {SortFilesComponent} from "./informationComponents/sort-files/sort-files.component";
 import {FileService} from "./uploadCenter/file.service";
 import {UploadCenter} from "./uploadCenter/uploadCenter";
+import {AuthGuard} from "./authentification/user.authguard";
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {UploadCenter} from "./uploadCenter/uploadCenter";
     VendorService,
     ProductService,
     ProfilePictureService,
-    FileService
+    FileService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

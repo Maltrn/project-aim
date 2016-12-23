@@ -1,5 +1,6 @@
 import {Component} from "@angular/core";
 import {UserService} from "./user.service";
+import {Router} from "@angular/router";
 
 @Component
 ({
@@ -8,11 +9,14 @@ import {UserService} from "./user.service";
 })
 
 export class UserLogin {
-  private loginResponse = {};
+  private loginResponse: any;
   private email: string;
   private password: string;
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
+    if (localStorage.getItem('user') != null) {
+      this.loginResponse = localStorage.getItem('user');
+    }
   }
 
   public login(): void {
@@ -21,6 +25,7 @@ export class UserLogin {
         if (data != "" && data != []) {
           this.loginResponse = data;
           localStorage.setItem('user', JSON.stringify(data));
+          this.router.navigate(['/vendor-info']);
         } else {
           console.log("Login response was empty");
         }
@@ -32,5 +37,7 @@ export class UserLogin {
 
   public logout(): void {
     localStorage.removeItem('user');
+    this.loginResponse = null;
+    this.router.navigate(['/login']);
   }
 }
