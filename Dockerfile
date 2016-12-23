@@ -1,11 +1,5 @@
-FROM meandor/ubuntu:xenial
-COPY . /var/opt/project-aim
-WORKDIR /var/opt/project-aim
-RUN ./bin/go bootRepackage
-WORKDIR frontend
-RUN npm install
-WORKDIR ..
-CMD ["./run.sh"]
-EXPOSE 27017
+FROM openjdk:8
 EXPOSE 8080
-EXPOSE 3000
+USER nobody
+COPY ./build/libs/project-aim.jar project-aim.jar
+CMD ["java", "-jar", "project-aim.jar"]
