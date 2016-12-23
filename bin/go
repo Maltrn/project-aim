@@ -17,6 +17,18 @@ function push-backend-image {
     docker push meandor/project-aim-backend
 }
 
+function dockerize-frontend {
+    cd frontend
+    docker build -t meandor/project-aim-frontend .
+    cd ..
+}
+
+function push-frontend-image {
+    cd frontend
+    docker push meandor/project-aim-frontend
+    cd ..
+}
+
 function help {
     echo "usage: $0 <task>
 task can be:
@@ -36,6 +48,10 @@ elif [ "$1" == "buildBackend" ]; then
     dockerize-backend
 elif [ "$1" == "publishBackend" ]; then
     push-backend-image
+elif [ "$1" == "buildFrontend" ]; then
+    dockerize-frontend
+elif [ "$1" == "publishFrontend" ]; then
+    push-frontend-image
 else
     ${SCRIPT_DIR}/gradlew $*
 fi
