@@ -17,8 +17,6 @@ import {VendorService} from "./informationComponents/main/vendor.service";
 import {ProductService} from "./informationComponents/main/product.service";
 import {ProfilePictureService} from "./informationComponents/profile-pic/profile-pic.service";
 import {ProfilePicComponent} from "./informationComponents/profile-pic/profile-pic.component";
-import {InMemoryWebApiModule} from "angular2-in-memory-web-api";
-import {MemService} from "./memService";
 import {ShortDiscriptionComponent} from "./informationComponents/short-description/short-discription.component";
 import {SortFilesComponent} from "./informationComponents/sort-files/sort-files.component";
 import {FileService} from "./uploadCenter/file.service";
@@ -44,7 +42,6 @@ import {UploadCenter} from "./uploadCenter/uploadCenter";
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(rootRouterConfig, {useHash: true}),
-    InMemoryWebApiModule.forRoot(MemService),
     CKEditorModule
   ],
   providers: [
