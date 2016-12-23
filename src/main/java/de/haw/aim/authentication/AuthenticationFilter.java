@@ -62,7 +62,7 @@ class AuthenticationFilter implements Filter {
 
     private boolean isPublicApiCall(HttpServletRequest req) {
         String method = req.getMethod();
-        String uri = req.getRequestURI().toString();
+        String uri = req.getRequestURI();
 
         return ((method.equals("POST") || method.equals("OPTIONS")) && uri.matches("^.*/login$")) ||
                 (method.equals("GET") && (uri.matches("^.*/file/[a-z0-9]*$") ||
