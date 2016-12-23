@@ -44,13 +44,19 @@ function push-test-db-image {
 function help {
     echo "usage: $0 <task>
 task can be:
-    help      -- This help message
-    check     -- Run all tests
-    clean     -- Clean working directory
-    cleanIdea -- Remove IntelliJ IDEA files
-    idea      -- Generate files for IntelliJ IDEA
+    help             -- This help message
+    buildBackend     -- Builds the backend docker image
+    publishBackend   -- Publishes the backend docker image to docker hub
+    buildFrontend    -- Builds the frontend docker image
+    publishFrontend  -- Publishes the frontend docker image to docker hub
+    buildDB          -- Builds the test database docker image
+    publishDB        -- Publishes the test database docker image to docker hub
+    check            -- Run all tests
+    clean            -- Clean working directory
+    cleanIdea        -- Remove IntelliJ IDEA files
+    idea             -- Generate files for IntelliJ IDEA
 
-              -- Anything else accepted by gradlew
+                     -- Anything else accepted by gradlew
     "
 }
 
