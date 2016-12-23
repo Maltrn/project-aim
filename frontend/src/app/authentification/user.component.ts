@@ -12,6 +12,7 @@ export class UserLogin {
   private loginResponse: any;
   private email: string;
   private password: string;
+  private error: string = "";
 
   constructor(private userService: UserService, private router: Router) {
     if (localStorage.getItem('user') != null) {
@@ -25,12 +26,14 @@ export class UserLogin {
         if (data != "" && data != []) {
           this.loginResponse = data;
           localStorage.setItem('user', JSON.stringify(data));
+          this.error = "";
           this.router.navigate(['/vendor-info']);
         } else {
           console.log("Login response was empty");
         }
       },
       err => {
+        this.error = "Login Daten sind ungültig";
         console.log(err);
       });
   }
@@ -38,6 +41,7 @@ export class UserLogin {
   public logout(): void {
     localStorage.removeItem('user');
     this.loginResponse = null;
+    this.error = "";
     this.router.navigate(['/login']);
   }
 }
