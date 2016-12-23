@@ -8,25 +8,29 @@ import {UserService} from "./user.service";
 })
 
 export class UserLogin {
-  private userDTO = {};
+  private loginResponse = {};
+  private email: string;
+  private password: string;
 
   constructor(private userService: UserService) {
   }
 
-  public login(username: string, password: string) {
-    //this.userService.login().subscribe(
-    //data => this.user = data,
-    //error => console.log("ERROR in REST API")
-    //);
+  public login(): void {
+    this.userService.login(this.email, this.password).subscribe(
+      data => {
+        if (data != "" && data != []) {
+          this.loginResponse = data;
+          localStorage.setItem('user', JSON.stringify(data));
+        } else {
+          console.log("Login response was empty");
+        }
+      },
+      err => {
+        console.log(err);
+      });
+  }
 
-    this.userService.login().subscribe(
-      data => this.userDTO = data,
-      error => console.log("ERROR in REST API")
-    );
-
-    localStorage.setItem('user', JSON.stringify(this.userDTO));
-
-
-    console.log(localStorage.getItem('user'));
+  public logout(): void {
+    localStorage.removeItem('user');
   }
 }
