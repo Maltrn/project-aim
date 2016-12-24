@@ -44,6 +44,15 @@ npm start
 
 The server will be available under: <http://localhost:3000>
 
+## Docker
+We use docker to build images to make the microservice deployable in containers. There are currently three images for this microservice.
+
+* [Backend](https://hub.docker.com/r/meandor/project-aim-backend/) This image contains the backend
+* [Frontend](https://hub.docker.com/r/meandor/project-aim-frontend/) This image contains the frontend
+* [TestDB](https://hub.docker.com/r/meandor/project-aim-db/) This image contains a MongoDB with test data that can be imported. 
+
+For more information read the instructions on each docker hub page.
+
 ## Fragenkatalog
 * Wie sehen die Schnittstellen aus die wir von den anderen Systemen nutzen können?
     * Es gibt nur eine Schnitstelle die wir nutzen, nämlich die Login-Schnitstelle. Diese soll von uns gemockt werden. Ggf. bekommen wir im Laufe des Projektes Zugriff auf die echte Login-Schnitstelle.
