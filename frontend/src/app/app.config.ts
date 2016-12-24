@@ -18,6 +18,9 @@ export class Settings {
 
   private _uploadCenterPictureFileTypes: string = "jpeg,gif,png,jpg";
 
+  // in bytes
+  private _uploadCenterMaxFileSize: number = 1024;
+
   private _uploadCenterPDFFileTypes: string = "pdf";
 
   /**
@@ -41,6 +44,10 @@ export class Settings {
 
   get fileGalleryMaxEntries(): number {
     return this._fileGalleryMaxEntries;
+  }
+
+  get uploadCenterMaxFileSize(): number {
+    return this._uploadCenterMaxFileSize;
   }
 
   get uploadCenterPictureFileTypes(): string {
