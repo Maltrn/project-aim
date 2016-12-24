@@ -2,11 +2,14 @@ import {Injectable} from "@angular/core";
 import {Http, Headers, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/map";
 import {Configs} from "../app.config";
+import {Router} from "@angular/router";
 
 @Injectable()
 export class UserService {
 
-  constructor(private http: Http) {
+  private isLoggedIn: boolean;
+
+  constructor(private http: Http, private router: Router) {
 
   }
 
@@ -22,5 +25,21 @@ export class UserService {
 
     return this.http.post(Configs.BACKEND_URL + "login", body, options)
       .map((res) => res.json());
+  }
+
+  /**
+   * Call this function when login status changes
+   */
+  changeLoginStatus(status: boolean) {
+    this.isLoggedIn = status;
+  }
+
+  /**
+   * Call this to log the user out
+   */
+  logout(): void {
+    localStorage.removeItem('user');
+    this.isLoggedIn = false;
+    this.router.navigate(['/login']);
   }
 }

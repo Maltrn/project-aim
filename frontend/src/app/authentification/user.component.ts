@@ -9,23 +9,21 @@ import {Router} from "@angular/router";
 })
 
 export class UserLogin {
-  private loginResponse: any;
+
   private email: string;
   private password: string;
   private error: string = "";
 
   constructor(private userService: UserService, private router: Router) {
-    if (localStorage.getItem('user') != null) {
-      this.loginResponse = localStorage.getItem('user');
-    }
+
   }
 
   public login(): void {
     this.userService.login(this.email, this.password).subscribe(
       data => {
         if (data != "" && data != []) {
-          this.loginResponse = data;
           localStorage.setItem('user', JSON.stringify(data));
+          this.userService.changeLoginStatus(true);
           this.error = "";
           this.router.navigate(['/vendor-info']);
         } else {
@@ -39,9 +37,7 @@ export class UserLogin {
   }
 
   public logout(): void {
-    localStorage.removeItem('user');
-    this.loginResponse = null;
     this.error = "";
-    this.router.navigate(['/login']);
+    this.userService.logout();
   }
 }

@@ -1,9 +1,9 @@
-<div class="row" *ngIf="loginResponse == null">
+<div class="row" *ngIf="!userService.isLoggedIn">
   <div class="col-md-12">
     <h2 class="page-header">Login</h2>
   </div>
 </div>
-<form *ngIf="loginResponse == null" (ngSubmit)="login()">
+<form *ngIf="!userService.isLoggedIn" (ngSubmit)="login()">
   <div class="row">
     <div class="col-md-offset-4 col-md-4">
       <div class="alert alert-danger" *ngIf="error != ''">
@@ -24,13 +24,13 @@
   </div>
 </form>
 
-<div class="row" *ngIf="loginResponse != null">
+<div class="row" *ngIf="userService.isLoggedIn">
   <div class="col-md-12">
     <h2 class="page-header">Logout</h2>
   </div>
 </div>
 
-<div class="row" *ngIf="loginResponse != null">
+<div class="row" *ngIf="userService.isLoggedIn">
   <div class="col-md-12">
     <a class="btn btn-primary" (click)="logout()">Abmelden</a>
   </div>
