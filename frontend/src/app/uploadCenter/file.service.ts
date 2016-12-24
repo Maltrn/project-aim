@@ -9,18 +9,21 @@ import {Observable} from "rxjs";
 export class FileService {
 
   private fileApiURL: string;
-  private headers: Headers;
 
   constructor(private _http: Http, private settings: Settings) {
     this.fileApiURL = this.settings.backendApiBaseUrl + "file";
-    this.headers = new Headers();
-    this.headers.append('Content-Type', 'application/json');
-    this.headers.append('Authorization', 'TOKEN gcmdjt9evcjpv9c994l5ltqe76');
+  }
+
+  private buildHeaders(): Headers {
+    let headers: Headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    headers.append('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
+    return headers;
   }
 
   public getAllFiles() {
     let result: UploadedFile[];
-    let options = new RequestOptions({headers: this.headers});
+    let options = new RequestOptions({headers: this.buildHeaders()});
     return this._http.get(this.fileApiURL, options).map(this.extractData).catch(this.handleError);
   }
 
