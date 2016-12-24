@@ -23,6 +23,7 @@ import {FileService} from "./uploadCenter/file.service";
 import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {AuthGuard} from "./authentification/user.authguard";
 import {Settings} from "./app.config";
+import {FileSizePipe} from "./uploadCenter/file-size.pipe";
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {Settings} from "./app.config";
     ShortDiscriptionComponent,
     SortFilesComponent,
     ProfilePicComponent,
-    UploadCenter
+    UploadCenter,
+    FileSizePipe
   ],
   imports: [
     BrowserModule,
