@@ -22,6 +22,7 @@ import {SortFilesComponent} from "./informationComponents/sort-files/sort-files.
 import {FileService} from "./uploadCenter/file.service";
 import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {AuthGuard} from "./authentification/user.authguard";
+import {Settings} from "./app.config";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {AuthGuard} from "./authentification/user.authguard";
     ProductService,
     ProfilePictureService,
     FileService,
-    AuthGuard
+    AuthGuard,
+    Settings
   ],
   bootstrap: [AppComponent]
 })

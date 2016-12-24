@@ -1,7 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Http, Headers, RequestOptions} from "@angular/http";
 import "rxjs/add/operator/map";
-import {Configs} from "../app.config";
+import {Settings} from "../app.config";
 import {Router} from "@angular/router";
 
 @Injectable()
@@ -9,7 +9,7 @@ export class UserService {
 
   private _isLoggedIn: boolean;
 
-  constructor(private http: Http, private router: Router) {
+  constructor(private http: Http, private router: Router, private settings: Settings) {
     this._isLoggedIn = localStorage.getItem('user') != null;
   }
 
@@ -23,7 +23,7 @@ export class UserService {
     let headers = new Headers({'Content-Type': 'application/json'});
     let options = new RequestOptions({headers: headers});
 
-    return this.http.post(Configs.BACKEND_URL + "login", body, options)
+    return this.http.post(this.settings.backendApiBaseUrl + "login", body, options)
       .map((res) => res.json());
   }
 
