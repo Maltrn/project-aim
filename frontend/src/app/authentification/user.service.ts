@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
 @Injectable()
 export class UserService {
 
-  private isLoggedIn: boolean;
+  private _isLoggedIn: boolean;
 
   constructor(private http: Http, private router: Router) {
 
@@ -31,7 +31,7 @@ export class UserService {
    * Call this function when login status changes
    */
   changeLoginStatus(status: boolean) {
-    this.isLoggedIn = status;
+    this._isLoggedIn = status;
   }
 
   /**
@@ -39,7 +39,12 @@ export class UserService {
    */
   logout(): void {
     localStorage.removeItem('user');
-    this.isLoggedIn = false;
+    this._isLoggedIn = false;
     this.router.navigate(['/login']);
+  }
+
+
+  get isLoggedIn(): boolean {
+    return this._isLoggedIn;
   }
 }
