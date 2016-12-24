@@ -64,7 +64,8 @@ class AuthenticationFilter implements Filter {
         String method = req.getMethod();
         String uri = req.getRequestURI();
 
-        return ((method.equals("POST") || method.equals("OPTIONS")) && uri.matches("^.*/login$")) ||
+        return (method.equals("OPTIONS") ||
+                method.equals("POST") && uri.matches("^.*/login$")) ||
                 (method.equals("GET") && (uri.matches("^.*/file/[a-z0-9]*$") ||
                         uri.matches("^.*/vendor$") ||
                         uri.matches("^.*/vendor/[a-zA-Z0-9\\.\\-\\_\\~\\:\\+\\,\\;\\=]*$") ||
