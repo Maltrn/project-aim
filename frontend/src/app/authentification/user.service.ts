@@ -10,7 +10,7 @@ export class UserService {
   private _isLoggedIn: boolean;
 
   constructor(private http: Http, private router: Router) {
-
+    this._isLoggedIn = localStorage.getItem('user') != null;
   }
 
   /**
