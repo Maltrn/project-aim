@@ -6,7 +6,8 @@ This microservice can add and maintain additional data to pbx provider and their
 
 It is build on the [Edison Microservice](https://github.com/otto-de/edison-microservice) and uses Angular.
 
-## Usage Backend
+## Backend
+### Usage
 This project uses gradle to build everything. There is a custom script to start the server, do all the testing and so on.
 
 To run the microservice simply use the go script:
@@ -30,7 +31,14 @@ The server will be available under: <http://localhost:8080/api>
 
 Swagger will be available under: <http://localhost:8080/api/swagger-ui.html>
 
-## Usage Frontend
+### Configurations
+All configurable settings for the backend can be found in the `./src/main/resources` folder.
+
+The `application.properties` file contains all applications settings like the mongo db host, port, etc.
+All other settings like accepted length of characters or accepted file types can be found in the `config.properties`
+
+## Frontend
+### Usage
 This project uses webpack to build everything and start the frontend. To start or stop the server change into its
 directory:
 ````bash
@@ -43,6 +51,9 @@ npm start
 ````
 
 The server will be available under: <http://localhost:3000>
+
+### Configurations
+All configurable variables can be found in the file: `./frontend/src/app/app.config.ts`.
 
 ## Docker
 We use docker to build images to make the microservice deployable in containers. There are currently three images for this microservice.
