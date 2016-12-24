@@ -20,7 +20,7 @@
         <div class="logo-container">
           <img src="img/logo.jpg" class="logo">
         </div>
-        <ul class="nav navbar-nav side-nav">
+        <ul class="nav navbar-nav side-nav" *ngIf="userService.isLoggedIn">
           <li [routerLinkActive]="['active']">
             <a [routerLink]="['/upload-center']">
               <i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Dateiverwaltung
