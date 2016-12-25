@@ -1,9 +1,9 @@
 import {Routes} from "@angular/router";
-import {UserLogin} from "./authentification/user.component";
+import {UserLogin} from "./authentication/user.component";
 import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {VendorInfoMain} from "./informationComponents/main/vendor-info-main.component";
 import {ProductInfoMain} from "./informationComponents/main/product-info-main.component";
-import {AuthGuard} from "./authentification/user.authguard";
+import {AuthGuard} from "./authentication/user.authguard";
 
 export const rootRouterConfig: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},

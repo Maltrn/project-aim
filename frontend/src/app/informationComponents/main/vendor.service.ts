@@ -7,7 +7,7 @@ import {Headers, Http, RequestOptions, Response} from "@angular/http";
 import {InfoDTO} from "./model/infoDTO";
 import 'rxjs/add/operator/toPromise';
 
-import {UserService} from "../../authentification/user.service";
+import {UserService} from "../../authentication/user.service";
 
 const vendorUrl = 'http://localhost:8080/api/vendor';
 const testUrl = 'api/vendor';

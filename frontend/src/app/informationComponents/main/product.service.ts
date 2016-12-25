@@ -3,7 +3,7 @@ import {Headers, Http} from "@angular/http";
 import {InfoDTO} from "./model/infoDTO";
 import 'rxjs/add/operator/toPromise';
 
-import { UserService } from "../../authentification/user.service";
+import {UserService} from "../../authentication/user.service";
 import {userInfo} from "os";
 
 @Injectable()

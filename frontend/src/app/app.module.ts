@@ -6,8 +6,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserModule} from "@angular/platform-browser";
 import {HttpModule} from "@angular/http";
 import {CKEditorModule} from "ng2-ckeditor";
-import {UserService} from "./authentification/user.service";
-import {UserLogin} from "./authentification/user.component";
+import {UserService} from "./authentication/user.service";
+import {UserLogin} from "./authentication/user.component";
 import {AddFilesComponent} from "./informationComponents/add-files/add-files.component";
 import {DetailedDescriptionComponent} from "./informationComponents/detailed-description/detailed-description.component";
 import {FactsTableComponent} from "./informationComponents/facts/facts.component";
@@ -21,7 +21,7 @@ import {ShortDiscriptionComponent} from "./informationComponents/short-descripti
 import {SortFilesComponent} from "./informationComponents/sort-files/sort-files.component";
 import {FileService} from "./uploadCenter/file.service";
 import {UploadCenter} from "./uploadCenter/uploadCenter";
-import {AuthGuard} from "./authentification/user.authguard";
+import {AuthGuard} from "./authentication/user.authguard";
 import {Settings} from "./app.config";
 import {FileSizePipe} from "./uploadCenter/file-size.pipe";
 
