@@ -28,7 +28,7 @@ export class Settings {
    * @type {string}
    * @private
    */
-  private _backendApiBaseUrl: string = "http://localhost:8080/api/";
+  private _backendApiBaseUrl: string = "http://aim.gartsy.de/api/";
 
   get shortDescriptionMaxLength(): number {
     return this._shortDescriptionMaxLength;
