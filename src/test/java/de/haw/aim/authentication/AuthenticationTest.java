@@ -15,7 +15,7 @@ public class AuthenticationTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private
-    AuthenticationCompoment authenticationCompoment;
+    AuthenticationComponent authenticationComponent;
 
     @Autowired
     private
@@ -30,27 +30,27 @@ public class AuthenticationTest extends AbstractTestNGSpringContextTests {
     {
         username = "Hans";
         password = "Sicherheit123";
-        hans = authenticationCompoment.create(username, password);
+        hans = authenticationComponent.create(username, password);
     }
 
     @Test
     public void loginTest()
     {
-        Assert.assertEquals(hans,authenticationCompoment.login(username, password));
-        Assert.assertNull(authenticationCompoment.login(username, "Sicherheit456"));
-        Assert.assertNull(authenticationCompoment.login("Franz", password));
+        Assert.assertEquals(hans, authenticationComponent.login(username, password));
+        Assert.assertNull(authenticationComponent.login(username, "Sicherheit456"));
+        Assert.assertNull(authenticationComponent.login("Franz", password));
     }
 
     @Test
     public void tokenTest()
     {
-        hans = authenticationCompoment.login(username, password);
+        hans = authenticationComponent.login(username, password);
         String token = hans.getCurrentToken();
-        Assert.assertTrue(authenticationCompoment.verifyToken(token));
+        Assert.assertTrue(authenticationComponent.verifyToken(token));
         String someRandomToken = "this is probably a non valid token, holy moly imagine if this test ever fails...";
-        Assert.assertFalse(authenticationCompoment.verifyToken(someRandomToken));
+        Assert.assertFalse(authenticationComponent.verifyToken(someRandomToken));
 
-        Assert.assertEquals(hans, authenticationCompoment.findByToken(token));
+        Assert.assertEquals(hans, authenticationComponent.findByToken(token));
     }
 
     @AfterClass

@@ -11,7 +11,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 @Component
-public class AuthenticationCompoment implements AuthenticationInterface
+public class AuthenticationComponent implements AuthenticationInterface
 {
 
     @Autowired

@@ -12,7 +12,7 @@ import java.io.IOException;
 class AuthenticationFilter implements Filter {
 
     @Autowired
-    private AuthenticationCompoment authenticationCompoment;
+    private AuthenticationComponent authenticationComponent;
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
@@ -37,7 +37,7 @@ class AuthenticationFilter implements Filter {
                 // Extract the token from the HTTP Authorization header
                 String token = authorizationHeader.substring("TOKEN".length()).trim();
 
-                if (!(authenticationCompoment.verifyToken(token) || token.equals("handsomeTOKEN"))) // handsomeTOKEN just for debugging perposes
+                if (!(authenticationComponent.verifyToken(token) || token.equals("handsomeTOKEN"))) // handsomeTOKEN just for debugging perposes
                 {
                     httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED,
                             "Token '" + token + "' is invalid. You should log-in again to get a new valid token.");

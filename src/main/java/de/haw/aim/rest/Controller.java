@@ -33,49 +33,42 @@ import static org.springframework.http.HttpStatus.UNAUTHORIZED;
 
 @CrossOrigin
 @RestController
-public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
-{
-    @Autowired
-    private
-    DataImporter dataImporter;
+public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
 
     @Autowired
-    private
-    AuthenticationInterface authenticationCompoment;
+    private DataImporter dataImporter;
 
     @Autowired
-    private
-    IVendor iVendor;
+    private AuthenticationInterface authComponent;
 
     @Autowired
-    private
-    IUploadCenter iUploadCenter;
+    private IVendor iVendor;
+
+    @Autowired
+    private IUploadCenter iUploadCenter;
 
     @Value("${uploadcenter.fileslocation}")
     String fileLocationFolder;
 
     @Override
-    public ResponseEntity<List<InfoDTO>> vendorGet()
-    {
+    public ResponseEntity<List<InfoDTO>> vendorGet() {
         List<InfoDTO> retVal = new ArrayList<>();
 
-        for(Vendor v : iVendor.getVendors())
-        {
+        for (Vendor v : iVendor.getVendors()) {
             retVal.add(InfoDTO.from(v.getVendorInfo()));
         }
 
-        return new ResponseEntity<>(retVal,HttpStatus.OK);
+        return new ResponseEntity<>(retVal, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<InfoDTO> vendorIdGet(
             @ApiParam(value = "ID des Anbieters dessen Anbieterinformationen abgefragt werden", required = true)
-            @PathVariable("id") String id)
-    {
+            @PathVariable("id") String id) {
         Vendor retVal = iVendor.getVendor(id);
-        if(retVal == null)
+        if (retVal == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(InfoDTO.from(retVal.getVendorInfo()),HttpStatus.OK);
+        return new ResponseEntity<>(InfoDTO.from(retVal.getVendorInfo()), HttpStatus.OK);
     }
 
     @Override
@@ -83,16 +76,15 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true)
             @RequestBody InfoDTO infodto,
             @RequestHeader("Authorization") String headerToken)
-            throws ValueDoesntValidateToConfigFileException
-    {
+            throws ValueDoesntValidateToConfigFileException {
         // fetch token from header for user lookup
         String token = headerToken.substring("TOKEN".length()).trim();
 
         // find user by token provided from header
-        User currentUser = authenticationCompoment.findByToken(token);
+        User currentUser = authComponent.findByToken(token);
 
         // if no user found for token return Bad Request
-        if(currentUser == null)
+        if (currentUser == null)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         // otherwise get Vendor for User to update vendor info
@@ -109,18 +101,16 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         // set ID to actual vendor ID
         vendorInfo.setId(vendor.getId());
-        if(iVendor.putVendor(vendorInfo) != null)
+        if (iVendor.putVendor(vendorInfo) != null)
             return new ResponseEntity<>(HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @Override
-    public ResponseEntity<List<InfoDTO>> productGet()
-    {
+    public ResponseEntity<List<InfoDTO>> productGet() {
         List<InfoDTO> retVal = new ArrayList<>();
 
-        for(ProductInfo p : iVendor.getProducts())
-        {
+        for (ProductInfo p : iVendor.getProducts()) {
             retVal.add(InfoDTO.from(p));
         }
 
@@ -130,12 +120,11 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     @Override
     public ResponseEntity<InfoDTO> productIdGet(
             @ApiParam(value = "ID des Produktes dessen Produktinformationen abgefragt werden", required = true)
-            @PathVariable("id") String id)
-    {
+            @PathVariable("id") String id) {
         ProductInfo retVal = iVendor.getProduct(id);
-        if(retVal == null)
+        if (retVal == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return new ResponseEntity<>(InfoDTO.from(retVal),HttpStatus.OK);
+        return new ResponseEntity<>(InfoDTO.from(retVal), HttpStatus.OK);
     }
 
     @Override
@@ -145,16 +134,15 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @ApiParam(value = "aktualisiertes oder neues Produktinfo Objekt", required = true)
             @RequestBody InfoDTO infoDTO,
             @RequestHeader("Authorization") String headerToken)
-            throws ValueDoesntValidateToConfigFileException
-    {
+            throws ValueDoesntValidateToConfigFileException {
         // fetch token from header for user lookup
         String token = headerToken.substring("TOKEN".length()).trim();
 
         // find user by token provided from header
-        User currentUser = authenticationCompoment.findByToken(token);
+        User currentUser = authComponent.findByToken(token);
 
         // if no user found for token return Bad Request
-        if(currentUser == null)
+        if (currentUser == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         // after that check infoDTO
@@ -174,20 +162,18 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         iVendor.saveVendor(vendor);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
     // FIXME think about namespace maybe "GET /fileIdList"
     @Override
-    public ResponseEntity<List<String>> fileGet(
-            @RequestHeader("Authorization") String headerToken
-    )
-    {
+    public ResponseEntity<List<String>> fileGet(@RequestHeader("Authorization") String headerToken) {
         // fetch token from header for user lookup
         String token = headerToken.substring("TOKEN".length()).trim();
 
         // find user by token provided from header
-        User currentUser = authenticationCompoment.findByToken(token);
+        User currentUser = authComponent.findByToken(token);
 
         // if no user found for token return Bad Request
-        if(currentUser == null)
+        if (currentUser == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         // Otherwise we can get the Vendor for the user
@@ -195,7 +181,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
 
         List<String> retVal = vendor.getFiles().stream().map(UploadedFile::getId).collect(Collectors.toList());
 
-        return new ResponseEntity<>(retVal,HttpStatus.OK);
+        return new ResponseEntity<>(retVal, HttpStatus.OK);
     }
 
     @Override
@@ -203,8 +189,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @ApiParam(value = "ID der Datei welche aberufen werden soll", required = true)
             @PathVariable("id") String id) {
         // If the given ID does not exist please tell that the user
-        if(!iUploadCenter.checkForExistence(id))
-        {
+        if (!iUploadCenter.checkForExistence(id)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
@@ -238,24 +223,21 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
             @ApiParam(value = "ID der Datei welche überschrieben werden soll", required = true)
             @PathVariable("id") String id, @ApiParam(value = "file detail")
             @RequestPart("file") MultipartFile file,
-            @RequestHeader("Authorization") String headerToken)
-    {
+            @RequestHeader("Authorization") String headerToken) {
         // fetch token from header for user lookup
         String token = headerToken.substring("TOKEN".length()).trim();
 
         // find user by token provided from header
-        User currentUser = authenticationCompoment.findByToken(token);
+        User currentUser = authComponent.findByToken(token);
 
         // if no user found for token return Bad Request
-        if(currentUser == null)
+        if (currentUser == null)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         // Let the UploadCenter replace the file
-        try
-        {
-            iUploadCenter.replaceFile(id,file);
-        } catch (IOException e)
-        {
+        try {
+            iUploadCenter.replaceFile(id, file);
+        } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
@@ -266,16 +248,15 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     public ResponseEntity<String> filePut(
             @ApiParam(value = "file detail")
             @RequestPart("file") MultipartFile file,
-            @RequestHeader("Authorization") String headerToken)
-    {
+            @RequestHeader("Authorization") String headerToken) {
         // fetch token from header for user lookup
         String token = headerToken.substring("TOKEN".length()).trim();
 
         // find user by token provided from header
-        User currentUser = authenticationCompoment.findByToken(token);
+        User currentUser = authComponent.findByToken(token);
 
         // if no user found for token return Bad Request
-        if(currentUser == null)
+        if (currentUser == null)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
         // Otherwise we can get the Vendor for the user
@@ -284,11 +265,9 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         // Now we can try to create an uploadedFile
         UploadedFile uploadedFile;
 
-        try
-        {
+        try {
             uploadedFile = iUploadCenter.uploadFile(file, vendor.getId());
-        } catch (IOException e)
-        {
+        } catch (IOException e) {
             // If the UploadedFile creation fails, we can assume the file is invalid
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -299,37 +278,32 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
         // Save the Vendor Entity
         iVendor.saveVendor(vendor);
 
-        return new ResponseEntity<>(uploadedFile.getId(),HttpStatus.OK);
+        return new ResponseEntity<>(uploadedFile.getId(), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<UserDTO> loginPost(
             @ApiParam(value = "Username und Passwort", required = true)
-            @RequestBody LoginRequest loginRequest)
-    {
+            @RequestBody LoginRequest loginRequest) {
         System.out.println("inside login: " + loginRequest.getUsername() + " pw: " + loginRequest.getPassword());
         // try to get user based on username and password
-        User user = authenticationCompoment.login(loginRequest.getUsername(), loginRequest.getPassword());
+        User user = authComponent.login(loginRequest.getUsername(), loginRequest.getPassword());
         // if user is null do some error handling
-        if (user == null)
-        {
+        if (user == null) {
             return new ResponseEntity<>(UNAUTHORIZED);
         }
         // find vendor for user
         Vendor usersVendor = iVendor.getVendor(user);
 
         // if vendor is null do some error handling
-        if (usersVendor == null)
-        {
+        if (usersVendor == null) {
             return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
         }
 
         // Try to synchronize the DB from Symphony, if this fails we signal the Service is not available
-        try
-        {
+        try {
             dataImporter.synchronize();
-        } catch (ServiceUnavailableException e)
-        {
+        } catch (ServiceUnavailableException e) {
             return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
         }
 
@@ -345,8 +319,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi
     }
 
     @ExceptionHandler(ValueDoesntValidateToConfigFileException.class)
-    public ResponseEntity<String> invalidValue(Exception ex)
-    {
+    public ResponseEntity<String> invalidValue(Exception ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
