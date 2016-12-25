@@ -34,6 +34,18 @@ export class ProductService extends ServiceBase {
   }
 
   /**
+   * Returns one product with the given product id
+   * @param product Product that should be updated
+   * @returns {Observable<R>}
+   */
+  public updateProduct(product): Observable<Response> {
+    let options = new RequestOptions({headers: this.buildHeaders()});
+    return this._http.put(this.productApiURL + product.id, JSON.stringify(product), options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  /**
    * Obsolete, please change the product-info-main.component.ts so this is not needed anymore!!!
    * @returns {[{id: string, name: string, shortDescription: string, longDescription: string, mainPic: string, fileGallery: [string,string,string,string], facts: [{first fact: string},{Roses are red: string}]},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: string, fileGallery: Array, facts: [{diameter: string},{length: string}]},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array},{id: string, name: string, shortDescription: string, longDescription: string, mainPic: null, fileGallery: Array, facts: Array}]}
    */
