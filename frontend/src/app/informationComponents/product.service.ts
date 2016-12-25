@@ -2,10 +2,10 @@ import {Injectable} from "@angular/core";
 import {Http, Response, RequestOptions} from "@angular/http";
 import {Observable} from "rxjs";
 import {Settings} from "../app.config";
-import {ServiceBase} from "../service";
+import {BaseService} from "../service";
 
 @Injectable()
-export class ProductService extends ServiceBase {
+export class ProductService extends BaseService {
 
   private productApiURL: string;
 

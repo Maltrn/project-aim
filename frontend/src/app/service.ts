@@ -1,7 +1,7 @@
 import {Response, Headers} from "@angular/http";
 import {Observable} from "rxjs";
 
-export abstract class ServiceBase {
+export abstract class BaseService {
 
   protected buildHeaders(): Headers {
     let headers: Headers = new Headers();

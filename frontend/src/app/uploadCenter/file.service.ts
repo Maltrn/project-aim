@@ -3,10 +3,10 @@ import {Settings} from "../app.config";
 import {Http, Headers, RequestOptions} from "@angular/http";
 import 'rxjs/Rx';
 import {UploadedFile} from "./uploadedFile";
-import {ServiceBase} from "../service";
+import {BaseService} from "../service";
 
 @Injectable()
-export class FileService extends ServiceBase {
+export class FileService extends BaseService {
 
   private fileApiURL: string;
 
