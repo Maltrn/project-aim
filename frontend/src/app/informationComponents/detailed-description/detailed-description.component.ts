@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {VendorService} from "../main/vendor.service";
+import {VendorService} from "../vendor.service";
 
 @Component
 ({

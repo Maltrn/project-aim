@@ -1,30 +1,43 @@
 import {Component, OnInit} from "@angular/core";
-import { ProductService } from "../main/product.service";
-import { InfoDTO } from "../main/model/infoDTO";
+import {InfoDTO} from "../main/model/infoDTO";
+import {UserService} from "../../authentication/user.service";
+import {ProductService} from "../product.service";
 
 
 @Component
 ({
-    selector: 'product-info-main',
-    templateUrl: './view/product-info-main.component.html'
+  selector: 'product-info-main',
+  templateUrl: './view/product-info-main.component.html'
 })
 
 /*
-TODO Wird momentan von Dustin bearbeitet.
-TODO Anzeigekonflikt Vendor/Product bewältigen.
+ TODO Wird momentan von Dustin bearbeitet.
+ TODO Anzeigekonflikt Vendor/Product bewältigen.
  */
-export class ProductInfoMain implements OnInit{
-    productName: string = 'Produktname';
-    product: InfoDTO;
+export class ProductInfoMain implements OnInit {
 
-    constructor(
-        private productService: ProductService
-    ) { }
+  private products;
+  productName: string = 'Produktname';
+  product: InfoDTO;
 
-    ngOnInit(): void {
-        this.productService.loadMock();
-      // this.productService.loadProductInformation();
-        this.productName = this.productService.getProductInformationDto().name; // Mock
-        console.log("Product-Info-Mail aufruf"); // Zum debuggen
-    }
+  constructor(private productService: ProductService, private userService: UserService) {
+  }
+
+  ngOnInit(): void {
+    this.productService.loadMock();
+    // this.productService.loadProductInformation();
+    this.productName = this.productService.getProductInformationDto().name; // Mock
+    console.log("Product-Info-Mail aufruf"); // Zum debuggen
+  }
+
+  private loadProducts() {
+    this.productService.getAllProducts().subscribe(
+      data => this.products = data,
+      error => {
+        console.log("ERROR in REST API");
+        if (error.indexOf("401") !== -1) {
+          this.userService.logout();
+        }
+      });
+  }
 }

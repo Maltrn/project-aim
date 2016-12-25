@@ -13,8 +13,8 @@ import {DetailedDescriptionComponent} from "./informationComponents/detailed-des
 import {FactsTableComponent} from "./informationComponents/facts/facts.component";
 import {VendorInfoMain} from "./informationComponents/main/vendor-info-main.component";
 import {ProductInfoMain} from "./informationComponents/main/product-info-main.component";
-import {VendorService} from "./informationComponents/main/vendor.service";
-import {ProductService} from "./informationComponents/main/product.service";
+import {VendorService} from "./informationComponents/vendor.service";
+import {ProductService} from "./informationComponents/product.service";
 import {ProfilePictureService} from "./informationComponents/profile-pic/profile-pic.service";
 import {ProfilePicComponent} from "./informationComponents/profile-pic/profile-pic.component";
 import {ShortDiscriptionComponent} from "./informationComponents/short-description/short-discription.component";

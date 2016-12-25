@@ -4,10 +4,10 @@
 
 import {Injectable} from "@angular/core";
 import {Headers, Http, RequestOptions, Response} from "@angular/http";
-import {InfoDTO} from "./model/infoDTO";
+import {InfoDTO} from "./main/model/infoDTO";
 import 'rxjs/add/operator/toPromise';
 
-import {UserService} from "../../authentication/user.service";
+import {UserService} from "../authentication/user.service";
 
 const vendorUrl = 'http://localhost:8080/api/vendor';
 const testUrl = 'api/vendor';

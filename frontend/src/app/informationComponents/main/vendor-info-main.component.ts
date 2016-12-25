@@ -1,5 +1,5 @@
 import {Component, OnInit} from "@angular/core";
-import {VendorService} from "../main/vendor.service";
+import {VendorService} from "../vendor.service";
 import {InfoDTO} from "../main/model/infoDTO";
 
 
