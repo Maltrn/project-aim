@@ -1,24 +1,18 @@
 import {Injectable} from "@angular/core";
 import {Settings} from "../app.config";
-import {Http, Response, Headers, RequestOptions} from "@angular/http";
+import {Http, Headers, RequestOptions} from "@angular/http";
 import 'rxjs/Rx';
 import {UploadedFile} from "./uploadedFile";
-import {Observable} from "rxjs";
+import {ServiceBase} from "../service";
 
 @Injectable()
-export class FileService {
+export class FileService extends ServiceBase {
 
   private fileApiURL: string;
 
   constructor(private _http: Http, private settings: Settings) {
+    super();
     this.fileApiURL = this.settings.backendApiBaseUrl + "file";
-  }
-
-  private buildHeaders(): Headers {
-    let headers: Headers = new Headers();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
-    return headers;
   }
 
   public getAllFiles() {
@@ -45,23 +39,5 @@ export class FileService {
 
     return this._http.put(this.fileApiURL + "/" + file.id, JSON.stringify(file), {headers: headers})
       .map(res => res.json());
-  }
-
-  private extractData(res: Response) {
-    let body = res.json();
-    return body;
-  }
-
-  private handleError(error: Response | any) {
-    let errMsg: string;
-    if (error instanceof Response) {
-      const body = error.json() || '';
-      const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    } else {
-      errMsg = error.message ? error.message : error.toString();
-    }
-    console.error(errMsg);
-    return Observable.throw(errMsg);
   }
 }
