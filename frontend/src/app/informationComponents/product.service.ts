@@ -11,7 +11,7 @@ export class ProductService extends ServiceBase {
 
   constructor(private _http: Http, private settings: Settings) {
     super();
-    this.productApiURL = this.settings.backendApiBaseUrl + "product";
+    this.productApiURL = this.settings.backendApiBaseUrl + "product/";
   }
 
   /**
@@ -21,6 +21,16 @@ export class ProductService extends ServiceBase {
   public getAllProducts(): Observable<Response> {
     let options = new RequestOptions({headers: this.buildHeaders()});
     return this._http.get(this.productApiURL, options).map(this.extractData).catch(this.handleError);
+  }
+
+  /**
+   * Returns one product with the given product id
+   * @param id ID of the product
+   * @returns {Observable<R>}
+   */
+  public getProduct(id: string): Observable<Response> {
+    let options = new RequestOptions({headers: this.buildHeaders()});
+    return this._http.get(this.productApiURL + id, options).map(this.extractData).catch(this.handleError);
   }
 
   /**
