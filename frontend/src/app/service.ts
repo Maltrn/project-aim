@@ -11,8 +11,7 @@ export abstract class ServiceBase {
   }
 
   protected extractData(res: Response) {
-    let body = res.json();
-    return body;
+    return res.json();
   }
 
   protected handleError(error: Response | any) {
