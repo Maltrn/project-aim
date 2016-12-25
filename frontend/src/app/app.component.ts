@@ -8,6 +8,6 @@ import {UserService} from "./authentication/user.service";
 export class AppComponent {
 
   constructor(private userService: UserService) {
-    console.log(localStorage.getItem('user'));
+
   }
 }
