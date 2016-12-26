@@ -4,8 +4,8 @@ import de.haw.aim.uploadcenter.facade.IUploadCenter;
 import de.haw.aim.uploadcenter.persistence.*;
 import de.haw.aim.validator.ValueDoesntValidateToConfigFileException;
 import de.haw.aim.vendor.VendorComponent;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -32,7 +32,7 @@ public class UploadCenter implements IUploadCenter {
 
     private final Path uploadedFilesLocation;
 
-    private final Log logger = LogFactory.getLog(getClass());
+    private final Logger logger = LoggerFactory.getLogger(UploadCenter.class);
 
     public UploadCenter(@Value("${uploadcenter.fileslocation}") String fileLocationFolder) {
         this.uploadedFilesLocation = Paths.get(fileLocationFolder);

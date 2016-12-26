@@ -16,6 +16,8 @@ import de.haw.aim.vendor.persistence.Vendor;
 import de.haw.aim.vendor.persistence.VendorInfo;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -48,7 +50,9 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
     private IUploadCenter iUploadCenter;
 
     @Value("${uploadcenter.fileslocation}")
-    String fileLocationFolder;
+    private String fileLocationFolder;
+
+    private final Logger log = LoggerFactory.getLogger(Controller.class);
 
     @Override
     public ResponseEntity<List<InfoDTO>> vendorGet() {
@@ -194,7 +198,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
         }
 
         // otherwise get our UploadedFile Entity
-        String location = fileLocationFolder + iUploadCenter.findById(id).getLocation();
+        String location = fileLocationFolder + File.separator + iUploadCenter.findById(id).getLocation();
 
         // Create a file from its path
         File file = new File(location);
@@ -205,8 +209,10 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
             fileResponse = IOUtils.toByteArray(targetStream);
             //contentType = Files.probeContentType(Paths.get(file.getPath()));
         } catch (FileNotFoundException e) {
+            this.log.error("file not found", e);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (IOException e) {
+            this.log.error("io exception", e);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
