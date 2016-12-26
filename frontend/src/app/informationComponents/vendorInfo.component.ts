@@ -22,11 +22,11 @@ export class VendorInfo {
     "facts": []
   };
 
-  private description: string;
+  private shortDescriptionTag: string;
 
-  private shortDescription: any;
+  private longDescriptionTag: string;
 
-  private renderShortDescription: boolean;
+  private renderDescriptions: boolean;
 
   constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings) {
     this.renderShortDescription = false;
@@ -40,8 +40,8 @@ export class VendorInfo {
     this.vendorService.getVendor(id).subscribe(
       data => {
         this.vendor = data;
-        this.renderShortDescription = true;
-        this.updateShortDescriptionText();
+        this.renderDescriptions = true;
+        this.updateDescriptionsTag();
       },
       error => {
         console.log("ERROR in REST API");
@@ -53,33 +53,44 @@ export class VendorInfo {
 
   // events
   public onChange(e: any): void {
-    this.updateShortDescriptionText();
+    this.updateDescriptionsTag();
   }
 
   public onReady(e: any): void {
-    this.updateShortDescriptionText();
+    this.updateDescriptionsTag();
   }
 
   public onFocus(e: any): void {
-    this.updateShortDescriptionText();
+    this.updateDescriptionsTag();
   }
 
   public onBlur(e: any): void {
-    this.updateShortDescriptionText();
+    this.updateDescriptionsTag();
   }
 
-  private updateShortDescriptionText(): void {
-    this.description = 'Maximale Anzahl der Zeichen: ';
-    let actualLength = this.sanitizedTextLenght(this.vendor.shortDescription);
-    if (actualLength > this.settings.shortDescriptionMaxLength) {
-      this.description += "<span class=\"text-danger\">" + actualLength + "</span>";
+  private updateDescriptionsTag(): void {
+    this.shortDescriptionTag = 'Maximale Anzahl der Zeichen: ';
+    let actualShortDescriptionLength = this.sanitizedTextLength(this.vendor.shortDescription);
+
+    this.longDescriptionTag = 'Maximale Anzahl der Zeichen: ';
+    let actualLongDescriptionLength = this.sanitizedTextLength(this.vendor.longDescription);
+
+    if (actualShortDescriptionLength > this.settings.shortDescriptionMaxLength) {
+      this.shortDescriptionTag += "<span class=\"text-danger\">" + actualShortDescriptionLength + "</span>";
     } else {
-      this.description += actualLength;
+      this.shortDescriptionTag += actualShortDescriptionLength;
     }
-    this.description += '/' + this.settings.shortDescriptionMaxLength;
+    this.shortDescriptionTag += '/' + this.settings.shortDescriptionMaxLength;
+
+    if (actualLongDescriptionLength > this.settings.longDescriptionsMaxLength) {
+      this.longDescriptionTag += "<span class=\"text-danger\">" + actualLongDescriptionLength + "</span>";
+    } else {
+      this.longDescriptionTag += actualLongDescriptionLength;
+    }
+    this.longDescriptionTag += '/' + this.settings.longDescriptionsMaxLength;
   }
 
-  private sanitizedTextLenght(text: string): number {
+  private sanitizedTextLength(text: string): number {
     let sanitized: string = text.replace(/(<(?:.|\n)*?>|(?:\r\n|\r|\n))/gm, '');
     return sanitized.length;
   }

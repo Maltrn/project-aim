@@ -20,12 +20,12 @@
   <div class="col-md-12">
     <h3 class="page-header">
       <i class="fa fa-file-text-o" aria-hidden="true"></i> Kurzbeschreibung
-      <small [innerHtml]="description"></small>
+      <small [innerHtml]="shortDescriptionTag"></small>
     </h3>
   </div>
 </div>
 
-<div class="row" *ngIf="renderShortDescription">
+<div class="row" *ngIf="renderDescriptions">
   <div class="col-md-12">
     <ckeditor
       [(ngModel)]="vendor.shortDescription"
@@ -38,3 +38,24 @@
   </div>
 </div>
 
+<div class="row">
+  <div class="col-md-12">
+    <h3 class="page-header">
+      <i class="fa fa-file-text-o" aria-hidden="true"></i> Detailbeschreibung
+      <small [innerHtml]="longDescriptionTag"></small>
+    </h3>
+  </div>
+</div>
+
+<div class="row" *ngIf="renderDescriptions">
+  <div class="col-md-12">
+    <ckeditor
+      [(ngModel)]="vendor.longDescription"
+      (change)="onChange($event)"
+      (ready)="onReady($event)"
+      (focus)="onFocus($event)"
+      (blur)="onBlur($event)"
+      debounce="1000">
+    </ckeditor>
+  </div>
+</div>
