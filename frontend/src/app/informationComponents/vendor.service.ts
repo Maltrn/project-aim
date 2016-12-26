@@ -1,45 +1,47 @@
-/**
- * Created by Spustin Dallek
- */
-
 import {Injectable} from "@angular/core";
-import {Headers, Http, RequestOptions, Response} from "@angular/http";
-import {InfoDTO} from "./main/model/infoDTO";
-import 'rxjs/add/operator/toPromise';
-
-import {UserService} from "../authentication/user.service";
-
-const vendorUrl = 'http://localhost:8080/api/vendor';
-const testUrl = 'api/vendor';
+import {Http, Response, RequestOptions} from "@angular/http";
+import {BaseService} from "../service";
+import {Observable} from "rxjs";
+import {Settings} from "../app.config";
 
 @Injectable()
-export class VendorService
-{
-    constructor(private http: Http, private userService: UserService){}
+export class VendorService extends BaseService {
 
-    getVendorInformation(): Promise<InfoDTO>
-    {
-      let user = JSON.parse(localStorage.getItem('user'));
-      let id = user.loginResponse.vendorInfoId;
-      let url = `${vendorUrl}/${id}`;
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-       // let token = this.userService.token;
-        //headers.append('Authorization', token);
-        let options = new RequestOptions({ headers: headers });
+  private vendorApiURL: string;
 
-        return this.http.get(testUrl, options)
-            .toPromise()
-            .then(response => response.json().data as InfoDTO)
-            .catch(this.handleError);
-    }
+  constructor(private _http: Http, private settings: Settings) {
+    super();
+    this.vendorApiURL = this.settings.backendApiBaseUrl + "vendor/";
+  }
 
-    handleError(res: Response): string
-    {
-        if(res.status == 401)
-        {
-            alert(res.status);
-            return 'Authorisierung fehlgeschlagen';
-        }
+  /**
+   * Returns observable with all vendors the user is allowed to access.
+   * @returns {Observable<R>}
+   */
+  public getVendors(): Observable<Response> {
+    let options = new RequestOptions({headers: this.buildHeaders()});
+    return this._http.get(this.vendorApiURL, options).map(this.extractData).catch(this.handleError);
+  }
 
-    }
+  /**
+   * Returns observable with a specific vendor based on the given id
+   * @param id ID of the vendor
+   * @returns {Observable<R>}
+   */
+  public getVendor(id: string): Observable<Response> {
+    let options = new RequestOptions({headers: this.buildHeaders()});
+    return this._http.get(this.vendorApiURL + id, options).map(this.extractData).catch(this.handleError);
+  }
+
+  /**
+   * Returns observable with the response of a put request to update a given vendor.
+   * @param vendor Vendor object with the updated values
+   * @returns {Observable<R>}
+   */
+  public updateVendor(vendor): Observable<Response> {
+    let options = new RequestOptions({headers: this.buildHeaders()});
+    let body = JSON.stringify(vendor);
+    return this._http.put(this.vendorApiURL, body, options).map(this.extractData).catch(this.handleError);
+  }
+
 }
