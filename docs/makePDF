@@ -1,7 +1,6 @@
 #!/bin/bash
+rm -rf *.loc *.glg *.glo *.gls *.glsdef *.ist *.log *.out *.aux *.toc *.glsdefs
 pdflatex Pflichtenheft.tex
 makeglossaries Pflichtenheft
 pdflatex Pflichtenheft.tex
 pdflatex Pflichtenheft.tex
-
-
