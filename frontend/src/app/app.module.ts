@@ -11,7 +11,7 @@ import {UserLogin} from "./authentication/user.component";
 import {AddFilesComponent} from "./informationComponents/add-files/add-files.component";
 import {DetailedDescriptionComponent} from "./informationComponents/detailed-description/detailed-description.component";
 import {FactsTableComponent} from "./informationComponents/facts/facts.component";
-import {VendorInfoMain} from "./informationComponents/main/vendor-info-main.component";
+import {VendorInfo} from "./informationComponents/vendorInfo.component";
 import {ProductInfoMain} from "./informationComponents/main/product-info-main.component";
 import {VendorService} from "./informationComponents/vendor.service";
 import {ProductService} from "./informationComponents/product.service";
@@ -32,7 +32,7 @@ import {FileSizePipe} from "./uploadCenter/file-size.pipe";
     AddFilesComponent,
     DetailedDescriptionComponent,
     FactsTableComponent,
-    VendorInfoMain,
+    VendorInfo,
     ProductInfoMain,
     ShortDiscriptionComponent,
     SortFilesComponent,
