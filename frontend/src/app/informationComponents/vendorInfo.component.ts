@@ -54,22 +54,18 @@ export class VendorInfo {
   // events
   public onChange(e: any): void {
     this.updateShortDescriptionText();
-    console.log(e);
   }
 
   public onReady(e: any): void {
     this.updateShortDescriptionText();
-    console.log(e);
   }
 
   public onFocus(e: any): void {
     this.updateShortDescriptionText();
-    console.log(e);
   }
 
   public onBlur(e: any): void {
     this.updateShortDescriptionText();
-    console.log(e);
   }
 
   private updateShortDescriptionText(): void {
