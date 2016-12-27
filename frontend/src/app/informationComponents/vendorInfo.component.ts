@@ -1,4 +1,4 @@
-import {Component, Pipe, PipeTransform} from "@angular/core";
+import {Component} from "@angular/core";
 import {VendorService} from "./vendor.service";
 import {UserService} from "../authentication/user.service";
 import {Settings} from "../app.config";
@@ -135,6 +135,17 @@ export class VendorInfo {
         this.vendor.facts[newIndex] = this.vendor.facts[oldIndex];
         this.vendor.facts[oldIndex] = originalFact;
       }
+    }
+  }
+
+  private addFact(): void {
+    if (this.newFactName != "" && this.newFactDescription != "") {
+      let newFact = {};
+      newFact[this.newFactName] = this.newFactDescription;
+      this.vendor.facts.push(newFact);
+      this.newFactName = "";
+      this.newFactDescription = "";
+      this.updateMaxFactsEntriesTag();
     }
   }
 

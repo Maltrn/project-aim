@@ -97,9 +97,18 @@
         </td>
       </tr>
       <tr>
-        <td><input class="form-control" type="text" name="newFactName" placeholder="Name"/></td>
-        <td><input class="form-control" type="text" name="newFactDescription" placeholder="Beschreibung"/></td>
-        <td><a class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Fakt hinzufügen</a></td>
+        <td>
+          <input class="form-control" type="text" name="newFactName" placeholder="Name" [(ngModel)]="newFactName"/>
+        </td>
+        <td>
+          <input class="form-control" type="text" name="newFactDescription" placeholder="Beschreibung"
+                 [(ngModel)]="newFactDescription"/>
+        </td>
+        <td>
+          <a class="btn btn-primary" (click)="addFact()">
+            <i class="fa fa-plus" aria-hidden="true"></i> Fakt hinzufügen
+          </a>
+        </td>
       </tr>
       </tbody>
     </table>
