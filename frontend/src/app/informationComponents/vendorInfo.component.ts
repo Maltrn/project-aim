@@ -149,4 +149,12 @@ export class VendorInfo {
     }
   }
 
+  private removeFact(fact) {
+    let index: number = this.vendor.facts.indexOf(fact, 0);
+    if (index > -1) {
+      this.vendor.facts.splice(index, 1);
+      this.updateMaxFactsEntriesTag();
+    }
+  }
+
 }

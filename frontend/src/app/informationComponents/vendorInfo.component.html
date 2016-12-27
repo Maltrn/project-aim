@@ -92,7 +92,9 @@
             <a type="button" class="btn btn-default" (click)="pushFactDown(fact)">
               <i class="fa fa-arrow-down" aria-hidden="true"></i>
             </a>
-            <a type="button" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i></a>
+            <a type="button" class="btn btn-danger" (click)="removeFact(fact)">
+              <i class="fa fa-ban" aria-hidden="true"></i>
+            </a>
           </div>
         </td>
       </tr>
