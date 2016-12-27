@@ -3,13 +3,11 @@ import {VendorService} from "./vendor.service";
 import {UserService} from "../authentication/user.service";
 import {Settings} from "../app.config";
 
-
 @Component
 ({
   selector: 'vendor-info',
   templateUrl: './vendorInfo.component.html'
 })
-
 export class VendorInfo {
 
   private vendor: any = {
@@ -156,5 +154,4 @@ export class VendorInfo {
       this.updateMaxFactsEntriesTag();
     }
   }
-
 }
