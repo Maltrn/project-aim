@@ -43,7 +43,7 @@ public class UploadCenter implements IUploadCenter {
         if (f == null || f.isEmpty()) {
             throw new StorageException("Failed to store empty file");
         }
-        Path filePath = uploadedFilesLocation.resolve(vendorId + File.separator + f.getOriginalFilename().toString());
+        Path filePath = uploadedFilesLocation.resolve(vendorId + File.separator + f.getOriginalFilename());
 
         new File(uploadedFilesLocation.resolve(vendorId).toString()).mkdir();
 
@@ -54,7 +54,7 @@ public class UploadCenter implements IUploadCenter {
             throw new StorageException("File could not be stored locally", e);
         }
 
-        String fileLocation = vendorId + File.separator + f.getOriginalFilename().toString();
+        String fileLocation = vendorId + File.separator + f.getOriginalFilename();
         UploadedFile result = null;
         MongoRepository repository = null;
 
