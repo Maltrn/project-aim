@@ -113,4 +113,29 @@ export class VendorInfo {
     let sanitized: string = text.replace(/(<(?:.|\n)*?>|(?:\r\n|\r|\n))/gm, '');
     return sanitized.length;
   }
+
+  private pushFactDown(fact: any): void {
+    if (this.vendor.facts != null && this.vendor.facts.length > 0) {
+      let oldIndex: number = this.vendor.facts.indexOf(fact);
+      let newIndex: number = (oldIndex + 1);
+      if (newIndex < this.vendor.facts.length) {
+        let originalFact = this.vendor.facts[newIndex];
+        this.vendor.facts[newIndex] = this.vendor.facts[oldIndex];
+        this.vendor.facts[oldIndex] = originalFact;
+      }
+    }
+  }
+
+  private pushFactUp(fact: any): void {
+    if (this.vendor.facts != null && this.vendor.facts.length > 0) {
+      let oldIndex: number = this.vendor.facts.indexOf(fact);
+      let newIndex: number = (oldIndex - 1);
+      if (newIndex >= 0) {
+        let originalFact = this.vendor.facts[newIndex];
+        this.vendor.facts[newIndex] = this.vendor.facts[oldIndex];
+        this.vendor.facts[oldIndex] = originalFact;
+      }
+    }
+  }
+
 }

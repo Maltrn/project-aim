@@ -86,8 +86,12 @@
         <td>
           <div class="btn-group" role="group">
             <a type="button" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            <a type="button" class="btn btn-default"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
-            <a type="button" class="btn btn-default"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+            <a type="button" class="btn btn-default" (click)="pushFactUp(fact)">
+              <i class="fa fa-arrow-up" aria-hidden="true"></i>
+            </a>
+            <a type="button" class="btn btn-default" (click)="pushFactDown(fact)">
+              <i class="fa fa-arrow-down" aria-hidden="true"></i>
+            </a>
             <a type="button" class="btn btn-danger"><i class="fa fa-ban" aria-hidden="true"></i></a>
           </div>
         </td>
