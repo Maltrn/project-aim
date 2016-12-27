@@ -29,7 +29,7 @@ export class VendorInfo {
   private renderDescriptions: boolean;
 
   constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings) {
-    this.renderShortDescription = false;
+    this.renderDescriptions = false;
   }
 
   ngOnInit(): void {
