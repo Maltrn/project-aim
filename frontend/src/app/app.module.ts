@@ -24,6 +24,7 @@ import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {AuthGuard} from "./authentication/user.authguard";
 import {Settings} from "./app.config";
 import {FileSizePipe} from "./uploadCenter/file-size.pipe";
+import {KeyPipe, ValuePipe} from "./informationComponents/keyValuePipe";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import {FileSizePipe} from "./uploadCenter/file-size.pipe";
     SortFilesComponent,
     ProfilePicComponent,
     UploadCenter,
-    FileSizePipe
+    FileSizePipe,
+    KeyPipe,
+    ValuePipe
   ],
   imports: [
     BrowserModule,

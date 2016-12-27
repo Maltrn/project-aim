@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, Pipe, PipeTransform} from "@angular/core";
 import {VendorService} from "./vendor.service";
 import {UserService} from "../authentication/user.service";
 import {Settings} from "../app.config";
@@ -26,10 +26,18 @@ export class VendorInfo {
 
   private longDescriptionTag: string;
 
+  private maxFactsEntriesTag: string;
+
   private renderDescriptions: boolean;
+
+  private newFactName: string;
+
+  private newFactDescription: string;
 
   constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings) {
     this.renderDescriptions = false;
+    this.newFactName = "";
+    this.newFactDescription = "";
   }
 
   ngOnInit(): void {
@@ -42,6 +50,7 @@ export class VendorInfo {
         this.vendor = data;
         this.renderDescriptions = true;
         this.updateDescriptionsTag();
+        this.updateMaxFactsEntriesTag();
       },
       error => {
         console.log("ERROR in REST API");
@@ -88,6 +97,16 @@ export class VendorInfo {
       this.longDescriptionTag += actualLongDescriptionLength;
     }
     this.longDescriptionTag += '/' + this.settings.longDescriptionsMaxLength;
+  }
+
+  private updateMaxFactsEntriesTag(): void {
+    this.maxFactsEntriesTag = 'Maximale Anzahl der Einträge: ';
+    if (this.vendor.facts.length > this.settings.featureTabelMaxEntries) {
+      this.maxFactsEntriesTag += "<span class=\"text-danger\">" + this.vendor.facts.length + "</span>";
+    } else {
+      this.maxFactsEntriesTag += this.vendor.facts.length;
+    }
+    this.maxFactsEntriesTag += '/' + this.settings.featureTabelMaxEntries;
   }
 
   private sanitizedTextLength(text: string): number {
