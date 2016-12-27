@@ -28,6 +28,10 @@ export class VendorInfo {
 
   private renderDescriptions: boolean;
 
+  private currentFactDescription: string;
+
+  private toggleCurentFactEdit: boolean;
+
   private newFactName: string;
 
   private newFactDescription: string;
@@ -36,6 +40,8 @@ export class VendorInfo {
     this.renderDescriptions = false;
     this.newFactName = "";
     this.newFactDescription = "";
+    this.currentFactDescription = "";
+    this.toggleCurentFactEdit = false;
   }
 
   ngOnInit(): void {
@@ -153,5 +159,17 @@ export class VendorInfo {
       this.vendor.facts.splice(index, 1);
       this.updateMaxFactsEntriesTag();
     }
+  }
+
+  private editFact(fact) {
+    let value: string = fact[Object.getOwnPropertyNames(fact)[0]];
+    fact.show = !fact.show;
+    this.currentFactDescription = value;
+  }
+
+  private saveFact(fact) {
+    let key: string = Object.getOwnPropertyNames(fact)[0];
+    fact.show = !fact.show;
+    fact[key] = this.currentFactDescription;
   }
 }

@@ -81,11 +81,23 @@
       </thead>
       <tbody>
       <tr *ngFor="let fact of vendor.facts; let i = index">
-        <td>{{fact | key}}</td>
-        <td>{{fact | value}}</td>
+        <td>
+          {{fact | key}}
+        </td>
+        <td>
+          <span *ngIf="!fact.show">{{fact | value}}</span>
+          <input *ngIf="fact.show" class="form-control" type="text" name="{{fact | key}}-fact-value"
+                 placeholder="Beschreibung"
+                 [(ngModel)]="currentFactDescription"/>
+        </td>
         <td>
           <div class="btn-group" role="group">
-            <a type="button" class="btn btn-default"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            <a *ngIf="!fact.show" type="button" class="btn btn-default" (click)="editFact(fact)">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </a>
+            <a *ngIf="fact.show" type="button" class="btn btn-primary" (click)="saveFact(fact)">
+              <i class="fa fa-save" aria-hidden="true"></i>
+            </a>
             <a type="button" class="btn btn-default" (click)="pushFactUp(fact)">
               <i class="fa fa-arrow-up" aria-hidden="true"></i>
             </a>
