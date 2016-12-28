@@ -105,12 +105,12 @@ export class VendorInfo {
 
   private updateMaxFactsEntriesTag(): void {
     this.maxFactsEntriesTag = 'Maximale Anzahl der Einträge: ';
-    if (this.vendor.facts.length > this.settings.featureTabelMaxEntries) {
+    if (this.vendor.facts.length > this.settings.featureTableMaxEntries) {
       this.maxFactsEntriesTag += "<span class=\"text-danger\">" + this.vendor.facts.length + "</span>";
     } else {
       this.maxFactsEntriesTag += this.vendor.facts.length;
     }
-    this.maxFactsEntriesTag += '/' + this.settings.featureTabelMaxEntries;
+    this.maxFactsEntriesTag += '/' + this.settings.featureTableMaxEntries;
   }
 
   private sanitizedTextLength(text: string): number {

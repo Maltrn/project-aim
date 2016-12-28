@@ -12,7 +12,7 @@ export class Settings {
 
   private _longDescriptionsMaxLength: number = 30;
 
-  private _featureTabelMaxEntries: number = 20;
+  private _featureTableMaxEntries: number = 20;
 
   private _fileGalleryMaxEntries: number = 30;
 
@@ -38,8 +38,8 @@ export class Settings {
     return this._longDescriptionsMaxLength;
   }
 
-  get featureTabelMaxEntries(): number {
-    return this._featureTabelMaxEntries;
+  get featureTableMaxEntries(): number {
+    return this._featureTableMaxEntries;
   }
 
   get fileGalleryMaxEntries(): number {
