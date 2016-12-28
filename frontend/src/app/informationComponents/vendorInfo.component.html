@@ -80,7 +80,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let fact of vendor.facts; let i = index">
+      <tr *ngFor="let fact of vendor.facts">
         <td>
           {{fact | key}}
         </td>
@@ -126,5 +126,45 @@
       </tr>
       </tbody>
     </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <h3 class="page-header">
+      <i class="fa fa-file-o" aria-hidden="true"></i> Dateigalerie
+      <small>{{maxFileGalleryEntriesTag}}</small>
+    </h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 bottom-space" *ngFor="let file of vendor.fileGallery">
+    <div class="media">
+      <div class="media-left">
+        <img [src]="file" alt="asd">
+      </div>
+      <div class="media-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="media-heading">{{file}}</h4>
+            File size and stuff
+          </div>
+          <div class="col-md-6 text-right">
+            <div class="btn-group" role="group">
+              <a type="button" class="btn btn-default" (click)="pushFileUp(file)">
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+              </a>
+              <a type="button" class="btn btn-default" (click)="pushFileDown(file)">
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+              </a>
+              <a type="button" class="btn btn-danger" (click)="removeFile(file)">
+                <i class="fa fa-ban" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

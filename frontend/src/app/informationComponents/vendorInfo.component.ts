@@ -36,11 +36,14 @@ export class VendorInfo {
 
   private newFactDescription: string;
 
+  private maxFileGalleryEntriesTag: string;
+
   constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings) {
     this.renderDescriptions = false;
     this.newFactName = "";
     this.newFactDescription = "";
     this.currentFactDescription = "";
+    this.maxFileGalleryEntriesTag = "";
     this.toggleCurentFactEdit = false;
   }
 
@@ -55,6 +58,7 @@ export class VendorInfo {
         this.renderDescriptions = true;
         this.updateDescriptionsTag();
         this.updateMaxFactsEntriesTag();
+        this.updateMaxFileGalleryTag();
       },
       error => {
         console.log("ERROR in REST API");
@@ -111,6 +115,16 @@ export class VendorInfo {
       this.maxFactsEntriesTag += this.vendor.facts.length;
     }
     this.maxFactsEntriesTag += '/' + this.settings.featureTableMaxEntries;
+  }
+
+  private updateMaxFileGalleryTag(): void {
+    this.maxFileGalleryEntriesTag = 'Maximale Anzahl der Dateien: ';
+    if (this.vendor.fileGallery.length > this.settings.fileGalleryMaxEntries) {
+      this.maxFileGalleryEntriesTag += "<span class=\"text-danger\">" + this.vendor.fileGallery.length + "</span>";
+    } else {
+      this.maxFileGalleryEntriesTag += this.vendor.fileGallery.length;
+    }
+    this.maxFileGalleryEntriesTag += '/' + this.settings.fileGalleryMaxEntries;
   }
 
   private sanitizedTextLength(text: string): number {
@@ -171,5 +185,37 @@ export class VendorInfo {
     let key: string = Object.getOwnPropertyNames(fact)[0];
     fact.show = !fact.show;
     fact[key] = this.currentFactDescription;
+  }
+
+  private pushFileUp(file) {
+    if (this.vendor.fileGallery != null && this.vendor.fileGallery.length > 0) {
+      let oldIndex: number = this.vendor.fileGallery.indexOf(file);
+      let newIndex: number = (oldIndex - 1);
+      if (newIndex >= 0) {
+        let originalFact = this.vendor.fileGallery[newIndex];
+        this.vendor.fileGallery[newIndex] = this.vendor.fileGallery[oldIndex];
+        this.vendor.fileGallery[oldIndex] = originalFact;
+      }
+    }
+  }
+
+  private pushFileDown(file) {
+    if (this.vendor.fileGallery != null && this.vendor.fileGallery.length > 0) {
+      let oldIndex: number = this.vendor.fileGallery.indexOf(file);
+      let newIndex: number = (oldIndex + 1);
+      if (newIndex < this.vendor.fileGallery.length) {
+        let originalFact = this.vendor.fileGallery[newIndex];
+        this.vendor.fileGallery[newIndex] = this.vendor.fileGallery[oldIndex];
+        this.vendor.fileGallery[oldIndex] = originalFact;
+      }
+    }
+  }
+
+  private removeFile(file) {
+    let index: number = this.vendor.fileGallery.indexOf(file, 0);
+    if (index > -1) {
+      this.vendor.fileGallery.splice(index, 1);
+      this.updateMaxFileGalleryTag();
+    }
   }
 }
