@@ -218,4 +218,14 @@ export class VendorInfo {
       this.updateMaxFileGalleryTag();
     }
   }
+
+  private sanitizeFacts(): void {
+    for (let fact of this.vendor.facts) {
+      delete fact["show"];
+    }
+  }
+
+  private saveVendor(): void {
+    this.sanitizeFacts();
+  }
 }
