@@ -2,6 +2,7 @@ import {Component} from "@angular/core";
 import {VendorService} from "./vendor.service";
 import {UserService} from "../authentication/user.service";
 import {Settings} from "../app.config";
+import {Router} from "@angular/router";
 
 @Component
 ({
@@ -38,12 +39,15 @@ export class VendorInfo {
 
   private maxFileGalleryEntriesTag: string;
 
-  constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings) {
+  private error: string;
+
+  constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings, private router: Router) {
     this.renderDescriptions = false;
     this.newFactName = "";
     this.newFactDescription = "";
     this.currentFactDescription = "";
     this.maxFileGalleryEntriesTag = "";
+    this.error = "";
     this.toggleCurentFactEdit = false;
   }
 
@@ -227,5 +231,17 @@ export class VendorInfo {
 
   private saveVendor(): void {
     this.sanitizeFacts();
+    this.vendorService.updateVendor(this.vendor).subscribe(
+      data => {
+        this.router.navigate(['/vendor-info'])
+      },
+      error => {
+        console.log("ERROR in REST API");
+        if (error.indexOf("401") !== -1) {
+          this.userService.logout();
+        } else if (error.indexOf("400") !== -1) {
+          this.error = error;
+        }
+      });
   }
 }
