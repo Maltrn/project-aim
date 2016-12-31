@@ -26,6 +26,7 @@ import {Settings} from "./app.config";
 import {FileSizePipe} from "./uploadCenter/file-size.pipe";
 import {KeyPipe, ValuePipe} from "./informationComponents/keyValuePipe";
 import {NavigationComponent} from "./navigation/navigation.component";
+import {CollapseModule} from "ng2-bootstrap";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {NavigationComponent} from "./navigation/navigation.component";
     ReactiveFormsModule,
     HttpModule,
     RouterModule.forRoot(rootRouterConfig),
-    CKEditorModule
+    CKEditorModule,
+    CollapseModule
   ],
   providers: [
     UserService,

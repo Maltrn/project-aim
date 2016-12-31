@@ -11,9 +11,19 @@ export class NavigationComponent {
 
   private vendors: any;
   private products: any;
+  public isCollapsed: boolean;
 
   constructor(private userService: UserService, private vendorService: VendorService) {
     this.loadVendors();
+    this.isCollapsed = true;
+  }
+
+  public collapsed(event: any): void {
+    console.log(event);
+  }
+
+  public expanded(event: any): void {
+    console.log(event);
   }
 
   private loadVendors() {
