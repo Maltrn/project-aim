@@ -1,7 +1,7 @@
 import {Routes} from "@angular/router";
 import {UserLogin} from "./authentication/user.component";
 import {UploadCenter} from "./uploadCenter/uploadCenter";
-import {VendorInfo} from "./informationComponents/vendorInfo.component";
+import {VendorInfo} from "./vendor/vendorInfo.component";
 import {ProductInfoMain} from "./informationComponents/main/product-info-main.component";
 import {AuthGuard} from "./authentication/user.authguard";
 

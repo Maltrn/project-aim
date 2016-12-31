@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import { Router } from '@angular/router';
-import {VendorService} from "../vendor.service";
+import {VendorService} from "../../vendor/vendor.service";
 import { InfoDTO } from "../main/model/infoDTO";
 import { Fact } from "../main/model/fact";
 

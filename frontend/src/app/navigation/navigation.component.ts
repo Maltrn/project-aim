@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {UserService} from "../authentication/user.service";
-import {VendorService} from "../informationComponents/vendor.service";
+import {VendorService} from "../vendor/vendor.service";
 
 @Component
 ({
