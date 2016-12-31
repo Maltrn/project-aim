@@ -7,7 +7,6 @@ import {Router} from "@angular/router";
   selector: 'login',
   templateUrl: './userview.component.html',
 })
-
 export class UserLogin {
 
   private email: string;
