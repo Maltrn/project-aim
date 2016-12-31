@@ -7,14 +7,15 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
+      <a class="navbar-brand visible-xs" [routerLink]="['']">symphony</a>
     </div>
-    <!-- Top Menu Items -->
+
     <div class="navbar-form navbar-right hidden-xs" *ngIf="userService.isLoggedIn">
       <a class="btn btn-danger logout-button" (click)="userService.logout()">
         <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
       </a>
     </div>
-    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+
     <div class="collapse navbar-collapse"
          (collapsed)="collapsed($event)"
          (expanded)="expanded($event)"
@@ -42,6 +43,12 @@
         <li [routerLinkActive]="['active']">
           <a [routerLink]="['/product-info']">
             <i class="fa fa-fw fa-phone" aria-hidden="true"></i> Produkte
+          </a>
+        </li>
+        <li role="separator" class="divider visible-xs"></li>
+        <li class="visible-xs">
+          <a (click)="userService.logout()">
+            <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
           </a>
         </li>
       </ul>

@@ -1,20 +1,5 @@
-/*!
- * Start Bootstrap - SB Admin (http://startbootstrap.com/)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
-
-/* Global Styles */
-
 body {
-  margin-top: 100px;
-  background-color: #fff;
-}
-
-@media (min-width: 768px) {
-  body {
-    margin-top: 50px;
-  }
+  margin-top: 50px;
 }
 
 #page-wrapper {
@@ -90,28 +75,6 @@ body {
 
 .side-nav > li > ul > li > a:hover {
   color: #fff;
-}
-
-.navbar-brand {
-  margin-left: 10em;
-}
-
-.navbar-inverse {
-  background-color: #f0f2f2;
-  border-color: #f0f2f2;;
-}
-
-.navbar-inverse .navbar-nav > li > a {
-  color: black;
-}
-
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse .navbar-nav > .active > a:hover {
-  background-color: #f0f2f2;
-  color: black;
-}
-
-.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-  background-color: #f0f2f2;
 }
 
 /* Flot Chart Containers */

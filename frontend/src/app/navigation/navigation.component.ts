@@ -14,7 +14,9 @@ export class NavigationComponent {
   public isCollapsed: boolean;
 
   constructor(private userService: UserService, private vendorService: VendorService) {
-    this.loadVendors();
+    if (this.userService.isLoggedIn) {
+      this.loadVendors();
+    }
     this.isCollapsed = true;
   }
 
