@@ -24,7 +24,7 @@ export class UserLogin {
           localStorage.setItem('user', JSON.stringify(data));
           this.userService.changeLoginStatus(true);
           this.error = "";
-          this.router.navigate(['/vendor-info']);
+          this.router.navigate(['/login']);
         } else {
           console.log("Login response was empty");
         }
