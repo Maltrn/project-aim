@@ -16,8 +16,8 @@ import de.haw.aim.vendor.persistence.Vendor;
 import de.haw.aim.vendor.persistence.VendorInfo;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.io.IOUtils;
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -91,9 +91,6 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
         if (currentUser == null)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
-        // otherwise get Vendor for User to update vendor info
-        Vendor vendor = iVendor.getVendor(currentUser);
-
         // check if InfoDTO is valid
         infodto.validate();
 
@@ -103,11 +100,16 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
         // if valid save entity in DB
         VendorInfo vendorInfo = infodto.convertToVendorInfo();
 
-        // set ID to actual vendor ID
-        vendorInfo.setId(vendor.getId());
+        // check if user can access the vendor
+        if (!(iVendor.getVendor(vendorInfo.getId()).getUsers().contains(currentUser))) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
         Vendor result = iVendor.putVendor(vendorInfo);
-        if (result != null)
+        if (result != null) {
             return new ResponseEntity<>(InfoDTO.from(result.getVendorInfo()), HttpStatus.OK);
+        }
+
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
