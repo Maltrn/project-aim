@@ -29,6 +29,11 @@
           <a [routerLink]="['/vendor-info']">
             <i class="fa fa-fw fa-users" aria-hidden="true"></i> Anbieter
           </a>
+          <ul *ngIf="vendors">
+            <li [routerLinkActive]="['active']" *ngFor="let vendor of vendors">
+              <a href="#">{{vendor.name}}</a>
+            </li>
+          </ul>
         </li>
         <li [routerLinkActive]="['active']">
           <a [routerLink]="['/product-info']">
