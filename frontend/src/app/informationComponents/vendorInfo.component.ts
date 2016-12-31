@@ -41,6 +41,8 @@ export class VendorInfo {
 
   private error: string;
 
+  private info: string;
+
   constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings, private router: Router) {
     this.renderDescriptions = false;
     this.newFactName = "";
@@ -48,6 +50,7 @@ export class VendorInfo {
     this.currentFactDescription = "";
     this.maxFileGalleryEntriesTag = "";
     this.error = "";
+    this.info = "";
     this.toggleCurentFactEdit = false;
   }
 
@@ -233,14 +236,20 @@ export class VendorInfo {
     this.sanitizeFacts();
     this.vendorService.updateVendor(this.vendor).subscribe(
       data => {
-        this.router.navigate(['/vendor-info'])
+        this.vendor = data;
+        this.renderDescriptions = true;
+        this.updateDescriptionsTag();
+        this.updateMaxFactsEntriesTag();
+        this.updateMaxFileGalleryTag();
+        this.info = "Erfolgreich gespeichert!";
       },
-      error => {
-        console.log("ERROR in REST API");
-        if (error.indexOf("401") !== -1) {
+      err => {
+        let errorMessage: string = err.toString();
+
+        if (errorMessage.indexOf("401") !== -1) {
           this.userService.logout();
-        } else if (error.indexOf("400") !== -1) {
-          this.error = error;
+        } else if (errorMessage.indexOf("400") !== -1) {
+          this.error = errorMessage;
         }
       });
   }

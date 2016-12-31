@@ -10,7 +10,26 @@
 <div class="row bottom-space">
   <div class="col-md-12">
     <a class="btn btn-primary" (click)="saveVendor()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Speichern</a>
-    <a class="btn btn-warning"><i class="fa fa-ban" aria-hidden="true"></i> Verwerfen</a>
+    <a class="btn btn-warning" (click)="loadVendor('sym-telegra')">
+      <i class="fa fa-ban" aria-hidden="true"></i>
+      Verwerfen
+    </a>
+  </div>
+</div>
+
+<div class="row bottom-space" *ngIf="error">
+  <div class="col-md-12">
+    <div class="alert alert-danger" role="alert">
+      {{error}}
+    </div>
+  </div>
+</div>
+
+<div class="row bottom-space" *ngIf="info">
+  <div class="col-md-12">
+    <div class="alert alert-info" role="alert">
+      {{info}}
+    </div>
   </div>
 </div>
 
