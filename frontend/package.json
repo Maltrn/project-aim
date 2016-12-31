@@ -24,7 +24,6 @@
     "@angular/platform-server": "~2.2.4",
     "@angular/router": "~3.2.1",
     "@angular/upgrade": "~2.2.4",
-    "@types/node": "^6.0.55",
     "bootstrap": "^3.3.7",
     "ckeditor": "^4.6.0",
     "core-js": "^2.4.1",
