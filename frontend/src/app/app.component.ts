@@ -7,7 +7,4 @@ import {UserService} from "./authentication/user.service";
 })
 export class AppComponent {
 
-  constructor(private userService: UserService) {
-
-  }
 }

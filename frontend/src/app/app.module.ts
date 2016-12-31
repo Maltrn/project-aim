@@ -25,6 +25,7 @@ import {AuthGuard} from "./authentication/user.authguard";
 import {Settings} from "./app.config";
 import {FileSizePipe} from "./uploadCenter/file-size.pipe";
 import {KeyPipe, ValuePipe} from "./informationComponents/keyValuePipe";
+import {NavigationComponent} from "./navigation/navigation.component";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {KeyPipe, ValuePipe} from "./informationComponents/keyValuePipe";
     DetailedDescriptionComponent,
     FactsTableComponent,
     VendorInfo,
+    NavigationComponent,
     ProductInfoMain,
     ShortDiscriptionComponent,
     SortFilesComponent,

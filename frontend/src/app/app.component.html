@@ -1,45 +1,5 @@
 <div id="wrapper">
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-      </div>
-      <!-- Top Menu Items -->
-      <div class="navbar-form navbar-right" *ngIf="userService.isLoggedIn">
-        <a class="btn btn-danger logout-button" (click)="userService.logout()">
-          <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
-        </a>
-      </div>
-      <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <div class="logo-container">
-          <a [routerLink]="['']"><img src="img/logo.jpg" class="logo"></a>
-        </div>
-        <ul class="nav navbar-nav side-nav" *ngIf="userService.isLoggedIn">
-          <li [routerLinkActive]="['active']">
-            <a [routerLink]="['/upload-center']">
-              <i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Dateiverwaltung
-            </a>
-          </li>
-          <li [routerLinkActive]="['active']">
-            <a [routerLink]="['/vendor-info']">
-              <i class="fa fa-fw fa-users" aria-hidden="true"></i> Anbieter
-            </a>
-          </li>
-          <li [routerLinkActive]="['active']">
-            <a [routerLink]="['/product-info']">
-              <i class="fa fa-fw fa-phone" aria-hidden="true"></i> Produkte
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <navigation></navigation>
   <div class="container-fluid">
     <router-outlet></router-outlet>
   </div>
