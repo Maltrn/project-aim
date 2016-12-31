@@ -21,11 +21,15 @@ export class NavigationComponent {
   }
 
   public collapsed(event: any): void {
-    console.log(event);
+    if (this.userService.isLoggedIn) {
+      this.loadVendors();
+    }
   }
 
   public expanded(event: any): void {
-    console.log(event);
+    if (this.userService.isLoggedIn) {
+      this.loadVendors();
+    }
   }
 
   private loadVendors() {
