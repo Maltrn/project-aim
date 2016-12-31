@@ -47,7 +47,7 @@ public interface VendorApi
     @RequestMapping(value = "/vendor",
             consumes = {"application/json"},
             method = RequestMethod.PUT)
-    ResponseEntity<Void> vendorPut(
+    ResponseEntity<?> vendorPut(
 
             @ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO body, @RequestHeader String headerToken
 

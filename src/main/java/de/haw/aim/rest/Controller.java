@@ -76,7 +76,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
     }
 
     @Override
-    public ResponseEntity<Void> vendorPut(
+    public ResponseEntity<?> vendorPut(
             @ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true)
             @RequestBody InfoDTO infodto,
             @RequestHeader("Authorization") String headerToken)
@@ -105,8 +105,9 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
 
         // set ID to actual vendor ID
         vendorInfo.setId(vendor.getId());
-        if (iVendor.putVendor(vendorInfo) != null)
-            return new ResponseEntity<>(HttpStatus.OK);
+        Vendor result = iVendor.putVendor(vendorInfo);
+        if (result != null)
+            return new ResponseEntity<>(InfoDTO.from(result.getVendorInfo()), HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -326,6 +327,6 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
 
     @ExceptionHandler(ValueDoesntValidateToConfigFileException.class)
     public ResponseEntity<String> invalidValue(Exception ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("{\"error\":\"" + ex.getMessage() + "\"}", HttpStatus.BAD_REQUEST);
     }
 }
