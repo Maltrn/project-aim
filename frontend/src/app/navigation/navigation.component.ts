@@ -32,7 +32,7 @@ export class NavigationComponent {
     }
   }
 
-  private loadVendors() {
+  public loadVendors(): void {
     this.vendorService.getVendors().subscribe(
       data => {
         this.vendors = data;

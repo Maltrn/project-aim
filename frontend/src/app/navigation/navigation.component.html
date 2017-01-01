@@ -30,13 +30,13 @@
             <i class="fa fa-fw fa-cloud-upload" aria-hidden="true"></i> Dateiverwaltung
           </a>
         </li>
-        <li [routerLinkActive]="['active']">
-          <a [routerLink]="['/vendor-info']">
+        <li>
+          <a>
             <i class="fa fa-fw fa-users" aria-hidden="true"></i> Anbieter
           </a>
           <ul *ngIf="vendors">
             <li [routerLinkActive]="['active']" *ngFor="let vendor of vendors">
-              <a href="#">{{vendor.name}}</a>
+              <a [routerLink]="['/vendor-info', vendor.id]">{{vendor.name}}</a>
             </li>
           </ul>
         </li>

@@ -6,10 +6,9 @@ import {ProductInfoMain} from "./informationComponents/main/product-info-main.co
 import {AuthGuard} from "./authentication/user.authguard";
 
 export const rootRouterConfig: Routes = [
-  {path: '', redirectTo: 'vendor-info', pathMatch: 'full'},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'upload-center', component: UploadCenter, canActivate: [AuthGuard]},
-  {path: 'vendor-info', component: VendorInfo, canActivate: [AuthGuard]},
+  {path: 'vendor-info/:vendorId', component: VendorInfo, canActivate: [AuthGuard]},
   {path: 'product-info', component: ProductInfoMain, canActivate: [AuthGuard]},
   {path: 'login', component: UserLogin}
 ];
-

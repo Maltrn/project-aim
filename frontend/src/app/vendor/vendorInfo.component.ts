@@ -1,15 +1,17 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {VendorService} from "./vendor.service";
 import {UserService} from "../authentication/user.service";
 import {Settings} from "../app.config";
-import {Router} from "@angular/router";
+import {ActivatedRoute} from "@angular/router";
 
 @Component
 ({
   selector: 'vendor-info',
   templateUrl: './vendorInfo.component.html'
 })
-export class VendorInfo {
+export class VendorInfo implements OnInit {
+
+  private vendorId: string;
 
   private vendor: any = {
     "id": "",
@@ -43,7 +45,7 @@ export class VendorInfo {
 
   private info: string;
 
-  constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings, private router: Router) {
+  constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings, private route: ActivatedRoute) {
     this.renderDescriptions = false;
     this.newFactName = "";
     this.newFactDescription = "";
@@ -55,7 +57,12 @@ export class VendorInfo {
   }
 
   ngOnInit(): void {
-    this.loadVendor("sym-telegra");
+    this.route.params.subscribe(params => {
+      this.vendorId = params['vendorId'];
+      if (this.vendorId) {
+        this.loadVendor(this.vendorId);
+      }
+    });
   }
 
   private loadVendor(id: string) {
