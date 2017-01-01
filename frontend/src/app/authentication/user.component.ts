@@ -1,11 +1,10 @@
 import {Component} from "@angular/core";
 import {UserService} from "./user.service";
-import {Router} from "@angular/router";
 
 @Component
 ({
   selector: 'login',
-  templateUrl: './userview.component.html',
+  templateUrl: './user.component.html',
 })
 export class UserLogin {
 
@@ -13,7 +12,7 @@ export class UserLogin {
   private password: string;
   private error: string = "";
 
-  constructor(private userService: UserService, private router: Router) {
+  constructor(private userService: UserService) {
 
   }
 
@@ -24,7 +23,7 @@ export class UserLogin {
           localStorage.setItem('user', JSON.stringify(data));
           this.userService.changeLoginStatus(true);
           this.error = "";
-          this.router.navigate(['/login']);
+          window.location.reload();
         } else {
           console.log("Login response was empty");
         }
