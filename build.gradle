@@ -1,5 +1,5 @@
 buildscript {
-    ext.springBootVersion = "1.4.0.RELEASE"
+    ext.springBootVersion = "1.4.2.RELEASE"
     ext.springVersion = "4.3.4.RELEASE"
 
     repositories {
@@ -44,7 +44,7 @@ dependencies {
     testCompile("org.testng:testng:6.10")
     testCompile("org.springframework:spring-test:${springVersion}")
     testCompile("de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.50.5")
-    testCompile("org.springframework.boot:spring-boot-test:1.4.2.RELEASE")
+    testCompile("org.springframework.boot:spring-boot-test:${springBootVersion}")
     testCompile("io.rest-assured:rest-assured:3.0.1")
 }
 
