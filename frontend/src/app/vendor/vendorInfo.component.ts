@@ -46,19 +46,20 @@ export class VendorInfo implements OnInit {
   private info: string;
 
   constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings, private route: ActivatedRoute) {
-    this.renderDescriptions = false;
-    this.newFactName = "";
-    this.newFactDescription = "";
-    this.currentFactDescription = "";
-    this.maxFileGalleryEntriesTag = "";
-    this.error = "";
-    this.info = "";
-    this.toggleCurentFactEdit = false;
+
   }
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.vendorId = params['vendorId'];
+      this.renderDescriptions = false;
+      this.newFactName = "";
+      this.newFactDescription = "";
+      this.currentFactDescription = "";
+      this.maxFileGalleryEntriesTag = "";
+      this.error = "";
+      this.info = "";
+      this.toggleCurentFactEdit = false;
       if (this.vendorId) {
         this.loadVendor(this.vendorId);
       }
