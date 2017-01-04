@@ -116,4 +116,8 @@ public class Vendor
     {
         return files;
     }
+
+    public void addUser(User user) {
+        users.add(user);
+    }
 }

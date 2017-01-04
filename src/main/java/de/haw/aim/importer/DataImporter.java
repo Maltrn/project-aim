@@ -1,29 +1,51 @@
 package de.haw.aim.importer;
 
 
+import de.haw.aim.authentication.persistence.User;
 import de.haw.aim.authentication.persistence.UserRepository;
 import de.haw.aim.importer.dto.ProductDTO;
 import de.haw.aim.importer.dto.VendorDTO;
 import de.haw.aim.uploadcenter.facade.IUploadCenter;
 import de.haw.aim.vendor.persistence.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import javax.naming.ServiceUnavailableException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 @Component
 public class DataImporter
 {
+
+    //####################################################################
+    //FIXME just for creating dummy users to login with
+    //####################################################################
+    private static final String ALPHABET = "abcdewfghijklmopqrstuvwxyz";
+    private static final int N = ALPHABET.length();
+    private static final int USERNAMELENGTH = 15;
+    private static final String PASSWORD = "thisisapassword";
+    private final Random r = new Random();
+    //####################################################################
+
+    //####################################################################
     //TODO extract to config file
+    //####################################################################
     private static final String urlToCall = "http://132.252.58.189:8080/ontology/vendors";
+    public static final int SYNCHRONIZERATE = 1800000;
+    //####################################################################
+
+    private final Logger logger = LoggerFactory.getLogger(DataImporter.class);
 
     private VendorInfoRepository vendorInfoRepository;
 
@@ -63,14 +85,19 @@ public class DataImporter
         // If HTTP Code is not 200 we bail out, because something is wrong
         if (exchange.getStatusCode() != HttpStatus.OK)
         {
+            logger.error("Synchronize failed, Symphony is not responding");
             throw new ServiceUnavailableException();
         }
 
         return exchange.getBody();
     }
 
+    // This method is called on application start, every 30 Minutes and if a user logs in
+    @Scheduled(fixedRate = SYNCHRONIZERATE)
     public void synchronize() throws ServiceUnavailableException
     {
+        logger.info("Synchronize from " + urlToCall + " started");
+
         // Get all the data from symphony api
         List<VendorDTO> apiReturn = getData();
 
@@ -115,11 +142,31 @@ public class DataImporter
         updateVendors(apiReturn,vendorUpdateCandidates);
         createVendor(apiReturn,vendorCreateCandidates);
 
+        logger.info("Synchronization completed");
     }
 
     private void createVendor(List<VendorDTO> apiReturn, List<String> vendorCreateCandidatesId)
     {
         apiReturn.stream().filter(entry -> vendorCreateCandidatesId.contains(entry.getId())).forEach(vendorDTO -> {
+            //####################################################################
+            //FIXME just for creating dummy users to login with
+            //####################################################################
+            String currentUsername = "";
+            for (int i = 0; i <= USERNAMELENGTH; i++)
+            {
+                currentUsername += ALPHABET.charAt(r.nextInt(N));
+            }
+            currentUsername += "@aim.de";
+
+            User currentUser = new User(currentUsername,PASSWORD);
+            userRepository.save(currentUser);
+
+            logger.info("####################DUMMY USER###################");
+            logger.info("user: " + currentUsername);
+            logger.info("vendor: " + vendorDTO.getLabel());
+            logger.info("#################################################");
+            //####################################################################
+
             // Create the vendorInfo entity
             VendorInfo vendorInfoToCreate = new VendorInfo(vendorDTO.getId(), vendorDTO.getLabel());
             vendorInfoToCreate = vendorInfoRepository.save(vendorInfoToCreate);
@@ -129,6 +176,13 @@ public class DataImporter
 
             // Finally create the new vendor which brings productinfos and vendorinfo together
             Vendor vendor = new Vendor(vendorInfoToCreate, productInfos);
+
+            //####################################################################
+            //FIXME just for creating dummy users to login with
+            //####################################################################
+            vendor.addUser(currentUser);
+            //####################################################################
+
             vendorRepository.save(vendor);
         });
     }
