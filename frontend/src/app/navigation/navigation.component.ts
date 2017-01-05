@@ -33,9 +33,11 @@ export class NavigationComponent {
   }
 
   public loadVendors(): void {
-    this.vendorService.getVendors().subscribe(
+    let vendorId: string = JSON.parse(localStorage.getItem('user')).vendorInfoId;
+
+    this.vendorService.getVendor(vendorId).subscribe(
       data => {
-        this.vendors = data;
+        this.vendors = [data];
       },
       error => {
         console.log("ERROR in REST API");
