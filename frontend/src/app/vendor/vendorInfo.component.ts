@@ -50,6 +50,7 @@ export class VendorInfo implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log((this.settings.backendApiBaseUrl + "product/"));
     this.route.params.subscribe(params => {
       this.vendorId = params['vendorId'];
       this.renderDescriptions = false;

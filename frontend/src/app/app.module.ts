@@ -12,9 +12,10 @@ import {AddFilesComponent} from "./informationComponents/add-files/add-files.com
 import {DetailedDescriptionComponent} from "./informationComponents/detailed-description/detailed-description.component";
 import {FactsTableComponent} from "./informationComponents/facts/facts.component";
 import {VendorInfo} from "./vendor/vendorInfo.component";
-import {ProductInfoMain} from "./informationComponents/main/product-info-main.component";
+import {ProductInfo} from "./product/productInfo.component";
 import {VendorService} from "./vendor/vendor.service";
-import {ProductService} from "./informationComponents/product.service";
+import {ProductService} from "./product/product.service";
+//import {ProductService} from "./informationComponents/product.service";
 import {ProfilePictureService} from "./informationComponents/profile-pic/profile-pic.service";
 import {ProfilePicComponent} from "./informationComponents/profile-pic/profile-pic.component";
 import {ShortDiscriptionComponent} from "./informationComponents/short-description/short-discription.component";
@@ -36,8 +37,8 @@ import {CollapseModule} from "ng2-bootstrap";
     DetailedDescriptionComponent,
     FactsTableComponent,
     VendorInfo,
+    ProductInfo,
     NavigationComponent,
-    ProductInfoMain,
     ShortDiscriptionComponent,
     SortFilesComponent,
     ProfilePicComponent,

@@ -41,8 +41,16 @@
           </ul>
         </li>
         <li [routerLinkActive]="['active']">
-          <a [routerLink]="['/product-info']">
+          <a>
             <i class="fa fa-fw fa-phone" aria-hidden="true"></i> Produkte
+          <li [routerLinkActive]="['active']" *ngFor="let product of products">
+              <ul>
+                <div *ngIf="!product.name">
+                  <i [routerLink]="['/product-info', product.id]">{{product.id}}</i>
+                </div>
+                <i [routerLink]="['/product-info', product.id]">{{product.name}}</i>
+              </ul>
+          </li>
           </a>
         </li>
         <li role="separator" class="divider visible-xs"></li>

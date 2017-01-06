@@ -1,6 +1,8 @@
 import {Component} from "@angular/core";
 import {UserService} from "../authentication/user.service";
 import {VendorService} from "../vendor/vendor.service";
+import {ProductService} from "../product/product.service"
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component
 ({
@@ -10,12 +12,15 @@ import {VendorService} from "../vendor/vendor.service";
 export class NavigationComponent {
 
   private vendors: any;
-  private products: any;
+  private products: any[] = [];
+  private productNames: Array<String>;
+  // private productNames: String[];
   public isCollapsed: boolean;
 
-  constructor(private userService: UserService, private vendorService: VendorService) {
+  constructor(private userService: UserService, private vendorService: VendorService, private productService: ProductService) {
     if (this.userService.isLoggedIn) {
       this.loadVendors();
+      this.loadProducts();
     }
     this.isCollapsed = true;
   }
@@ -46,5 +51,22 @@ export class NavigationComponent {
           this.userService.logout();
         }
       });
+  }
+
+  public loadProducts(): void{
+    let productIds: string = JSON.parse(localStorage.getItem('user')).produktInfoIds;
+    for (var _i = 0; _i < productIds.length; _i++) {
+      this.productService.getProduct(productIds[_i]).subscribe(
+          data => {
+            this.products.push(data);
+          },
+          error => {
+            console.log("ERROR in REST API");
+            console.log(error);
+            if (error.indexOf("401") !== -1) {
+              this.userService.logout();
+            }
+          });
+    }
   }
 }

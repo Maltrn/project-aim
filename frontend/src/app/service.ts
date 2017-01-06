@@ -18,6 +18,7 @@ export abstract class BaseService {
     let errMsg: string;
     if (error instanceof Response) {
       const body = error.json() || '';
+      console.log("Body: " + body);
       const err = body.error || JSON.stringify(body);
       errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
     } else {
