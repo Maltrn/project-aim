@@ -32,14 +32,14 @@ export class ProfilePicComponent
 
     getListofPictures(): void
     {
-        this.profilePicService.getAllFileIds()
-            .then(response => this.getAllFiles(response))
+        this.profilePicService.loadFiles()
+            .then(response => this.loadFiles(response))
             .then(allFiles => this.sortOutNonPictures(allFiles))
             .then(pictures => this.pictures = pictures)
             .catch(this.handleError);
     }
 
-    private getAllFiles(fileIds: FileID[]): File[]
+    private loadFiles(fileIds: FileID[]): File[]
     {
         var files: File[] = [];
 

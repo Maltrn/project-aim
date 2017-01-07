@@ -9,20 +9,21 @@
     <table class="table table-hover">
       <thead>
       <tr>
+          <th>Vorschau</th>
         <th>Name</th>
-        <th>Upload Datum</th>
         <th>Größe</th>
         <th>Aktion</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let file of files">
+      <tr *ngFor="let file of files; let i = index">
+          <td><img src="{{file.file}}" height="80" width="80"></td>
         <td>{{file.name}}</td>
-        <td>1265</td>
-        <td>1111</td>
+        <td>{{getImgSize(i)}} kb</td>
         <td>
           <div class="btn-group" role="group">
-            <a class="btn btn-default"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+            <a class="btn btn-default" (click)="showPicture(i)"><i class="glyphicon glyphicon-picture" aria-hidden="true"></i></a>
+              <label class="btn btn-default btn-file"><i class="fa fa-refresh" aria-hidden="true"><input type="file" class="hidden" accept="image/jpeg|image/jpg|image/png|image/gif" #fileToReplace (change)="replaceFile(fileToReplace, i)"></i></label>
             <button type="button" class="btn btn-danger">
               <i class="fa fa-trash-o" aria-hidden="true"></i>
             </button>
@@ -43,14 +44,17 @@
   <div class="col-lg-12">
     <form>
       <div class="form-group">
+
         <label for="inputFile">Dateiauswahl</label>
-        <input type="file" id="inputFile">
+          <input #fileInput (change)="fileChange(fileInput)" id="imagePath" class="form-control" type="file" name="Image" accept="image/jpeg|image/jpg|image/png|image/gif|application/pdf" id="inputFile"/>
+
         <p class="help-block">Nur folgende Dateitypen sind erlaubt:
           {{settings.uploadCenterPDFFileTypes}},{{settings.uploadCenterPictureFileTypes}}</p>
-        <p class="help-block">Die Dateien sind auf eine maximal Größe von {{settings.uploadCenterMaxFileSize |
-          fileSize}} beschränkt.</p>
+        <p class="help-block">Die Dateien sind auf eine maximal Größe von {{settings.uploadCenterMaxFileSize | fileSize}} beschränkt.</p>
       </div>
-      <button type="submit" class="btn btn-primary">hochladen</button>
+      <button type="submit" class="btn btn-primary" (click)="upload()">hochladen</button>
+      <button type="submit" class="btn btn-primary" (click)="testMethod()">Test-Button</button>
+      <button type="submit" class="btn btn-primary" (click)="reload()">reload files (debug)</button>
     </form>
   </div>
 </div>

@@ -1,6 +1,9 @@
+/**
+ * Created by Malte Scheller on 07.01.17.
+ */
 import {UploadedFile} from "./uploadedFile";
 
-export class Picture implements UploadedFile {
+export class Pdf implements UploadedFile {
 
     name: string;
     id: string;
