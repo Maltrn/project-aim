@@ -374,11 +374,14 @@ public class InfoDTO implements Validatable
             longDescriptionMaxLength = 30;
         }
 
-        if (this.shortDescription == null || this.getShortDescription().length() > shortDescriptionMaxLength)
+        int shortDescriptionLengthWithoutXmlTagElements = this.getShortDescription().replaceAll("<(.|\\n)*?>","").length();
+        int longDescriptionLengthWithoutXmlTagElements = this.getLongDescription().replaceAll("<(.|\\n)*?>","").length();
+
+        if (this.shortDescription == null || shortDescriptionLengthWithoutXmlTagElements > shortDescriptionMaxLength)
         {
             throw new ValueDoesntValidateToConfigFileException("short description is too long");
         }
-        if (this.longDescription == null || this.getLongDescription().length() > longDescriptionMaxLength)
+        if (this.longDescription == null || longDescriptionLengthWithoutXmlTagElements > longDescriptionMaxLength)
         {
             throw new ValueDoesntValidateToConfigFileException("long description is too long");
         }
