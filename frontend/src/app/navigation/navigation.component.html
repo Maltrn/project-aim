@@ -43,15 +43,15 @@
         <li [routerLinkActive]="['active']">
           <a>
             <i class="fa fa-fw fa-phone" aria-hidden="true"></i> Produkte
-          <li [routerLinkActive]="['active']" *ngFor="let product of products">
-              <ul>
-                <div *ngIf="!product.name">
-                  <i [routerLink]="['/product-info', product.id]">{{product.id}}</i>
-                </div>
-                <i [routerLink]="['/product-info', product.id]">{{product.name}}</i>
-              </ul>
-          </li>
           </a>
+          <ul *ngIf="products">
+            <li [routerLinkActive]="['active']" *ngFor="let product of products">
+              <a [routerLink]="['/product-info', product.id]">
+                <span *ngIf="product.name != ''">{{product.name}}</span>
+                <span *ngIf="product.name == ''">{{product.id}}</span>
+              </a>
+            </li>
+          </ul>
         </li>
         <li role="separator" class="divider visible-xs"></li>
         <li class="visible-xs">
