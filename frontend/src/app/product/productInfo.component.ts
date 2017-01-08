@@ -26,7 +26,6 @@ export class ProductInfo implements OnInit {
         "fileGallery": [],
         "facts": []
     };
-
     private shortDescriptionTag: string;
 
     private longDescriptionTag: string;

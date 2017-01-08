@@ -40,7 +40,6 @@ export class ProductService extends BaseService {
    */
   public updateProduct(product): Observable<Response> {
     let options = new RequestOptions({headers: this.buildHeaders()});
-    let body = JSON.stringify(product);
     return this._http.put(this.productApiURL + product.id, JSON.stringify(product), options)
       .map(this.extractData)
       .catch(this.handleError);
