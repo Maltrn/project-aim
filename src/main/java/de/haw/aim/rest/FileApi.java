@@ -37,14 +37,7 @@ public interface FileApi
             @ApiResponse(code = 200, message = "Die Datei wurde erfolgreich hochgeladen und die bestehende Datei überschrieben", response = String.class),
             @ApiResponse(code = 400, message = "Ungültiger Dateityp, Dateigröße", response = String.class),
             @ApiResponse(code = 401, message = "Der Token ist ungültig", response = Void.class)})
-<<<<<<< Updated upstream
-    @RequestMapping(value = "/file/{id}",consumes = {"application/x-www-form-urlencoded"},method = RequestMethod.PUT)
-=======
-
-    @RequestMapping(value = "/file/{id}",
-            consumes = {"multipart/form-data"},
-            method = RequestMethod.PUT)
->>>>>>> Stashed changes
+    @RequestMapping(value = "/file/{id}",consumes = {"multipart/form-data"},method = RequestMethod.PUT)
     ResponseEntity<Void> fileIdPut(
             @ApiParam(value = "ID der Datei welche überschrieben werden soll", required = true) @PathVariable("id") String id,
             @ApiParam(value = "file detail") @RequestPart("file") MultipartFile file,
