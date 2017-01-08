@@ -32,7 +32,6 @@ public class DataImporter
     //FIXME just for creating dummy users to login with
     //####################################################################
     private static final String ALPHABET = "abcdewfghijklmopqrstuvwxyz";
-    private static final int N = ALPHABET.length();
     private static final int USERNAMELENGTH = 15;
     private static final String PASSWORD = "thisisapassword";
     private final Random r = new Random();
@@ -154,7 +153,7 @@ public class DataImporter
             String currentUsername = "";
             for (int i = 0; i <= USERNAMELENGTH; i++)
             {
-                currentUsername += ALPHABET.charAt(r.nextInt(N));
+                currentUsername += ALPHABET.charAt(r.nextInt(ALPHABET.length()));
             }
             currentUsername += "@aim.de";
 
