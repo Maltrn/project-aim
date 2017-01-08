@@ -93,6 +93,14 @@ public class UploadCenter implements IUploadCenter {
         }
 
         UploadedFile foundFile = this.findById(id);
+        // Delete file that should be replaced in filesystem
+
+        try {
+            Files.delete(Paths.get(this.uploadedFilesLocation + File.separator + foundFile.getLocation()));
+        } catch (IOException e) {
+            logger.info("Tried to delete non existent file");
+        }
+
         UploadedFile uploadedFile = this.uploadFile(f, foundFile.getVendorId());
         MongoRepository repository = this.pdfRepository;
         UploadedFile replacedFile;
@@ -112,11 +120,7 @@ public class UploadCenter implements IUploadCenter {
 
         repository.save(replacedFile);
         repository.delete(uploadedFile.getId());
-        try {
-            Files.delete(Paths.get(this.uploadedFilesLocation + File.separator + foundFile.getLocation()));
-        } catch (IOException e) {
-            logger.info("Tried to delete non existent file");
-        }
+
         return replacedFile;
     }
 
