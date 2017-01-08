@@ -294,6 +294,17 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
     }
 
     @Override
+    public ResponseEntity<Void> fileIdDelete(
+            @ApiParam(value = "ID der Datei welche gelöscht werden soll", required = true)
+            @PathVariable("id") String id)
+    {
+        if(iUploadCenter.deleteFile(id)){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @Override
     public ResponseEntity<UserDTO> loginPost(
             @ApiParam(value = "Username und Passwort", required = true)
             @RequestBody LoginRequest loginRequest) {
