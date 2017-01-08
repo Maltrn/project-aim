@@ -6,6 +6,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.io.File;
+
 @Document
 public class Picture implements UploadedFile
 {
@@ -66,7 +68,7 @@ public class Picture implements UploadedFile
 
     @Override
     public String getVendorId() {
-        String[] filepath = location.split("/");
+        String[] filepath = location.split(File.separator);
         return  filepath[filepath.length - 2];
     }
 
