@@ -14,14 +14,11 @@ public interface FileApi
 {
 
     @ApiOperation(value = "", notes = "Liefert alle file IDs des Anbieters", response = String.class, responseContainer = "List", authorizations = {
-            @Authorization(value = "user.json")
-    }, tags = {})
+            @Authorization(value = "user.json")}, tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Liste aller file IDs die dem Anbieter zugeordnet sind", response = String.class),
             @ApiResponse(code = 401, message = "Der Token ist ungültig", response = String.class)})
-    @RequestMapping(value = "/file",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
+    @RequestMapping(value = "/file",produces = {"application/json"},method = RequestMethod.GET)
     ResponseEntity<List<String>> fileGet(@RequestHeader("Authorization") String headerToken);
 
 
@@ -30,32 +27,21 @@ public interface FileApi
             @ApiResponse(code = 200, message = "angeforderte Datei", response = Void.class),
             @ApiResponse(code = 401, message = "Der Token ist ungültig", response = Void.class),
             @ApiResponse(code = 404, message = "Es wurde keine Datei mit der angegebenen ObjectId gefunden", response = Void.class)})
-    @RequestMapping(value = "/file/{id}",
-            produces = {"image/jpeg", "image/png", "image/gif", "application/pdf"},
-            method = RequestMethod.GET)
-    ResponseEntity<byte[]> fileIdGet(
-            @ApiParam(value = "ID der Datei welche aberufen werden soll", required = true) @PathVariable("id") String id
-
-
-    );
+    @RequestMapping(value = "/file/{id}",produces = {"image/jpeg", "image/png", "image/gif", "application/pdf"},method = RequestMethod.GET)
+    ResponseEntity<byte[]> fileIdGet(@ApiParam(value = "ID der Datei, welche aberufen werden soll", required = true) @PathVariable("id") String id);
 
 
     @ApiOperation(value = "", notes = "Überschreibt eine vorhandene Datei. Produkt- und Anbieterinfos die die ursprüngliche Datei verwendet haben, zeigen nach diesem Aufruf auf die neue Datei", response = String.class, authorizations = {
-            @Authorization(value = "user.json")
-    }, tags = {})
+            @Authorization(value = "user.json")}, tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Die Datei wurde erfolgreich hochgeladen und die bestehende Datei überschrieben", response = String.class),
             @ApiResponse(code = 400, message = "Ungültiger Dateityp, Dateigröße", response = String.class),
             @ApiResponse(code = 401, message = "Der Token ist ungültig", response = Void.class)})
-
-    @RequestMapping(value = "/file/{id}",
-            consumes = {"application/x-www-form-urlencoded"},
-            method = RequestMethod.PUT)
+    @RequestMapping(value = "/file/{id}",consumes = {"application/x-www-form-urlencoded"},method = RequestMethod.PUT)
     ResponseEntity<Void> fileIdPut(
             @ApiParam(value = "ID der Datei welche überschrieben werden soll", required = true) @PathVariable("id") String id,
             @ApiParam(value = "file detail") @RequestPart("file") MultipartFile file,
-            @RequestHeader("Authorization") String headerToken
-    );
+            @RequestHeader("Authorization") String headerToken);
 
 
     @ApiOperation(value = "", notes = "Lädt eine neue Datei hoch", response = String.class, authorizations = {

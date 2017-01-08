@@ -17,9 +17,7 @@ public interface VendorApi
     @ApiOperation(value = "", notes = "Liefert die Anbieterinformationen aller Anbieter", response = InfoDTO.class, responseContainer = "List", tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Liste aller Anbieterinfo Objekte", response = InfoDTO.class)})
-    @RequestMapping(value = "/vendor",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
+    @RequestMapping(value = "/vendor",produces = {"application/json"},method = RequestMethod.GET)
     ResponseEntity<List<InfoDTO>> vendorGet();
 
 
@@ -27,30 +25,20 @@ public interface VendorApi
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "angefordertes Anbieterinfo Objekt", response = InfoDTO.class),
             @ApiResponse(code = 404, message = "Es wurde kein Anbieter mit der angegebenen ObjectId gefunden", response = InfoDTO.class)})
-    @RequestMapping(value = "/vendor/{id}",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
+    @RequestMapping(value = "/vendor/{id}",produces = {"application/json"},method = RequestMethod.GET)
     ResponseEntity<InfoDTO> vendorIdGet(
-            @ApiParam(value = "ID des Anbieters dessen Anbieterinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id
+            @ApiParam(value = "ID des Anbieters dessen Anbieterinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id);
 
 
-    );
-
-
-    @ApiOperation(value = "", notes = "Erstellt eine neue Anbieterinformation oder aktualisiert die vorhandene. Es wird die Anbieterinformation bearbeitet die dem Benutzer zugewiesen ist. Das property id kann einen beliebigen Wert haben und wird nicht ausgewertet.", response = Void.class, authorizations = {
-            @Authorization(value = "user.json")
-    }, tags = {})
+    @ApiOperation(value = "", notes = "Aktualisiert eine vorhandene Anbieterinformation. Es wird die Anbieterinformation bearbeitet die dem Benutzer zugewiesen ist. Das property id kann einen beliebigen Wert haben und wird nicht ausgewertet.", response = Void.class, authorizations = {
+            @Authorization(value = "user.json")}, tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Die vorhandene Anbieterinformation wurde aktualisiert.", response = InfoDTO.class),
             @ApiResponse(code = 400, message = "Die Anbieterinformation konnte nicht aktuallisert werden.", response = Void.class),
             @ApiResponse(code = 401, message = "Der Token ist ungültig", response = Void.class)})
-    @RequestMapping(value = "/vendor",
-            consumes = {"application/json"},
-            method = RequestMethod.PUT)
+    @RequestMapping(value = "/vendor",consumes = {"application/json"},method = RequestMethod.PUT)
     ResponseEntity<?> vendorPut(
-
             @ApiParam(value = "aktualisiertes oder neues Anbieterinfo Objekt", required = true) @RequestBody InfoDTO body, @RequestHeader String headerToken
-
     ) throws ValueDoesntValidateToConfigFileException;
 
 }

@@ -14,7 +14,7 @@ import java.util.List;
 public interface ProductApi
 {
 
-    @ApiOperation(value = "", notes = "Liefert die Produktinformationen aller Produkte aller Anbieter", response = Info.class, responseContainer = "List", tags = {})
+    @ApiOperation(value = "", notes = "Liefert die Produktinformationen aller Produkte aller Anbieter", response = InfoDTO.class, responseContainer = "List", tags = {})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Liste aller Produktinfo Objekte", response = InfoDTO.class)})
     @RequestMapping(value = "/product",produces = {"application/json"},method = RequestMethod.GET)
@@ -23,14 +23,14 @@ public interface ProductApi
 
     @ApiOperation(value = "", notes = "Liefert die Produktinformationen eines bestimmten Produktes", response = InfoDTO.class, tags = {})
     @ApiResponses(value = {
-        @ApiResponse(code = 200, message = "angefordertes Produktinfo Objekt", response = Info.class),
-        @ApiResponse(code = 404, message = "Es wurde kein Produkt mit der angegebenen ObjectId gefunden", response = Info.class)})
+        @ApiResponse(code = 200, message = "angefordertes Produktinfo Objekt", response = InfoDTO.class),
+        @ApiResponse(code = 404, message = "Es wurde kein Produkt mit der angegebenen ObjectId gefunden", response = InfoDTO.class)})
     @RequestMapping(value = "/product/{id}",produces = {"application/json"},method = RequestMethod.GET)
     ResponseEntity<InfoDTO> productIdGet(
         @ApiParam(value = "ID des Produktes dessen Produktinformationen abgefragt werden sollen", required = true) @PathVariable("id") String id);
 
 
-    @ApiOperation(value = "", notes = "Erstellt eine neue Produktinformation oder aktualisiert die vorhandene.", response = Void.class, authorizations = {
+    @ApiOperation(value = "", notes = "Aktualisiert eine vorhandene Produktinformation. Neue Produkte können nicht erstellt werden", response = Void.class, authorizations = {
         @Authorization(value = "user.json")}, tags = {})
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Die vorhandene Produktinformationen wurde aktualisiert.", response = InfoDTO.class),
