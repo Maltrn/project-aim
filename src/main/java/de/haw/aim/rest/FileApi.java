@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.List;
 
 @javax.annotation.Generated(value = "class io.swagger.codegen.languages.SpringCodegen", date = "2016-10-31T08:42:18.273Z")
@@ -60,20 +59,20 @@ public interface FileApi
 
 
     @ApiOperation(value = "", notes = "Lädt eine neue Datei hoch", response = String.class, authorizations = {
-            @Authorization(value = "user.json")
-    }, tags = {})
+            @Authorization(value = "user.json")}, tags = {})
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Die Datei wurde erfolgreich hochgeladen", response = String.class),
             @ApiResponse(code = 400, message = "Ungültiger Dateityp oder Dateigröße", response = String.class),
             @ApiResponse(code = 401, message = "Der Token ist ungültig", response = Void.class)})
-    @RequestMapping(value = "/file",
-            consumes = {"multipart/form-data"},
-            method = RequestMethod.PUT)
-    ResponseEntity<String> filePut(
+    @RequestMapping(value = "/file",consumes = {"multipart/form-data"},method = RequestMethod.PUT)
+    ResponseEntity<String> filePut(@ApiParam(value = "file detail") @RequestPart("file") MultipartFile file,@RequestHeader("Authorization") String headerToken);
 
 
-            @ApiParam(value = "file detail") @RequestPart("file") MultipartFile file,
-            @RequestHeader("Authorization") String headerToken
-    );
-
+    @ApiOperation(value = "", notes = "Löscht eine bestimmte Datei", response = Void.class, tags = {})
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Datei erfolgreich gelöscht", response = Void.class),
+            @ApiResponse(code = 401, message = "Der Token ist ungültig", response = Void.class),
+            @ApiResponse(code = 404, message = "Es wurde keine Datei mit der angegebenen ObjectId gefunden", response = Void.class)})
+    @RequestMapping(value = "/file/{id}",method = RequestMethod.DELETE)
+    ResponseEntity<Void> fileIdDelete(@ApiParam(value = "ID der Datei welche gelöscht werden soll", required = true) @PathVariable("id") String id);
 }
