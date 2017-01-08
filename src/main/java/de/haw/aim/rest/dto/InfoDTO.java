@@ -361,6 +361,9 @@ public class InfoDTO implements Validatable
     @Override
     public void validate() throws ValueDoesntValidateToConfigFileException
     {
+        if(id == null)
+            throw new ValueDoesntValidateToConfigFileException("Id not set");
+
         int shortDescriptionMaxLength;
         int longDescriptionMaxLength;
 
@@ -374,14 +377,20 @@ public class InfoDTO implements Validatable
             longDescriptionMaxLength = 30;
         }
 
-        int shortDescriptionLengthWithoutXmlTagElements = this.getShortDescription().replaceAll("<(.|\\n|\\r|\\r\\n)*?>","").length();
-        int longDescriptionLengthWithoutXmlTagElements = this.getLongDescription().replaceAll("<(.|\\n|\\r|\\r\\n)*?>","").length();
+        int shortDescriptionLengthWithoutXmlTagElements = 0;
+        if(this.getShortDescription() != null){
+            shortDescriptionLengthWithoutXmlTagElements = this.getShortDescription().replaceAll("<(.|\\n|\\r|\\r\\n)*?>","").length();
+        }
+        int longDescriptionLengthWithoutXmlTagElements = 0;
+        if(this.getLongDescription() != null){
+            longDescriptionLengthWithoutXmlTagElements = this.getLongDescription().replaceAll("<(.|\\n|\\r|\\r\\n)*?>","").length();
+        }
 
-        if (this.shortDescription == null || shortDescriptionLengthWithoutXmlTagElements > shortDescriptionMaxLength)
+        if (shortDescriptionLengthWithoutXmlTagElements > shortDescriptionMaxLength)
         {
             throw new ValueDoesntValidateToConfigFileException("short description is too long");
         }
-        if (this.longDescription == null || longDescriptionLengthWithoutXmlTagElements > longDescriptionMaxLength)
+        if (longDescriptionLengthWithoutXmlTagElements > longDescriptionMaxLength)
         {
             throw new ValueDoesntValidateToConfigFileException("long description is too long");
         }
