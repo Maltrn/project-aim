@@ -41,6 +41,7 @@ export class VendorService extends BaseService {
   public updateVendor(vendor): Observable<Response> {
     let options = new RequestOptions({headers: this.buildHeaders()});
     let body = JSON.stringify(vendor);
+    console.log("Body: " + body);
     return this._http.put(this.vendorApiURL, body, options).map(this.extractData).catch(this.handleError);
   }
 

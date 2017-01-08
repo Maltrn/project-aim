@@ -1,0 +1,187 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2 class="page-header">
+            {{product.name}}
+            <small>{{product.id}}</small>
+        </h2>
+    </div>
+</div>
+
+<div class="row bottom-space">
+    <div class="col-md-12">
+        <a class="btn btn-primary" (click)="saveProduct()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Speichern</a>
+        <a class="btn btn-warning" (click)="loadProduct(productId)">
+            <i class="fa fa-ban" aria-hidden="true"></i>
+            Verwerfen
+        </a>
+    </div>
+</div>
+
+<div class="row bottom-space" *ngIf="error">
+    <div class="col-md-12">
+        <div class="alert alert-danger" role="alert">
+            {{error}}
+        </div>
+    </div>
+</div>
+
+<div class="row bottom-space" *ngIf="info">
+    <div class="col-md-12">
+        <div class="alert alert-info" role="alert">
+            {{info}}
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="page-header">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i> Kurzbeschreibung
+            <small [innerHtml]="shortDescriptionTag"></small>
+        </h3>
+    </div>
+</div>
+
+<div class="row" *ngIf="renderDescriptions">
+    <div class="col-md-12">
+        <ckeditor
+                [(ngModel)]="product.shortDescription"
+                (change)="onChange($event)"
+                (ready)="onReady($event)"
+                (focus)="onFocus($event)"
+                (blur)="onBlur($event)"
+                debounce="1000">
+        </ckeditor>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="page-header">
+            <i class="fa fa-file-text-o" aria-hidden="true"></i> Detailbeschreibung
+            <small [innerHtml]="longDescriptionTag"></small>
+        </h3>
+    </div>
+</div>
+
+<div class="row" *ngIf="renderDescriptions">
+    <div class="col-md-12">
+        <ckeditor
+                [(ngModel)]="product.longDescription"
+                (change)="onChange($event)"
+                (ready)="onReady($event)"
+                (focus)="onFocus($event)"
+                (blur)="onBlur($event)"
+                debounce="1000">
+        </ckeditor>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="page-header">
+            <i class="fa fa-list" aria-hidden="true"></i> Faktentabelle
+            <small>{{maxFactsEntriesTag}}</small>
+        </h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Feature</th>
+                <th>Beschreibung</th>
+                <th>Aktionen</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let fact of product.facts">
+                <td>
+                    {{fact | key}}
+                </td>
+                <td>
+                    <span *ngIf="!fact.show">{{fact | value}}</span>
+                    <input *ngIf="fact.show" class="form-control" type="text" name="{{fact | key}}-fact-value"
+                           placeholder="Beschreibung"
+                           [(ngModel)]="currentFactDescription"/>
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a *ngIf="!fact.show" type="button" class="btn btn-default" (click)="editFact(fact)">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+                        <a *ngIf="fact.show" type="button" class="btn btn-primary" (click)="saveFact(fact)">
+                            <i class="fa fa-save" aria-hidden="true"></i>
+                        </a>
+                        <a type="button" class="btn btn-default" (click)="pushFactUp(fact)">
+                            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                        </a>
+                        <a type="button" class="btn btn-default" (click)="pushFactDown(fact)">
+                            <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                        </a>
+                        <a type="button" class="btn btn-danger" (click)="removeFact(fact)">
+                            <i class="fa fa-ban" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input class="form-control" type="text" name="newFactName" placeholder="Name" [(ngModel)]="newFactName"/>
+                </td>
+                <td>
+                    <input class="form-control" type="text" name="newFactDescription" placeholder="Beschreibung"
+                           [(ngModel)]="newFactDescription"/>
+                </td>
+                <td>
+                    <a class="btn btn-primary" (click)="addFact()">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Fakt hinzufügen
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <h3 class="page-header">
+            <i class="fa fa-file-o" aria-hidden="true"></i> Dateigalerie
+            <small>{{maxFileGalleryEntriesTag}}</small>
+        </h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12 bottom-space" *ngFor="let file of product.fileGallery">
+        <div class="media">
+            <div class="media-left">
+                <img [src]="file" alt="asd">
+            </div>
+            <div class="media-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="media-heading">{{file}}</h4>
+                        File size and stuff
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <div class="btn-group" role="group">
+                            <a type="button" class="btn btn-default" (click)="pushFileUp(file)">
+                                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+                            </a>
+                            <a type="button" class="btn btn-default" (click)="pushFileDown(file)">
+                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                            </a>
+                            <a type="button" class="btn btn-danger" (click)="removeFile(file)">
+                                <i class="fa fa-ban" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
