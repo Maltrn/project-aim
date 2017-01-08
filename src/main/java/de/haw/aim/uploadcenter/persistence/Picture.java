@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 @Document
 public class Picture implements UploadedFile
@@ -68,7 +69,7 @@ public class Picture implements UploadedFile
 
     @Override
     public String getVendorId() {
-        String[] filepath = location.split(File.separator);
+        String[] filepath = location.split(Pattern.quote(File.separator));
         return  filepath[filepath.length - 2];
     }
 
