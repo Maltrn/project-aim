@@ -16,12 +16,12 @@ export class Settings {
 
   private _fileGalleryMaxEntries: number = 30;
 
-  private _uploadCenterPictureFileTypes: string = "jpeg,gif,png,jpg";
+  private _uploadCenterImageFileTypes: string[] = ["image/jpeg","image/gif","image/png","image/jpg"];
 
   // in bytes
   private _uploadCenterMaxFileSize: number = 1024;
 
-  private _uploadCenterPDFFileTypes: string = "pdf";
+  private _uploadCenterApplicationFileTypes: string[] = ["application/pdf"];
 
   /**
    * Do not forget the trailing slash!
@@ -50,12 +50,12 @@ export class Settings {
     return this._uploadCenterMaxFileSize;
   }
 
-  get uploadCenterPictureFileTypes(): string {
-    return this._uploadCenterPictureFileTypes;
+  get uploadCenterImageFileTypes(): string[] {
+    return this._uploadCenterImageFileTypes;
   }
 
-  get uploadCenterPDFFileTypes(): string {
-    return this._uploadCenterPDFFileTypes;
+  get uploadCenterApplicationFileTypes(): string[] {
+    return this._uploadCenterApplicationFileTypes;
   }
 
   get backendApiBaseUrl(): string {
