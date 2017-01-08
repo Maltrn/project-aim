@@ -374,8 +374,8 @@ public class InfoDTO implements Validatable
             longDescriptionMaxLength = 30;
         }
 
-        int shortDescriptionLengthWithoutXmlTagElements = this.getShortDescription().replaceAll("<(.|\\n)*?>","").length();
-        int longDescriptionLengthWithoutXmlTagElements = this.getLongDescription().replaceAll("<(.|\\n)*?>","").length();
+        int shortDescriptionLengthWithoutXmlTagElements = this.getShortDescription().replaceAll("<(.|\\n|\\r|\\r\\n)*?>","").length();
+        int longDescriptionLengthWithoutXmlTagElements = this.getLongDescription().replaceAll("<(.|\\n|\\r|\\r\\n)*?>","").length();
 
         if (this.shortDescription == null || shortDescriptionLengthWithoutXmlTagElements > shortDescriptionMaxLength)
         {
