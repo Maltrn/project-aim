@@ -152,10 +152,7 @@ export class UploadCenter implements OnInit {
                     .then(response => {
                         console.log(response.data)
                     });
-            }
-            ;
-
-
+            };
         }
         this.filesToUpload = [];
     }

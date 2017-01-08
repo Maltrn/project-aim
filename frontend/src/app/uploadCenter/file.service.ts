@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {Settings} from "../app.config";
-import {UploadedFile} from "./uploadedFile";
 import {BaseService} from "../service";
 import 'rxjs/Rx';
 import {Http, RequestOptions, ResponseContentType, Headers} from "@angular/http";
@@ -51,18 +50,6 @@ export class FileService extends BaseService {
             .toPromise()
             .then(this.extractData)
             .catch(this.handleError);
-
-        /*
-         let formData: FormData = new FormData(),
-         xhr: XMLHttpRequest = new XMLHttpRequest();
-
-         formData.append("file", file);
-
-         xhr.open('PUT', this.fileApiURL, true);
-         xhr.addEventListener("loadend", this.bla);
-         xhr.setRequestHeader('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
-         xhr.send(formData);
-         */
     }
 
     public replace(file, fileToReplaceId) {
@@ -78,18 +65,6 @@ export class FileService extends BaseService {
             .toPromise()
             .then(this.extractData)
             .catch(this.handleError);
-
-
-        /*
-         let formData: FormData = new FormData(),
-         xhr: XMLHttpRequest = new XMLHttpRequest();
-
-         formData.append("file", file);
-
-         xhr.open('PUT', this.fileApiURL + '/' + fileToReplaceId, true);
-         xhr.setRequestHeader('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
-         xhr.send(formData);
-         */
     }
 
     public deleteFile(fileId) {
