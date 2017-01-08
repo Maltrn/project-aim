@@ -60,5 +60,5 @@ public interface FileApi
             @ApiResponse(code = 401, message = "Der Token ist ungültig", response = Void.class),
             @ApiResponse(code = 404, message = "Es wurde keine Datei mit der angegebenen ObjectId gefunden", response = Void.class)})
     @RequestMapping(value = "/file/{id}",method = RequestMethod.DELETE)
-    ResponseEntity<Void> fileIdDelete(@ApiParam(value = "ID der Datei welche gelöscht werden soll", required = true) @PathVariable("id") String id);
+    ResponseEntity<Void> fileIdDelete(@ApiParam(value = "ID der Datei welche gelöscht werden soll", required = true) @PathVariable("id") String id, @RequestHeader("Authorization") String headerToken);
 }

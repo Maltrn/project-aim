@@ -296,8 +296,24 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
     @Override
     public ResponseEntity<Void> fileIdDelete(
             @ApiParam(value = "ID der Datei welche gelöscht werden soll", required = true)
-            @PathVariable("id") String id)
+            @PathVariable("id") String id,
+            @RequestHeader("Authorization") String headerToken)
     {
+        // fetch token from header for user lookup
+        String token = headerToken.substring("TOKEN".length()).trim();
+
+        // find user by token provided from header
+        User currentUser = authComponent.findByToken(token);
+
+        // if no user found for token return Bad Request
+        if (currentUser == null)
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+
+        // check if user and file to delete belong to the same vendor
+        Vendor currentVendor = iVendor.getVendor(iUploadCenter.findById(id).getVendorId());
+        if(!currentVendor.getUsers().contains(currentUser))
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
         if(iUploadCenter.deleteFile(id)){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
