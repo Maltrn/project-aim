@@ -51,6 +51,13 @@ public interface IVendor
      */
     ProductInfo getProduct(String id);
 
+    /**
+     * Saves a productInfo to the database. Used for updating existing prodcuts.
+     * @param productInfo productInfo to save to database
+     * @return Updated productInfo for further reference. Has to return null if product not already existing
+     * in database, to prevent creating new Products
+     */
+    ProductInfo saveProduct(ProductInfo productInfo);
 
     /**
      * Tries to save a vendor object to the DB. Only updates existing vendor objects.
@@ -58,4 +65,5 @@ public interface IVendor
      * @return Updated Vendor entity for further referencing. Returns null if Vendor didn't exist in DB.
      */
     Vendor saveVendor(Vendor vendor);
+
 }

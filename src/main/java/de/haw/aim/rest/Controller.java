@@ -99,6 +99,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
 
         // if valid save entity in DB
         VendorInfo vendorInfo = infodto.convertToVendorInfo();
+        vendorInfo = iVendor.putVendor(vendorInfo).getVendorInfo();
 
         // check if user can access the vendor
         if (!(iVendor.getVendor(vendorInfo.getId()).getUsers().contains(currentUser))) {
@@ -135,7 +136,7 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
     }
 
     @Override
-    public ResponseEntity<Void> productIdPut(
+    public ResponseEntity<?> productIdPut(
             @ApiParam(value = "ID des Produktes dessen Produktinformationen aktualisiert werden", required = true)
             @PathVariable("id") String id,
             @ApiParam(value = "aktualisiertes oder neues Produktinfo Objekt", required = true)
@@ -158,16 +159,18 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
         // set iUploadCenter for infoDTO to avoid autowiring null pointer
         infoDTO.setiUploadCenter(iUploadCenter);
 
-        // convert to productInfo Entity
+        // convert to productInfo Entity and save to database
         ProductInfo productInfo = infoDTO.convertToProductInfo();
+        productInfo = iVendor.saveProduct(productInfo);
 
         // get Vendor for User to update product info
         Vendor vendor = iVendor.getVendor(currentUser);
 
+        // add updated productInfo to vendor and save updated vendor to database
         vendor.putProductInfo(productInfo);
-
         iVendor.saveVendor(vendor);
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        return new ResponseEntity<>(InfoDTO.from(productInfo), HttpStatus.OK);
     }
 
     // FIXME think about namespace maybe "GET /fileIdList"

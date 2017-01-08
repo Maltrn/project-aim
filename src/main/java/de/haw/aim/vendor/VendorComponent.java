@@ -77,6 +77,15 @@ public class VendorComponent implements IVendor
     }
 
     @Override
+    public ProductInfo saveProduct(ProductInfo productInfo) {
+        if(productInfoRepository.findOne(productInfo.getId()) == null)
+        {
+            return null;
+        }
+        return productInfoRepository.save(productInfo);
+    }
+
+    @Override
     public Vendor saveVendor(Vendor vendor)
     {
         return vendorRepository.save(vendor);
