@@ -4,6 +4,8 @@ import {UserService} from "../authentication/user.service";
 import {Settings} from "../app.config";
 import {ActivatedRoute} from "@angular/router";
 import {FileService} from "../uploadCenter/file.service";
+import {Picture} from "../uploadCenter/picture";
+import {UploadedFile} from "../uploadCenter/uploadedFile";
 
 @Component
 ({
@@ -82,6 +84,7 @@ export class VendorInfo implements OnInit {
         this.updateDescriptionsTag();
         this.updateMaxFactsEntriesTag();
         this.updateMaxFileGalleryTag();
+        this.loadImages();
       },
       error => {
         console.log("ERROR in REST API");
@@ -104,10 +107,33 @@ export class VendorInfo implements OnInit {
 
   private selectFileToUpload(): void {
     if (this.selectedFile != "Datei auswählen" && this.vendor.fileGallery.indexOf(this.selectedFile) == -1) {
-      this.vendor.fileGallery.push(this.selectedFile);
+      this.addFileIdToArray(this.selectedFile, this.vendor.fileGallery);
       this.selectedFile = "Datei auswählen";
       this.updateMaxFileGalleryTag();
     }
+  }
+
+  private loadImages() {
+    let fileArray: any[] = [];
+    for (let fileId of this.vendor.fileGallery) {
+      this.addFileIdToArray(fileId, fileArray);
+    }
+    this.vendor.fileGallery = fileArray;
+  }
+
+  private addFileIdToArray(fileId: string, array: any[]) {
+    let reader = new FileReader();
+    return this.fileService.getFile(fileId).then(res => {
+      let picture: Picture;
+      let file: File;
+
+      reader.onload = () => {
+        file = reader.result;
+        picture = new Picture("name", fileId, file, res);
+        array.push(picture);
+      };
+      reader.readAsDataURL(res);
+    });
   }
 
   // events
@@ -267,8 +293,16 @@ export class VendorInfo implements OnInit {
     }
   }
 
+  private sanitizeFiles(): void {
+    for (let file: UploadedFile of this.vendor.fileGallery) {
+      let index: number = this.vendor.fileGallery.indexOf(file);
+      this.vendor.fileGallery[index] = file.id;
+    }
+  }
+
   private saveVendor(): void {
     this.sanitizeFacts();
+    this.sanitizeFiles();
     this.vendorService.updateVendor(this.vendor).subscribe(
       data => {
         this.vendor = data;
