@@ -62,7 +62,7 @@
                 <p class="help-block">Die Dateien sind auf eine maximal Größe von {{settings.uploadCenterMaxFileSize | fileSize}} beschränkt.</p>
             </div>
             <button type="submit" class="btn btn-primary" (click)="uploadFile()">hochladen</button>
-            <button type="submit" class="btn btn-primary" (click)="testMethod()">Test-Button</button>
+            <button type="submit" class="btn btn-primary" (click)="testMethod()">Test-Button (debug)</button>
             <button type="submit" class="btn btn-primary" (click)="reload()">reload files (debug)</button>
 
             <div class="alert alert-danger" *ngIf="uploadErrorHappens">

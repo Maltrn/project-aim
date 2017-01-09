@@ -39,6 +39,7 @@ export class FileService extends BaseService {
 
     public uploadFile(file) {
 
+        /*
         let formData: FormData = new FormData();
         formData.append("file", file);
 
@@ -50,10 +51,21 @@ export class FileService extends BaseService {
             .toPromise()
             .then(this.extractData)
             .catch(this.handleError);
+        */
+
+        let formData: FormData = new FormData(),
+            xhr: XMLHttpRequest = new XMLHttpRequest();
+
+        formData.append("file", file);
+
+        xhr.open('PUT', this.fileApiURL, true);
+        xhr.setRequestHeader('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
+        xhr.send(formData);
     }
 
     public replace(file, fileToReplaceId) {
 
+        /*
         let formData: FormData = new FormData();
         formData.append("file", file);
 
@@ -65,6 +77,16 @@ export class FileService extends BaseService {
             .toPromise()
             .then(this.extractData)
             .catch(this.handleError);
+        */
+
+        let formData: FormData = new FormData(),
+            xhr: XMLHttpRequest = new XMLHttpRequest();
+
+        formData.append("file", file);
+
+        xhr.open('PUT', this.fileApiURL + '/' + fileToReplaceId, true);
+        xhr.setRequestHeader('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
+        xhr.send(formData);
     }
 
     public deleteFile(fileId) {

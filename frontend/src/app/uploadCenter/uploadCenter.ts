@@ -148,13 +148,11 @@ export class UploadCenter implements OnInit {
                 this.illegalFiles.push(file.name);
             }
             else {
-                this.fileService.uploadFile(file)
-                    .then(response => {
-                        console.log(response.data)
-                    });
+                this.fileService.uploadFile(file);
             };
         }
         this.filesToUpload = [];
+        this.reload();
     }
 
     private replaceFile(replaceFile, fileId) {
