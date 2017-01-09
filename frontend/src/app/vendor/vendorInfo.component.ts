@@ -5,7 +5,6 @@ import {Settings} from "../app.config";
 import {ActivatedRoute} from "@angular/router";
 import {FileService} from "../uploadCenter/file.service";
 import {Picture} from "../uploadCenter/picture";
-import {UploadedFile} from "../uploadCenter/uploadedFile";
 
 @Component
 ({
@@ -294,7 +293,7 @@ export class VendorInfo implements OnInit {
   }
 
   private sanitizeFiles(): void {
-    for (let file: UploadedFile of this.vendor.fileGallery) {
+    for (let file of this.vendor.fileGallery) {
       let index: number = this.vendor.fileGallery.indexOf(file);
       this.vendor.fileGallery[index] = file.id;
     }
