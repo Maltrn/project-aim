@@ -17,7 +17,7 @@
             </thead>
             <tbody>
             <tr *ngFor="let file of files; let i = index">
-                <td><img src="{{file.file}}" height="80" width="80"></td>
+                <td><img [src]="showImg(file)" height="80" width="80"></td>
                 <td>{{file.id}}</td>
                 <td>{{getImgSize(file.blob.size)}}</td>
                 <td>
@@ -53,7 +53,7 @@
                        accept="image/jpeg|image/jpg|image/png|image/gif|application/pdf" id="inputFile"/>
 
                 <div class="alert alert-danger" *ngIf="choosenIllegalFileType">
-                    <strong>Achtung!</strong> Die folgenden Dateien entsprechen nicht den zugelassenen Datentypen:<br>
+                    <strong>Achtung!</strong> Die folgenden Dateien können nicht hochgeladen werden:<br>
                     <p>{{illegalFiles}}</p>
                 </div>
 

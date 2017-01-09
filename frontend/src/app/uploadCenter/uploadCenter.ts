@@ -52,7 +52,7 @@ export class UploadCenter implements OnInit {
             },
             error => {
                 console.log("ERROR in REST API");
-                if(error.indexOf("401") !== -1) {
+                if(error.indexOf("401") != -1) {
                     this.userService.logout();
                 }
             });
@@ -69,7 +69,7 @@ export class UploadCenter implements OnInit {
             this.fileService.getFile(fileId)
                 .then(
                     response => {
-                        if(this.settings.uploadCenterImageFileTypes.indexOf(response.type) !== -1)
+                        if(this.settings.uploadCenterImageFileTypes.indexOf(response.type) != -1)
                             this.saveAsPicture(response, fileId, reader);
                         else
                             this.saveAsPdf(response, fileId, reader);
@@ -118,41 +118,55 @@ export class UploadCenter implements OnInit {
         this.choosenIllegalFileType = false;
 
         for(let file of input.files) {
-            console.log("File Input: ");
-            console.log(file);
 
-            if(this.settings.uploadCenterImageFileTypes.indexOf(file.type) == -1 &&
-                this.settings.uploadCenterApplicationFileTypes.indexOf(file.type) == -1) {
+
+            if(((this.settings.uploadCenterImageFileTypes.indexOf(file.type) !== -1) ||
+                (this.settings.uploadCenterApplicationFileTypes.indexOf(file.type) !== -1)) &&
+                this.hasCorrectSize(file.size)) {
+
+                console.log("File Input: ");
+                console.log(file);
+                this.filesToUpload.push(file);
+            }
+            else {
 
                 this.illegalFiles.push(file.name);
                 this.choosenIllegalFileType = true;
             }
-            else
-                this.filesToUpload.push(file);
         }
     }
 
     private uploadFile() {
 
-        this.uploadErrorHappens = false;
-        this.illegalFiles = [];
+        if(this.filesToUpload.length > 0) {
 
-        for(let file of this.filesToUpload) {
-            console.log("upload file: ");
-            console.log(file);
+            this.uploadErrorHappens = false;
+            this.illegalFiles = [];
 
-            if(this.settings.uploadCenterImageFileTypes.indexOf(file.type) == -1 &&
-                this.settings.uploadCenterApplicationFileTypes.indexOf(file.type) == -1) {
+            for(let file of this.filesToUpload) {
 
-                this.uploadErrorHappens = true;
-                this.illegalFiles.push(file.name);
+                if(((this.settings.uploadCenterImageFileTypes.indexOf(file.type) !== -1) ||
+                    (this.settings.uploadCenterApplicationFileTypes.indexOf(file.type) !== -1)) &&
+                    this.hasCorrectSize(file.size)) {
+
+                    console.log("upload file: ");
+                    console.log(file);
+                    this.fileService.uploadFile(file);
+                }
+                else {
+
+                    this.uploadErrorHappens = true;
+                    this.illegalFiles.push(file.name);
+                };
             }
-            else {
-                this.fileService.uploadFile(file);
-            };
+            this.filesToUpload = [];
+            this.reload();
         }
-        this.filesToUpload = [];
-        this.reload();
+    }
+
+    private hasCorrectSize(fileSize) {
+        console.log(fileSize);
+        return (fileSize <= this.settings.uploadCenterMaxFileSize);
     }
 
     private replaceFile(replaceFile, fileId) {
@@ -161,6 +175,20 @@ export class UploadCenter implements OnInit {
         console.log(replaceFile.files[0]);
 
         this.fileService.replace(replaceFile.files[0], fileId);
+
+        this.reload();
+    }
+
+    private showImg(file)
+    {
+        var result;
+
+        if(this.settings.uploadCenterApplicationFileTypes.indexOf(file.blob.type) !== -1)
+            result = "img/pdf.png"
+        else
+            result = file.file;
+
+        return result;
     }
 
     private deleteFile(fileId) {
@@ -189,6 +217,13 @@ export class UploadCenter implements OnInit {
     private showPicture(index) {
 
         window.open(this.files[index].file);
+    }
+
+    private isImg(fileType): boolean
+    {
+        console.log(fileType);
+        console.log((this.settings.uploadCenterImageFileTypes.indexOf(fileType) !== -1));
+        return (this.settings.uploadCenterImageFileTypes.indexOf(fileType) !== -1);
     }
 
     public reload() {

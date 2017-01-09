@@ -19,7 +19,7 @@ export class Settings {
   private _uploadCenterImageFileTypes: string[] = ["image/jpeg","image/gif","image/png","image/jpg"];
 
   // in bytes
-  private _uploadCenterMaxFileSize: number = 1024;
+  private _uploadCenterMaxFileSize: number = 3145728;
 
   private _uploadCenterApplicationFileTypes: string[] = ["application/pdf"];
 
