@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Http, Response, RequestOptions} from "@angular/http";
+import {Http, Response, Headers, RequestOptions, RequestMethod, ResponseContentType} from "@angular/http";
 import {BaseService} from "../service";
 import {Observable} from "rxjs";
 import {Settings} from "../app.config";
@@ -40,6 +40,9 @@ export class ProductService extends BaseService {
    */
   public updateProduct(product): Observable<Response> {
     let options = new RequestOptions({headers: this.buildHeaders()});
+    console.log("URL: " + this.productApiURL + product.id);
+
+    console.log("Body: " + JSON.stringify(product));
     return this._http.put(this.productApiURL + product.id, JSON.stringify(product), options)
       .map(this.extractData)
       .catch(this.handleError);

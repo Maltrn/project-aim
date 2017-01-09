@@ -8,18 +8,11 @@ import {HttpModule} from "@angular/http";
 import {CKEditorModule} from "ng2-ckeditor";
 import {UserService} from "./authentication/user.service";
 import {UserLogin} from "./authentication/user.component";
-import {AddFilesComponent} from "./informationComponents/add-files/add-files.component";
-import {DetailedDescriptionComponent} from "./informationComponents/detailed-description/detailed-description.component";
-import {FactsTableComponent} from "./informationComponents/facts/facts.component";
 import {VendorInfo} from "./vendor/vendorInfo.component";
 import {ProductInfo} from "./product/productInfo.component";
 import {VendorService} from "./vendor/vendor.service";
 import {ProductService} from "./product/product.service";
 //import {ProductService} from "./informationComponents/product.service";
-import {ProfilePictureService} from "./informationComponents/profile-pic/profile-pic.service";
-import {ProfilePicComponent} from "./informationComponents/profile-pic/profile-pic.component";
-import {ShortDiscriptionComponent} from "./informationComponents/short-description/short-discription.component";
-import {SortFilesComponent} from "./informationComponents/sort-files/sort-files.component";
 import {FileService} from "./uploadCenter/file.service";
 import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {AuthGuard} from "./authentication/user.authguard";
@@ -33,15 +26,9 @@ import {CollapseModule} from "ng2-bootstrap";
   declarations: [
     AppComponent,
     UserLogin,
-    AddFilesComponent,
-    DetailedDescriptionComponent,
-    FactsTableComponent,
     VendorInfo,
     ProductInfo,
     NavigationComponent,
-    ShortDiscriptionComponent,
-    SortFilesComponent,
-    ProfilePicComponent,
     UploadCenter,
     FileSizePipe,
     KeyPipe,
@@ -60,7 +47,6 @@ import {CollapseModule} from "ng2-bootstrap";
     UserService,
     VendorService,
     ProductService,
-    ProfilePictureService,
     FileService,
     AuthGuard,
     Settings
