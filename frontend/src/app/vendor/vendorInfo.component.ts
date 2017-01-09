@@ -51,6 +51,8 @@ export class VendorInfo implements OnInit {
 
   private vendorFiles: any[];
 
+  private showFiles: boolean;
+
   constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings, private route: ActivatedRoute, private fileService: FileService) {
 
   }
@@ -65,12 +67,14 @@ export class VendorInfo implements OnInit {
       this.maxFileGalleryEntriesTag = "";
       this.error = "";
       this.info = "";
+      this.showFiles = false;
       this.selectedFile = "Datei auswählen";
       this.vendorFiles = [];
       this.toggleCurentFactEdit = false;
       if (this.vendorId) {
         this.loadVendor(this.vendorId);
         this.loadFiles();
+        this.showFiles = true;
       }
     });
   }
@@ -130,6 +134,7 @@ export class VendorInfo implements OnInit {
         file = reader.result;
         picture = new Picture("name", fileId, file, res);
         array.push(picture);
+        this.updateMaxFileGalleryTag();
       };
       reader.readAsDataURL(res);
     });
@@ -300,6 +305,7 @@ export class VendorInfo implements OnInit {
   }
 
   private saveVendor(): void {
+    this.showFiles = false;
     this.sanitizeFacts();
     this.sanitizeFiles();
     this.vendorService.updateVendor(this.vendor).subscribe(
@@ -310,6 +316,8 @@ export class VendorInfo implements OnInit {
         this.updateMaxFactsEntriesTag();
         this.updateMaxFileGalleryTag();
         this.info = "Erfolgreich gespeichert!";
+        this.loadImages();
+        this.showFiles = true;
       },
       err => {
         let errorMessage: string = err.toString();
