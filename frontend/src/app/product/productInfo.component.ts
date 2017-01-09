@@ -54,6 +54,8 @@ export class ProductInfo implements OnInit {
 
     private productFiles: any[];
 
+    private showFiles: boolean;
+
     constructor(private productService: ProductService, private userService: UserService, private settings: Settings, private route: ActivatedRoute, private fileService: FileService) {
 
     }
@@ -68,6 +70,7 @@ export class ProductInfo implements OnInit {
             this.maxFileGalleryEntriesTag = "";
             this.error = "";
             this.info = "";
+            this.showFiles = false;
             this.toggleCurentFactEdit = false;
             this.selectedFile = "Datei auswählen";
             this.productFiles = [];
@@ -75,6 +78,7 @@ export class ProductInfo implements OnInit {
             if (this.productId) {
               this.loadProduct(this.productId);
               this.loadFiles();
+              this.showFiles = true;
             }
         });
     }
@@ -134,6 +138,7 @@ export class ProductInfo implements OnInit {
         file = reader.result;
         picture = new Picture("name", fileId, file, res);
         array.push(picture);
+        this.updateMaxFileGalleryTag();
       };
       reader.readAsDataURL(res);
     });
@@ -305,6 +310,7 @@ export class ProductInfo implements OnInit {
 
 
   private saveProduct(): void {
+        this.showFiles = false;
         this.sanitizeFacts();
         this.sanitizeFiles();
         this.productService.updateProduct(this.product).subscribe(
@@ -315,6 +321,8 @@ export class ProductInfo implements OnInit {
                 this.updateMaxFactsEntriesTag();
                 this.updateMaxFileGalleryTag();
                 this.info = "Erfolgreich gespeichert!";
+                this.loadImages();
+                this.showFiles = true;
             },
             err => {
                 let errorMessage: string = err.toString();
