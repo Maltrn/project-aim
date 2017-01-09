@@ -1,103 +1,101 @@
 import {Injectable} from "@angular/core";
 import {Settings} from "../app.config";
 import {BaseService} from "../service";
-import 'rxjs/Rx';
-import {Http, RequestOptions, ResponseContentType, Headers} from "@angular/http";
+import "rxjs/Rx";
+import {Http, RequestOptions, ResponseContentType} from "@angular/http";
 
 @Injectable()
 export class FileService extends BaseService {
 
-    private fileApiURL: string;
+  private fileApiURL: string;
 
-    constructor(private http: Http, private settings: Settings) {
+  constructor(private http: Http, private settings: Settings) {
+    super();
+    this.fileApiURL = this.settings.backendApiBaseUrl + "file";
+  }
 
-        super();
-        this.fileApiURL = this.settings.backendApiBaseUrl + "file";
-    }
+  public getAllFileIds() {
+    let options = new RequestOptions({headers: this.buildHeaders()});
 
-    public getAllFileIds() {
+    return this.http.get(this.fileApiURL, options)
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
 
-        let options = new RequestOptions({headers: this.buildHeaders()});
+  public getFile(id: string) {
 
-        return this.http.get(this.fileApiURL, options)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    let options = new RequestOptions({
+      headers: this.buildHeaders(),
+      responseType: ResponseContentType.Blob
+    });
 
-    public getFile(id: string) {
+    return this.http.get(this.fileApiURL + "/" + id, options)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
 
-        let options = new RequestOptions({
-            headers: this.buildHeaders(),
-            responseType: ResponseContentType.Blob
-        });
+  public uploadFile(file) {
 
-        return this.http.get(this.fileApiURL + "/" + id, options)
-            .toPromise()
-            .then(this.extractData)
-            .catch(this.handleError);
-    }
+    /*
+     let formData: FormData = new FormData();
+     formData.append("file", file);
 
-    public uploadFile(file) {
+     let headers = new Headers();
+     headers.append('Content-Type', 'multipart/form-data');
+     headers.append('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
 
-        /*
-        let formData: FormData = new FormData();
-        formData.append("file", file);
+     return this.http.put(this.fileApiURL, formData, {headers: headers})
+     .toPromise()
+     .then(this.extractData)
+     .catch(this.handleError);
+     */
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'multipart/form-data');
-        headers.append('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
+    let formData: FormData = new FormData(),
+      xhr: XMLHttpRequest = new XMLHttpRequest();
 
-        return this.http.put(this.fileApiURL, formData, {headers: headers})
-            .toPromise()
-            .then(this.extractData)
-            .catch(this.handleError);
-        */
+    formData.append("file", file);
 
-        let formData: FormData = new FormData(),
-            xhr: XMLHttpRequest = new XMLHttpRequest();
+    xhr.open('PUT', this.fileApiURL, true);
+    xhr.setRequestHeader('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
+    xhr.send(formData);
+  }
 
-        formData.append("file", file);
+  public replace(file, fileToReplaceId) {
 
-        xhr.open('PUT', this.fileApiURL, true);
-        xhr.setRequestHeader('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
-        xhr.send(formData);
-    }
+    /*
+     let formData: FormData = new FormData();
+     formData.append("file", file);
 
-    public replace(file, fileToReplaceId) {
+     let headers = new Headers();
+     headers.append('Content-Type', 'multipart/form-data');
+     headers.append('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
 
-        /*
-        let formData: FormData = new FormData();
-        formData.append("file", file);
+     return this.http.put(this.fileApiURL + "/" + fileToReplaceId, formData, {headers: headers})
+     .toPromise()
+     .then(this.extractData)
+     .catch(this.handleError);
+     */
 
-        let headers = new Headers();
-        headers.append('Content-Type', 'multipart/form-data');
-        headers.append('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
+    let formData: FormData = new FormData(),
+      xhr: XMLHttpRequest = new XMLHttpRequest();
 
-        return this.http.put(this.fileApiURL + "/" + fileToReplaceId, formData, {headers: headers})
-            .toPromise()
-            .then(this.extractData)
-            .catch(this.handleError);
-        */
+    formData.append("file", file);
 
-        let formData: FormData = new FormData(),
-            xhr: XMLHttpRequest = new XMLHttpRequest();
+    xhr.open('PUT', this.fileApiURL + '/' + fileToReplaceId, true);
+    xhr.setRequestHeader('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
+    xhr.send(formData);
+  }
 
-        formData.append("file", file);
+  public deleteFile(fileId) {
 
-        xhr.open('PUT', this.fileApiURL + '/' + fileToReplaceId, true);
-        xhr.setRequestHeader('Authorization', 'TOKEN ' + JSON.parse(localStorage.getItem('user')).loginResponse.currentToken);
-        xhr.send(formData);
-    }
+    let options = new RequestOptions({
+      headers: this.buildHeaders(),
+    });
 
-    public deleteFile(fileId) {
-
-        let options = new RequestOptions({
-            headers: this.buildHeaders(),
-        });
-
-        return this.http.delete(this.fileApiURL + '/' + fileId, options)
-            .toPromise()
-            .then(this.extractData)
-            .catch(this.handleError);
-    }
+    return this.http.delete(this.fileApiURL + '/' + fileId, options)
+      .toPromise()
+      .then(this.extractData)
+      .catch(this.handleError);
+  }
 }
