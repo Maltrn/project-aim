@@ -12,7 +12,6 @@ import {VendorInfo} from "./vendor/vendorInfo.component";
 import {ProductInfo} from "./product/productInfo.component";
 import {VendorService} from "./vendor/vendor.service";
 import {ProductService} from "./product/product.service";
-//import {ProductService} from "./informationComponents/product.service";
 import {FileService} from "./uploadCenter/file.service";
 import {UploadCenter} from "./uploadCenter/uploadCenter";
 import {AuthGuard} from "./authentication/user.authguard";
