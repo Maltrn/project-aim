@@ -19,7 +19,8 @@ import {Settings} from "./app.config";
 import {FileSizePipe} from "./uploadCenter/file-size.pipe";
 import {KeyPipe, ValuePipe} from "./vendor/keyValuePipe";
 import {NavigationComponent} from "./navigation/navigation.component";
-import {CollapseModule} from "ng2-bootstrap";
+import {CollapseModule, DropdownModule} from "ng2-bootstrap";
+//import {ProductService} from "./informationComponents/product.service";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import {CollapseModule} from "ng2-bootstrap";
     HttpModule,
     RouterModule.forRoot(rootRouterConfig),
     CKEditorModule,
-    CollapseModule
+    CollapseModule,
+    DropdownModule
   ],
   providers: [
     UserService,

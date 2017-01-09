@@ -3,6 +3,7 @@ import {VendorService} from "./vendor.service";
 import {UserService} from "../authentication/user.service";
 import {Settings} from "../app.config";
 import {ActivatedRoute} from "@angular/router";
+import {FileService} from "../uploadCenter/file.service";
 
 @Component
 ({
@@ -45,12 +46,15 @@ export class VendorInfo implements OnInit {
 
   private info: string;
 
-  constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings, private route: ActivatedRoute) {
+  private selectedFile: string;
+
+  private vendorFiles: any[];
+
+  constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings, private route: ActivatedRoute, private fileService: FileService) {
 
   }
 
   ngOnInit(): void {
-    console.log((this.settings.backendApiBaseUrl + "product/"));
     this.route.params.subscribe(params => {
       this.vendorId = params['vendorId'];
       this.renderDescriptions = false;
@@ -60,9 +64,12 @@ export class VendorInfo implements OnInit {
       this.maxFileGalleryEntriesTag = "";
       this.error = "";
       this.info = "";
+      this.selectedFile = "Datei auswählen";
+      this.vendorFiles = [];
       this.toggleCurentFactEdit = false;
       if (this.vendorId) {
         this.loadVendor(this.vendorId);
+        this.loadFiles();
       }
     });
   }
@@ -82,6 +89,25 @@ export class VendorInfo implements OnInit {
           this.userService.logout();
         }
       });
+  }
+
+  private loadFiles(): void {
+    this.fileService.getAllFileIds().subscribe(
+      data => this.vendorFiles = data,
+      error => {
+        console.log("ERROR in REST API");
+        if (error.indexOf("401") !== -1) {
+          this.userService.logout();
+        }
+      });
+  }
+
+  private selectFileToUpload(): void {
+    if (this.selectedFile != "Datei auswählen" && this.vendor.fileGallery.indexOf(this.selectedFile) == -1) {
+      this.vendor.fileGallery.push(this.selectedFile);
+      this.selectedFile = "Datei auswählen";
+      this.updateMaxFileGalleryTag();
+    }
   }
 
   // events
