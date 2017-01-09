@@ -325,6 +325,11 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
         if(iUploadCenter.deleteFile(id)){
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
+
+        // remove file from vendor and save vendor
+        currentVendor.removeFile(file);
+        iVendor.saveVendor(currentVendor);
+
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

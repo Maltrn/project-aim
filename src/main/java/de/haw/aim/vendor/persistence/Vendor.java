@@ -85,6 +85,10 @@ public class Vendor
         files.add(uploadedFile);
     }
 
+    public void removeFile(UploadedFile uploadedFile) {
+        files.remove(uploadedFile);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
