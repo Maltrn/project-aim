@@ -1,6 +1,3 @@
-/**
- * Created by dustinspallek on 05.01.17.
- */
 import {Component, OnInit} from "@angular/core";
 import {FileService} from "../uploadCenter/file.service";
 import {ProductService} from "./product.service";
@@ -91,6 +88,7 @@ export class ProductInfo implements OnInit {
                     this.updateDescriptionsTag();
                     this.updateMaxFactsEntriesTag();
                     this.updateMaxFileGalleryTag();
+                    this.loadImages();
                 },
                 error => {
                     console.log("ERROR in REST API");
