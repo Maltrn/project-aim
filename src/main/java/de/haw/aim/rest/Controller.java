@@ -309,8 +309,16 @@ public class Controller implements FileApi, LoginApi, ProductApi, VendorApi {
         if (currentUser == null)
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 
+        // Check if id is not set
+        if(id == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
         // check if user and file to delete belong to the same vendor
-        Vendor currentVendor = iVendor.getVendor(iUploadCenter.findById(id).getVendorId());
+        UploadedFile file = iUploadCenter.findById(id);
+        if(file == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        Vendor currentVendor = iVendor.getVendor(file.getVendorId());
         if(!currentVendor.getUsers().contains(currentUser))
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
