@@ -155,34 +155,51 @@
     </div>
 </div>
 
-<div class="row">
-
-    <div class="col-md-12 bottom-space" *ngFor="let file of product.fileGallery">
-        <div class="media">
-            <div class="media-left">
-                <img [src]="file" alt="asd">
-            </div>
-            <div class="media-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4 class="media-heading">{{file}}</h4>
-                        File size and stuff
-                    </div>
-                    <div class="col-md-6 text-right">
-                        <div class="btn-group" role="group">
-                            <a type="button" class="btn btn-default" (click)="pushFileUp(file)">
-                                <i class="fa fa-arrow-up" aria-hidden="true"></i>
-                            </a>
-                            <a type="button" class="btn btn-default" (click)="pushFileDown(file)">
-                                <i class="fa fa-arrow-down" aria-hidden="true"></i>
-                            </a>
-                            <a type="button" class="btn btn-danger" (click)="removeFile(file)">
-                                <i class="fa fa-ban" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="row bottom-space">
+  <div class="col-md-12">
+    <div class="btn-group" dropdown>
+      <button type="button" class="btn btn-default" dropdownToggle>
+        {{selectedFile}} <span class="caret"></span>
+      </button>
+      <ul dropdownMenu role="menu" aria-labelledby="single-button">
+        <li *ngFor="let productFile of productFiles" role="menuitem">
+          <a class="dropdown-item" (click)="selectedFile = productFile">{{productFile}}</a>
+        </li>
+      </ul>
     </div>
+    <a class="btn btn-primary" (click)="selectFileToUpload()">
+      <i class="fa fa-folder-o" aria-hidden="true"></i> Datei hinzufügen
+    </a>
+  </div>
+</div>
+
+<div class="row bottom-space">
+  <div class="col-md-12 bottom-space" *ngFor="let file of product.fileGallery">
+    <div class="row">
+      <div class="col-md-2">
+        <img [src]="file.file" alt="{{file.id}}" class="img-responsive">
+      </div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-6">
+            <h4 class="media-heading">{{file.id}}</h4>
+            {{file.blob.size | fileSize}}
+          </div>
+          <div class="col-md-6 text-right">
+            <div class="btn-group" role="group">
+              <a type="button" class="btn btn-default" (click)="pushFileUp(file)">
+                <i class="fa fa-arrow-up" aria-hidden="true"></i>
+              </a>
+              <a type="button" class="btn btn-default" (click)="pushFileDown(file)">
+                <i class="fa fa-arrow-down" aria-hidden="true"></i>
+              </a>
+              <a type="button" class="btn btn-danger" (click)="removeFile(file)">
+                <i class="fa fa-ban" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
