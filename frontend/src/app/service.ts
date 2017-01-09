@@ -11,12 +11,6 @@ export abstract class BaseService {
   }
 
   protected extractData(res: Response) {
-    console.log("Response: " + res);
-    console.log("1##########");
-    console.log(res.json());
-
-    console.log("2##########");
-
     return res.json();
   }
 
