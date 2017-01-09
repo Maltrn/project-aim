@@ -53,6 +53,10 @@ export class VendorInfo implements OnInit {
 
   private showFiles: boolean;
 
+  private selectedMainPic: string;
+
+  private showProfilePic: boolean;
+
   constructor(private vendorService: VendorService, private userService: UserService, private settings: Settings, private route: ActivatedRoute, private fileService: FileService) {
 
   }
@@ -69,8 +73,10 @@ export class VendorInfo implements OnInit {
       this.info = "";
       this.showFiles = false;
       this.selectedFile = "Datei auswählen";
+      this.selectedMainPic = "Datei auswählen";
       this.vendorFiles = [];
       this.toggleCurentFactEdit = false;
+      this.showProfilePic = false;
       if (this.vendorId) {
         this.loadVendor(this.vendorId);
         this.loadFiles();
@@ -88,6 +94,7 @@ export class VendorInfo implements OnInit {
         this.updateMaxFactsEntriesTag();
         this.updateMaxFileGalleryTag();
         this.loadImages();
+        this.loadProfilePic(this.vendor.mainPic);
       },
       error => {
         console.log("ERROR in REST API");
@@ -108,11 +115,35 @@ export class VendorInfo implements OnInit {
       });
   }
 
+  private loadProfilePic(id: string) {
+    if (id != null && id != "") {
+      let reader = new FileReader();
+      return this.fileService.getFile(id).then(res => {
+        let picture: Picture;
+        let file: File;
+        reader.onload = () => {
+          file = reader.result;
+          picture = new Picture("name", id, file, res);
+          this.vendor.mainPic = picture;
+          this.showProfilePic = true;
+        };
+        reader.readAsDataURL(res);
+      });
+    }
+  }
+
   private selectFileToUpload(): void {
     if (this.selectedFile != "Datei auswählen" && this.vendor.fileGallery.indexOf(this.selectedFile) == -1) {
       this.addFileIdToArray(this.selectedFile, this.vendor.fileGallery);
       this.selectedFile = "Datei auswählen";
       this.updateMaxFileGalleryTag();
+    }
+  }
+
+  private selectProfilePicToUpload(): void {
+    if (this.selectedMainPic != "Datei auswählen") {
+      this.loadProfilePic(this.selectedMainPic);
+      this.selectedMainPic = "Datei auswählen";
     }
   }
 
@@ -302,10 +333,13 @@ export class VendorInfo implements OnInit {
       let index: number = this.vendor.fileGallery.indexOf(file);
       this.vendor.fileGallery[index] = file.id;
     }
+
+    this.vendor.mainPic = this.vendor.mainPic.id;
   }
 
   private saveVendor(): void {
     this.showFiles = false;
+    this.showProfilePic = false;
     this.sanitizeFacts();
     this.sanitizeFiles();
     this.vendorService.updateVendor(this.vendor).subscribe(
@@ -317,6 +351,7 @@ export class VendorInfo implements OnInit {
         this.updateMaxFileGalleryTag();
         this.info = "Erfolgreich gespeichert!";
         this.loadImages();
+        this.loadProfilePic(this.vendor.mainPic);
         this.showFiles = true;
       },
       err => {
